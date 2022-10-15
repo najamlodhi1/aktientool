@@ -17,7 +17,6 @@ dependencies:
   radio_grouped_buttons: ^1.0.1
   custom_radio_grouped_button: ^2.1.2+2
   group_button: ^5.2.2
-  multiple_search_selection: ^2.3.2
   chips_input: ^0.1.0
   filter_list: ^1.0.2
   flutter_multiselect: ^1.0.0
