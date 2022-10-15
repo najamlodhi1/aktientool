@@ -562,7 +562,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _globalKey.currentState!.collapse();
               print(textHeader);
             },
-            child: Text("Aktientool-Test"),
+            child: Text("Aktientool-Test1"),
           ),
         ),
         body: SingleChildScrollView(
