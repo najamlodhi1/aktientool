@@ -1,0 +1,41 @@
+name: aktientool
+description: Aktien finden und analysieren wird mit dem Aktientool viel einfacher.  
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.1 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  intl: ^0.17.0
+  syncfusion_flutter_charts: ^20.3.48
+  grouped_buttons: ^1.0.4
+  radio_grouped_buttons: ^1.0.1
+  custom_radio_grouped_button:
+  group_button: ^2.4.1
+  multiple_search_selection: ^2.3.1
+  chips_input: ^0.1.0
+  filter_list: ^1.0.2
+  flutter_multiselect: ^1.0.0
+  multi_select_flutter: ^4.1.2
+  lite_rolling_switch: ^1.0.0
+  advance_expansion_tile: ^1.0.1
+  responsive_table: ^0.2.0+2
+  horizontal_data_table: ^4.1.2+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/true.gif
+    - assets/images/false.gif
+
