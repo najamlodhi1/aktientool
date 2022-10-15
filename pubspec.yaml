@@ -13,8 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   syncfusion_flutter_charts: ^20.3.49
   lite_rolling_switch: ^1.0.0
-
-
+  url_strategy: ^0.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

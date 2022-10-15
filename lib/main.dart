@@ -1,10 +1,12 @@
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'constants.dart';
 
 //
 void main() {
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
