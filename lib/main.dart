@@ -1,5 +1,4 @@
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'constants.dart';
@@ -49,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<AdvanceExpansionTileState> _globalKey = GlobalKey();
   String textHeader = "Land und Sektor auswählen";
   String textland = 'Land und Sektor';
   String tileImage = 'images/false.gif';
@@ -183,7 +181,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget LandundSektoren() {
     return Padding(
-      key: _globalKey,
       padding: const EdgeInsets.all(8.0),
       child: ExpansionTile(
         leading: ClipRRect(
@@ -559,7 +556,6 @@ class _MyHomePageState extends State<MyHomePage> {
           centerTitle: true,
           title: InkWell(
             onTap: () {
-              _globalKey.currentState!.collapse();
               print(textHeader);
             },
             child: Text("Aktientool-Test1"),

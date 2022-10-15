@@ -10,27 +10,25 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
   intl: ^0.17.0
-  syncfusion_flutter_charts: ^20.3.48
+  syncfusion_flutter_charts: ^20.3.49
   grouped_buttons: ^1.0.4
   radio_grouped_buttons: ^1.0.1
-  custom_radio_grouped_button:
-  group_button: ^2.4.1
-  multiple_search_selection: ^2.3.1
+  custom_radio_grouped_button: ^2.1.2+2
+  group_button: ^5.2.2
+  multiple_search_selection: ^2.3.2
   chips_input: ^0.1.0
   filter_list: ^1.0.2
   flutter_multiselect: ^1.0.0
   multi_select_flutter: ^4.1.2
   lite_rolling_switch: ^1.0.0
-  advance_expansion_tile: ^1.0.1
-  responsive_table: ^0.2.0+2
-  horizontal_data_table: ^4.1.2+2
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true
