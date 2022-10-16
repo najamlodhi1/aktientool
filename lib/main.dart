@@ -59,7 +59,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String textHeader = "Land und Sektor auswählen";
   String textland = 'Land und Sektor';
-  String tileImage = 'images/false.gif';
+  String tileImage = 'assets/images/false.gif';
   String textsektor = '';
   bool alleAuswaehlen = false;
   bool visiblefundamentaleKennzeichen = false;
@@ -256,9 +256,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (expanded) {
               visiblePage1 = false;
               visiblePage2 = false;
-              tileImage = 'images/true.gif';
+              tileImage = 'assets/images/true.gif';
             } else {
-              tileImage = 'images/false.gif';
+              tileImage = 'assets/images/false.gif';
               visiblePage1 = true;
               visiblePage2 = true;
             }
@@ -361,7 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         size: const Size.fromRadius(20),
                         child: Image.asset(
                           // imageList[index]
-                          'images/$index.png',
+                          'assets/images/$index.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -396,9 +396,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (expanded) {
               visiblePage1 = false;
               visiblePage2 = false;
-              tileImage = 'images/true.gif';
+              tileImage = 'assets/images/true.gif';
             } else {
-              tileImage = 'images/false.gif';
+              tileImage = 'assets/images/false.gif';
               visiblePage1 = true;
               visiblePage2 = true;
             }
