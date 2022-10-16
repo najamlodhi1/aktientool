@@ -73,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool selectMarktkapitalisierung = false;
   bool _customTileExpanded = false;
   int _selectedDestination = 0;
+  bool visible1 = false;
 
   @override
   void initState() {
@@ -573,6 +574,67 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget Xiewer() {
+    return Container(
+      height: 800,
+      color: Colors.white,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+            Text(
+              "Hello",
+              style: TextStyle(fontSize: 100),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -599,6 +661,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
+                visible1 = true;
+                setState(() {});
+                // open singlechildscrollview bellow
+
                 //Navigator.pop(context);
               },
             ),
@@ -614,6 +680,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
               },
             ),
+            Visibility(visible: visible1, child: Xiewer()),
           ],
         ),
       ),
