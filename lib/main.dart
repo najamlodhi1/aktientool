@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'constants.dart';
 import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //
 Future<void> main() async {
@@ -71,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> _filtersSektor = <String>[];
   bool selectMarktkapitalisierung = false;
   bool _customTileExpanded = false;
+  int _selectedDestination = 0;
 
   @override
   void initState() {
@@ -503,6 +505,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  getData() async {
+    var collection = FirebaseFirestore.instance.collection('company');
+    var querySnapshot = await collection.get();
+    for (var queryDocumentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data = queryDocumentSnapshot.data();
+      var name = data['name'];
+      print(name);
+    }
+  }
+
   Widget Marktkapitalisierung() {
     return Container(
       child: Row(
@@ -527,6 +539,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   setState(() {
                     marktkapitalisierung = marktkapitalisierung + 1;
+                    getData();
 /*
                     Navigator.push(
                       context,
@@ -554,28 +567,63 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void selectDestination(int index) {
+    setState(() {
+      _selectedDestination = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          centerTitle: true,
-          title: InkWell(
-            onTap: () {
-              print(textHeader);
-            },
-            child: Text("Aktientool-Test1"),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Aktientool',
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              LandundSektoren(),
-              Marktkapitalisierung(),
-            ],
-          ),
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      ),
+      drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            LandundSektoren(),
+            ListTile(
+              leading: Icon(
+                Icons.home,
+              ),
+              title: const Text(
+                'Page 1',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                //Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.train,
+              ),
+              title: const Text(
+                'Page 2',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+          ],
         ),
       ),
     );
