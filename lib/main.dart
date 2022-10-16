@@ -73,54 +73,13 @@ class _MyHomePageState extends State<MyHomePage> {
   bool selectMarktkapitalisierung = false;
   bool _customTileExpanded = false;
   int _selectedDestination = 0;
-  bool visible1 = false;
+  bool visibleFieldBellow = false;
+  bool visiblePage1 = true;
+  bool visiblePage2 = true;
 
   @override
   void initState() {
     super.initState();
-
-    _land = <LandWidget>[
-      LandWidget("Alle"),
-      LandWidget("USA"),
-      LandWidget("Deutschland"),
-      LandWidget("Australien"),
-      LandWidget("Belgien"),
-      LandWidget("Bermuda"),
-      LandWidget("China"),
-      LandWidget("Dänemark"),
-      LandWidget("Finnland"),
-      LandWidget("Frankreich"),
-      LandWidget("Großbritanien"),
-      LandWidget("Hong-Kong"),
-      LandWidget("Irland"),
-      LandWidget("Israel"),
-      LandWidget("Italien"),
-      LandWidget("Kanada"),
-      LandWidget("Luxemburg"),
-      LandWidget("Niederlande"),
-      LandWidget("Norwegen"),
-      LandWidget("Österreich"),
-      LandWidget("Schweden"),
-      LandWidget("Schweiz"),
-      LandWidget("Singapur"),
-      LandWidget("Spanien"),
-      LandWidget("Japan"),
-      LandWidget("Südkorea"),
-      LandWidget("Griechenland"),
-      LandWidget("Malta"),
-      LandWidget("Polen"),
-      LandWidget("Portugal"),
-      LandWidget("Zypern"),
-      LandWidget("Russland"),
-      LandWidget("Taiwan"),
-      LandWidget("Indien"),
-      LandWidget("Neuseeland"),
-      LandWidget("Brasilien"),
-      LandWidget("Chile"),
-      LandWidget("Südafrika"),
-      LandWidget("Kaimaninseln"),
-    ];
-
     _sektor = <SektorWidget>[
       SektorWidget("Alle"),
       SektorWidget("Anlagenbau Zulieferer"),
@@ -188,6 +147,233 @@ class _MyHomePageState extends State<MyHomePage> {
       FundamentalWidget('Free Cashflow letztes Jahr'),
       FundamentalWidget('EV/EBITDA aktuell'),
     ];
+
+    _land = <LandWidget>[
+      LandWidget("Alle"),
+      LandWidget("USA"),
+      LandWidget("Deutschland"),
+      LandWidget("Australien"),
+      LandWidget("Belgien"),
+      LandWidget("Bermuda"),
+      LandWidget("China"),
+      LandWidget("Dänemark"),
+      LandWidget("Finnland"),
+      LandWidget("Frankreich"),
+      LandWidget("Großbritanien"),
+      LandWidget("Hong-Kong"),
+      LandWidget("Irland"),
+      LandWidget("Israel"),
+      LandWidget("Italien"),
+      LandWidget("Kanada"),
+      LandWidget("Luxemburg"),
+      LandWidget("Niederlande"),
+      LandWidget("Norwegen"),
+      LandWidget("Österreich"),
+      LandWidget("Schweden"),
+      LandWidget("Schweiz"),
+      LandWidget("Singapur"),
+      LandWidget("Spanien"),
+      LandWidget("Japan"),
+      LandWidget("Südkorea"),
+      LandWidget("Griechenland"),
+      LandWidget("Malta"),
+      LandWidget("Polen"),
+      LandWidget("Portugal"),
+      LandWidget("Zypern"),
+      LandWidget("Russland"),
+      LandWidget("Taiwan"),
+      LandWidget("Indien"),
+      LandWidget("Neuseeland"),
+      LandWidget("Brasilien"),
+      LandWidget("Chile"),
+      LandWidget("Südafrika"),
+      LandWidget("Kaimaninseln"),
+    ];
+  }
+
+  final List<Map> datax = List.generate(
+      5, (index) => {'id': index, 'name': '$index', 'isSelected': false});
+
+  final List<Map> data = [
+    {'id': 0, 'name': 'Alle', 'isSelected': false},
+    {'id': 1, 'name': 'USA', 'isSelected': false},
+    {'id': 2, 'name': 'Deutschland', 'isSelected': false},
+    {'id': 3, 'name': 'Australien', 'isSelected': false},
+    {'id': 4, 'name': 'Belgien', 'isSelected': false},
+    {'id': 5, 'name': 'Bermuda', 'isSelected': false},
+    {'id': 6, 'name': 'China', 'isSelected': false},
+    {'id': 7, 'name': 'Dänemark', 'isSelected': false},
+    {'id': 8, 'name': 'Finnland', 'isSelected': false},
+    {'id': 9, 'name': 'Frankreich', 'isSelected': false},
+    {'id': 10, 'name': 'Großbritanien', 'isSelected': false},
+    {'id': 11, 'name': 'Hong-Kong', 'isSelected': false},
+    {'id': 12, 'name': 'Irland', 'isSelected': false},
+    {'id': 13, 'name': 'Israel', 'isSelected': false},
+    {'id': 14, 'name': 'Italien', 'isSelected': false},
+    {'id': 15, 'name': 'Kanada', 'isSelected': false},
+    {'id': 16, 'name': 'Luxemburg', 'isSelected': false},
+    {'id': 17, 'name': 'Niederlande', 'isSelected': false},
+    {'id': 18, 'name': 'Norwegen', 'isSelected': false},
+    {'id': 19, 'name': 'Österreich', 'isSelected': false},
+    {'id': 20, 'name': 'Schweden', 'isSelected': false},
+    {'id': 21, 'name': 'Schweiz', 'isSelected': false},
+    {'id': 22, 'name': 'Singapur', 'isSelected': false},
+    {'id': 23, 'name': 'Spanien', 'isSelected': false},
+    {'id': 24, 'name': 'Japan', 'isSelected': false},
+    {'id': 25, 'name': 'Südkorea', 'isSelected': false},
+    {'id': 26, 'name': 'Griechenland', 'isSelected': false},
+    {'id': 27, 'name': 'Malta', 'isSelected': false},
+    {'id': 28, 'name': 'Polen', 'isSelected': false},
+    {'id': 29, 'name': 'Portugal', 'isSelected': false},
+    {'id': 30, 'name': 'Zypern', 'isSelected': false},
+    {'id': 31, 'name': 'Russland', 'isSelected': false},
+    {'id': 32, 'name': 'Taiwan', 'isSelected': false},
+    {'id': 33, 'name': 'Indien', 'isSelected': false},
+    {'id': 34, 'name': 'Neuseeland', 'isSelected': false},
+    {'id': 35, 'name': 'Brasilien', 'isSelected': false},
+    {'id': 36, 'name': 'Chile', 'isSelected': false},
+    {'id': 37, 'name': 'Südafrika', 'isSelected': false},
+    {'id': 38, 'name': 'Kaimaninseln', 'isSelected': false},
+  ];
+
+  Widget LandSektor() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ExpansionTile(
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(20), // Image border
+          child: SizedBox.fromSize(
+            size: const Size.fromRadius(20),
+            child: Image.asset(
+              tileImage,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+
+        onExpansionChanged: (bool expanded) {
+          setState(() {
+            if (expanded) {
+              visiblePage1 = false;
+              visiblePage2 = false;
+              tileImage = 'images/true.gif';
+            } else {
+              tileImage = 'images/false.gif';
+              visiblePage1 = true;
+              visiblePage2 = true;
+            }
+          });
+        },
+
+        collapsedTextColor: Colors.black,
+        collapsedBackgroundColor: Colors.white,
+        collapsedIconColor: Colors.red,
+        textColor: Colors.blue,
+        backgroundColor: Colors.black, // kompletter Hintergrund
+        //key: closeKey,
+        title: Text(textland),
+        subtitle: Text(textsektor),
+        iconColor: Colors.grey,
+        // Contents
+        children: [
+          Container(
+              width: 1000,
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(3.0)),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    '1. Land auswählen',
+                    style: kStyleDefault.copyWith(
+                      color: Colors.blue,
+                      fontSize: 22,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  AlleLaender(),
+                ],
+              )),
+          const SizedBox(
+            height: 5,
+          ),
+          Container(
+              width: 1000,
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(3.0)),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    '2. Sektor auswählen',
+                    style: kStyleDefault.copyWith(
+                      color: Colors.blue,
+                      fontSize: 22,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  AlleLaender(),
+                ],
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget AlleLaender() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: data.length,
+            itemBuilder: (BuildContext ctx, index) {
+              return Card(
+                  key: ValueKey(data[index]['name']),
+                  margin: const EdgeInsets.all(10),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+
+                  // The color depends on this is selected or not
+                  color: data[index]['isSelected'] == true
+                      ? Color.fromARGB(255, 7, 139, 255)
+                      : Color.fromARGB(255, 27, 27, 27),
+                  child: ListTile(
+                    onTap: () {
+                      // if this item isn't selected yet, "isSelected": false -> true
+                      // If this item already is selected: "isSelected": true -> false
+                      setState(() {
+                        data[index]['isSelected'] = !data[index]['isSelected'];
+                      });
+                    },
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(20), // Image border
+                      child: SizedBox.fromSize(
+                        size: const Size.fromRadius(20),
+                        child: Image.asset(
+                          // imageList[index]
+                          'images/$index.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      data[index]['name'],
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ));
+            },
+          )),
+    );
   }
 
   Widget LandundSektoren() {
@@ -208,9 +394,13 @@ class _MyHomePageState extends State<MyHomePage> {
         onExpansionChanged: (bool expanded) {
           setState(() {
             if (expanded) {
+              visiblePage1 = false;
+              visiblePage2 = false;
               tileImage = 'images/true.gif';
             } else {
               tileImage = 'images/false.gif';
+              visiblePage1 = true;
+              visiblePage2 = true;
             }
           });
         },
@@ -574,7 +764,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Widget Xiewer() {
+  Widget TabLandundSektor() {
     return Container(
       height: 800,
       color: Colors.white,
@@ -651,36 +841,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
+            LandSektor(),
             LandundSektoren(),
-            ListTile(
-              leading: Icon(
-                Icons.home,
-              ),
-              title: const Text(
-                'Page 1',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                visible1 = true;
-                setState(() {});
-                // open singlechildscrollview bellow
-
-                //Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.train,
-              ),
-              title: const Text(
-                'Page 2',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            Visibility(visible: visible1, child: Xiewer()),
+            Visibility(visible: visibleFieldBellow, child: TabLandundSektor()),
           ],
         ),
       ),

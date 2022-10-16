@@ -27,4 +27,5 @@ flutter:
   assets:
     - assets/images/true.gif
     - assets/images/false.gif
+    - assets/images/
 
