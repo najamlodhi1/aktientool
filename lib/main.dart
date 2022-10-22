@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'firebase_options.dart';
 import 'home.dart';
 
@@ -23,12 +22,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      scrollBehavior: ScrollConfiguration.of(context).copyWith(
-        dragDevices: {
-          PointerDeviceKind.touch,
-          PointerDeviceKind.mouse,
-        },
       ),
       home: const MyHomePage(),
       debugShowCheckedModeBanner: false,

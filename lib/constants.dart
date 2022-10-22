@@ -49,6 +49,7 @@ List<String> listLaender = [
 ];
 
 List<String> listSektoren = [
+  "Alle",
   "Anlagenbau Zulieferer",
   "Autos/Ersatzteile",
   "Banken",
