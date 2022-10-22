@@ -81,7 +81,7 @@ class _SektorState extends State<Sektor> {
             });
   }
 
-  Widget Sektors() {
+  Widget sektors() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -99,8 +99,8 @@ class _SektorState extends State<Sektor> {
 
                   // The color depends on this is selected or not
                   color: generatedSektorFromList[index]['isSelected'] == true
-                      ? Color.fromARGB(255, 7, 139, 255)
-                      : Color.fromARGB(255, 0, 0, 0),
+                      ? const Color.fromARGB(255, 7, 139, 255)
+                      : const Color.fromARGB(255, 0, 0, 0),
                   child: ListTile(
                     onTap: () {
                       // if this item isn't selected yet, "isSelected": false -> true
@@ -123,7 +123,7 @@ class _SektorState extends State<Sektor> {
                     ),
                     title: Text(
                       generatedSektorFromList[index]['name'],
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ));
             },
@@ -133,6 +133,6 @@ class _SektorState extends State<Sektor> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(top: 0), child: Sektors());
+    return Padding(padding: const EdgeInsets.only(top: 0), child: sektors());
   }
 }

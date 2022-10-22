@@ -24,7 +24,7 @@ class _SearchfieldState extends State<Searchfield> {
     super.initState();
   }
 
-  Widget LandSektor() {
+  Widget landSektor() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ExpansionTile(
@@ -118,6 +118,6 @@ class _SearchfieldState extends State<Searchfield> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(top: 0), child: LandSektor());
+    return Padding(padding: const EdgeInsets.only(top: 0), child: landSektor());
   }
 }

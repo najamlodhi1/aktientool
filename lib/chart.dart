@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 void main() {
@@ -17,13 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -37,6 +38,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -80,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           primaryXAxis: DateTimeAxis(
               dateFormat: DateFormat.MEd(),
-              majorGridLines: MajorGridLines(width: 0)),
+              majorGridLines: const MajorGridLines(width: 0)),
           primaryYAxis: NumericAxis(
               minimum: 85,
               maximum: 120,

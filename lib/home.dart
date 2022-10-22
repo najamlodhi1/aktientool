@@ -22,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var queryDocumentSnapshot in querySnapshot.docs) {
       Map<String, dynamic> data = queryDocumentSnapshot.data();
       var name = data['name'];
+      // ignore: avoid_print
       print(name);
     }
   }
@@ -39,8 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
         width: 155,
         textOn: 'Alle auswählen',
         textOff: 'Alle abwählen',
-        colorOn: Color.fromARGB(255, 34, 255, 133),
-        colorOff: Color.fromARGB(255, 248, 19, 19),
+        colorOn: const Color.fromARGB(255, 34, 255, 133),
+        colorOff: const Color.fromARGB(255, 248, 19, 19),
         iconOn: Icons.done,
         iconOff: Icons.clear,
         animationDuration: const Duration(milliseconds: 300),
@@ -64,10 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text(
           'Aktientool',
         ),
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         child: ListView(
           padding: EdgeInsets.zero,
           // ignore: prefer_const_literals_to_create_immutables
@@ -78,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          children: [],
+          children: const [],
         ),
       ),
     );

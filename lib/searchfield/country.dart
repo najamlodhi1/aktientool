@@ -65,7 +65,7 @@ class _CountryState extends State<Country> {
             });
   }
 
-  Widget Countries() {
+  Widget countries() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -83,8 +83,8 @@ class _CountryState extends State<Country> {
 
                   // The color depends on this is selected or not
                   color: generatedCountrieFromList[index]['isSelected'] == true
-                      ? Color.fromARGB(255, 7, 139, 255)
-                      : Color.fromARGB(255, 0, 0, 0),
+                      ? const Color.fromARGB(255, 7, 139, 255)
+                      : const Color.fromARGB(255, 0, 0, 0),
                   child: ListTile(
                     onTap: () {
                       // if this item isn't selected yet, "isSelected": false -> true
@@ -107,7 +107,7 @@ class _CountryState extends State<Country> {
                     ),
                     title: Text(
                       generatedCountrieFromList[index]['name'],
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ));
             },
@@ -117,6 +117,6 @@ class _CountryState extends State<Country> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(top: 0), child: Countries());
+    return Padding(padding: const EdgeInsets.only(top: 0), child: countries());
   }
 }
