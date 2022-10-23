@@ -107,7 +107,7 @@ class _CountryState extends State<Country> {
                     ),
                     title: Text(
                       generatedCountrieFromList[index]['name'],
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black),
                     ),
                   ));
             },

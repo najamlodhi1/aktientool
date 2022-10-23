@@ -42,7 +42,7 @@ class TableAreaState extends State<TableArea> {
         "id": i,
         // ignore: unnecessary_string_escapes
         "sku": "$i\000$i",
-        "name": "Product $i",
+        "name": "Aktie $i",
         "category": "Category-$i",
         "price": i * 10.00,
         "cost": "20.00",
@@ -213,7 +213,7 @@ class TableAreaState extends State<TableArea> {
           ),
           child: Card(
             elevation: 1,
-            shadowColor: Colors.black,
+            shadowColor: Colors.green,
             clipBehavior: Clip.none,
             child: ResponsiveDatatable(
               title: TextButton.icon(
