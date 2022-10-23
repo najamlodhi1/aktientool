@@ -32,7 +32,7 @@ class TopReferals extends StatelessWidget {
                 ),
               ),
               Text(
-                'View All',
+                'Alle',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

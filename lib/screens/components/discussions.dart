@@ -31,7 +31,7 @@ class Discussions extends StatelessWidget {
                 ),
               ),
               Text(
-                'View All',
+                'Alle',
                 style: TextStyle(
                   color: textColor.withOpacity(0.5),
                   fontWeight: FontWeight.bold,
