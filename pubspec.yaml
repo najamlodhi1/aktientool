@@ -16,6 +16,7 @@ dependencies:
   url_strategy: ^0.2.0
   firebase_core: ^1.24.0
   cloud_firestore: ^3.5.1
+  responsive_table: ^0.2.0+2
 dev_dependencies:
   flutter_test:
     sdk: flutter

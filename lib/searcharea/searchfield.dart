@@ -14,8 +14,7 @@ class Searchfield extends StatefulWidget {
 class _SearchfieldState extends State<Searchfield> {
   String textland = 'Land und Sektor';
   String tileImage = 'assets/images/false.gif';
-  String textsektor = '';
-  bool selectMarktkapitalisierung = false;
+  String textsektor = 'auswählen';
   bool visiblePage1 = true;
   bool visiblePage2 = true;
 
@@ -53,16 +52,14 @@ class _SearchfieldState extends State<Searchfield> {
           });
         },
 
-        collapsedTextColor: Colors.black,
-        collapsedBackgroundColor: Colors.white,
+        collapsedTextColor: Colors.white,
+        collapsedBackgroundColor: Colors.black,
         collapsedIconColor: Colors.red,
         textColor: Colors.blue,
         backgroundColor: Colors.black, // kompletter Hintergrund
-        //key: closeKey,
         title: Text(textland),
         subtitle: Text(textsektor),
         iconColor: Colors.grey,
-        // Contents
         children: [
           Container(
               //width: 1000,

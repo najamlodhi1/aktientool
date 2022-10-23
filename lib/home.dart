@@ -1,7 +1,9 @@
-import 'package:aktientool/searchfield/searchfield.dart';
+import 'package:aktientool/tablearea/tablearea.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'searcharea/searchfield.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -78,8 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Center(
-        child: Column(
-          children: const [],
+        child: SingleChildScrollView(
+          child: Column(
+            children: const [TableArea()],
+          ),
         ),
       ),
     );
