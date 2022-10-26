@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'controllers/controller.dart';
 import 'firebase_options.dart';
 
+//
 Future<void> main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
