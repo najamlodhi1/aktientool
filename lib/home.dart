@@ -1,5 +1,3 @@
-import 'package:aktientool/tablearea/tablearea.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -34,34 +32,10 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  Widget custumizedButton() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0),
-      child: LiteRollingSwitch(
-        value: true,
-        width: 155,
-        textOn: 'Alle auswählen',
-        textOff: 'Alle abwählen',
-        colorOn: const Color.fromARGB(255, 34, 255, 133),
-        colorOff: const Color.fromARGB(255, 248, 19, 19),
-        iconOn: Icons.done,
-        iconOff: Icons.clear,
-        animationDuration: const Duration(milliseconds: 300),
-        onChanged: (bool state) {
-          setState(() {
-            alleAuswaehlen = !state;
-          });
-        },
-        onDoubleTap: () {},
-        onSwipe: () {},
-        onTap: () {},
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -79,11 +53,68 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: const [TableArea()],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Wrap(
+            //direction: Axis.horizontal,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            alignment: WrapAlignment.start,
+            children: [
+              cardView(
+                "Marktkapitalisierung",
+                "eingeben",
+                "Auswahl",
+                Color.fromARGB(255, 45, 164, 207),
+              ),
+              cardView(
+                "Land",
+                "eingeben",
+                "Auswahl",
+                Color.fromARGB(255, 37, 137, 173),
+              ),
+              cardView(
+                "Sektor",
+                "eingeben",
+                "Auswahl",
+                Color.fromARGB(255, 30, 109, 138),
+              ),
+            ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget cardView(
+      String title, String subtitle, String buttonTitle, Color color) {
+    return SizedBox(
+      width: 300,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        color: color,
+        elevation: 10,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.album, size: 70),
+              title: Text(title, style: TextStyle(color: Colors.white)),
+              subtitle: Text(subtitle, style: TextStyle(color: Colors.white)),
+            ),
+            ButtonTheme(
+              child: ButtonBar(
+                children: <Widget>[
+                  ElevatedButton(
+                    child: Text(buttonTitle,
+                        style: TextStyle(color: Colors.white)),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
