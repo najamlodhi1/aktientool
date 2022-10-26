@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   fl_chart: ^0.55.2
   provider: ^6.0.4
+  filter_list: ^1.0.2
   cupertino_icons: ^1.0.5
   url_strategy: ^0.2.0
   firebase_core: ^2.1.0
