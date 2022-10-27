@@ -217,71 +217,100 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget cardView(String title, String subtitle, String buttonTitle,
       Color color, IconData icon) {
-    return SizedBox(
-      width: 300,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        color: color,
-        elevation: 10,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(icon, size: 25),
-              title: Text(title,
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
-              subtitle: Text(subtitle,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)),
-            ),
-            ButtonTheme(
-              child: ButtonBar(
-                children: <Widget>[
-                  ElevatedButton(
-                    child: Text(buttonTitle,
-                        style: const TextStyle(color: Colors.white)),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            backgroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            elevation: 16,
-                            child: SingleChildScrollView(
-                              child: Wrap(
-                                children: <Widget>[
-                                  Center(
-                                    child: Text(
-                                      '1. Land auswählen',
-                                      style: kStyleDefault.copyWith(
-                                        color: Colors.blue,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Country(),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              backgroundColor: Colors.black,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 16,
+              child: SingleChildScrollView(
+                child: Wrap(
+                  children: <Widget>[
+                    Center(
+                      child: Text(
+                        '1. Land auswählen',
+                        style: kStyleDefault.copyWith(
+                          color: Colors.blue,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Country(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            );
+          },
+        );
+      },
+      child: SizedBox(
+        width: 300,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: color,
+          elevation: 10,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(icon, size: 25),
+                title: Text(title,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
+                subtitle: Text(subtitle,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold)),
+              ),
+              ButtonTheme(
+                child: ButtonBar(
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Wrap(
+                        children: <Widget>[
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(15),
+                            child: Image.asset(
+                              // imageList[index]
+                              'assets/images/0.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(15),
+                            child: Image.asset(
+                              // imageList[index]
+                              'assets/images/1.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(15),
+                            child: Image.asset(
+                              // imageList[index]
+                              'assets/images/2.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
