@@ -101,7 +101,7 @@ class _CountrySelectState extends State<CountrySelect> {
               ),
               title: Text(
                 generatedCountrieFromList[index]['name'],
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(fontSize: 12, color: Colors.white),
               ),
             ));
       },

@@ -76,7 +76,7 @@ class _CountryState extends State<Country> {
         );
       },
       child: SizedBox(
-        width: 200,
+        width: 180,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -88,7 +88,7 @@ class _CountryState extends State<Country> {
               const ListTile(
                 title: Text("Land",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
+                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 15)),
                 subtitle: Text("eingeben",
                     style: TextStyle(
                         color: Colors.black,

@@ -27,7 +27,7 @@ class _MarketcapState extends State<Marketcap> {
 
   Widget marketCap() {
     return SizedBox(
-      width: 200,
+      width: 180,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -39,17 +39,17 @@ class _MarketcapState extends State<Marketcap> {
             ListTile(
               title: const Text("Marktapitalisierung",
                   style: TextStyle(
-                      color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
+                      color: Color.fromARGB(255, 69, 69, 69), fontSize: 15)),
               subtitle: Text(text_marketcap,
                   style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold)),
             ),
             Container(
               child: ToggleButtons(
                 constraints: const BoxConstraints(
-                    maxWidth: 44, minWidth: 44, minHeight: 44, maxHeight: 44),
+                    maxWidth: 34, minWidth: 34, minHeight: 34, maxHeight: 34),
                 borderWidth: 3,
                 // ignore: sort_child_properties_last
                 children: const [

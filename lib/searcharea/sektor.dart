@@ -93,7 +93,7 @@ class _SektorState extends State<Sektor> {
         );
       },
       child: SizedBox(
-        width: 200,
+        width: 180,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -105,11 +105,11 @@ class _SektorState extends State<Sektor> {
               const ListTile(
                 title: Text("Sektor",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
+                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 15)),
                 subtitle: Text("eingeben",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold)),
               ),
               ButtonTheme(
