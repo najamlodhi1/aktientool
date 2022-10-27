@@ -76,25 +76,23 @@ class _CountryState extends State<Country> {
         );
       },
       child: SizedBox(
-        width: 300,
+        width: 200,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           color: Colors.green,
-          elevation: 10,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const ListTile(
-                leading: Icon(Icons.abc, size: 25),
                 title: Text("Land",
                     style: TextStyle(
                         color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
                 subtitle: Text("eingeben",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 22,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold)),
               ),
               ButtonTheme(
