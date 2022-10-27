@@ -1,3 +1,4 @@
+import '../searcharea/country_select.dart';
 import 'package:flutter/material.dart';
 import '../constants/responsive.dart';
 
@@ -66,6 +67,79 @@ class _CountryState extends State<Country> {
             });
   }
 
+  Widget cardView() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CountrySelect()),
+        );
+      },
+      child: SizedBox(
+        width: 300,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.green,
+          elevation: 10,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.abc, size: 25),
+                title: Text("Land",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 18)),
+                subtitle: Text("eingeben",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold)),
+              ),
+              ButtonTheme(
+                child: ButtonBar(
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Wrap(
+                        children: <Widget>[
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(15),
+                            child: Image.asset(
+                              'assets/images/0.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(15),
+                            child: Image.asset(
+                              // imageList[index]
+                              'assets/images/1.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(15),
+                            child: Image.asset(
+                              // imageList[index]
+                              'assets/images/2.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget countries() {
     return GridView.builder(
       shrinkWrap: true,
@@ -109,10 +183,6 @@ class _CountryState extends State<Country> {
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: checkDevice(context),
-        childAspectRatio: 1.0,
-        crossAxisSpacing: 0.0,
-        mainAxisSpacing: 5,
-        mainAxisExtent: 70,
       ),
     );
   }
@@ -129,58 +199,8 @@ class _CountryState extends State<Country> {
     }
   }
 
-  Widget countries2() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          width: 220,
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: generatedCountrieFromList.length,
-            itemBuilder: (BuildContext ctx, index) {
-              return Card(
-                  key: ValueKey(generatedCountrieFromList[index]['name']),
-                  margin: const EdgeInsets.all(10),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-
-                  // The color depends on this is selected or not
-                  color: generatedCountrieFromList[index]['isSelected'] == true
-                      ? const Color.fromARGB(255, 7, 139, 255)
-                      : const Color.fromARGB(255, 0, 0, 0),
-                  child: ListTile(
-                    onTap: () {
-                      // if this item isn't selected yet, "isSelected": false -> true
-                      // If this item already is selected: "isSelected": true -> false
-                      setState(() {
-                        generatedCountrieFromList[index]['isSelected'] =
-                            !generatedCountrieFromList[index]['isSelected'];
-                      });
-                    },
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(20), // Image border
-                      child: SizedBox.fromSize(
-                        size: const Size.fromRadius(20),
-                        child: Image.asset(
-                          // imageList[index]
-                          'assets/images/$index.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      generatedCountrieFromList[index]['name'],
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                  ));
-            },
-          )),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(top: 0), child: countries());
+    return cardView();
   }
 }
