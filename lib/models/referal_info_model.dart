@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ReferalInfoModel {
-  final String? svgSrc, title;
-  final int? count;
-  final Color? color;
+  final String svgSrc, title;
+  final int count;
+  final Color color;
 
   ReferalInfoModel({
     this.svgSrc,
@@ -12,4 +12,3 @@ class ReferalInfoModel {
     this.color,
   });
 }
-

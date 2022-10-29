@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AnalyticInfo {
-  final String? svgSrc, title;
-  final int? count;
-  final Color? color;
+  final String svgSrc, title;
+  final int count;
+  final Color color;
 
   AnalyticInfo({
     this.svgSrc,
@@ -12,4 +12,3 @@ class AnalyticInfo {
     this.color,
   });
 }
-

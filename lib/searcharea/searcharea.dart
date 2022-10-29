@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchArea extends AppBar {
-  SearchArea({super.key});
+  SearchArea({Key key}) : super(key: key);
 
   @override
   State<SearchArea> createState() => _SearchfieldState();
