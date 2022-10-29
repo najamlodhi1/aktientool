@@ -1,24 +1,13 @@
 import 'package:aktientool/searcharea/marketcap.dart';
+import 'package:aktientool/searcharea/searcharea.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'searcharea/country.dart';
 import 'searcharea/sektor.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('AktienTool');
-  String textland = 'Land und Sektor';
-  String tileImage = 'assets/images/false.gif';
-  bool alleAuswaehlen = false;
+class Home extends ConsumerWidget {
+  const Home({super.key});
 
   getData() async {
     var collection = FirebaseFirestore.instance.collection('company');
@@ -32,64 +21,36 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    // höre auf
+    //var watchMarketCap = ref.watch(sp_marketcap);
+    var marketcap = ref.watch(sp_marketcap);
+    var generatedCountrieFromList = ref.watch(sp_generatedCountrieFromList);
+    var generatedSektorFromList = ref.watch(sp_generatedSektorFromList);
 
-  @override
-  Widget build(BuildContext context) {
+    print(marketcap.toString());
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 49, 49, 49),
-        title: customSearchBar,
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                if (customIcon.icon == Icons.search) {
-                  customIcon = const Icon(Icons.cancel);
-                  customSearchBar = const ListTile(
-                    leading: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                    title: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Aktie eingeben',
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontStyle: FontStyle.italic,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
-                } else {
-                  customIcon = const Icon(Icons.search);
-                  customSearchBar = const Text('AktienTool');
-                }
-              });
-            },
-            icon: customIcon,
-          )
-        ],
-        centerTitle: true,
-      ),
+      appBar: SearchArea(),
       body: SingleChildScrollView(
         child: Center(
           child: Wrap(
-            // ignore: prefer_const_literals_to_create_immutables
             children: [
-              const Marketcap(),
+              Marketcap(),
               const Country(),
-              const Sektor(),
+              Sektor(),
+              /*Text(
+                marketcap.toString(),
+                style: const TextStyle(fontSize: 10, color: Colors.white),
+              ),
+              Text(
+                generatedCountrieFromList.toString(),
+                style: const TextStyle(fontSize: 10, color: Colors.white),
+              ),
+              Text(
+                generatedSektorFromList.toString(),
+                style: const TextStyle(fontSize: 10, color: Colors.white),
+              ),*/
             ],
           ),
         ),
@@ -97,3 +58,66 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+/**
+
+ Container(
+                decoration: const BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    offset: Offset(-20, 20),
+                    color: Colors.red,
+                    blurRadius: 15,
+                    spreadRadius: -10,
+                  ),
+                  BoxShadow(
+                    offset: Offset(-20, -20),
+                    color: Colors.orange,
+                    blurRadius: 15,
+                    spreadRadius: -10,
+                  ),
+                  BoxShadow(
+                    offset: Offset(20, -20),
+                    color: Colors.blue,
+                    blurRadius: 15,
+                    spreadRadius: -10,
+                  ),
+                  BoxShadow(
+                    offset: Offset(20, 20),
+                    color: Colors.deepPurple,
+                    blurRadius: 15,
+                    spreadRadius: -10,
+                  )
+                ]),
+                child: Container(
+                  width: 180,
+                  height: 120,
+                  color: Colors.black,
+                  child: const Center(
+                      child: Text(
+                    'Text',
+                    style: TextStyle(color: Colors.white, fontSize: 40),
+                  )),
+                ),
+              ),
+              Container(
+                height: 200.0,
+                width: 200.0,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 25.0, // soften the shadow
+                      spreadRadius: 25.0, //extend the shadow
+                      offset: Offset(
+                        5.0, // Move to right 5  horizontally
+                        5.0, // Move to bottom 5 Vertically
+                      ),
+                    )
+                  ],
+                ),
+                child: const Text("Hello world"),
+              ), 
+ 
+
+ */

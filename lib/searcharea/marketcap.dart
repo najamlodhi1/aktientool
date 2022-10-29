@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Marketcap extends StatefulWidget {
-  const Marketcap({super.key});
+final sp_marketcap = StateProvider((ref) {
+  return "> 50 Milliarden EUR";
+});
 
-  @override
-  State<Marketcap> createState() => _MarketcapState();
-}
+final sp_isSelected = StateProvider((ref) {
+  return [false, false, false, true];
+});
 
-class _MarketcapState extends State<Marketcap> {
+class Marketcap extends ConsumerWidget {
   List<Map> generatedCountrieFromList = [];
-  final List<bool> _isSelected = [false, false, false, true];
-  String text_marketcap = "> 50 Milliarden EUR";
   var icon = Icons.search;
 
   final List<String> _marketcap = [
@@ -20,12 +20,13 @@ class _MarketcapState extends State<Marketcap> {
     "> 50 Milliarden EUR",
   ];
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  Marketcap({super.key});
 
-  Widget marketCap() {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var isSelected = ref.watch(sp_isSelected);
+    var textMarketcap = ref.watch(sp_marketcap);
+
     return SizedBox(
       width: 180,
       child: Card(
@@ -39,8 +40,8 @@ class _MarketcapState extends State<Marketcap> {
             ListTile(
               title: const Text("Marktapitalisierung",
                   style: TextStyle(
-                      color: Color.fromARGB(255, 69, 69, 69), fontSize: 15)),
-              subtitle: Text(text_marketcap,
+                      color: Color.fromARGB(255, 69, 69, 69), fontSize: 16)),
+              subtitle: Text(textMarketcap,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -49,7 +50,7 @@ class _MarketcapState extends State<Marketcap> {
             Container(
               child: ToggleButtons(
                 constraints: const BoxConstraints(
-                    maxWidth: 34, minWidth: 34, minHeight: 34, maxHeight: 34),
+                    maxWidth: 39, minWidth: 39, minHeight: 39, maxHeight: 39),
                 borderWidth: 3,
                 // ignore: sort_child_properties_last
                 children: const [
@@ -74,35 +75,27 @@ class _MarketcapState extends State<Marketcap> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ],
-                isSelected: _isSelected,
+                isSelected: isSelected,
                 onPressed: (int index) {
-                  setState(() {
-                    for (int i = 0; i < _isSelected.length; i++) {
-                      _isSelected[i] = i == index;
-                      text_marketcap = _marketcap[index].toString();
-                    }
-                  });
+                  for (int i = 0; i < isSelected.length; i++) {
+                    print(isSelected.toString());
+
+                    isSelected[i] = i == index;
+                    ref.read(sp_marketcap.state).state =
+                        _marketcap[index].toString();
+                  }
                 },
-                // region example 1
                 color: Colors.white,
                 selectedColor: Colors.white,
                 fillColor: Colors.lightBlueAccent,
-                // endregion
-                // region example 2
                 borderColor: Colors.lightBlueAccent,
                 selectedBorderColor: Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                // endregion
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.only(top: 0), child: marketCap());
   }
 }

@@ -1,19 +1,70 @@
-import '../searcharea/country_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
-import 'sektor_select.dart';
 
-class Sektor extends StatefulWidget {
-  const Sektor({super.key});
+var sp_generatedSektorFromList = StateProvider((ref) {
+  return [];
+});
+
+class Sektor extends ConsumerWidget {
+  List<Map> generatedSektorFromList = [];
+
+  Sektor({super.key});
 
   @override
-  State<Sektor> createState() => _SektorState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SektorSelect()),
+        );
+      },
+      child: SizedBox(
+        width: 180,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.yellow,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const ListTile(
+                title: Text("Sektor",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 20)),
+              ),
+              ButtonTheme(
+                child: ButtonBar(
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Wrap(
+                        children: <Widget>[
+                          SizedBox.fromSize(
+                            size: const Size.fromRadius(24),
+                            child: Image.asset(
+                              'assets/images/50.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _SektorState extends State<Sektor> {
-  List<Map> generatedCountrieFromList = [];
-
-  List<String> sektor = [
+class SektorSelect extends ConsumerWidget {
+  List sektor = [
     "Alle",
     "Anlagenbau Zulieferer",
     "Autos/Ersatzteile",
@@ -71,140 +122,11 @@ class _SektorState extends State<Sektor> {
     "Wasser",
   ];
 
-  @override
-  void initState() {
-    super.initState();
-
-    generatedCountrieFromList = List.generate(
-        sektor.length,
-        (index) => {
-              'id': index,
-              'name': sektor[index].toString(),
-              'isSelected': false
-            });
-  }
-
-  Widget cardView() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SektorSelect()),
-        );
-      },
-      child: SizedBox(
-        width: 180,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          color: Colors.deepPurpleAccent,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const ListTile(
-                title: Text("Sektor",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 15)),
-                subtitle: Text("eingeben",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold)),
-              ),
-              ButtonTheme(
-                child: ButtonBar(
-                  children: <Widget>[
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Wrap(
-                        children: <Widget>[
-                          SizedBox.fromSize(
-                            size: const Size.fromRadius(15),
-                            child: Image.asset(
-                              'assets/images/40.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox.fromSize(
-                            size: const Size.fromRadius(15),
-                            child: Image.asset(
-                              // imageList[index]
-                              'assets/images/41.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox.fromSize(
-                            size: const Size.fromRadius(15),
-                            child: Image.asset(
-                              // imageList[index]
-                              'assets/images/42.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget countries() {
-    return GridView.builder(
-      shrinkWrap: true,
-      itemCount: 39,
-      itemBuilder: (ctx, index) {
-        return Card(
-            key: ValueKey(generatedCountrieFromList[index]['name']),
-            margin: const EdgeInsets.all(10),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-
-            // The color depends on this is selected or not
-            color: generatedCountrieFromList[index]['isSelected'] == true
-                ? const Color.fromARGB(255, 7, 139, 255)
-                : Color.fromARGB(255, 255, 255, 255),
-            child: ListTile(
-              onTap: () {
-                // if this item isn't selected yet, "isSelected": false -> true
-                // If this item already is selected: "isSelected": true -> false
-                setState(() {
-                  generatedCountrieFromList[index]['isSelected'] =
-                      !generatedCountrieFromList[index]['isSelected'];
-                });
-              },
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(20), // Image border
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(20),
-                  child: Image.asset(
-                    // imageList[index]
-                    'assets/images/$index.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              title: Text(
-                generatedCountrieFromList[index]['name'],
-                style: const TextStyle(color: Colors.black),
-              ),
-            ));
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: checkDevice(context),
-      ),
-    );
-  }
+  SektorSelect({super.key});
 
   checkDevice(context) {
     if (Responsive.isDesktop(context) == true) {
-      return 6;
+      return 7;
     }
     if (Responsive.isTablet(context) == true) {
       return 4;
@@ -215,7 +137,81 @@ class _SektorState extends State<Sektor> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return cardView();
+  Widget build(BuildContext context, WidgetRef ref) {
+    var generatedSektorFromList = ref.watch(sp_generatedSektorFromList);
+
+    if (generatedSektorFromList.toString() == "[]") {
+      generatedSektorFromList = List.generate(
+          sektor.length,
+          (index) => {
+                'id': index,
+                'name': sektor[index].toString(),
+                'isSelected': false,
+                Color: Colors.black,
+              });
+    }
+
+    //print(generatedCountrieFromList.toString());
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text('Land auswählen'),
+      ),
+      body: GridView.builder(
+        itemCount: 39,
+        itemBuilder: (ctx, index) {
+          return Card(
+              key: ValueKey(generatedSektorFromList[index]['name']),
+              margin: const EdgeInsets.all(11),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              color: generatedSektorFromList[index][Color],
+              child: ListTile(
+                onTap: () {
+                  generatedSektorFromList[index]['isSelected'] =
+                      !generatedSektorFromList[index]['isSelected'];
+
+                  if (generatedSektorFromList[index]['isSelected'] == true) {
+                    generatedSektorFromList[index][Color] = Colors.grey;
+                  }
+                  if (generatedSektorFromList[index]['isSelected'] == false) {
+                    generatedSektorFromList[index][Color] = Colors.black;
+                  }
+
+                  ref.refresh(sp_generatedSektorFromList.state).state =
+                      generatedSektorFromList;
+
+                  print("--generatedSektorFromList");
+                  print(generatedSektorFromList[index].toString());
+                  print("--generatedSektorFromList");
+                },
+                leading: ClipRRect(
+                  //borderRadius: BorderRadius.circular(20), // Image border
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(20),
+                    child: Image.asset(
+                      // imageList[index]
+                      "assets/images/${index + 39}.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                title: Text(
+                  generatedSektorFromList[index]['name'],
+                  style: const TextStyle(fontSize: 12, color: Colors.white),
+                ),
+              ));
+        },
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: checkDevice(context),
+          childAspectRatio: 1.0,
+          crossAxisSpacing: 0.0,
+          mainAxisSpacing: 5,
+          mainAxisExtent: 70,
+        ),
+      ),
+    );
   }
 }
