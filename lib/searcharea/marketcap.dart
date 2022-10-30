@@ -23,7 +23,7 @@ class Marketcap extends ConsumerWidget {
     "> 50 Milliarden EUR",
   ];
 
-  Marketcap({Key? key}) : super(key: key);
+  Marketcap({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -6,7 +6,7 @@ final titleProvider = StateProvider((ref) {
 });
 
 class Menu extends ConsumerWidget {
-  const Menu({Key? key}) : super(key: key);
+  const Menu({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
