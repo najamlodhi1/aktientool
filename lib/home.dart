@@ -24,11 +24,15 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // höre auf
     //var watchMarketCap = ref.watch(sp_marketcap);
-    var marketcap = ref.watch(sp_marketcap);
-    var generatedCountrieFromList = ref.watch(sp_generatedCountrieFromList);
-    var generatedSektorFromList = ref.watch(sp_generatedSektorFromList);
+    // ignore: unused_local_variable
+    String marketcap = ref.watch(sp_marketcap);
+    // ignore: unused_local_variable
+    List<dynamic> generatedCountrieFromList =
+        ref.watch(sp_generatedCountrieFromList);
+    // ignore: unused_local_variable
+    List<dynamic> generatedSektorFromList =
+        ref.watch(sp_generatedSektorFromList);
 
-    print(marketcap.toString());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: SearchArea(),

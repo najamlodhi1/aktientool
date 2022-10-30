@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// ignore: non_constant_identifier_names
 final sp_marketcap = StateProvider((ref) {
   return "> 50 Milliarden EUR";
 });
 
+// ignore: non_constant_identifier_names
 final sp_isSelected = StateProvider((ref) {
   return [false, false, false, true];
 });
 
+// ignore: must_be_immutable
 class Marketcap extends ConsumerWidget {
   List<Map> generatedCountrieFromList = [];
   var icon = Icons.search;
@@ -47,6 +50,7 @@ class Marketcap extends ConsumerWidget {
                       fontSize: 15,
                       fontWeight: FontWeight.bold)),
             ),
+            // ignore: avoid_unnecessary_containers
             Container(
               child: ToggleButtons(
                 constraints: const BoxConstraints(
@@ -78,6 +82,7 @@ class Marketcap extends ConsumerWidget {
                 isSelected: isSelected,
                 onPressed: (int index) {
                   for (int i = 0; i < isSelected.length; i++) {
+                    // ignore: avoid_print
                     print(isSelected.toString());
 
                     isSelected[i] = i == index;

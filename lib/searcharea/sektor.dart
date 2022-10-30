@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
 
+// ignore: non_constant_identifier_names
 var sp_generatedSektorFromList = StateProvider((ref) {
   return [];
 });
 
+// ignore: must_be_immutable
 class Sektor extends ConsumerWidget {
   List<Map> generatedSektorFromList = [];
 
@@ -63,6 +65,7 @@ class Sektor extends ConsumerWidget {
   }
 }
 
+// ignore: must_be_immutable
 class SektorSelect extends ConsumerWidget {
   List sektor = [
     "Alle",
@@ -182,10 +185,6 @@ class SektorSelect extends ConsumerWidget {
 
                   ref.refresh(sp_generatedSektorFromList.state).state =
                       generatedSektorFromList;
-
-                  print("--generatedSektorFromList");
-                  print(generatedSektorFromList[index].toString());
-                  print("--generatedSektorFromList");
                 },
                 leading: ClipRRect(
                   //borderRadius: BorderRadius.circular(20), // Image border

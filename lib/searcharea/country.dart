@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
 import 'package:flutter/material.dart';
 
-var sp_generatedCountrieFromList = StateProvider((ref) {
+// ignore: non_constant_identifier_names
+StateProvider<List<dynamic>> sp_generatedCountrieFromList =
+    StateProvider((ref) {
   return [];
 });
 
@@ -62,6 +64,7 @@ class Country extends ConsumerWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CountrySelect extends ConsumerWidget {
   List country = [
     "Alle",
@@ -165,10 +168,6 @@ class CountrySelect extends ConsumerWidget {
 
                   ref.refresh(sp_generatedCountrieFromList.state).state =
                       generatedCountrieFromList;
-
-                  print("--generatedCountrieFromList");
-                  print(generatedCountrieFromList[index].toString());
-                  print("--generatedCountrieFromList");
                 },
                 leading: ClipRRect(
                   //borderRadius: BorderRadius.circular(20), // Image border
