@@ -11,7 +11,7 @@ var sp_generatedSektorFromList = StateProvider((ref) {
 class Sektor extends ConsumerWidget {
   List<Map> generatedSektorFromList = [];
 
-  Sektor({Key key}) : super(key: key);
+  Sektor({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -125,7 +125,7 @@ class SektorSelect extends ConsumerWidget {
     "Wasser",
   ];
 
-  SektorSelect({Key key}) : super(key: key);
+  SektorSelect({Key? key}) : super(key: key);
 
   checkDevice(context) {
     if (Responsive.isDesktop(context) == true) {

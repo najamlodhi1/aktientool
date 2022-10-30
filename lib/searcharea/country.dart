@@ -10,7 +10,7 @@ StateProvider<List<dynamic>> sp_generatedCountrieFromList =
 });
 
 class Country extends ConsumerWidget {
-  const Country({Key key}) : super(key: key);
+  const Country({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -107,8 +107,6 @@ class CountrySelect extends ConsumerWidget {
     "Südafrika",
     "Kaimaninseln"
   ];
-
-  CountrySelect({Key key}) : super(key: key);
 
   checkDevice(context) {
     if (Responsive.isDesktop(context) == true) {
