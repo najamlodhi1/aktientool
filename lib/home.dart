@@ -7,7 +7,7 @@ import 'searcharea/country.dart';
 import 'searcharea/sektor.dart';
 
 class Home extends ConsumerWidget {
-  const Home({Key key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   getData() async {
     var collection = FirebaseFirestore.instance.collection('company');
