@@ -14,7 +14,7 @@ dependencies:
   url_strategy: ^0.2.0
   firebase_core: ^2.1.1
   cloud_firestore: ^4.0.3
-  flutter_riverpod: ^2.0.0
+  flutter_riverpod: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +26,4 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/
 
