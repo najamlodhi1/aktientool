@@ -10,8 +10,6 @@ jobs:
 
         # Install Flutter command
         - uses: subosito/flutter-action@v1
-          with:
-            channel: 'dev'
 
         # Build Website
         - name: Build Website
