@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'home.dart';
 
-///
+////
 Future<void> main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
