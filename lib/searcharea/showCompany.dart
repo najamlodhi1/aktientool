@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,13 @@ class ShowCompany extends ConsumerWidget {
     var companies = ref.watch(companyStateFuture);
 
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('company').snapshots(),
+      // issue - dont load the instance
+      stream: FirebaseFirestore.instance
+          .collection('company')
+          .where('marketcap', isGreaterThanOrEqualTo: "30")
+          .where('land', isEqualTo: "Deutschland")
+          .snapshots(),
+
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -41,7 +49,7 @@ class ShowCompany extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    color: Colors.red,
+                    color: const Color.fromARGB(255, 54, 244, 193),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

@@ -28,7 +28,7 @@ class Home extends ConsumerWidget {
         ref.watch(sp_generatedSektorFromList);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: SearchArea(),
       body: SingleChildScrollView(
         child: Center(
