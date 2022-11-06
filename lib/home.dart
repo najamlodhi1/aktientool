@@ -19,7 +19,7 @@ class Home extends ConsumerWidget {
     // höre auf
     //var watchMarketCap = ref.watch(sp_marketcap);
     // ignore: unused_local_variable
-    String marketcap = ref.watch(sp_marketcap);
+    int marketcap = ref.watch(sp_marketcap);
     // ignore: unused_local_variable
     List<dynamic> generatedCountrieFromList =
         ref.watch(sp_generatedCountrieFromList);

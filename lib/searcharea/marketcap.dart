@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
 final sp_marketcap = StateProvider((ref) {
-  return "> 50 Milliarden EUR";
+  return 50;
 });
 
 // ignore: non_constant_identifier_names
@@ -16,11 +16,11 @@ class Marketcap extends ConsumerWidget {
   List<Map> generatedCountrieFromList = [];
   var icon = Icons.search;
 
-  final List<String> _marketcap = [
-    "> 1 Milliarde EUR",
-    "> 10 Milliarden EUR",
-    "> 25 Milliarden EUR",
-    "> 50 Milliarden EUR",
+  final List<int> _marketcap = [
+    1,
+    10,
+    25,
+    50,
   ];
 
   Marketcap({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class Marketcap extends ConsumerWidget {
               title: const Text("Marktapitalisierung",
                   style: TextStyle(
                       color: Color.fromARGB(255, 69, 69, 69), fontSize: 16)),
-              subtitle: Text(textMarketcap,
+              subtitle: Text(textMarketcap.toString(),
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -86,8 +86,7 @@ class Marketcap extends ConsumerWidget {
                     print(isSelected.toString());
 
                     isSelected[i] = i == index;
-                    ref.read(sp_marketcap.state).state =
-                        _marketcap[index].toString();
+                    ref.read(sp_marketcap.state).state = _marketcap[index];
                   }
                 },
                 color: Colors.white,

@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'marketcap.dart';
+
 final companyStateFuture = FutureProvider((ref) async {
   var collection = FirebaseFirestore.instance.collection('company');
 
@@ -22,16 +24,17 @@ class ShowCompany extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var companies = ref.watch(companyStateFuture);
+    int marketcap = ref.watch(sp_marketcap);
 
     return StreamBuilder(
-      // issue - dont load the instance
       stream: FirebaseFirestore.instance
-          .collection('company')
-          .where('marketcap', isGreaterThanOrEqualTo: "30")
-          .where('land', isEqualTo: "Deutschland")
+          .collection("company")
+          .where(
+            'marketcap',
+            isGreaterThanOrEqualTo: marketcap,
+          )
+          //.where('land', isEqualTo: 'Deutschland')
           .snapshots(),
-
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
