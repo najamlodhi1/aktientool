@@ -13,8 +13,6 @@ final companyStateFuture = FutureProvider((ref) async {
   var querySnapshot = await collection.get();
   for (var queryDocumentSnapshot in querySnapshot.docs) {
     Map<String, dynamic> data = queryDocumentSnapshot.data();
-    //var name = data['name'];
-    // ignore: avoid_print
     return jsonDecode(data['name']);
   }
 });
@@ -29,10 +27,7 @@ class ShowCompany extends ConsumerWidget {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection("company")
-          .where(
-            'marketcap',
-            isGreaterThanOrEqualTo: marketcap,
-          )
+          .where('marketcap', isGreaterThanOrEqualTo: marketcap)
           //.where('land', isEqualTo: 'Deutschland')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
