@@ -23,40 +23,21 @@ class Country extends ConsumerWidget {
       },
       child: SizedBox(
         width: 180,
+        height: 120,
         child: Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          color: Colors.green,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const ListTile(
-                title: Text("Land",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 69, 69, 69), fontSize: 20)),
-              ),
-              ButtonTheme(
-                child: ButtonBar(
-                  children: <Widget>[
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Wrap(
-                        children: <Widget>[
-                          SizedBox.fromSize(
-                            size: const Size.fromRadius(24),
-                            child: Image.asset(
-                              'assets/images/0.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          color: Colors.black,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              image: const DecorationImage(
+                  image: AssetImage("assets/images/land.gif"),
+                  fit: BoxFit.fill),
+            ),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:aktientool/searcharea/feinfilter.dart';
 import 'package:aktientool/searcharea/marketcap.dart';
 import 'package:aktientool/searcharea/searcharea.dart';
 import 'package:aktientool/searcharea/showCompany.dart';
@@ -37,6 +38,7 @@ class Home extends ConsumerWidget {
               Marketcap(),
               const Country(),
               Sektor(),
+              Feinfilter(),
               //for (int i = 1; i <= 30; i++) const ShowCompany(),
               const ShowCompany(),
             ],

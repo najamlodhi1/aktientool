@@ -3,15 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
 
 // ignore: non_constant_identifier_names
-var sp_generatedSektorFromList = StateProvider((ref) {
+var sp_generatedSektorFromFeinFilter = StateProvider((ref) {
   return [];
 });
 
 // ignore: must_be_immutable
-class Sektor extends ConsumerWidget {
+class Feinfilter extends ConsumerWidget {
   List<Map> generatedSektorFromList = [];
 
-  Sektor({Key? key}) : super(key: key);
+  Feinfilter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +36,7 @@ class Sektor extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage("assets/images/sektor.gif"),
+                  image: AssetImage("assets/images/feinfilter.gif"),
                   fit: BoxFit.fill),
             ),
           ),
@@ -122,7 +122,7 @@ class SektorSelect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var generatedSektorFromList = ref.watch(sp_generatedSektorFromList);
+    var generatedSektorFromList = ref.watch(sp_generatedSektorFromFeinFilter);
 
     if (generatedSektorFromList.toString() == "[]") {
       generatedSektorFromList = List.generate(
@@ -164,7 +164,7 @@ class SektorSelect extends ConsumerWidget {
                     generatedSektorFromList[index][Color] = Colors.black;
                   }
 
-                  ref.refresh(sp_generatedSektorFromList.state).state =
+                  ref.refresh(sp_generatedSektorFromFeinFilter.state).state =
                       generatedSektorFromList;
                 },
                 leading: ClipRRect(
