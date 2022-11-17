@@ -15,7 +15,7 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //getData();
     //AsyncValue<List<Photo>> photos = ref.watch(photoStateFuture);
-    AsyncValue companies = ref.watch(companyStateFuture);
+    //AsyncValue companies = ref.watch(companyStateFuture);
 
     // höre auf
     //var watchMarketCap = ref.watch(sp_marketcap);
@@ -43,7 +43,6 @@ class Home extends ConsumerWidget {
               const ShowCompany(),
             ],
           ),
-
           /*
               Text(
                 generatedCountrieFromList.toString(),
@@ -61,7 +60,9 @@ class Home extends ConsumerWidget {
 
   Widget show() {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('company').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('company')
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -71,8 +72,8 @@ class Home extends ConsumerWidget {
 
         return Column(
           children: snapshot.data!.docs.map((document) {
-            return Container(
-              child: Center(child: Text(document['name'])),
+            return Center(
+              child: Text(document['name']),
             );
           }).toList(),
         );
@@ -89,39 +90,47 @@ class Home extends ConsumerWidget {
         ),
         color: Colors.blue,
         child: Container(
-          decoration: const BoxDecoration(boxShadow: [
-            BoxShadow(
-              offset: Offset(-20, 20),
-              color: Colors.red,
-              blurRadius: 15,
-              spreadRadius: -10,
-            ),
-            BoxShadow(
-              offset: Offset(-20, -20),
-              color: Colors.orange,
-              blurRadius: 15,
-              spreadRadius: -10,
-            ),
-            BoxShadow(
-              offset: Offset(20, -20),
-              color: Colors.blue,
-              blurRadius: 15,
-              spreadRadius: -10,
-            ),
-            BoxShadow(
-              offset: Offset(20, 20),
-              color: Colors.deepPurple,
-              blurRadius: 15,
-              spreadRadius: -10,
-            )
-          ]),
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(-20, 20),
+                color: Colors.red,
+                blurRadius: 15,
+                spreadRadius: -10,
+              ),
+              BoxShadow(
+                offset: Offset(-20, -20),
+                color: Colors.orange,
+                blurRadius: 15,
+                spreadRadius: -10,
+              ),
+              BoxShadow(
+                offset: Offset(20, -20),
+                color: Colors.blue,
+                blurRadius: 15,
+                spreadRadius: -10,
+              ),
+              BoxShadow(
+                offset: Offset(20, 20),
+                color: Colors.deepPurple,
+                blurRadius: 15,
+                spreadRadius: -10,
+              )
+            ],
+          ),
           child: Container(
             width: 180,
             height: 120,
             color: Colors.black,
             child: const Center(
-                child: Text('Text',
-                    style: TextStyle(color: Colors.white, fontSize: 40))),
+              child: Text(
+                'Text',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                ),
+              ),
+            ),
           ),
         ),
       ),

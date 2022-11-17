@@ -50,10 +50,11 @@ class Geld extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Home(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Home(),
+                ),
+              );
             },
             child: Container(
               width: 350,
