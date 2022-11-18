@@ -17,8 +17,13 @@ dependencies:
   firebase_core: ^2.1.1
   cloud_firestore: ^4.0.3
   flutter_riverpod: ^2.0.2
+  firebase_auth:
   http: ^0.13.5
   dio: ^4.0.6
+  font_awesome_flutter:
+  google_sign_in:
+  google_sign_in_web_redirect:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
