@@ -8,6 +8,8 @@ import 'package:aktientool/datenschutz/cookie.dart';
 final cookieProvider = StateProvider((ref) => false);
 
 class Start extends ConsumerWidget {
+  const Start({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(Duration.zero, () {
@@ -20,12 +22,14 @@ class Start extends ConsumerWidget {
 
     return Scaffold(
       appBar: headerNav(context),
-      //drawer: drawerX(context),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Wrap(
           alignment: WrapAlignment.center,
-          children: <Widget>[Geld() /*, Tools(), Beitrag(),*/, Footer()],
+          children: const <Widget>[
+            Geld(),
+            Footer(),
+          ],
         ),
       ),
     );

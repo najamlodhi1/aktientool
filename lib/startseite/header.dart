@@ -1,6 +1,4 @@
 // ignore: file_names
-import 'dart:js' as js;
-
 import 'package:flutter/material.dart';
 
 AppBar headerNav(BuildContext context) {

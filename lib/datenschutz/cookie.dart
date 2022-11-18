@@ -1,5 +1,6 @@
 // ignore: file_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/impressum.dart';
@@ -51,14 +52,18 @@ cookiesLong(context) {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    print(switchState[0].toString());
+                    if (kDebugMode) {
+                      print(switchState[0].toString());
+                    }
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      fixedSize: const Size(300, 40),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15))),
+                    backgroundColor: Colors.green,
+                    fixedSize: const Size(300, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
                   child: const Text('Alle Akzeptieren und weiter'),
                 ),
                 const SizedBox(
@@ -208,14 +213,18 @@ cookiesLong(context) {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    print(switchState[0].toString());
+                    if (kDebugMode) {
+                      print(switchState[0].toString());
+                    }
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      fixedSize: const Size(300, 40),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15))),
+                    backgroundColor: Colors.green,
+                    fixedSize: const Size(300, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
                   child: const Text('Alle Akzeptieren und weiter'),
                 ),
                 const SizedBox(
@@ -234,23 +243,27 @@ cookiesLong(context) {
                 ),
 
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Datenschutzerklaerung()),
-                      );
-                    },
-                    child: const Text("Datenschutzerklärung")),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Datenschutzerklaerung(),
+                      ),
+                    );
+                  },
+                  child: const Text("Datenschutzerklärung"),
+                ),
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Impressum()),
-                      );
-                    },
-                    child: const Text("Impressum")),
-//
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Impressum(),
+                      ),
+                    );
+                  },
+                  child: const Text("Impressum"),
+                ),
               ],
             ),
           ),
@@ -282,22 +295,27 @@ checkCookies(context) {
                   },
                   child: const Text("Cookie-Details")),
               TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Datenschutzerklaerung()),
-                    );
-                  },
-                  child: const Text("Datenschutzerklärung")),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Datenschutzerklaerung(),
+                    ),
+                  );
+                },
+                child: const Text("Datenschutzerklärung"),
+              ),
               TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Impressum()),
-                    );
-                  },
-                  child: const Text("Impressum")),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Impressum(),
+                    ),
+                  );
+                },
+                child: const Text("Impressum"),
+              ),
             ],
           ),
           // usually buttons at the bottom of the dialog
@@ -315,14 +333,18 @@ checkCookies(context) {
           ),
           ElevatedButton(
             onPressed: () {
-              print("Alle Cookies erlauben");
+              if (kDebugMode) {
+                print("Alle Cookies erlauben");
+              }
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                fixedSize: const Size(200, 40),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15))),
+              backgroundColor: Colors.green,
+              fixedSize: const Size(200, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
             child: const Text('Erlauben und weiter'),
           ),
         ],
@@ -347,14 +369,16 @@ checkCookies2(context, WidgetRef ref) {
           Wrap(
             children: [
               TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Datenschutzerklaerung()),
-                    );
-                  },
-                  child: const Text("Datenschutzerklärung")),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Datenschutzerklaerung(),
+                    ),
+                  );
+                },
+                child: const Text("Datenschutzerklärung"),
+              ),
             ],
           ),
           // usually buttons at the bottom of the dialog
@@ -362,14 +386,18 @@ checkCookies2(context, WidgetRef ref) {
           ElevatedButton(
             onPressed: () {
               ref.read(cookieProvider.state).state = true;
-              print("Alle Cookies erlauben");
+              if (kDebugMode) {
+                print("Alle Cookies erlauben");
+              }
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                fixedSize: const Size(200, 40),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15))),
+              backgroundColor: Colors.green,
+              fixedSize: const Size(200, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
             child: const Text('OK'),
           ),
         ],
@@ -403,7 +431,9 @@ Widget createCookie(switchPos, String a, String b, String c, String d, String e,
               onChanged: (value) {
                 setState(() {
                   switchState[switchPos] = value;
-                  print(value);
+                  if (kDebugMode) {
+                    print(value);
+                  }
                 });
               },
               activeTrackColor: Colors.lightGreenAccent,

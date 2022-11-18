@@ -1,16 +1,13 @@
 // ignore_for_file: file_names
-
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'marketcap.dart';
 
+/*
 final companyStateFuture = FutureProvider(
   (ref) async {
     var collection = FirebaseFirestore.instance.collection('company');
-
     var querySnapshot = await collection.get();
     for (var queryDocumentSnapshot in querySnapshot.docs) {
       Map<String, dynamic> data = queryDocumentSnapshot.data();
@@ -18,6 +15,7 @@ final companyStateFuture = FutureProvider(
     }
   },
 );
+ */
 
 class ShowCompany extends ConsumerWidget {
   const ShowCompany({Key? key}) : super(key: key);

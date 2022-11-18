@@ -2,7 +2,6 @@ import 'package:aktientool/searcharea/feinfilter.dart';
 import 'package:aktientool/searcharea/marketcap.dart';
 import 'package:aktientool/searcharea/searcharea.dart';
 import 'package:aktientool/searcharea/showCompany.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'searcharea/country.dart';
@@ -39,30 +38,18 @@ class Home extends ConsumerWidget {
               const Country(),
               Sektor(),
               Feinfilter(),
-              //for (int i = 1; i <= 30; i++) const ShowCompany(),
               const ShowCompany(),
             ],
           ),
-          /*
-              Text(
-                generatedCountrieFromList.toString(),
-                style: const TextStyle(fontSize: 10, color: Colors.white),
-              ),
-              Text(
-                generatedSektorFromList.toString(),
-                style: const TextStyle(fontSize: 10, color: Colors.white),
-              ),
-              */
         ),
       ),
     );
   }
 
+  /*
   Widget show() {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('company')
-          .snapshots(),
+      stream: FirebaseFirestore.instance.collection('company').snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -136,4 +123,5 @@ class Home extends ConsumerWidget {
       ),
     );
   }
+   */
 }

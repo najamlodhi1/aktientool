@@ -4,6 +4,8 @@ import '../datenschutz/datenschutzerklaerung.dart';
 import '../datenschutz/impressum.dart';
 
 class Footer extends StatelessWidget {
+  const Footer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +26,9 @@ class Footer extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Datenschutzerklaerung()),
+                              builder: (context) =>
+                                  const Datenschutzerklaerung(),
+                            ),
                           );
                         },
                         style: TextButton.styleFrom(
@@ -37,7 +41,8 @@ class Footer extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Impressum()),
+                              builder: (context) => const Impressum(),
+                            ),
                           );
                         },
                         style: TextButton.styleFrom(

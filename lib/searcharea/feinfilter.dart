@@ -1,3 +1,5 @@
+import 'package:aktientool/authentication/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
@@ -16,11 +18,22 @@ class Feinfilter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SektorSelect()),
-        );
+      onTap: () async {
+        if (FirebaseAuth.instance.currentUser != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SektorSelect(),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+          );
+        }
       },
       child: SizedBox(
         width: 180,

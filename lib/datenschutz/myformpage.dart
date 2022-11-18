@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 //import '../database_manager.dart';
@@ -118,7 +119,9 @@ class MyFormPage extends StatelessWidget {
                                 emailController.text,
                                 nachrichtController.text);*/
                           } else {
-                            print("Formular ist nicht gültig");
+                            if (kDebugMode) {
+                              print("Formular ist nicht gültig");
+                            }
                           }
                         },
                         child: const Text('Absenden'),

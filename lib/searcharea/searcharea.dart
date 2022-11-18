@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../authentication/services/auth_service.dart';
+import '../start.dart';
 
 class SearchArea extends AppBar {
   SearchArea({Key? key}) : super(key: key);
@@ -56,7 +61,35 @@ class _SearchfieldState extends State<SearchArea> {
             });
           },
           icon: customIcon,
-        )
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        FirebaseAuth.instance.currentUser != null
+            ? Padding(
+                padding: const EdgeInsets.all(8),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await AuthService().signOut().then((result) {
+                      if (kDebugMode) {
+                        print(result);
+                      }
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => const Start(),
+                        ),
+                      );
+                    }).catchError((error) {
+                      if (kDebugMode) {
+                        print('Registration Error: $error');
+                      }
+                    });
+                  },
+                  child: const Text('Logout'),
+                ),
+              )
+            : const SizedBox.shrink(),
       ],
       centerTitle: true,
     );

@@ -10,7 +10,7 @@ class Menu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final watchTitleprovider = ref.watch(titleProvider);
+    final watchTitleProvider = ref.watch(titleProvider);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -18,13 +18,13 @@ class Menu extends ConsumerWidget {
           child: Wrap(
             children: [
               ElevatedButton(
-                  onPressed: () {
-                    ref
-                        .read(titleProvider.state)
-                        .state++; // stateProvider wird geupdatet
-                  },
-                  child: Text(watchTitleprovider
-                      .toString())) // stateProvider wird geladen
+                onPressed: () {
+                  ref.read(titleProvider.state).state++;
+                },
+                child: Text(
+                  watchTitleProvider.toString(),
+                ),
+              ), // stateProvider wird geladen
             ],
           ),
         ),

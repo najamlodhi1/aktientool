@@ -5,16 +5,17 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 
-////
 Future<void> main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(
-    child: MyApp(),
-  ));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {
@@ -27,10 +28,9 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Start(),
+      home: const Start(),
     );
   }
 }
-
 
 //https://www.youtube.com/watch?v=2EV5w73QbF4

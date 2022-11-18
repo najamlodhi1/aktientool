@@ -89,6 +89,8 @@ class CountrySelect extends ConsumerWidget {
     "Kaimaninseln"
   ];
 
+  CountrySelect({super.key});
+
   checkDevice(context) {
     if (Responsive.isDesktop(context) == true) {
       return 7;
