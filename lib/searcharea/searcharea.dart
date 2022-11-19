@@ -90,6 +90,32 @@ class _SearchfieldState extends State<SearchArea> {
                 ),
               )
             : const SizedBox.shrink(),
+        FirebaseAuth.instance.currentUser != null
+            ? Padding(
+                padding: const EdgeInsets.all(8),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    FirebaseAuth.instance.currentUser!.delete();
+                    await AuthService().signOut().then((result) {
+                      if (kDebugMode) {
+                        print(result);
+                      }
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => const Start(),
+                        ),
+                      );
+                    }).catchError((error) {
+                      if (kDebugMode) {
+                        print('Registration Error: $error');
+                      }
+                    });
+                  },
+                  child: const Text('Delete Account'),
+                ),
+              )
+            : const SizedBox.shrink(),
       ],
       centerTitle: true,
     );
