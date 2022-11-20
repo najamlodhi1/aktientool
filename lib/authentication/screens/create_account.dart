@@ -4,15 +4,11 @@ import 'package:aktientool/start.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({Key? key}) : super(key: key);
+class CreateAccount extends StatelessWidget {
+  CreateAccount({Key? key}) : super(key: key);
 
-  @override
-  _CreateAccountState createState() => _CreateAccountState();
-}
-
-class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   @override

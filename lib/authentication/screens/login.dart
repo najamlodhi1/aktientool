@@ -1,19 +1,16 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+import 'package:aktientool/authentication/screens/forgot_password.dart';
 import 'package:aktientool/start.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'create_account.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -47,6 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: 'Password',
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ForgotPassword(),
+                  ),
+                );
+              },
+              child: const Text('Forgot Password?'),
             ),
             const SizedBox(
               height: 30.0,
@@ -105,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const CreateAccount(),
+                    builder: (context) => CreateAccount(),
                   ),
                 );
               },

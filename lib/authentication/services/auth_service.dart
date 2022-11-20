@@ -3,7 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'auth_status.dart';
+
 class AuthService {
+  AuthStatus _status = AuthStatus.unknown;
+
   Future<String?> registration({
     required String email,
     required String password,
@@ -82,5 +86,13 @@ class AuthService {
     if (kDebugMode) {
       print("User signed out of Google account");
     }
+  }
+
+  Future<AuthStatus> resetPassword({required String email}) async {
+    await FirebaseAuth.instance
+        .sendPasswordResetEmail(email: email)
+        .then((value) => _status = AuthStatus.successful)
+        .catchError((e) => _status = AuthExceptionHandler.handleAuthException(e));
+    return _status;
   }
 }
