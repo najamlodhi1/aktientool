@@ -42,9 +42,6 @@ class ForgotPassword extends StatelessWidget {
                       builder: (context) => const Start(),
                     ),
                   );
-                } else {
-                  final error =
-                      AuthExceptionHandler.generateErrorMessage(status);
                 }
               },
               child: const Text('Reset Password'),
