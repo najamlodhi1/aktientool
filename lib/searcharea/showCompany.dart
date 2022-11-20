@@ -27,8 +27,7 @@ class ShowCompany extends ConsumerWidget {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection("company")
-          //.where("land", isEqualTo: "Deutschland")
-          .where('marketcap', isGreaterThanOrEqualTo: marketcap)
+          .where('marketCap', isGreaterThanOrEqualTo: marketcap)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
@@ -38,7 +37,9 @@ class ShowCompany extends ConsumerWidget {
         }
 
         return Wrap(
-          children: snapshot.data!.docs.where((element) => element.get("land") == "Deutschland").map((document) {
+          children: snapshot.data!.docs
+              .where((element) => element.get("country") == "US")
+              .map((document) {
             return Wrap(
               children: [
                 SizedBox(
@@ -53,7 +54,7 @@ class ShowCompany extends ConsumerWidget {
                       children: <Widget>[
                         ListTile(
                           title: Text(
-                            document['name'],
+                            document['companyName'],
                             style: const TextStyle(
                               color: Color.fromARGB(255, 69, 69, 69),
                               fontSize: 20,

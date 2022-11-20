@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
 final sp_marketcap = StateProvider((ref) {
-  return 50;
+  return 50000000;
 });
 
 // ignore: non_constant_identifier_names
@@ -17,10 +17,10 @@ class Marketcap extends ConsumerWidget {
   var icon = Icons.search;
 
   final List<int> _marketcap = [
-    1,
-    10,
-    25,
-    50,
+    1000000,
+    10000000,
+    25000000,
+    50000000,
   ];
 
   Marketcap({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class Marketcap extends ConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: Colors.blue,
+        color: Colors.green,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
