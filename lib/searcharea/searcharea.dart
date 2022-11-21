@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../authentication/services/auth_service.dart';
+import '../payment/paypal_payment.dart';
 import '../start.dart';
 
 class SearchArea extends AppBar {
@@ -65,6 +66,25 @@ class _SearchfieldState extends State<SearchArea> {
         const SizedBox(
           width: 10,
         ),
+        FirebaseAuth.instance.currentUser != null
+            ? Padding(
+                padding: const EdgeInsets.all(8),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => PaypalPayment(
+                          amount: 1.00,
+                          currency: 'USD',
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Paypal'),
+                ),
+              )
+            : const SizedBox.shrink(),
         FirebaseAuth.instance.currentUser != null
             ? Padding(
                 padding: const EdgeInsets.all(8),
