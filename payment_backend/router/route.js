@@ -6,8 +6,8 @@ const queryString = require("query-string");
 
 paypal.configure({
     'mode': 'sandbox',
-    'client_id': process.env.CLIENT_ID,
-    'client_secret': process.env.CLIENT_SECRET
+    'client_id': 'AV-p9whzwUNjBqiN3L_whPxTCq7-L-rWZB9Kb0ce60kKDyVUFn1aNFsva00Q3hNtIg3f85efDH_jXlOY',
+    'client_secret': 'EFQrSM2QP-lf_e7ld9Ub0Kgc4-g_Z_2qDfD73vHcFtMVSKwN5b7GMqfTEefbnxIJk01WL6C97cBqZe3w'
 });
 
 route.get('/createpaypalpayment', async (req, res) => {
@@ -23,7 +23,7 @@ route.get('/createpaypalpayment', async (req, res) => {
         /// "https://us-central1-paypal.cloudfunctions.net/paypalTestPaymentExecute",
         ///
         "redirect_urls": {
-            "return_url": `http://localhost:3000/execute?amount=${amount}&currency=${currency}`,
+            "return_url": "http://localhost:3000/execute?amount=$amount&currency=$currency",
             "cancel_url": "http://cancel.url"
         },
         "transactions": [{
