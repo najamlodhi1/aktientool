@@ -28,6 +28,7 @@ dependencies:
   url_launcher: ^6.1.6
   webviewx: ^0.2.1
   web_browser: ^0.5.0
+  http_auth:
 
 dev_dependencies:
   flutter_test:
