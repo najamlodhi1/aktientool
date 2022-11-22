@@ -6,8 +6,8 @@ const queryString = require("query-string");
 
 paypal.configure({
     'mode': 'sandbox',
-    'client_id': 'AV-p9whzwUNjBqiN3L_whPxTCq7-L-rWZB9Kb0ce60kKDyVUFn1aNFsva00Q3hNtIg3f85efDH_jXlOY',
-    'client_secret': 'EFQrSM2QP-lf_e7ld9Ub0Kgc4-g_Z_2qDfD73vHcFtMVSKwN5b7GMqfTEefbnxIJk01WL6C97cBqZe3w'
+    'client_id': 'AVm91QFLAO36yrOG4n82j0LCae-a7F4bbaIB-Mn7_ncjPJpKcT3tIVUsttuUWgdkn3Iv7aqxgJc9bFj2',
+    'client_secret': 'EM9PQoyPWkVkm-JoI1pMuoHYVDEkFnMv5WxZWnvf0wZusEDPSSHG7lUlmo5cAL3H33IS44SZxC9y8nTR'
 });
 
 route.get('/createpaypalpayment', async (req, res) => {
