@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -73,10 +75,13 @@ class _SearchfieldState extends State<SearchArea> {
                   onPressed: () async {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (context) => PaypalPayment(
-                          amount: 1.00,
-                          currency: 'USD',
+                        builder: (BuildContext context) => PaypalPayment(
+                          onFinish: (number) async {
+                            // Payment Done
+                            if (kDebugMode) {
+                              print('order id: '+number);
+                            }
+                          },
                         ),
                       ),
                     );
