@@ -34,6 +34,16 @@ class Home extends ConsumerWidget {
         child: Center(
           child: Wrap(
             children: [
+              ElevatedButton(
+                  onPressed: () {
+                    daily();
+                  },
+                  child: const Text("Update Daily")),
+              ElevatedButton(
+                  onPressed: () {
+                    monthly();
+                  },
+                  child: const Text("Update Monthly")),
               Marketcap(),
               const Country(),
               Sektor(),
@@ -46,82 +56,13 @@ class Home extends ConsumerWidget {
     );
   }
 
-  /*
-  Widget show() {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('company').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        return Column(
-          children: snapshot.data!.docs.map((document) {
-            return Center(
-              child: Text(document['name']),
-            );
-          }).toList(),
-        );
-      },
-    );
+  daily() {
+    // rest service  get stockdata and write into our Firebase Database
+    //if its exist then update if not then add
   }
 
-  Widget showCompa(String names) {
-    return SizedBox(
-      width: 180,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        color: Colors.blue,
-        child: Container(
-          decoration: const BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(-20, 20),
-                color: Colors.red,
-                blurRadius: 15,
-                spreadRadius: -10,
-              ),
-              BoxShadow(
-                offset: Offset(-20, -20),
-                color: Colors.orange,
-                blurRadius: 15,
-                spreadRadius: -10,
-              ),
-              BoxShadow(
-                offset: Offset(20, -20),
-                color: Colors.blue,
-                blurRadius: 15,
-                spreadRadius: -10,
-              ),
-              BoxShadow(
-                offset: Offset(20, 20),
-                color: Colors.deepPurple,
-                blurRadius: 15,
-                spreadRadius: -10,
-              )
-            ],
-          ),
-          child: Container(
-            width: 180,
-            height: 120,
-            color: Colors.black,
-            child: const Center(
-              child: Text(
-                'Text',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+  monthly() {
+    // rest service  get stockdata and write into our Firebase Database
+    //if its exist then update if not then add
   }
-   */
 }

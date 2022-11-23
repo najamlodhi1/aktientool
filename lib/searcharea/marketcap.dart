@@ -36,14 +36,14 @@ class Marketcap extends ConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: Colors.green,
+        color: const Color.fromARGB(255, 97, 30, 177),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              title: const Text("Marktapitalisierung",
+              title: const Text("Marketcap:",
                   style: TextStyle(
-                      color: Color.fromARGB(255, 69, 69, 69), fontSize: 16)),
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 16)),
               subtitle: Text(textMarketcap.toString(),
                   style: const TextStyle(
                       color: Colors.black,

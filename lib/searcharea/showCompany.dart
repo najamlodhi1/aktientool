@@ -44,32 +44,75 @@ class ShowCompany extends ConsumerWidget {
               children: [
                 SizedBox(
                   width: 180,
+                  height: 120,
                   child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     color: const Color.fromARGB(255, 54, 244, 193),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                      //mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        ListTile(
-                          title: Text(
-                            document['companyName'],
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 69, 69, 69),
-                              fontSize: 20,
-                            ),
+                        Text(
+                          document['companyName'],
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 15,
                           ),
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          document['exchangeShortName'],
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          document['sector'],
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          document['industry'],
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          "Marketcap:",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          document['marketCap'].toString(),
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 20,
+                          ),
+                        ),
+                        /*
                         ButtonTheme(
                           child: ButtonBar(
                             children: <Widget>[
                               Wrap(
                                 children: <Widget>[
                                   SizedBox.fromSize(
-                                    size: const Size.fromRadius(24),
+                                    size: const Size.fromRadius(14),
                                     child: Image.asset(
-                                      'assets/images/52.png',
+                                      'assets/images/0.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -77,7 +120,8 @@ class ShowCompany extends ConsumerWidget {
                               ),
                             ],
                           ),
-                        ),
+                        ), 
+                        */
                       ],
                     ),
                   ),
