@@ -27,7 +27,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
-  String returnURL = 'return.example.com';
+  String returnURL = 'https://aktientool.net/';
   String cancelURL = 'cancel.example.com';
 
   @override
