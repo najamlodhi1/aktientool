@@ -19,7 +19,7 @@ class Start extends ConsumerWidget {
   Future<void> fetchCompanies() async {
     final response = await http.get(
       Uri.parse(
-        'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=100000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
+        'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=100000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
       ),
     );
 
@@ -27,6 +27,8 @@ class Start extends ConsumerWidget {
       final extractedData = json.decode(response.body);
       extractedData.forEach(
         (data) async {
+          //await Future.delayed(const Duration(seconds: 1));
+
           await FirebaseFirestore.instance
               .collection('company')
               .doc(data['symbol'])
@@ -54,7 +56,7 @@ class Start extends ConsumerWidget {
         },
       );
       if (kDebugMode) {
-        //print(response.body.length);
+        print(response.body.length);
       }
     } else {
       throw Exception('Failed to load company');
