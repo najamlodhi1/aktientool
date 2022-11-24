@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../authentication/services/auth_service.dart';
 import '../payment/paypal_payment.dart';
 import '../start.dart';
@@ -79,7 +78,7 @@ class _SearchfieldState extends State<SearchArea> {
                           onFinish: (number) async {
                             // Payment Done
                             if (kDebugMode) {
-                              print('order id: '+number);
+                              print('order id: ' + number);
                             }
                           },
                         ),
