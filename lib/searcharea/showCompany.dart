@@ -44,7 +44,7 @@ class ShowCompany extends ConsumerWidget {
               children: [
                 SizedBox(
                   width: 180,
-                  height: 120,
+                  height: 180,
                   child: Card(
                     semanticContainer: true,
                     clipBehavior: Clip.antiAliasWithSaveLayer,

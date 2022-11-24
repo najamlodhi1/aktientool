@@ -30,26 +30,26 @@ class Home extends ConsumerWidget {
             .collection('company')
             .doc(data['symbol'])
             .set(
-          Company(
-            symbol: data['symbol'],
-            companyName: data['companyName'],
-            marketCap: data['marketCap'],
-            sector: data['sector'],
-            industry: data['industry'],
-            beta: data['beta'],
-            price: data['price'],
-            lastAnnualDividend: data['lastAnnualDividend'],
-            volume: data['volume'],
-            exchange: data['exchange'],
-            exchangeShortName: data['exchangeShortName'],
-            country: data['country'],
-            isEtf: data['isEtf'],
-            isActivelyTrading: data['isActivelyTrading'],
-          ).toMap(),
-          SetOptions(
-            merge: true,
-          ),
-        );
+              Company(
+                symbol: data['symbol'],
+                companyName: data['companyName'],
+                marketCap: data['marketCap'],
+                sector: data['sector'],
+                industry: data['industry'],
+                //beta: data['beta'],
+                price: data['price'],
+                lastAnnualDividend: data['lastAnnualDividend'],
+                //volume: data['volume'],
+                //exchange: data['exchange'],
+                exchangeShortName: data['exchangeShortName'],
+                country: data['country'],
+                isEtf: data['isEtf'],
+                //isActivelyTrading: data['isActivelyTrading'],
+              ).toMap(),
+              SetOptions(
+                merge: true,
+              ),
+            );
       });
       if (kDebugMode) {
         print(response.body.length);

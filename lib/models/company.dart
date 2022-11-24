@@ -4,15 +4,15 @@ class Company {
   double? marketCap;
   String? sector;
   String? industry;
-  double? beta;
+  //double? beta;
   double? price;
   double? lastAnnualDividend;
-  int? volume;
-  String? exchange;
+  //int? volume;
+  //String? exchange;
   String? exchangeShortName;
   String? country;
   bool? isEtf;
-  bool? isActivelyTrading;
+  //bool? isActivelyTrading;
 
   Company({
     this.symbol,
@@ -20,15 +20,15 @@ class Company {
     this.marketCap,
     this.sector,
     this.industry,
-    this.beta,
+    //this.beta,
     this.price,
     this.lastAnnualDividend,
-    this.volume,
-    this.exchange,
+    //this.volume,
+    //this.exchange,
     this.exchangeShortName,
     this.country,
     this.isEtf,
-    this.isActivelyTrading,
+    //this.isActivelyTrading,
   });
 
   Company.fromJson(Map<String, dynamic> json) {
@@ -37,15 +37,15 @@ class Company {
     marketCap = json['marketCap'];
     sector = json['sector'];
     industry = json['industry'];
-    beta = json['beta'];
+    //beta = json['beta'];
     price = json['price'];
     lastAnnualDividend = json['lastAnnualDividend'];
-    volume = json['volume'];
-    exchange = json['exchange'];
+    //volume = json['volume'];
+    //exchange = json['exchange'];
     exchangeShortName = json['exchangeShortName'];
     country = json['country'];
     isEtf = json['isEtf'];
-    isActivelyTrading = json['isActivelyTrading'];
+    //isActivelyTrading = json['isActivelyTrading'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,15 +55,15 @@ class Company {
     data['marketCap'] = marketCap;
     data['sector'] = sector;
     data['industry'] = industry;
-    data['beta'] = beta;
+    //data['beta'] = beta;
     data['price'] = price;
     data['lastAnnualDividend'] = lastAnnualDividend;
-    data['volume'] = volume;
-    data['exchange'] = exchange;
+    //data['volume'] = volume;
+    //data['exchange'] = exchange;
     data['exchangeShortName'] = exchangeShortName;
     data['country'] = country;
     data['isEtf'] = isEtf;
-    data['isActivelyTrading'] = isActivelyTrading;
+    //data['isActivelyTrading'] = isActivelyTrading;
     return data;
   }
 
@@ -74,15 +74,15 @@ class Company {
       'marketCap': marketCap,
       'sector': sector,
       'industry': industry,
-      'beta': beta,
+      //'beta': beta,
       'price': price,
       'lastAnnualDividend': lastAnnualDividend,
-      'volume': volume,
-      'exchange': exchange,
+      //'volume': volume,
+      //'exchange': exchange,
       'exchangeShortName': exchangeShortName,
       'country': country,
       'isEtf': isEtf,
-      'isActivelyTrading': isActivelyTrading,
+      //'isActivelyTrading': isActivelyTrading,
     };
   }
 }
