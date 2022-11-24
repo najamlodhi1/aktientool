@@ -35,7 +35,7 @@ class Country extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage("assets/images/land.gif"),
+                  image: AssetImage("assets/images/land.png"),
                   fit: BoxFit.fill),
             ),
           ),
