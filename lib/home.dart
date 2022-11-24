@@ -25,34 +25,36 @@ class Home extends ConsumerWidget {
 
     if (response.statusCode == 200) {
       final extractedData = json.decode(response.body);
-      extractedData.forEach((data) async {
-        await FirebaseFirestore.instance
-            .collection('company')
-            .doc(data['symbol'])
-            .set(
-              Company(
-                symbol: data['symbol'],
-                companyName: data['companyName'],
-                marketCap: data['marketCap'],
-                sector: data['sector'],
-                industry: data['industry'],
-                //beta: data['beta'],
-                price: data['price'],
-                lastAnnualDividend: data['lastAnnualDividend'],
-                //volume: data['volume'],
-                //exchange: data['exchange'],
-                exchangeShortName: data['exchangeShortName'],
-                country: data['country'],
-                isEtf: data['isEtf'],
-                //isActivelyTrading: data['isActivelyTrading'],
-              ).toMap(),
-              SetOptions(
-                merge: true,
-              ),
-            );
-      });
+      extractedData.forEach(
+        (data) async {
+          await FirebaseFirestore.instance
+              .collection('company')
+              .doc(data['symbol'])
+              .set(
+                Company(
+                  symbol: data['symbol'],
+                  companyName: data['companyName'],
+                  marketCap: data['marketCap'],
+                  sector: data['sector'],
+                  industry: data['industry'],
+                  //beta: data['beta'],
+                  price: data['price'],
+                  lastAnnualDividend: data['lastAnnualDividend'],
+                  //volume: data['volume'],
+                  //exchange: data['exchange'],
+                  exchangeShortName: data['exchangeShortName'],
+                  country: data['country'],
+                  isEtf: data['isEtf'],
+                  //isActivelyTrading: data['isActivelyTrading'],
+                ).toMap(),
+                SetOptions(
+                  merge: true,
+                ),
+              );
+        },
+      );
       if (kDebugMode) {
-        print(response.body.length);
+        //print(response.body.length);
       }
     } else {
       throw Exception('Failed to load company');

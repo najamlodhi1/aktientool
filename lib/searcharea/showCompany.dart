@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'marketcap.dart';
@@ -34,6 +35,10 @@ class ShowCompany extends ConsumerWidget {
           return const Center(
             child: CircularProgressIndicator(),
           );
+        }
+
+        if (kDebugMode) {
+          print(snapshot.data!.docs.length);
         }
 
         return Wrap(
