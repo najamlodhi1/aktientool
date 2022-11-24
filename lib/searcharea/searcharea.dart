@@ -26,7 +26,7 @@ class _SearchfieldState extends State<SearchArea> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 49, 49, 49),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       title: customSearchBar,
       automaticallyImplyLeading: false,
       actions: [

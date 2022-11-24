@@ -49,7 +49,7 @@ class ShowCompany extends ConsumerWidget {
               children: [
                 SizedBox(
                   width: 180,
-                  height: 180,
+                  height: 200,
                   child: Card(
                     semanticContainer: true,
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -60,6 +60,9 @@ class ShowCompany extends ConsumerWidget {
                     child: Column(
                       //mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
+                        const SizedBox(
+                          height: 2,
+                        ),
                         Text(
                           document['companyName'],
                           style: const TextStyle(
@@ -105,6 +108,13 @@ class ShowCompany extends ConsumerWidget {
                           document['marketCap'].toString(),
                           style: const TextStyle(
                             color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          "${document['price']} Dollar",
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 20,
                           ),
                         ),
