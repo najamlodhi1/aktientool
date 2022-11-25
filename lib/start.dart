@@ -55,7 +55,7 @@ class Start extends ConsumerWidget {
 
                 final response = await http.get(
                   Uri.parse(
-                    'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=100000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
+                    'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
                   ),
                 );
 
