@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:aktientool/services/app_services.dart';
 import 'package:aktientool/startseite/footer.dart';
 import 'package:aktientool/startseite/geld.dart';
 import 'package:aktientool/startseite/header.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/cookie.dart';
+import 'package:http/http.dart' as http;
 
 final cookieProvider = StateProvider((ref) => false);
 
@@ -45,10 +49,10 @@ class Start extends ConsumerWidget {
             ),
             TextButton(
               onPressed: () async {
-                await appServices.fetchIncome('ABB');
+                //await appServices.fetchIncome('ABB');
 
                 ///The real method
-                /*
+
                 final response = await http.get(
                   Uri.parse(
                     'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=100000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
@@ -68,7 +72,6 @@ class Start extends ConsumerWidget {
                 } else {
                   throw Exception('Failed to load company');
                 }
-                 */
               },
               child: const Text(
                 "Income",
