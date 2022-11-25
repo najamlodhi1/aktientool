@@ -101,7 +101,7 @@ class _SearchfieldState extends State<SearchArea> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           fullscreenDialog: true,
-                          builder: (context) => const Start(),
+                          builder: (context) => Start(),
                         ),
                       );
                     }).catchError((error) {
@@ -127,7 +127,7 @@ class _SearchfieldState extends State<SearchArea> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           fullscreenDialog: true,
-                          builder: (context) => const Start(),
+                          builder: (context) => Start(),
                         ),
                       );
                     }).catchError((error) {

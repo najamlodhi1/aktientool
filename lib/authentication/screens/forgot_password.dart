@@ -39,7 +39,7 @@ class ForgotPassword extends StatelessWidget {
                 if (status == AuthStatus.successful) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const Start(),
+                      builder: (context) => Start(),
                     ),
                   );
                 }

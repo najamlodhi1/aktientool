@@ -1,67 +1,17 @@
+import 'package:aktientool/services/app_services.dart';
 import 'package:aktientool/startseite/footer.dart';
 import 'package:aktientool/startseite/geld.dart';
 import 'package:aktientool/startseite/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/cookie.dart';
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import 'models/company.dart';
-import 'package:http/http.dart' as http;
 
 final cookieProvider = StateProvider((ref) => false);
 
 class Start extends ConsumerWidget {
-  const Start({super.key});
+  Start({super.key});
 
-  Future<void> fetchCompanies() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=100000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
-      ),
-    );
-
-    if (response.statusCode == 200) {
-      final extractedData = json.decode(response.body);
-      extractedData.forEach(
-        (data) async {
-          //await Future.delayed(const Duration(seconds: 1));
-
-          await FirebaseFirestore.instance
-              .collection('company')
-              .doc(data['symbol'])
-              .set(
-                Company(
-                  symbol: data['symbol'],
-                  companyName: data['companyName'],
-                  marketCap: data['marketCap'],
-                  sector: data['sector'],
-                  industry: data['industry'],
-                  //beta: data['beta'],
-                  price: data['price'],
-                  lastAnnualDividend: data['lastAnnualDividend'],
-                  //volume: data['volume'],
-                  //exchange: data['exchange'],
-                  exchangeShortName: data['exchangeShortName'],
-                  country: data['country'],
-                  isEtf: data['isEtf'],
-                  //isActivelyTrading: data['isActivelyTrading'],
-                ).toMap(),
-                SetOptions(
-                  merge: true,
-                ),
-              );
-        },
-      );
-      if (kDebugMode) {
-        print(response.body.length);
-      }
-    } else {
-      throw Exception('Failed to load company');
-    }
-  }
+  final AppServices appServices = AppServices();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,7 +34,7 @@ class Start extends ConsumerWidget {
             const Footer(),
             TextButton(
               onPressed: () async {
-                await fetchCompanies();
+                await appServices.fetchCompanies();
               },
               child: const Text(
                 "Company",
@@ -95,7 +45,30 @@ class Start extends ConsumerWidget {
             ),
             TextButton(
               onPressed: () async {
-                //await fetchIncome();
+                await appServices.fetchIncome('ABB');
+
+                ///The real method
+                /*
+                final response = await http.get(
+                  Uri.parse(
+                    'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=100000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
+                  ),
+                );
+
+                if (response.statusCode == 200) {
+                  final extractedData = json.decode(response.body);
+                  extractedData.forEach(
+                    (data) async {
+                      await appServices.fetchIncome(data["symbol"]);
+                    },
+                  );
+                  if (kDebugMode) {
+                    print(response.body.length);
+                  }
+                } else {
+                  throw Exception('Failed to load company');
+                }
+                 */
               },
               child: const Text(
                 "Income",

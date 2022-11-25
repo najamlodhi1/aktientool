@@ -28,7 +28,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Start(),
+      home: Start(),
     );
   }
 }

@@ -71,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Start(),
+                      builder: (context) => Start(),
                     ),
                   );
                 }
@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         fullscreenDialog: true,
-                        builder: (context) => const Start(),
+                        builder: (context) => Start(),
                       ),
                     );
                   }
