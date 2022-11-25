@@ -49,7 +49,7 @@ class Feinfilter extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage("assets/images/feinfilter.gif"),
+                  image: AssetImage("assets/images/feinfilter.png"),
                   fit: BoxFit.fill),
             ),
           ),

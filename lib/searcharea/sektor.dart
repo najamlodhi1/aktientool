@@ -36,7 +36,7 @@ class Sektor extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage("assets/images/sektor.gif"),
+                  image: AssetImage("assets/images/sektor.png"),
                   fit: BoxFit.fill),
             ),
           ),

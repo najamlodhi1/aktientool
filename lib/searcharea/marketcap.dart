@@ -36,7 +36,7 @@ class Marketcap extends ConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: const Color.fromARGB(255, 97, 30, 177),
+        color: const Color.fromARGB(255, 11, 196, 144),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
