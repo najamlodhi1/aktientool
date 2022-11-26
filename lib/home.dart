@@ -5,7 +5,7 @@ import 'package:aktientool/searcharea/showCompany.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'searcharea/country.dart';
-import 'searcharea/sektor.dart';
+import 'searcharea/industry.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,8 +24,8 @@ class Home extends ConsumerWidget {
     List<dynamic> generatedCountrieFromList =
         ref.watch(sp_generatedCountrieFromList);
     // ignore: unused_local_variable
-    List<dynamic> generatedSektorFromList =
-        ref.watch(sp_generatedSektorFromList);
+    List<dynamic> generatedIndustryFromList =
+        ref.watch(sp_generatedIndustryFromList);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -36,7 +36,7 @@ class Home extends ConsumerWidget {
             children: [
               Marketcap(),
               const Country(),
-              Sektor(),
+              Industry(),
               Feinfilter(),
               const ShowCompany(),
             ],
