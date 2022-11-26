@@ -64,6 +64,7 @@ class _ShowCompanyState extends State<ShowCompany> {
           return Wrap(
             children: snapshot.data!
                 .where((element) => element.marketcap! >= widget.marketCap!)
+                .where((element) => element.country == 'US')
                 .map((e) {
               return Wrap(
                 children: [
