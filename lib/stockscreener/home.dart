@@ -7,6 +7,7 @@ import '../filter/industry.dart';
 import '../filter/marketcap.dart';
 import '../filter/searcharea.dart';
 import '../filter/showCompany.dart';
+import '../filter/test.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -36,9 +37,9 @@ class Home extends ConsumerWidget {
           child: Wrap(
             children: [
               Marketcap(),
-              const Country(),
-              Industry(),
-              //Industry_Country(),
+              //const Country(),
+              //Industry(),
+              Filter2(),
               Feinfilter(),
               ShowCompany(
                 marketCap: marketcap,

@@ -32,5 +32,3 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
-
-//https://www.youtube.com/watch?v=2EV5w73QbF4
