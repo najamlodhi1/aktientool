@@ -1,11 +1,12 @@
-import 'package:aktientool/searcharea/feinfilter.dart';
-import 'package:aktientool/searcharea/marketcap.dart';
-import 'package:aktientool/searcharea/searcharea.dart';
-import 'package:aktientool/searcharea/showCompany.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'searcharea/country.dart';
-import 'searcharea/industry.dart';
+
+import '../filter/country.dart';
+import '../filter/feinfilter.dart';
+import '../filter/industry.dart';
+import '../filter/marketcap.dart';
+import '../filter/searcharea.dart';
+import '../filter/showCompany.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class Home extends ConsumerWidget {
               Marketcap(),
               const Country(),
               Industry(),
+              //Industry_Country(),
               Feinfilter(),
               ShowCompany(
                 marketCap: marketcap,

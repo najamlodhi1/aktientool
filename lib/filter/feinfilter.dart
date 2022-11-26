@@ -135,7 +135,8 @@ class IndustrySelect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var generatedIndustryFromList = ref.watch(sp_generatedIndustryFromFeinFilter);
+    var generatedIndustryFromList =
+        ref.watch(sp_generatedIndustryFromFeinFilter);
 
     if (generatedIndustryFromList.toString() == "[]") {
       generatedIndustryFromList = List.generate(

@@ -43,11 +43,11 @@ class Marketcap extends ConsumerWidget {
             ListTile(
               title: const Text("Marketcap:",
                   style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 16)),
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 22)),
               subtitle: Text(textMarketcap.toString(),
                   style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold)),
             ),
             // ignore: avoid_unnecessary_containers
@@ -102,68 +102,3 @@ class Marketcap extends ConsumerWidget {
     );
   }
 }
-
-
-
-/**
-
- Container(
-                decoration: const BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    offset: Offset(-20, 20),
-                    color: Colors.red,
-                    blurRadius: 15,
-                    spreadRadius: -10,
-                  ),
-                  BoxShadow(
-                    offset: Offset(-20, -20),
-                    color: Colors.orange,
-                    blurRadius: 15,
-                    spreadRadius: -10,
-                  ),
-                  BoxShadow(
-                    offset: Offset(20, -20),
-                    color: Colors.blue,
-                    blurRadius: 15,
-                    spreadRadius: -10,
-                  ),
-                  BoxShadow(
-                    offset: Offset(20, 20),
-                    color: Colors.deepPurple,
-                    blurRadius: 15,
-                    spreadRadius: -10,
-                  )
-                ]),
-                child: Container(
-                  width: 180,
-                  height: 120,
-                  color: Colors.black,
-                  child: const Center(
-                      child: Text(
-                    'Text',
-                    style: TextStyle(color: Colors.white, fontSize: 40),
-                  )),
-                ),
-              ),
-              Container(
-                height: 200.0,
-                width: 200.0,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 25.0, // soften the shadow
-                      spreadRadius: 25.0, //extend the shadow
-                      offset: Offset(
-                        5.0, // Move to right 5  horizontally
-                        5.0, // Move to bottom 5 Vertically
-                      ),
-                    )
-                  ],
-                ),
-                child: const Text("Hello world"),
-              ), 
- 
-
- */
