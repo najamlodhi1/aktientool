@@ -31,7 +31,7 @@ class ShowCompany extends StatefulWidget {
 class _ShowCompanyState extends State<ShowCompany> {
   List<CompanyModel> companies = [];
 
-  Future<void> fetchCompanies() async {
+  Future<List<CompanyModel>> fetchCompanies() async {
     final response = await http.get(
       Uri.parse(
         'https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?offset=50',
@@ -44,33 +44,12 @@ class _ShowCompanyState extends State<ShowCompany> {
     );
 
     if (response.statusCode == 200) {
-      final extractedData = json.decode(shortenResponse);
-      extractedData.forEach(
-        (data) async {
-          setState(
-            () {
-              companies.add(
-                CompanyModel(
-                  symbol: data['symbol'] ?? '',
-                  companyname: data['companyname'] ?? '',
-                  marketcap: data['marketcap'] ?? '',
-                  sector: data['sector'] ?? '',
-                  industry: data['industry'] ?? '',
-                  beta: data['beta'] ?? '',
-                  price: data['price'] ?? '',
-                  lastannualdividend: data['lastannualdividend'] ?? '',
-                  volume: data['volume'] ?? '',
-                  exchange: data['exchange'] ?? '',
-                  exchangeshortname: data['exchangeshortname'] ?? '',
-                  country: data['country'] ?? '',
-                  isetf: data['isetf'] ?? '',
-                  isactivelytrading: data['isactivelytrading'] ?? '',
-                ),
-              );
-            },
-          );
-        },
-      );
+      final List extractedData = json.decode(shortenResponse);
+      return extractedData
+          .map(
+            (company) => CompanyModel.fromJson(company),
+          )
+          .toList();
     } else {
       throw Exception('Failed to load');
     }
@@ -78,98 +57,99 @@ class _ShowCompanyState extends State<ShowCompany> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<List<CompanyModel>>(
       future: fetchCompanies(),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text(
-            '${snapshot.error}',
-            style: const TextStyle(color: Colors.red),
-          );
-        }
-        return Wrap(
-          children: companies
-              .where((element) => element.marketcap! >= widget.marketCap!)
-              .where((element) => element.country == 'US')
-              .map(
-                (e) => SizedBox(
-                  width: 180,
-                  height: 200,
-                  child: Card(
-                    semanticContainer: true,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: const Color.fromARGB(255, 54, 244, 193),
-                    child: Column(
-                      //mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Text(
-                          e.companyname!,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 69, 69, 69),
-                            fontSize: 15,
+        if (snapshot.hasData) {
+          return Wrap(
+            children: snapshot.data!
+                .where((element) => element.marketcap! >= widget.marketCap!)
+                .map((e) {
+              return Wrap(
+                children: [
+                  SizedBox(
+                    width: 180,
+                    height: 200,
+                    child: Card(
+                      semanticContainer: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: const Color.fromARGB(255, 54, 244, 193),
+                      child: Column(
+                        //mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 2,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          e.exchangeshortname!,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 69, 69, 69),
-                            fontSize: 12,
+                          Text(
+                            e.companyname!,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 69, 69, 69),
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                        Text(
-                          e.sector!,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 69, 69, 69),
-                            fontSize: 12,
+                          const SizedBox(
+                            height: 5,
                           ),
-                        ),
-                        Text(
-                          e.industry!,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 69, 69, 69),
-                            fontSize: 12,
+                          Text(
+                            e.exchangeshortname!,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 69, 69, 69),
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          "Marketcap:",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 69, 69, 69),
-                            fontSize: 12,
+                          Text(
+                            e.sector!,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 69, 69, 69),
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
-                        Text(
-                          e.marketcap.toString(),
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 69, 69, 69),
-                            fontSize: 20,
+                          Text(
+                            e.industry!,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 69, 69, 69),
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "${e.price} Dollar",
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            fontSize: 20,
+                          const SizedBox(
+                            height: 10,
                           ),
-                        ),
-                      ],
+                          const Text(
+                            "Marketcap:",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 69, 69, 69),
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            e.marketcap.toString(),
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 69, 69, 69),
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "${e.price} Dollar",
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-              .toList(),
-        );
+                ],
+              );
+            }).toList(),
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+        return const CircularProgressIndicator();
       },
     );
   }

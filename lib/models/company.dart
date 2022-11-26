@@ -13,6 +13,7 @@ class CompanyModel {
   String? exchangeshortname;
   String? isactivelytrading;
   double? lastannualdividend;
+
   //String? apexSyncStepStaticId;
   //String? apexRowSyncTimestamp;
 
@@ -36,20 +37,20 @@ class CompanyModel {
   });
 
   CompanyModel.fromJson(Map<String, dynamic> json) {
-    beta = json['beta'];
-    isetf = json['isetf'];
-    price = json['price'];
-    sector = json['sector'];
-    symbol = json['symbol'];
-    volume = json['volume'];
-    country = json['country'];
-    exchange = json['exchange'];
-    industry = json['industry'];
-    marketcap = json['marketcap'];
-    companyname = json['companyname'];
-    exchangeshortname = json['exchangeshortname'];
-    isactivelytrading = json['isactivelytrading'];
-    lastannualdividend = json['lastannualdividend'];
+    beta = json['beta'] ?? "";
+    isetf = json['isetf'] ?? "";
+    price = json['price'] ?? "";
+    sector = json['sector'] ?? "";
+    symbol = json['symbol'] ?? "";
+    volume = json['volume'] ?? "";
+    country = json['country'] ?? "";
+    exchange = json['exchange'] ?? "";
+    industry = json['industry'] ?? "";
+    marketcap = json['marketcap'] ?? "";
+    companyname = json['companyname'] ?? "";
+    exchangeshortname = json['exchangeshortname'] ?? "";
+    isactivelytrading = json['isactivelytrading'] ?? "";
+    lastannualdividend = json['lastannualdividend'] ?? "";
     //apexSyncStepStaticId = json['apex\$sync_step_static_id'] ?? "";
     //apexRowSyncTimestamp = json['apex\$row_sync_timestamp'] ?? "";
   }
@@ -77,22 +78,22 @@ class CompanyModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'symbol': symbol,
-      'companyName': companyname,
-      'marketCap': marketcap,
-      'sector': sector,
-      'industry': industry,
-      'beta': beta,
-      'price': price,
-      'lastAnnualDividend': lastannualdividend,
-      'volume': volume,
-      'exchange': exchange,
-      'exchangeShortName': exchangeshortname,
-      'country': country,
-      'isEtf': isetf,
-      'isActivelyTrading': isactivelytrading,
+      'symbol': symbol ?? "",
+      'companyName': companyname ?? "",
+      'marketCap': marketcap ?? "",
+      'sector': sector ?? "",
+      'industry': industry ?? "",
+      'beta': beta ?? "",
+      'price': price ?? "",
+      'lastAnnualDividend': lastannualdividend ?? "",
+      'volume': volume ?? "",
+      'exchange': exchange ?? "",
+      'exchangeShortName': exchangeshortname ?? "",
+      'country': country ?? "",
+      'isEtf': isetf ?? "",
+      'isActivelyTrading': isactivelytrading ?? "",
       //'apex\$sync_step_static_id': apexRowSyncTimestamp ?? "",
-     // 'apex\$row_sync_timestamp': apexRowSyncTimestamp ?? "",
+      // 'apex\$row_sync_timestamp': apexRowSyncTimestamp ?? "",
     };
   }
 }
