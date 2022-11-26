@@ -38,7 +38,9 @@ class Home extends ConsumerWidget {
               const Country(),
               Sektor(),
               Feinfilter(),
-              const ShowCompany(),
+              ShowCompany(
+                marketCap: marketcap,
+              ),
             ],
           ),
         ),

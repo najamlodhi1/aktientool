@@ -1,9 +1,8 @@
-// ignore_for_file: file_names
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+// ignore_for_file: file_names, must_be_immutable
+import 'dart:convert';
+import 'package:aktientool/models/company.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'marketcap.dart';
+import 'package:http/http.dart' as http;
 
 /*
 final companyStateFuture = FutureProvider(
@@ -18,6 +17,165 @@ final companyStateFuture = FutureProvider(
 );
  */
 
+class ShowCompany extends StatefulWidget {
+  ShowCompany({
+    Key? key,
+    this.marketCap,
+  }) : super(key: key);
+  int? marketCap;
+
+  @override
+  State<ShowCompany> createState() => _ShowCompanyState();
+}
+
+class _ShowCompanyState extends State<ShowCompany> {
+  List<CompanyModel> companies = [];
+
+  Future<void> fetchCompanies() async {
+    final response = await http.get(
+      Uri.parse(
+        'https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?offset=50',
+      ),
+    );
+
+    final shortenResponse = response.body.substring(
+      response.body.indexOf('['),
+      response.body.indexOf(']') + 1,
+    );
+
+    if (response.statusCode == 200) {
+      final extractedData = json.decode(shortenResponse);
+      extractedData.forEach(
+        (data) async {
+          setState(
+            () {
+              companies.add(
+                CompanyModel(
+                  symbol: data['symbol'] ?? '',
+                  companyname: data['companyname'] ?? '',
+                  marketcap: data['marketcap'] ?? '',
+                  sector: data['sector'] ?? '',
+                  industry: data['industry'] ?? '',
+                  beta: data['beta'] ?? '',
+                  price: data['price'] ?? '',
+                  lastannualdividend: data['lastannualdividend'] ?? '',
+                  volume: data['volume'] ?? '',
+                  exchange: data['exchange'] ?? '',
+                  exchangeshortname: data['exchangeshortname'] ?? '',
+                  country: data['country'] ?? '',
+                  isetf: data['isetf'] ?? '',
+                  isactivelytrading: data['isactivelytrading'] ?? '',
+                ),
+              );
+            },
+          );
+        },
+      );
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: fetchCompanies(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text(
+            '${snapshot.error}',
+            style: const TextStyle(color: Colors.red),
+          );
+        }
+        return Wrap(
+          children: companies
+              .where((element) => element.marketcap! >= widget.marketCap!)
+              .where((element) => element.country == 'US')
+              .map(
+                (e) => SizedBox(
+                  width: 180,
+                  height: 200,
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    color: const Color.fromARGB(255, 54, 244, 193),
+                    child: Column(
+                      //mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          e.companyname!,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          e.exchangeshortname!,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          e.sector!,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          e.industry!,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          "Marketcap:",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          e.marketcap.toString(),
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 69, 69, 69),
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          "${e.price} Dollar",
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        );
+      },
+    );
+  }
+}
+
+/*
 class ShowCompany extends ConsumerWidget {
   const ShowCompany({Key? key}) : super(key: key);
 
@@ -25,11 +183,204 @@ class ShowCompany extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     int marketcap = ref.watch(sp_marketcap);
 
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection("company")
-          .where('marketCap', isGreaterThanOrEqualTo: marketcap)
-          .snapshots(),
+    return Wrap(
+      children: companies
+          .map(
+            (e) => SizedBox(
+              width: 180,
+              height: 200,
+              child: Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: const Color.fromARGB(255, 54, 244, 193),
+                child: Column(
+                  //mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      e.companyname!,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69),
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      e.exchangeshortname!,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69),
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      e.sector!,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69),
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      e.industry!,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69),
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Marketcap:",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69),
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      e.marketcap.toString(),
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 69, 69, 69),
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${e.price} Dollar",
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+          .toList(),
+    );
+
+    /*
+    return FutureBuilder<CompanyModel>(
+      future: AppServices().fetchCompanies2(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Wrap(
+            children: [
+              SizedBox(
+                width: 180,
+                height: 200,
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  color: const Color.fromARGB(255, 54, 244, 193),
+                  child: Column(
+                    //mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        snapshot.data!.companyname!,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 69, 69, 69),
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        snapshot.data!.exchangeshortname!,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 69, 69, 69),
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        snapshot.data!.sector!,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 69, 69, 69),
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        snapshot.data!.industry!,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 69, 69, 69),
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        "Marketcap:",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 69, 69, 69),
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        snapshot.data!.marketcap.toString(),
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 69, 69, 69),
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        "${snapshot.data!.price} Dollar",
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 20,
+                        ),
+                      ),
+                      /*
+                        ButtonTheme(
+                          child: ButtonBar(
+                            children: <Widget>[
+                              Wrap(
+                                children: <Widget>[
+                                  SizedBox.fromSize(
+                                    size: const Size.fromRadius(14),
+                                    child: Image.asset(
+                                      'assets/images/0.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        */
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return Text(
+            '${snapshot.error}',
+            style: const TextStyle(color: Colors.red),
+          );
+        }
+
+        // By default, show a loading spinner.
+        return const CircularProgressIndicator();
+      },
+
+      //stream: FirebaseFirestore.instance.collection("company").where('marketCap', isGreaterThanOrEqualTo: marketcap).snapshots(),
+      /*
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -146,6 +497,9 @@ class ShowCompany extends ConsumerWidget {
           }).toList(),
         );
       },
+       */
     );
+     */
   }
 }
+ */
