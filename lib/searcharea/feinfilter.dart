@@ -5,13 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
 
 // ignore: non_constant_identifier_names
-var sp_generatedSektorFromFeinFilter = StateProvider((ref) {
+var sp_generatedIndustryFromFeinFilter = StateProvider((ref) {
   return [];
 });
 
 // ignore: must_be_immutable
 class Feinfilter extends ConsumerWidget {
-  List<Map> generatedSektorFromList = [];
+  List<Map> generatedIndustryFromList = [];
 
   Feinfilter({Key? key}) : super(key: key);
 
@@ -23,7 +23,7 @@ class Feinfilter extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SektorSelect(),
+              builder: (context) => IndustrySelect(),
             ),
           );
         } else {
@@ -60,8 +60,8 @@ class Feinfilter extends ConsumerWidget {
 }
 
 // ignore: must_be_immutable
-class SektorSelect extends ConsumerWidget {
-  List sektor = [
+class IndustrySelect extends ConsumerWidget {
+  List industry = [
     "Alle",
     "Anlagenbau Zulieferer",
     "Autos/Ersatzteile",
@@ -119,7 +119,7 @@ class SektorSelect extends ConsumerWidget {
     "Wasser",
   ];
 
-  SektorSelect({Key? key}) : super(key: key);
+  IndustrySelect({Key? key}) : super(key: key);
 
   checkDevice(context) {
     if (Responsive.isDesktop(context) == true) {
@@ -135,14 +135,14 @@ class SektorSelect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var generatedSektorFromList = ref.watch(sp_generatedSektorFromFeinFilter);
+    var generatedIndustryFromList = ref.watch(sp_generatedIndustryFromFeinFilter);
 
-    if (generatedSektorFromList.toString() == "[]") {
-      generatedSektorFromList = List.generate(
-          sektor.length,
+    if (generatedIndustryFromList.toString() == "[]") {
+      generatedIndustryFromList = List.generate(
+          industry.length,
           (index) => {
                 'id': index,
-                'name': sektor[index].toString(),
+                'name': industry[index].toString(),
                 'isSelected': false,
                 Color: Colors.black,
               });
@@ -154,31 +154,31 @@ class SektorSelect extends ConsumerWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('Sektor auswählen'),
+        title: const Text('Select Industry'),
       ),
       body: GridView.builder(
         itemCount: 39,
         itemBuilder: (ctx, index) {
           return Card(
-              key: ValueKey(generatedSektorFromList[index]['name']),
+              key: ValueKey(generatedIndustryFromList[index]['name']),
               margin: const EdgeInsets.all(11),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
-              color: generatedSektorFromList[index][Color],
+              color: generatedIndustryFromList[index][Color],
               child: ListTile(
                 onTap: () {
-                  generatedSektorFromList[index]['isSelected'] =
-                      !generatedSektorFromList[index]['isSelected'];
+                  generatedIndustryFromList[index]['isSelected'] =
+                      !generatedIndustryFromList[index]['isSelected'];
 
-                  if (generatedSektorFromList[index]['isSelected'] == true) {
-                    generatedSektorFromList[index][Color] = Colors.grey;
+                  if (generatedIndustryFromList[index]['isSelected'] == true) {
+                    generatedIndustryFromList[index][Color] = Colors.grey;
                   }
-                  if (generatedSektorFromList[index]['isSelected'] == false) {
-                    generatedSektorFromList[index][Color] = Colors.black;
+                  if (generatedIndustryFromList[index]['isSelected'] == false) {
+                    generatedIndustryFromList[index][Color] = Colors.black;
                   }
 
-                  ref.refresh(sp_generatedSektorFromFeinFilter.state).state =
-                      generatedSektorFromList;
+                  ref.refresh(sp_generatedIndustryFromFeinFilter.state).state =
+                      generatedIndustryFromList;
                 },
                 leading: ClipRRect(
                   //borderRadius: BorderRadius.circular(20), // Image border
@@ -192,7 +192,7 @@ class SektorSelect extends ConsumerWidget {
                   ),
                 ),
                 title: Text(
-                  generatedSektorFromList[index]['name'],
+                  generatedIndustryFromList[index]['name'],
                   style: const TextStyle(fontSize: 12, color: Colors.white),
                 ),
               ));
