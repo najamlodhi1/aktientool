@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
 final sp_marketcap = StateProvider((ref) {
-  return 50000000;
+  return 100000000000;
 });
 
 // ignore: non_constant_identifier_names
@@ -17,10 +17,10 @@ class Marketcap extends ConsumerWidget {
   var icon = Icons.search;
 
   final List<int> _marketcap = [
-    1000000,
-    10000000,
-    25000000,
-    50000000,
+    1000000000,
+    10000000000,
+    100000000000,
+    1000000000000,
   ];
 
   Marketcap({Key? key}) : super(key: key);
@@ -61,22 +61,22 @@ class Marketcap extends ConsumerWidget {
                   Text(">1",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold)),
                   Text(">10",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold)),
-                  Text(">25",
+                  Text(">100",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold)),
-                  Text(">50",
+                  Text(">1000",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold)),
                 ],
                 isSelected: isSelected,
@@ -84,7 +84,6 @@ class Marketcap extends ConsumerWidget {
                   for (int i = 0; i < isSelected.length; i++) {
                     // ignore: avoid_print
                     print(isSelected.toString());
-
                     isSelected[i] = i == index;
                     ref.read(sp_marketcap.state).state = _marketcap[index];
                   }
