@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'package:aktientool/home.dart';
+import 'package:aktientool/stockscreener/home.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
-class Geld extends StatelessWidget {
-  const Geld({super.key});
+class Body extends StatelessWidget {
+  const Body({super.key});
 
   Widget buildPopupDialog(BuildContext context) {
     return AlertDialog(

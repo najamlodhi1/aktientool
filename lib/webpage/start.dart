@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:aktientool/services/app_services.dart';
-import 'package:aktientool/startseite/footer.dart';
-import 'package:aktientool/startseite/geld.dart';
-import 'package:aktientool/startseite/header.dart';
+import 'package:aktientool/webpage/body.dart';
+import 'package:aktientool/webpage/footer.dart';
+import 'package:aktientool/webpage/header.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,7 +34,7 @@ class Start extends ConsumerWidget {
         child: Wrap(
           alignment: WrapAlignment.center,
           children: <Widget>[
-            const Geld(),
+            const Body(),
             const Footer(),
             TextButton(
               onPressed: () async {

@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import '../../start.dart';
+
+import '../../webpage/start.dart';
 import '../services/auth_service.dart';
 import '../services/auth_status.dart';
 

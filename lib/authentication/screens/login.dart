@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
 import 'package:aktientool/authentication/screens/forgot_password.dart';
-import 'package:aktientool/start.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../webpage/start.dart';
 import '../services/auth_service.dart';
 import 'create_account.dart';
 
