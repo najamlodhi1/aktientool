@@ -1,11 +1,205 @@
 // ignore_for_file: file_names, must_be_immutable
 import 'dart:convert';
-import 'dart:math';
+import 'package:aktientool/filter/test.dart';
 import 'package:aktientool/models/company.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'feinfilter.dart';
+import 'marketcap.dart';
+
+class ShowCompany extends StatefulWidget {
+  ShowCompany({
+    Key? key,
+    this.marketCap,
+  }) : super(key: key);
+  int? marketCap;
+
+  @override
+  State<ShowCompany> createState() => _ShowCompanyState();
+}
+
+class _ShowCompanyState extends State<ShowCompany> {
+  final ScrollController _scrollController = ScrollController();
+  List<CompanyModel> companies = [];
+  bool isLoading = true;
+  int offset = 0;
+
+  loadOffset() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      offset = (prefs.getInt('offset') ?? 0);
+    });
+  }
+
+  incrementOffset() async {}
+
+  void _scrollListener() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {
+        isLoading = true;
+        if (isLoading) {
+          setState(() {
+            offset += 50;
+            prefs.setInt('offset', offset);
+            getCompanyList(offset);
+          });
+        }
+      });
+    }
+  }
+
+  Future<List<CompanyModel>> getCompanyList(int? offset) async {
+    final response = await http.get(
+      Uri.parse(
+        'https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?offset=$offset',
+      ),
+    );
+    final shortenResponse = response.body.substring(
+      response.body.indexOf('['),
+      response.body.indexOf(']') + 1,
+    );
+
+    final List resultBody = jsonDecode(shortenResponse);
+    companies.addAll(resultBody.map((c) => CompanyModel.fromJson(c)));
+    return companies;
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    loadOffset();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getCompanyList(offset),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return SingleChildScrollView(
+            controller: _scrollController,
+            child: Wrap(
+              children: [
+                Marketcap(),
+                Filter2(),
+                Feinfilter(),
+                GridView.builder(
+                  primary: true,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 6,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      width: 180,
+                      height: 200,
+                      child: Card(
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        color: const Color.fromARGB(255, 54, 244, 193),
+                        child: Column(
+                          //mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              snapshot.data![index].companyname!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              snapshot.data![index].exchangeshortname!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              snapshot.data![index].sector!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              snapshot.data![index].industry!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "Marketcap:",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              snapshot.data![index].marketcap.toString(),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              "${snapshot.data![index].price} Dollar",
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('There was an error, Please try again'),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+}
+
+/*
 class ItemFetcher {
   final _itemsPerPage = 10;
   int _currentPage = 0;
@@ -93,18 +287,17 @@ class _ShowCompanyState extends State<ShowCompany> {
         mainAxisSpacing: 10.0,
       ),
       shrinkWrap: true,
-      // Need to display a loading tile if more items are coming
       itemCount: _hasMore
           ? companies
-                  .where((c) => c.marketcap! >= widget.marketCap!)
-                  .where((c) => c.country == 'US')
-                  .toList()
+                  //.where((c) => c.marketcap! >= widget.marketCap!)
+                  //.where((c) => c.country == 'US')
+                  //.toList()
                   .length +
               1
           : companies
-              .where((c) => c.marketcap! >= widget.marketCap!)
-              .where((c) => c.country == 'US')
-              .toList()
+              //.where((c) => c.marketcap! >= widget.marketCap!)
+              //.where((c) => c.country == 'US')
+              //.toList()
               .length,
       itemBuilder: (BuildContext context, int index) {
         if (index >= companies.length) {
@@ -198,3 +391,4 @@ class _ShowCompanyState extends State<ShowCompany> {
     );
   }
 }
+ */

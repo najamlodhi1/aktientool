@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../filter/country.dart';
-import '../filter/feinfilter.dart';
 import '../filter/industry.dart';
 import '../filter/marketcap.dart';
 import '../filter/searcharea.dart';
 import '../filter/showCompany.dart';
-import '../filter/test.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -32,21 +30,8 @@ class Home extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: SearchArea(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Wrap(
-            children: [
-              Marketcap(),
-              //const Country(),
-              //Industry(),
-              Filter2(),
-              Feinfilter(),
-              ShowCompany(
-                marketCap: marketcap,
-              ),
-            ],
-          ),
-        ),
+      body: ShowCompany(
+        marketCap: marketcap,
       ),
     );
   }
