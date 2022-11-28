@@ -66,7 +66,10 @@ class _ShowCompanyState extends State<ShowCompany> {
 
     final List resultBody = jsonDecode(shortenResponse);
     companies.addAll(resultBody.map((c) => CompanyModel.fromJson(c)));
-    return companies;
+    return companies
+        .where((c) => c.marketcap! >= widget.marketCap!)
+        .where((c) => c.country == 'US')
+        .toList();
   }
 
   @override
@@ -84,13 +87,13 @@ class _ShowCompanyState extends State<ShowCompany> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getCompanyList(offset),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return SingleChildScrollView(
-            controller: _scrollController,
-            child: Wrap(
+    return SingleChildScrollView(
+      controller: _scrollController,
+      child: FutureBuilder(
+        future: getCompanyList(offset),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Wrap(
               children: [
                 Marketcap(),
                 Filter2(),
@@ -99,8 +102,9 @@ class _ShowCompanyState extends State<ShowCompany> {
                   primary: true,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 6,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width > 700 ? 6 : 2,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                   ),
@@ -183,18 +187,18 @@ class _ShowCompanyState extends State<ShowCompany> {
                   },
                 ),
               ],
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return const Center(
-            child: Text('There was an error, Please try again'),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('There was an error, Please try again'),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }

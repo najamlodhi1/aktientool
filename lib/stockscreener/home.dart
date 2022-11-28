@@ -30,8 +30,10 @@ class Home extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: SearchArea(),
-      body: ShowCompany(
-        marketCap: marketcap,
+      body: SafeArea(
+        child: ShowCompany(
+          marketCap: marketcap,
+        ),
       ),
     );
   }
