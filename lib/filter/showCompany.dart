@@ -75,6 +75,10 @@ class _ShowCompanyState extends State<ShowCompany> {
     List<String> countryNames = [];
     List<String> industryNames = [];
 
+    var seen = <String>{};
+    List<CompanyModel> uniqueList =
+        companies.where((company) => seen.add(company.companyname!)).toList();
+
     for (dynamic country
         in widget.countries!.where((e) => e['isSelected'] == true)) {
       countryNames.add(country['name']);
@@ -86,25 +90,25 @@ class _ShowCompanyState extends State<ShowCompany> {
     }
 
     if (countryNames.isEmpty && industryNames.isEmpty) {
-      return companies.where((c) => c.marketcap! >= widget.marketCap!).toList();
+      return uniqueList.where((c) => c.marketcap! >= widget.marketCap!).toList();
     } else if (countryNames.isEmpty && industryNames.isNotEmpty) {
-      return companies
+      return uniqueList
           .where((c) => c.marketcap! >= widget.marketCap!)
           .where((c) => industryNames.contains(c.industry))
           .toList();
     } else if (countryNames.isNotEmpty && industryNames.isEmpty) {
-      return companies
+      return uniqueList
           .where((c) => c.marketcap! >= widget.marketCap!)
           .where((c) => countryNames.contains(c.country))
           .toList();
     } else if (countryNames.isNotEmpty && industryNames.isNotEmpty) {
-      return companies
+      return uniqueList
           .where((c) => c.marketcap! >= widget.marketCap!)
           .where((c) => countryNames.contains(c.country))
           .where((c) => industryNames.contains(c.industry))
           .toList();
     } else {
-      return companies.where((c) => c.marketcap! >= widget.marketCap!).toList();
+      return uniqueList.where((c) => c.marketcap! >= widget.marketCap!).toList();
     }
   }
 
