@@ -33,6 +33,8 @@ class Home extends ConsumerWidget {
       body: SafeArea(
         child: ShowCompany(
           marketCap: marketcap,
+          countries: generatedCountrieFromList,
+          industries: generatedIndustryFromList,
         ),
       ),
     );

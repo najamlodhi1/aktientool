@@ -130,16 +130,15 @@ class CountrySelect extends ConsumerWidget {
 
     if (generatedCountrieFromList.toString() == "[]") {
       generatedCountrieFromList = List.generate(
-          country.length,
-          (index) => {
-                'id': index,
-                'name': country[index].toString(),
-                'isSelected': false,
-                Color: Colors.black,
-              });
+        country.length,
+        (index) => {
+          'id': index,
+          'name': country[index].toString(),
+          'isSelected': false,
+          Color: Colors.black,
+        },
+      );
     }
-
-    //print(generatedCountrieFromList.toString());
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -151,42 +150,44 @@ class CountrySelect extends ConsumerWidget {
         itemCount: 39,
         itemBuilder: (ctx, index) {
           return Card(
-              key: ValueKey(generatedCountrieFromList[index]['name']),
-              margin: const EdgeInsets.all(11),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              color: generatedCountrieFromList[index][Color],
-              child: ListTile(
-                onTap: () {
-                  generatedCountrieFromList[index]['isSelected'] =
-                      !generatedCountrieFromList[index]['isSelected'];
+            key: ValueKey(generatedCountrieFromList[index]['name']),
+            margin: const EdgeInsets.all(11),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            color: generatedCountrieFromList[index][Color],
+            child: ListTile(
+              onTap: () {
+                generatedCountrieFromList[index]['isSelected'] =
+                    !generatedCountrieFromList[index]['isSelected'];
 
-                  if (generatedCountrieFromList[index]['isSelected'] == true) {
-                    generatedCountrieFromList[index][Color] = Colors.grey;
-                  }
-                  if (generatedCountrieFromList[index]['isSelected'] == false) {
-                    generatedCountrieFromList[index][Color] = Colors.black;
-                  }
+                if (generatedCountrieFromList[index]['isSelected'] == true) {
+                  generatedCountrieFromList[index][Color] = Colors.grey;
+                }
+                if (generatedCountrieFromList[index]['isSelected'] == false) {
+                  generatedCountrieFromList[index][Color] = Colors.black;
+                }
 
-                  ref.refresh(sp_generatedCountrieFromList.state).state =
-                      generatedCountrieFromList;
-                },
-                leading: ClipRRect(
-                  //borderRadius: BorderRadius.circular(20), // Image border
-                  child: SizedBox.fromSize(
-                    size: const Size.fromRadius(20),
-                    child: Image.asset(
-                      // imageList[index]
-                      'assets/images/$index.png',
-                      fit: BoxFit.cover,
-                    ),
+                ref.refresh(sp_generatedCountrieFromList.state).state =
+                    generatedCountrieFromList;
+              },
+              leading: ClipRRect(
+                //borderRadius: BorderRadius.circular(20), // Image border
+                child: SizedBox.fromSize(
+                  size: const Size.fromRadius(20),
+                  child: Image.asset(
+                    // imageList[index]
+                    'assets/images/$index.png',
+                    fit: BoxFit.cover,
                   ),
                 ),
-                title: Text(
-                  generatedCountrieFromList[index]['name'],
-                  style: const TextStyle(fontSize: 12, color: Colors.white),
-                ),
-              ));
+              ),
+              title: Text(
+                generatedCountrieFromList[index]['name'],
+                style: const TextStyle(fontSize: 12, color: Colors.white),
+              ),
+            ),
+          );
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: checkDevice(context),

@@ -45,42 +45,54 @@ class Filter2 extends ConsumerWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CountrySelect()),
+                MaterialPageRoute(
+                  builder: (context) => CountrySelect(),
+                ),
               );
             },
-            child: Column(children: [
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 11, 196, 144)),
-                  child: const Center(
-                      child: Text("Country",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ))),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => IndustrySelect()),
-                    );
-                  },
+            child: Column(
+              children: [
+                Expanded(
                   child: Container(
                     width: double.infinity,
-                    decoration: const BoxDecoration(color: Colors.white),
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 11, 196, 144)),
                     child: const Center(
-                        child: Text("Industry",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ))),
+                      child: Text(
+                        "Country",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ]),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => IndustrySelect(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: const Center(
+                        child: Text(
+                          "Industry",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
