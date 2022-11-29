@@ -34,8 +34,8 @@ class Body extends StatelessWidget {
               );
             },
             child: Container(
-              width: 350,
-              height: 596,
+              width: 310,
+              height: 606,
               margin: const EdgeInsets.all(2.0),
               padding: const EdgeInsets.all(2.0),
               decoration:
@@ -64,8 +64,8 @@ class Body extends StatelessWidget {
               );
             },
             child: Container(
-              width: 350,
-              height: 596,
+              width: 310,
+              height: 606,
               margin: const EdgeInsets.all(2.0),
               padding: const EdgeInsets.all(2.0),
               decoration: BoxDecoration(
@@ -92,8 +92,8 @@ class Body extends StatelessWidget {
               ]);
             },
             child: Container(
-              width: 350,
-              height: 596,
+              width: 310,
+              height: 606,
               margin: const EdgeInsets.all(2.0),
               padding: const EdgeInsets.all(2.0),
               decoration: BoxDecoration(
@@ -115,8 +115,8 @@ class Body extends StatelessWidget {
               js.context.callMethod('open', ['https://amzn.to/3n7Y6ym']);
             },
             child: Container(
-              width: 350,
-              height: 596,
+              width: 310,
+              height: 606,
               margin: const EdgeInsets.all(2.0),
               padding: const EdgeInsets.all(2.0),
               decoration: BoxDecoration(
