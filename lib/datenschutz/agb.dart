@@ -9,7 +9,7 @@ class AGB extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('AGB'),
+        title: const Text('AGBs'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(50),
@@ -24,7 +24,7 @@ class AGB extends StatelessWidget {
                 Text('''
 \n
 §1 Allgemeines
-Diese Allgemeinen Geschäftsbedingungen gelten für alle Besucher dieser Seite, unabhängig davon, ob der Besucher Gast, Mitglieder oder Premium-Mitglied ist.
+Diese Allgemeinen Geschäftsbedingungen gelten für alle Besucher dieser Seite, unabhängig davon, ob der Besucher Gast oder Premium-Mitglied ist.
 
 Für von Dritten bereitgehaltene Internet-Dienste, auf die Aktientool.Net lediglich verlinkt oder die von Aktientool.Net vermittelt werden, gelten die Nutzungsbedingungen der jeweiligen Anbieter.
 
@@ -64,26 +64,23 @@ Die einfache Mitgliedschaft ist kostenlos und unverbindlich. Einfache Mitglieder
 Die Premium-Mitgliedschaft ist kostenpflichtig und berechtigt zum Zugriff aller auf der Seite Aktientool.Net bereitgestellten Aktiendaten und -kennzahlen.
 
 §2.2.1 Bezahlung bei Premium-Mitgliedschaft
-Die Erlangung der Premium-Mitgliedschaft durch Bezahlung erfolgt wahlweise durch ein Abo ("Premium Abo") oder durch eine Einmalzahlung ("Premium 365").
+Die Erlangung der Premium-Mitgliedschaft durch Bezahlung erfolgt wahlweise durch ein Abo ("Premium Abo") oder durch eine Einmalzahlung für einen Jahr.
 
 Die Bezahlung geht in folgenden Schritten vonstatten:
 
 Klick auf Button für Abschluss bzw. Verlängerung der Premium-Mitgliedschaft
-Auswahl ob Privatanleger, Vermögensverwalter oder Bank/Versicherung
-Auswahl des Bezahl-Modells: Abo ("Premium Abo") oder Einmalzahlung ("Premium 365")
+Auswahl des Bezahl-Modells: Abo ("Premium Abo") monatlich oder jährlich.
 Klick auf Button für die Einleitung der Bezahlung
 Durchführung des Bezahlvorgangs über den Drittanbieter (PayPal oder Stripe)
+
 §2.2.2 Preise
 Die Preise der Premium-Mitgliedschaft sind abhängig von Ihrem Anleger-Typus und Ihrer Zahlweise (Abo, Einmalzahlung).
 
 Abo ("Premium-Mitgliedschaft")
-Privatanleger: 14,90 Euro für einen Monat
-Privatanleger: 99,00 Euro für einen Jahr
+Anleger: 14,90 Euro pro Monat
+Anleger: 99,00 Euro pro Jahr
 
 Bei jeder Bezahlung wird die Laufzeit um die vorhandene Restlaufzeit verlängert. Es verfallen keine Tage.
-
-§2.2.3 Mehrere Premium-Mitgliedschaften
-Falls Sie als Vermögensverwalter oder Fonds oder Bank mehrere Premium-Mitgliedschaften benötigen, kontaktieren Sie uns bitte für ein gesondertes Angebot.
 
 §2.3 Ende der Premium-Mitgliedschaft
 Die Premium-Mitgliedschaft erlischt bei Einmalzahlung automatisch zum Ende der durch den Nutzer gewählten Laufzeit.
@@ -99,9 +96,7 @@ Sie können Ihr Benutzerkonto jederzeit selbständig löschen. Dabei entstehen I
 §3 Datennutzung und Urheberrecht
 §3.1 Einschränkung der Nutzung
 Die auf den Seiten von Aktientool.Net veröffentlichten Inhalte, Informationen, Bilder, Videos und Datenbanken und Computerprogramme (z.B. Widgets) sind ggf. urheberrechtlich geschützt.
-
 Die Nutzung ist nur für den privaten persönlichen Gebrauch gestattet. Jede darüber hinausgehende Nutzung, insbesondere die Vervielfältigung, Änderung, Verbreitung oder Speicherung von Informationen oder Daten, insbesondere von Texten, Textteilen, von Bild- und Filmmaterial oder Computerprogrammen, zu anderen Zwecken bedarf der vorherigen ausdrücklichen Zustimmung von Aktientool.net. Dies gilt auch für die Aufnahme in elektronische Datenbanken und die Vervielfältigung und Verbreitung auf CD-ROM, DVD etc.
-
 Im Übrigen gelten die rechtlichen Grenzen, die sich aus dem Urheberrecht und den sonstigen anwendbaren gesetzlichen Vorschriften ergeben.
 
 §3.2 Lockerung der Nutzung für die Finanzcommunity
@@ -110,14 +105,7 @@ Im Rahmen der Finanzcommunity sind Screenshots mit aktienbezogenen Daten (Kennza
 
 §4 Datenfehler
 Aufgrund der hohen Komplexität und des hohen Volumens der bereitgestellten Daten ist es Aktientool.Net nicht möglich, die Fehlerfreiheit aller Daten zu garantieren.
-
-Allerdings wird sich bemüht, die Fehler auf ein Mindestmaß zu reduzieren. Hierfür werden unterschiedliche Maßnahmen getroffen. Unter anderem sind dies:
-
-Abgleich gleichartiger Daten durch unterschiedliche Datenprovider
-Halbautomatisierte Plausibilitätschecks
-Ticketsystem für das Fehlermanagement
-Qualityservice für die automatisierte Überwachung und Zustellung von Datenfehlern
-
+Allerdings wird sich bemüht, die Fehler auf ein Mindestmaß zu reduzieren.
 
 §5 Haftung
 §5.1 Haftungsfälle
@@ -127,14 +115,13 @@ die Folge des Nichtvorhandenseins einer garantierten Beschaffenheit der Leistung
 die auf einer schuldhaften Verletzung wesentlicher Vertragspflichten beruhen
 die Folge einer schuldhaften Verletzung der Gesundheit, des Körpers oder des Lebens sind
 für die eine Haftung nach dem Produkthaftungsgesetz vorgesehen ist
+
 §5.2 Haftungseinschränkungen
 Die folgenden Haftungsbeschränkungen gelten für sämtliche vertraglichen und nichtvertraglichen Ansprüche.
 
 §5.2.1 Haftungseinschränkung allgemeiner Natur
 Im Falle einer lediglich leicht fahrlässigen Verletzung einer wesentlichen Vertragspflicht ist die Haftung von Aktientool.Net jedoch beschränkt auf solche Schäden, mit deren Entstehung im Rahmen der Erbringung der vereinbarten Leistungen typischerweise und vorhersehbar gerechnet werden muss. Diese Beschränkung gilt nicht, soweit Schäden die Folge einer Verletzung der Gesundheit, des Körpers oder des Lebens oder die Folge des Nichtvorhandenseins einer garantierten Beschaffenheit der Leistung sind.
-
 Wesentliche Vertragspflichten sind solche vertraglichen Pflichten, deren Erfüllung die ordnungsgemäße Durchführung des Vertrages überhaupt erst ermöglicht und auf deren Einhaltung der Nutzer regelmäßig vertrauen darf, und deren Verletzung auf der anderen Seite die Erreichung des Vertragszwecks gefährden würde.
-
 Im Übrigen ist die Haftung von Aktientool.Net und seiner Erfüllungs- und Verrichtungsgehilfen unabhängig vom Rechtsgrund ausgeschlossen.
 
 §5.2.2 Haftungseinschränkung bei fehlerhaften Daten
@@ -145,7 +132,6 @@ Aktientool.Net bemüht sich um ständige Erreichbarkeit der Seite sowie deren vo
 
 §5.2.4 Haftungseinschränkung Telemediengesetz
 Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
-
 Die Seite enthält Links zu externen Webseiten Dritter, auf deren Inhalte kein Einfluss genommen werden kann. Deshalb kann für diese fremden Inhalte auch keine Gewähr übernommen werden. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
 
 
@@ -156,12 +142,12 @@ Nutzer haben das Recht, nach erfolgter Bezahlung binnen vierzehn Tagen diesen Ve
 Aktientool.Net
 Donauschwabenweg 10
 72108 Ergenzingen
-E-Mail kontakt@Aktientool.net
+E-Mail aktientool@outlook.de
 Telefon 0152-51509689
 
 mittels einer formlosen Erklärung (z.B. per Brief oder E-Mail) über Ihren Entschluss benachrichtigen, den Vertrag zu widerrufen. Ihr Widerruf muss zwingend folgende Angaben enthalten:
 
-Ihren Mitgliedsnamen auf Aktientool.Net
+Ihre Emailadresse auf Aktientool.Net
 Den Tag der Bezahlung
 §6.2 Widerrufsfolgen
 Wenn Sie diesen Vertrag widerrufen, werden Ihnen alle in den letzten vierzehn Tagen geleisteten Zahlungen unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückerstattet, an dem die Mitteilung Ihres Widerrufs eingegangen ist.
