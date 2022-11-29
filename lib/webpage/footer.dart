@@ -1,3 +1,4 @@
+import 'package:aktientool/datenschutz/agb.dart';
 import 'package:flutter/material.dart';
 
 import '../datenschutz/datenschutzerklaerung.dart';
@@ -49,6 +50,20 @@ class Footer extends StatelessWidget {
                           foregroundColor: Colors.white,
                         ),
                         child: const Text("Impressum"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AGB(),
+                            ),
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text("AGB"),
                       ),
                     ],
                   ),

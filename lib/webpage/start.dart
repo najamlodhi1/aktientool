@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:aktientool/services/app_services.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/footer.dart';
 import 'package:aktientool/webpage/header.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/cookie.dart';
-import 'package:http/http.dart' as http;
 
 final cookieProvider = StateProvider((ref) => false);
 
@@ -33,50 +29,9 @@ class Start extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Wrap(
           alignment: WrapAlignment.center,
-          children: <Widget>[
-            const Body(),
-            const Footer(),
-            TextButton(
-              onPressed: () async {
-                await appServices.fetchCompanies();
-              },
-              child: const Text(
-                "Company",
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            TextButton(
-              onPressed: () async {
-                //await appServices.fetchIncome('ABB');
-
-                ///The real method
-
-                final response = await http.get(
-                  Uri.parse(
-                    'https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000000&volumeMoreThan=10000&apikey=9ad9c8dfa54c11aff6c1489d109e87b6',
-                  ),
-                );
-
-                if (response.statusCode == 200) {
-                  final extractedData = json.decode(response.body);
-                  extractedData.forEach(
-                    (data) async {
-                      await appServices.fetchIncome(data["symbol"]);
-                    },
-                  );
-                  if (kDebugMode) {
-                    print(response.body.length);
-                  }
-                } else {
-                  throw Exception('Failed to load company');
-                }
-              },
-              child: const Text(
-                "Income",
-              ),
-            ),
+          children: const <Widget>[
+            Body(),
+            Footer(),
           ],
         ),
       ),

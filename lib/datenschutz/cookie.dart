@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/impressum.dart';
 import 'package:aktientool/webpage/start.dart';
 
+import 'agb.dart';
 import 'datenschutzerklaerung.dart';
 
 // stores ExpansionPanel state information
@@ -263,6 +264,17 @@ cookiesLong(context) {
                     );
                   },
                   child: const Text("Impressum"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AGB(),
+                      ),
+                    );
+                  },
+                  child: const Text("AGB"),
                 ),
               ],
             ),

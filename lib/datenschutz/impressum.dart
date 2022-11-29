@@ -9,6 +9,7 @@ class Impressum extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: const Text('Impressum'),
       ),
       body: Padding(
