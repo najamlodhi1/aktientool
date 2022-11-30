@@ -65,6 +65,8 @@ class Footer extends StatelessWidget {
                         ),
                         child: const Text("AGB"),
                       ),
+                      const Text(
+                          "© Rohdaten von FactSet. Kennzahlen von Aktientool.Net.")
                     ],
                   ),
                 ),
