@@ -90,6 +90,7 @@ class ShowCompanies extends ConsumerWidget {
         if (snapshot.hasData) {
           return SingleChildScrollView(
             physics: const ScrollPhysics(),
+            scrollDirection: Axis.vertical,
             controller: _controller,
             child: Wrap(
               children: [
