@@ -3,66 +3,45 @@ import 'dart:convert';
 import 'package:aktientool/filter/test.dart';
 import 'package:aktientool/models/company.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../constants/responsive.dart';
+import 'country.dart';
 import 'feinfilter.dart';
+import 'industry.dart';
 import 'marketcap.dart';
 
-class ShowCompany extends StatefulWidget {
-  ShowCompany({
-    Key? key,
-    this.marketCap,
-    this.countries,
-    this.industries,
-  }) : super(key: key);
-  int? marketCap;
-  List<dynamic>? countries;
-  List<dynamic>? industries;
-
-  @override
-  State<ShowCompany> createState() => _ShowCompanyState();
-}
-
-class _ShowCompanyState extends State<ShowCompany> {
-  final ScrollController _scrollController = ScrollController();
+class ShowCompanies extends ConsumerWidget {
+  final ScrollController _controller = ScrollController();
   List<CompanyModel> companies = [];
   bool isLoading = true;
-  int offset = 0;
 
-  loadOffset() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      offset = (prefs.getInt('offset') ?? 0);
-    });
-  }
+  ShowCompanies({super.key});
 
-  incrementOffset() async {}
+  var sp_offset = StateProvider((ref) {
+    return 0;
+  });
 
-  void _scrollListener() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      setState(() {
-        isLoading = true;
-        if (isLoading) {
-          setState(() {
-            offset += 50;
-            prefs.setInt('offset', offset);
-            getCompanyList(offset);
-          });
-        }
-      });
+  Future<List<CompanyModel>> getCompanyList(int? offset, ref) async {
+    String industryUrl = ref.watch(sp_industry_url).toString();
+    String countryUrl = ref.watch(sp_country_url).toString();
+    String marketcapUrl = ref.watch(sp_marketcap).toString();
+
+    industryUrl = ref.watch(sp_industry_url).toString();
+    if (industryUrl.contains(":")) {
+      industryUrl = industryUrl.substring(1);
     }
-  }
 
-  Future<List<CompanyModel>> getCompanyList(int? offset) async {
+    if (countryUrl.contains(":")) {
+      countryUrl = countryUrl.substring(1);
+    }
+
+    String url =
+        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$marketcapUrl&offset=$offset";
+    print(url);
+
     final response = await http.get(
-      Uri.parse(
-        'https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?offset=$offset',
-      ),
+      Uri.parse(url),
     );
     final shortenResponse = response.body.substring(
       response.body.indexOf('['),
@@ -71,69 +50,34 @@ class _ShowCompanyState extends State<ShowCompany> {
 
     final List resultBody = jsonDecode(shortenResponse);
     companies.addAll(resultBody.map((c) => CompanyModel.fromJson(c)));
-
-    List<String> countryNames = [];
-    List<String> industryNames = [];
-
-    var seen = <String>{};
-    List<CompanyModel> uniqueList =
-        companies.where((company) => seen.add(company.companyname!)).toList();
-
-    for (dynamic country
-        in widget.countries!.where((e) => e['isSelected'] == true)) {
-      countryNames.add(country['name']);
-    }
-
-    for (dynamic industry
-        in widget.industries!.where((e) => e['isSelected'] == true)) {
-      industryNames.add(industry['name']);
-    }
-
-    if (countryNames.isEmpty && industryNames.isEmpty) {
-      return uniqueList.where((c) => c.marketcap! >= widget.marketCap!).toList();
-    } else if (countryNames.isEmpty && industryNames.isNotEmpty) {
-      return uniqueList
-          .where((c) => c.marketcap! >= widget.marketCap!)
-          .where((c) => industryNames.contains(c.industry))
-          .toList();
-    } else if (countryNames.isNotEmpty && industryNames.isEmpty) {
-      return uniqueList
-          .where((c) => c.marketcap! >= widget.marketCap!)
-          .where((c) => countryNames.contains(c.country))
-          .toList();
-    } else if (countryNames.isNotEmpty && industryNames.isNotEmpty) {
-      return uniqueList
-          .where((c) => c.marketcap! >= widget.marketCap!)
-          .where((c) => countryNames.contains(c.country))
-          .where((c) => industryNames.contains(c.industry))
-          .toList();
-    } else {
-      return uniqueList.where((c) => c.marketcap! >= widget.marketCap!).toList();
-    }
+    return companies;
   }
 
   @override
-  void initState() {
-    _scrollController.addListener(_scrollListener);
-    loadOffset();
-    super.initState();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    scrollListener() async {
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        print("reach the bottom");
+        ref.watch(sp_offset.state).state += 50;
+      }
+      if (_controller.offset <= _controller.position.minScrollExtent &&
+          !_controller.position.outOfRange) {
+        print("reach the top");
+        ref.watch(sp_offset.state).state = 0;
+      }
+    }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+    var offset = ref.watch(sp_offset);
+    _controller.addListener(scrollListener);
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: FutureBuilder(
-        future: getCompanyList(offset),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Wrap(
+    return FutureBuilder(
+      future: getCompanyList(offset, ref),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return SingleChildScrollView(
+            controller: _controller,
+            child: Wrap(
               children: [
                 Marketcap(),
                 Filter2(),
@@ -142,8 +86,8 @@ class _ShowCompanyState extends State<ShowCompany> {
                   primary: true,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: Responsive.isDesktop(context) ? 6 : 2,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 6,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                   ),
@@ -226,18 +170,18 @@ class _ShowCompanyState extends State<ShowCompany> {
                   },
                 ),
               ],
-            );
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('There was an error, Please try again'),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('There was an error, Please try again'),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }

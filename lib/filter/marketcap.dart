@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
-final sp_marketcap = StateProvider((ref) {
-  return 100000000000;
+var sp_marketcap = StateProvider((ref) {
+  return 1000000000000;
 });
 
 // ignore: non_constant_identifier_names
-final sp_isSelected = StateProvider((ref) {
+var sp_isSelected = StateProvider((ref) {
   return [false, false, false, true];
 });
 
@@ -83,7 +83,7 @@ class Marketcap extends ConsumerWidget {
                 onPressed: (int index) {
                   for (int i = 0; i < isSelected.length; i++) {
                     // ignore: avoid_print
-                    print(isSelected.toString());
+                    //print(isSelected.toString());
                     isSelected[i] = i == index;
                     ref.read(sp_marketcap.state).state = _marketcap[index];
                   }

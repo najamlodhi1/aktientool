@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/responsive.dart';
 
-// ignore: non_constant_identifier_names
 var sp_generatedIndustryFromList = StateProvider((ref) {
   return [];
+});
+
+var sp_industry_url = StateProvider((ref) {
+  return "";
 });
 
 // ignore: must_be_immutable
@@ -52,20 +55,20 @@ class Industry extends ConsumerWidget {
 class IndustrySelect extends ConsumerWidget {
   List Industry = [
     "Oil & Gas Integrated",
-    "Beverages�Wineries & Distilleries",
+    "Beverages Wineries & Distilleries",
     "Internet Retail",
     "Specialty Industrial Machinery",
     "Restaurants",
-    "REIT�Mortgage",
+    "REIT Mortgage",
     "Specialty Retail",
-    "Insurance�Diversified",
+    "Insurance Diversified",
     "Specialty Business Services",
     "Copper",
     "Electrical Equipment & Parts",
     "Apparel Manufacturing",
     "Furnishings, Fixtures & Appliances",
     "Oil & Gas Drilling",
-    "Utilities�Independent Power Producers",
+    "Utilities Independent Power Producers",
     "Conglomerates",
     "Metal Fabrication",
     "Uranium",
@@ -74,15 +77,15 @@ class IndustrySelect extends ConsumerWidget {
     "Electric Utilities",
     "Computer Hardware",
     "Discount Stores",
-    "Banks�Diversified",
+    "Banks Diversified",
     "Diagnostics & Research",
     "Medical Instruments & Supplies",
     "Specialty Chemicals",
     "Consulting Services",
     "Communication Equipment",
-    "Utilities�Regulated Gas",
-    "REIT�Office",
-    "REIT�Residential",
+    "Utilities Regulated Gas",
+    "REIT Office",
+    "REIT Residential",
     "Department Stores",
     "Waste Management",
     "Farm & Heavy Construction Machinery",
@@ -94,16 +97,16 @@ class IndustrySelect extends ConsumerWidget {
     "Coking Coal",
     "Auto Parts",
     "Paper & Paper Products",
-    "Utilities�Regulated Electric",
+    "Utilities Regulated Electric",
     "Resorts & Casinos",
-    "Utilities�Renewable",
-    "Software�Infrastructure",
+    "Utilities Renewable",
+    "Software Infrastructure",
     "Closed-End Fund - Foreign",
-    "Utilities�Regulated Water",
+    "Utilities Regulated Water",
     "Rental & Leasing Services",
-    "Beverages�Non-Alcoholic",
+    "Beverages Non-Alcoholic",
     "Healthcare Plans",
-    "Insurance�Specialty",
+    "Insurance Specialty",
     "Confectioners",
     "Education & Training Services",
     "Packaging & Containers",
@@ -111,11 +114,11 @@ class IndustrySelect extends ConsumerWidget {
     "Industrial Metals & Minerals",
     "General Contractors",
     "Asset Management",
-    "Utilities�Diversified",
-    "Insurance�Life",
-    "Drug Manufacturers�Specialty & Generic",
+    "Utilities Diversified",
+    "Insurance Life",
+    "Drug Manufacturers Specialty & Generic",
     "Telecom Services",
-    "Banks�Regional",
+    "Banks Regional",
     "Auto & Truck Dealerships",
     "Building Materials",
     "Insurance Brokers",
@@ -125,7 +128,7 @@ class IndustrySelect extends ConsumerWidget {
     "Farm Products",
     "Gambling",
     "Agricultural Inputs",
-    "Drug Manufacturers�General",
+    "Drug Manufacturers General",
     "Insurance",
     "Marine Shipping",
     "Closed-End Fund - Equity",
@@ -135,8 +138,8 @@ class IndustrySelect extends ConsumerWidget {
     "Textile Manufacturing",
     "Building Materials Wholesale",
     "Infrastructure Operations",
-    "Software�Application",
-    "Insurance�Property & Casualty",
+    "Software Application",
+    "Insurance Property & Casualty",
     "Oil & Gas Midstream",
     "Financial Data & Stock Exchanges",
     "Oil & Gas Refining & Marketing",
@@ -147,12 +150,12 @@ class IndustrySelect extends ConsumerWidget {
     "Apparel Retail",
     "Electronic Gaming & Multimedia",
     "Steel",
-    "Beverages�Brewers",
+    "Beverages Brewers",
     "Broadcasting",
     "Thermal Coal",
     "Tobacco",
     "Tools & Accessories",
-    "Insurance�Reinsurance",
+    "Insurance Reinsurance",
     "CATV Systems",
     "Independent Oil & Gas",
     "Communication Services",
@@ -182,23 +185,23 @@ class IndustrySelect extends ConsumerWidget {
     "Other Industrial Metals & Mining",
     "Oil & Gas Equipment & Services",
     "Internet Content & Information",
-    "REIT�Specialty",
+    "REIT Specialty",
     "Packaged Foods",
-    "REIT�Diversified",
+    "REIT Diversified",
     "Residential Construction",
     "Medical Devices",
     "Building Products & Equipment",
-    "REIT�Retail",
-    "REIT�Industrial",
+    "REIT Retail",
+    "REIT Industrial",
     "Staffing & Employment Services",
     "Travel Services",
     "Engineering & Construction",
     "Personal Services",
     "Pollution & Treatment Controls",
     "Leisure",
-    "Real Estate�Diversified",
-    "Real Estate�Development",
-    "REIT�Hotel & Motel",
+    "Real Estate Diversified",
+    "Real Estate Development",
+    "REIT Hotel & Motel",
     "Mortgage Finance",
     "Application Software",
     "REIT - Diversified",
@@ -206,7 +209,7 @@ class IndustrySelect extends ConsumerWidget {
     "Aerospace & Defense",
     "Grocery Stores",
     "Semiconductors",
-    "REIT�Healthcare Facilities",
+    "REIT Healthcare Facilities",
     "Scientific & Technical Instruments",
     "Airlines",
     "Chemicals",
@@ -239,6 +242,7 @@ class IndustrySelect extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var generatedIndustryFromList = ref.watch(sp_generatedIndustryFromList);
+    var generatedURL = ref.watch(sp_industry_url);
 
     if (generatedIndustryFromList.toString() == "[]") {
       generatedIndustryFromList = List.generate(
@@ -275,9 +279,16 @@ class IndustrySelect extends ConsumerWidget {
 
                   if (generatedIndustryFromList[index]['isSelected'] == true) {
                     generatedIndustryFromList[index][Color] = Colors.grey;
+                    ref.watch(sp_industry_url.state).state +=
+                        ":" + generatedIndustryFromList[index]['name'];
                   }
                   if (generatedIndustryFromList[index]['isSelected'] == false) {
                     generatedIndustryFromList[index][Color] = Colors.black;
+                    ref.watch(sp_industry_url.state).state = ref
+                        .watch(sp_industry_url.state)
+                        .state
+                        .replaceAll(
+                            ":" + generatedIndustryFromList[index]['name'], '');
                   }
 
                   ref.refresh(sp_generatedIndustryFromList.state).state =

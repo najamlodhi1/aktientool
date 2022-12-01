@@ -9,6 +9,10 @@ StateProvider<List<dynamic>> sp_generatedCountrieFromList =
   return [];
 });
 
+var sp_country_url = StateProvider((ref) {
+  return "";
+});
+
 class Country extends ConsumerWidget {
   const Country({Key? key}) : super(key: key);
 
@@ -163,9 +167,16 @@ class CountrySelect extends ConsumerWidget {
 
                 if (generatedCountrieFromList[index]['isSelected'] == true) {
                   generatedCountrieFromList[index][Color] = Colors.grey;
+                  ref.watch(sp_country_url.state).state +=
+                      ":" + generatedCountrieFromList[index]['name'];
                 }
                 if (generatedCountrieFromList[index]['isSelected'] == false) {
                   generatedCountrieFromList[index][Color] = Colors.black;
+                  ref.watch(sp_country_url.state).state = ref
+                      .watch(sp_country_url.state)
+                      .state
+                      .replaceAll(
+                          ":" + generatedCountrieFromList[index]['name'], '');
                 }
 
                 ref.refresh(sp_generatedCountrieFromList.state).state =
