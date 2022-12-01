@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/responsive.dart';
 import 'country.dart';
 import 'feinfilter.dart';
 import 'industry.dart';
@@ -53,6 +54,18 @@ class ShowCompanies extends ConsumerWidget {
     return companies;
   }
 
+  checkDevice(context) {
+    if (Responsive.isDesktop(context) == true) {
+      return 7;
+    }
+    if (Responsive.isTablet(context) == true) {
+      return 4;
+    }
+    if (Responsive.isMobile(context) == true) {
+      return 2;
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     scrollListener() async {
@@ -86,8 +99,8 @@ class ShowCompanies extends ConsumerWidget {
                   primary: true,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: checkDevice(context),
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                   ),
