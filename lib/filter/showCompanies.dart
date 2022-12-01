@@ -89,6 +89,7 @@ class ShowCompanies extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return SingleChildScrollView(
+            physics: const ScrollPhysics(),
             controller: _controller,
             child: Wrap(
               children: [

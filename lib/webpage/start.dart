@@ -27,6 +27,7 @@ class Start extends ConsumerWidget {
       appBar: headerNav(context),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
+        physics: const ScrollPhysics(),
         child: Wrap(
           alignment: WrapAlignment.center,
           children: const <Widget>[
