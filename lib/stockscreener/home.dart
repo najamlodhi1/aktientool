@@ -1,4 +1,4 @@
-import 'package:aktientool/filter/showCompany2.dart';
+import 'package:aktientool/filter/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

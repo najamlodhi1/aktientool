@@ -87,7 +87,7 @@ class ShowCompanies extends ConsumerWidget {
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 6,
+                    crossAxisCount: 2,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                   ),
@@ -107,6 +107,13 @@ class ShowCompanies extends ConsumerWidget {
                           children: <Widget>[
                             const SizedBox(
                               height: 2,
+                            ),
+                            Text(
+                              snapshot.data![index].symbol!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 15,
+                              ),
                             ),
                             Text(
                               snapshot.data![index].companyname!,
