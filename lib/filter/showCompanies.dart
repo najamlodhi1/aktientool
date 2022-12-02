@@ -109,10 +109,8 @@ class ShowCompanies extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return SizedBox(
                       width: 180,
-                      height: 200,
+                      height: 180,
                       child: Card(
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
@@ -123,18 +121,30 @@ class ShowCompanies extends ConsumerWidget {
                             const SizedBox(
                               height: 2,
                             ),
-                            Text(
-                              snapshot.data![index].symbol!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 15,
+                            Align(
+                              alignment: const Alignment(-0.8, 0),
+                              child: Container(
+                                color: Colors.white,
+                                child: Text(
+                                  snapshot.data![index].symbol!,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 69, 69, 69),
+                                    fontSize: 15,
+                                  ),
+                                ),
                               ),
                             ),
-                            Text(
-                              snapshot.data![index].companyname!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 15,
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Align(
+                              alignment: const Alignment(-0.8, 0),
+                              child: Text(
+                                snapshot.data![index].companyname!,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 69, 69, 69),
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -161,6 +171,13 @@ class ShowCompanies extends ConsumerWidget {
                                 fontSize: 12,
                               ),
                             ),
+                            Text(
+                              "Country: ${snapshot.data![index].country!}",
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
@@ -174,14 +191,17 @@ class ShowCompanies extends ConsumerWidget {
                             Text(
                               snapshot.data![index].marketcap.toString(),
                               style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 20,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                fontSize: 18,
                               ),
                             ),
+                            const SizedBox(
+                              height: 5,
+                            ),
                             Text(
-                              "${snapshot.data![index].price} Dollar",
+                              "${snapshot.data![index].price} \$",
                               style: const TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: Color.fromARGB(255, 0, 0, 0),
                                 fontSize: 20,
                               ),
                             ),
