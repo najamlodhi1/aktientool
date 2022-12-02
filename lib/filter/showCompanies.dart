@@ -84,6 +84,130 @@ class ShowCompanies extends ConsumerWidget {
     var offset = ref.watch(sp_offset);
     _controller.addListener(scrollListener);
 
+    Top(context, snapshot, index) {
+      return Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      snapshot.data![index].symbol!,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.red),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      snapshot.data![index].exchangeshortname!,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
+    Middle1(context, snapshot, index) {
+      return Wrap(
+        children: [
+          Expanded(
+            child: Wrap(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      snapshot.data![index].symbol!,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.red),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      snapshot.data![index].exchangeshortname!,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
+    Buttom(context, snapshot, index) {
+      return Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 255, 255, 255)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "MC: ${snapshot.data![index].marketcap}\$",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                  ),
+                ),
+                Container(
+                  child: ClipRRect(
+                    //borderRadius: BorderRadius.circular(20), // Image border
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(25),
+                      child: Image.asset(
+                        "assets/images/${index + 1}.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    /*
+                    Text(
+                      snapshot.data![index].country!,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    */
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
     return FutureBuilder(
       future: getCompanyList(offset, ref),
       builder: (context, snapshot) {
@@ -112,31 +236,50 @@ class ShowCompanies extends ConsumerWidget {
                       height: 180,
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                         color: const Color.fromARGB(255, 54, 244, 193),
                         child: Column(
-                          //mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            const SizedBox(
-                              height: 2,
-                            ),
-                            Align(
-                              alignment: const Alignment(-0.8, 0),
-                              child: Container(
-                                color: Colors.white,
-                                child: Text(
-                                  snapshot.data![index].symbol!,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 69, 69, 69),
-                                    fontSize: 15,
-                                  ),
+                            Top(context, snapshot, index),
+                            Center(
+                              child: Text(
+                                snapshot.data![index].companyname!,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 69, 69, 69),
+                                  fontSize: 18,
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 5,
+                            Text(
+                              "${snapshot.data![index].price} \$",
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 20,
+                              ),
                             ),
+                            Text(
+                              snapshot.data![index].sector!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              snapshot.data![index].industry!,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 69, 69, 69),
+                                fontSize: 12,
+                              ),
+                            ),
+                            Buttom(context, snapshot, index),
+
+/*
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            
                             Align(
                               alignment: const Alignment(-0.8, 0),
                               child: Text(
@@ -150,11 +293,13 @@ class ShowCompanies extends ConsumerWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              snapshot.data![index].exchangeshortname!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
+                            Align(
+                              child: Text(
+                                snapshot.data![index].exchangeshortname!,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 69, 69, 69),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                             Text(
@@ -205,6 +350,9 @@ class ShowCompanies extends ConsumerWidget {
                                 fontSize: 20,
                               ),
                             ),
+
+
+                            */
                           ],
                         ),
                       ),
