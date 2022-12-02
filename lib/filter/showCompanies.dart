@@ -96,24 +96,24 @@ class ShowCompanies extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue),
+                      color: Colors.black),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       snapshot.data![index].symbol!,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: const TextStyle(color: Colors.blue, fontSize: 15),
                     ),
                   ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.red),
+                      color: Colors.black),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       snapshot.data![index].exchangeshortname!,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: const TextStyle(color: Colors.red, fontSize: 15),
                     ),
                   ),
                 ),
@@ -133,12 +133,12 @@ class ShowCompanies extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue),
+                      color: const Color.fromARGB(255, 0, 221, 255)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       snapshot.data![index].symbol!,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                 ),
@@ -150,7 +150,7 @@ class ShowCompanies extends ConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       snapshot.data![index].exchangeshortname!,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                 ),
@@ -173,12 +173,15 @@ class ShowCompanies extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromARGB(255, 255, 255, 255)),
+                      color: const Color.fromARGB(255, 0, 0, 0)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "MC: ${snapshot.data![index].marketcap}\$",
-                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                      style: const TextStyle(
+                        color: Colors.yellow,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),
@@ -192,13 +195,6 @@ class ShowCompanies extends ConsumerWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-
-                    /*
-                    Text(
-                      snapshot.data![index].country!,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                    */
                   ),
                 ),
               ],
@@ -231,129 +227,57 @@ class ShowCompanies extends ConsumerWidget {
                     mainAxisSpacing: 10.0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      width: 180,
-                      height: 180,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        color: const Color.fromARGB(255, 54, 244, 193),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Top(context, snapshot, index),
-                            Center(
-                              child: Text(
-                                snapshot.data![index].companyname!,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 69, 69, 69),
-                                  fontSize: 18,
+                    return Container(
+                      margin: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)),
+                      child: SizedBox(
+                        width: 180,
+                        height: 180,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Top(context, snapshot, index),
+                              Center(
+                                child: Text(
+                                  snapshot.data![index].companyname!,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 251, 251, 251),
+                                    fontSize: 18,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Text(
-                              "${snapshot.data![index].price} \$",
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 20,
-                              ),
-                            ),
-                            Text(
-                              snapshot.data![index].sector!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              snapshot.data![index].industry!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
-                              ),
-                            ),
-                            Buttom(context, snapshot, index),
-
-/*
-                            const SizedBox(
-                              height: 2,
-                            ),
-                            
-                            Align(
-                              alignment: const Alignment(-0.8, 0),
-                              child: Text(
-                                snapshot.data![index].companyname!,
+                              Text(
+                                "${snapshot.data![index].price} \$",
                                 style: const TextStyle(
-                                  color: Color.fromARGB(255, 69, 69, 69),
-                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 0, 255, 145),
+                                  fontSize: 20,
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Align(
-                              child: Text(
-                                snapshot.data![index].exchangeshortname!,
+                              Text(
+                                snapshot.data![index].sector!,
                                 style: const TextStyle(
-                                  color: Color.fromARGB(255, 69, 69, 69),
+                                  color: Color.fromARGB(255, 148, 148, 148),
                                   fontSize: 12,
                                 ),
                               ),
-                            ),
-                            Text(
-                              snapshot.data![index].sector!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
+                              Text(
+                                snapshot.data![index].industry!,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 148, 148, 148),
+                                  fontSize: 12,
+                                ),
                               ),
-                            ),
-                            Text(
-                              snapshot.data![index].industry!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              "Country: ${snapshot.data![index].country!}",
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Marketcap:",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 69, 69, 69),
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              snapshot.data![index].marketcap.toString(),
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 18,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "${snapshot.data![index].price} \$",
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 20,
-                              ),
-                            ),
-
-
-                            */
-                          ],
+                              Buttom(context, snapshot, index),
+                            ],
+                          ),
                         ),
                       ),
                     );

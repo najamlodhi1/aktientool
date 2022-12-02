@@ -299,7 +299,6 @@ class IndustrySelect extends ConsumerWidget {
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(20),
                     child: Image.asset(
-                      // imageList[index]
                       "assets/images/${index + 39}.png",
                       fit: BoxFit.cover,
                     ),
