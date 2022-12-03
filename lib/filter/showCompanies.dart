@@ -124,43 +124,6 @@ class ShowCompanies extends ConsumerWidget {
       );
     }
 
-    Middle1(context, snapshot, index) {
-      return Wrap(
-        children: [
-          Expanded(
-            child: Wrap(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromARGB(255, 0, 221, 255)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      snapshot.data![index].symbol!,
-                      style: const TextStyle(color: Colors.black, fontSize: 12),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.red),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      snapshot.data![index].exchangeshortname!,
-                      style: const TextStyle(color: Colors.black, fontSize: 12),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }
-
     Buttom(context, snapshot, index) {
       return Row(
         children: [
@@ -177,7 +140,7 @@ class ShowCompanies extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "MC: ${snapshot.data![index].marketcap}\$",
+                      "MC: \$${((snapshot.data![index].marketcap) / 1000000000).toStringAsFixed(0)} B",
                       style: const TextStyle(
                         color: Colors.yellow,
                         fontSize: 15,
@@ -189,7 +152,7 @@ class ShowCompanies extends ConsumerWidget {
                   child: ClipRRect(
                     //borderRadius: BorderRadius.circular(20), // Image border
                     child: SizedBox.fromSize(
-                      size: const Size.fromRadius(25),
+                      size: const Size.fromRadius(20),
                       child: Image.asset(
                         "assets/images/${index + 1}.png",
                         fit: BoxFit.cover,
@@ -233,8 +196,6 @@ class ShowCompanies extends ConsumerWidget {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.white)),
                       child: SizedBox(
-                        width: 180,
-                        height: 180,
                         child: Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25.0),
