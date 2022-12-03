@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+
 import '../webpage/start.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +26,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      /*
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
           PointerDeviceKind.mouse,
@@ -33,7 +34,6 @@ class MyApp extends ConsumerWidget {
           PointerDeviceKind.unknown,
         },
       ),
-      */
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,

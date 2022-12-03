@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
 var sp_marketcap = StateProvider((ref) {
-  return 1000000000000;
+  return 1000000000;
 });
 
 // ignore: non_constant_identifier_names
 var sp_isSelected = StateProvider((ref) {
-  return [false, false, false, true];
+  return [true, false, false, false];
 });
 
 // ignore: must_be_immutable

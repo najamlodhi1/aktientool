@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, must_be_immutable
 import 'dart:convert';
-import 'package:aktientool/filter/test.dart';
 import 'package:aktientool/models/company.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +7,6 @@ import 'package:http/http.dart' as http;
 
 import '../constants/responsive.dart';
 import 'country.dart';
-import 'feinfilter.dart';
 import 'industry.dart';
 import 'marketcap.dart';
 
@@ -152,7 +150,7 @@ class ShowCompanies extends ConsumerWidget {
                   child: ClipRRect(
                     //borderRadius: BorderRadius.circular(20), // Image border
                     child: SizedBox.fromSize(
-                      size: const Size.fromRadius(20),
+                      size: const Size.fromRadius(15),
                       child: Image.asset(
                         "assets/images/${index + 1}.png",
                         fit: BoxFit.cover,
@@ -172,15 +170,13 @@ class ShowCompanies extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView(
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.vertical,
             controller: _controller,
             children: [
               Wrap(
                 children: [
-                  Marketcap(),
-                  Filter2(),
-                  Feinfilter(),
+                  //Marketcap(),
+                  //Filter2(),
+                  //Feinfilter(),
                   GridView.builder(
                     primary: true,
                     shrinkWrap: true,
