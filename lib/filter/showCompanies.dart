@@ -171,81 +171,84 @@ class ShowCompanies extends ConsumerWidget {
       future: getCompanyList(offset, ref),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return SingleChildScrollView(
+          return ListView(
             physics: const ScrollPhysics(),
             scrollDirection: Axis.vertical,
             controller: _controller,
-            child: Wrap(
-              children: [
-                Marketcap(),
-                Filter2(),
-                Feinfilter(),
-                GridView.builder(
-                  primary: true,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: checkDevice(context),
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.all(2.0),
-                      padding: const EdgeInsets.all(2.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white)),
-                      child: SizedBox(
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          color: const Color.fromARGB(255, 0, 0, 0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Top(context, snapshot, index),
-                              Center(
-                                child: Text(
-                                  snapshot.data![index].companyname!,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 251, 251, 251),
-                                    fontSize: 18,
+            children: [
+              Wrap(
+                children: [
+                  Marketcap(),
+                  Filter2(),
+                  Feinfilter(),
+                  GridView.builder(
+                    primary: true,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: checkDevice(context),
+                      crossAxisSpacing: 10.0,
+                      mainAxisSpacing: 10.0,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white)),
+                        child: SizedBox(
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Top(context, snapshot, index),
+                                Center(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    snapshot.data![index].companyname!,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 251, 251, 251),
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "${snapshot.data![index].price} \$",
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 0, 255, 145),
-                                  fontSize: 20,
+                                Text(
+                                  "${snapshot.data![index].price} \$",
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 255, 145),
+                                    fontSize: 20,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                snapshot.data![index].sector!,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 148, 148, 148),
-                                  fontSize: 12,
+                                Text(
+                                  snapshot.data![index].sector!,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 148, 148, 148),
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                snapshot.data![index].industry!,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 148, 148, 148),
-                                  fontSize: 12,
+                                Text(
+                                  snapshot.data![index].industry!,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 148, 148, 148),
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                              Buttom(context, snapshot, index),
-                            ],
+                                Buttom(context, snapshot, index),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
           );
         } else if (snapshot.hasError) {
           return const Center(
