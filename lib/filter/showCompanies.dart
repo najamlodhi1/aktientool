@@ -198,9 +198,7 @@ class ShowCompanies extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           color: const Color.fromARGB(255, 0, 0, 0),
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
+                          child: Column(
                             children: <Widget>[
                               Top(context, snapshot, index),
                               Center(
