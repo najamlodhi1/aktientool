@@ -39,7 +39,6 @@ class ShowCompanies extends ConsumerWidget {
 
     String url =
         "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$marketcapUrl&offset=$offset";
-    print(url);
 
     final response = await http.get(
       Uri.parse(url),
@@ -68,7 +67,8 @@ class ShowCompanies extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    scrollListener() async {
+    var offset = ref.watch(sp_offset);
+    scrollListener() {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
         print("reach the bottom");
@@ -81,7 +81,6 @@ class ShowCompanies extends ConsumerWidget {
       }
     }
 
-    var offset = ref.watch(sp_offset);
     _controller.addListener(scrollListener);
 
     Top(context, snapshot, index) {
@@ -196,6 +195,9 @@ class ShowCompanies extends ConsumerWidget {
                             Buttom(context, snapshot, index),
                             Center(
                               child: Text(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                softWrap: false,
                                 textAlign: TextAlign.center,
                                 snapshot.data![index].companyname!,
                                 style: const TextStyle(
