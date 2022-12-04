@@ -4,6 +4,7 @@ import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/models/company.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants/responsive.dart';
@@ -135,7 +136,7 @@ class ShowCompanies extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromARGB(255, 0, 0, 0)),
+                      color: Colors.black),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -152,8 +153,8 @@ class ShowCompanies extends ConsumerWidget {
                     //borderRadius: BorderRadius.circular(20), // Image border
                     child: SizedBox.fromSize(
                       size: const Size.fromRadius(15),
-                      child: Image.asset(
-                        "assets/images/${index + 1}.png",
+                      child: SvgPicture.asset(
+                        "assets/images/${(snapshot.data![index].country).toLowerCase()}.svg",
                         fit: BoxFit.cover,
                       ),
                     ),
