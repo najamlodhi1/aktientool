@@ -170,6 +170,7 @@ class ShowCompanies extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView(
+            shrinkWrap: true,
             controller: _controller,
             children: [
               Wrap(
@@ -198,8 +199,8 @@ class ShowCompanies extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(25.0),
                             ),
                             color: const Color.fromARGB(255, 0, 0, 0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: ListView(
+                              shrinkWrap: true,
                               children: <Widget>[
                                 Top(context, snapshot, index),
                                 Center(
@@ -213,25 +214,37 @@ class ShowCompanies extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  "${snapshot.data![index].price} \$",
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 0, 255, 145),
-                                    fontSize: 20,
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: Text(
+                                    "${snapshot.data![index].price} \$",
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 0, 255, 145),
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  snapshot.data![index].sector!,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 148, 148, 148),
-                                    fontSize: 12,
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: Text(
+                                    snapshot.data![index].sector!,
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 148, 148, 148),
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  snapshot.data![index].industry!,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 148, 148, 148),
-                                    fontSize: 12,
+                                Center(
+                                  child: Text(
+                                    snapshot.data![index].industry!,
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 148, 148, 148),
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 ),
                                 Buttom(context, snapshot, index),
