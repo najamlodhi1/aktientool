@@ -124,46 +124,32 @@ class ShowCompanies extends ConsumerWidget {
       );
     }
 
+    // ignore: non_constant_identifier_names
     Buttom(context, snapshot, index) {
-      return Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "MC: \$${((snapshot.data![index].marketcap) / 1000000000).toStringAsFixed(0)} B",
-                      style: const TextStyle(
-                        color: Colors.yellow,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  child: ClipRRect(
-                    //borderRadius: BorderRadius.circular(20), // Image border
-                    child: SizedBox.fromSize(
-                      size: const Size.fromRadius(15),
-                      child: SvgPicture.asset(
-                        "assets/images/${(snapshot.data![index].country).toLowerCase()}.svg",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              "MC: \$${((snapshot.data![index].marketcap) / 1000000000).toStringAsFixed(0)} B",
+              style: const TextStyle(
+                color: Colors.yellow,
+                fontSize: 15,
+              ),
             ),
-          ),
-        ],
+            ClipRRect(
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(10),
+                child: SvgPicture.asset(
+                  "assets/images/${(snapshot.data![index].country).toLowerCase()}.svg",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ],
+        ),
       );
     }
 
@@ -207,6 +193,7 @@ class ShowCompanies extends ConsumerWidget {
                         child: Column(
                           children: <Widget>[
                             Top(context, snapshot, index),
+                            Buttom(context, snapshot, index),
                             Center(
                               child: Text(
                                 textAlign: TextAlign.center,
@@ -251,7 +238,6 @@ class ShowCompanies extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            Buttom(context, snapshot, index),
                           ],
                         ),
                       ),
