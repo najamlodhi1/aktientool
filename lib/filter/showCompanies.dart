@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, must_be_immutable
 import 'dart:convert';
+import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/models/company.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -188,60 +189,70 @@ class ShowCompanies extends ConsumerWidget {
                     mainAxisSpacing: 10.0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.all(2.0),
-                      padding: const EdgeInsets.all(2.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white)),
-                      child: Column(
-                        children: <Widget>[
-                          Top(context, snapshot, index),
-                          Center(
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              snapshot.data![index].companyname!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 251, 251, 251),
-                                fontSize: 18,
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AllCharts(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white)),
+                        child: Column(
+                          children: <Widget>[
+                            Top(context, snapshot, index),
+                            Center(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                snapshot.data![index].companyname!,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 251, 251, 251),
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Center(
-                            child: Text(
-                              "${snapshot.data![index].price} \$",
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 255, 145),
-                                fontSize: 20,
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Center(
+                              child: Text(
+                                "${snapshot.data![index].price} \$",
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 0, 255, 145),
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Center(
-                            child: Text(
-                              snapshot.data![index].sector!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 148, 148, 148),
-                                fontSize: 12,
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Center(
+                              child: Text(
+                                snapshot.data![index].sector!,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 148, 148, 148),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
-                          ),
-                          Center(
-                            child: Text(
-                              snapshot.data![index].industry!,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 148, 148, 148),
-                                fontSize: 12,
+                            Center(
+                              child: Text(
+                                snapshot.data![index].industry!,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 148, 148, 148),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
-                          ),
-                          Buttom(context, snapshot, index),
-                        ],
+                            Buttom(context, snapshot, index),
+                          ],
+                        ),
                       ),
                     );
                   },
