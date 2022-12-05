@@ -174,7 +174,7 @@ class ShowCompanies extends ConsumerWidget {
                 GridView.builder(
                   //physics: const NeverScrollableScrollPhysics(),
                   //primary: true,
-                  //shrinkWrap: true,
+                  shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: checkDevice(context),
