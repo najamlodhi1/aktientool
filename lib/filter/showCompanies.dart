@@ -71,17 +71,24 @@ class ShowCompanies extends ConsumerWidget {
     scrollListener() {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
-        print("reach the bottom");
         ref.watch(sp_offset.state).state += 50;
+        offset += 50;
+        print("offset: $offset");
+        print("rofset: ${ref.watch(sp_offset)}");
       }
       if (_controller.offset <= _controller.position.minScrollExtent &&
           !_controller.position.outOfRange) {
         print("reach the top");
         ref.watch(sp_offset.state).state = 0;
+        offset = 50;
       }
     }
 
-    _controller.addListener(scrollListener);
+    if (ref.watch(sp_offset.state).state ==
+            ref.watch(sp_offset.state).state + 50 ||
+        ref.watch(sp_offset.state).state == 0) {
+      _controller.addListener(scrollListener);
+    }
 
     Top(context, snapshot, index) {
       return Row(
@@ -157,7 +164,7 @@ class ShowCompanies extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
+            //physics: const ClampingScrollPhysics(),
             controller: _controller,
             child: Wrap(
               children: [
@@ -165,9 +172,9 @@ class ShowCompanies extends ConsumerWidget {
                 //Filter2(),
                 //Feinfilter(),
                 GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  primary: true,
-                  shrinkWrap: true,
+                  //physics: const NeverScrollableScrollPhysics(),
+                  //primary: true,
+                  //shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: checkDevice(context),
