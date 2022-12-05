@@ -164,7 +164,7 @@ class ShowCompanies extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return SingleChildScrollView(
-            //physics: const ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             controller: _controller,
             child: Wrap(
               children: [
@@ -172,8 +172,8 @@ class ShowCompanies extends ConsumerWidget {
                 //Filter2(),
                 //Feinfilter(),
                 GridView.builder(
-                  //physics: const NeverScrollableScrollPhysics(),
-                  //primary: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  primary: true,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
