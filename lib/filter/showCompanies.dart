@@ -2,10 +2,10 @@
 import 'dart:convert';
 import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/models/company.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 
 import '../constants/responsive.dart';
 import 'country.dart';
@@ -40,15 +40,13 @@ class ShowCompanies extends ConsumerWidget {
     String url =
         "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$marketcapUrl&offset=$offset";
 
-    final response = await http.get(
-      Uri.parse(url),
-    );
-    final shortenResponse = response.body.substring(
-      response.body.indexOf('['),
-      response.body.indexOf(']') + 1,
-    );
-
-    final List resultBody = jsonDecode(shortenResponse);
+    var responses = await Dio().get(url);
+    var x = responses;
+    var y = x.toString();
+    y = y.substring(y.indexOf('['), y.indexOf(']') + 1).toString();
+    var encoded = utf8.encode(y);
+    var decoded = utf8.decode(encoded);
+    final List resultBody = jsonDecode(decoded);
     companies.addAll(resultBody.map((c) => CompanyModel.fromJson(c)));
     return companies;
   }
