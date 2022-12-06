@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../authentication/services/auth_service.dart';
 import '../payment/paypal_payment.dart';
 import '../webpage/start.dart';
+import 'filter.dart';
 
 class SearchArea extends AppBar {
   SearchArea({Key? key}) : super(key: key);
@@ -26,6 +27,16 @@ class _SearchfieldState extends State<SearchArea> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Filter(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.menu)),
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       title: customSearchBar,
       automaticallyImplyLeading: false,

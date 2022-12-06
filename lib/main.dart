@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
-import '../webpage/start.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter/material.dart';
+import 'filter/filter.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Start(),
+      home: Filter(),
     );
   }
 }

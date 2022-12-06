@@ -19,7 +19,7 @@ class Home extends ConsumerWidget {
         ref.watch(sp_generatedIndustryFromList);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: Colors.black,
       appBar: SearchArea(),
       body: SafeArea(child: ShowCompanies()),
     );

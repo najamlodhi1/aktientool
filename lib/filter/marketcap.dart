@@ -31,7 +31,6 @@ class Marketcap extends ConsumerWidget {
     var textMarketcap = ref.watch(sp_marketcap);
 
     return SizedBox(
-      width: 180,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -54,7 +53,11 @@ class Marketcap extends ConsumerWidget {
             Container(
               child: ToggleButtons(
                 constraints: const BoxConstraints(
-                    maxWidth: 39, minWidth: 39, minHeight: 39, maxHeight: 39),
+                  maxWidth: 39,
+                  minWidth: 39,
+                  minHeight: 39,
+                  maxHeight: 39,
+                ),
                 borderWidth: 3,
                 // ignore: sort_child_properties_last
                 children: const [
