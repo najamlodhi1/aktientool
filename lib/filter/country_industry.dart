@@ -7,10 +7,10 @@ import 'country.dart';
 import 'industry.dart';
 
 // ignore: must_be_immutable
-class Filter2 extends ConsumerWidget {
+class CountryIndustry extends ConsumerWidget {
   List<Map> generatedIndustryFromList = [];
 
-  Filter2({Key? key}) : super(key: key);
+  CountryIndustry({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
