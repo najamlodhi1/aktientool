@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../constants/responsive.dart';
 import 'package:flutter/material.dart';
@@ -13,45 +14,10 @@ var sp_country_url = StateProvider((ref) {
   return "";
 });
 
-class Country extends ConsumerWidget {
-  const Country({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CountrySelect()),
-        );
-      },
-      child: SizedBox(
-        width: 180,
-        height: 120,
-        child: Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          color: Colors.black,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                  image: AssetImage("assets/images/land.png"),
-                  fit: BoxFit.fill),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 // ignore: must_be_immutable
 class CountrySelect extends ConsumerWidget {
   List country = [
+    "AR",
     "CH",
     "CN",
     "IE",
@@ -66,7 +32,6 @@ class CountrySelect extends ConsumerWidget {
     "HK",
     "MC",
     "ID",
-    "AR",
     "SE",
     "LU",
     "CO",
@@ -151,7 +116,7 @@ class CountrySelect extends ConsumerWidget {
         title: const Text('Land auswählen'),
       ),
       body: GridView.builder(
-        itemCount: 39,
+        itemCount: 60,
         itemBuilder: (ctx, index) {
           return Card(
             key: ValueKey(generatedCountrieFromList[index]['name']),
@@ -186,10 +151,9 @@ class CountrySelect extends ConsumerWidget {
                 //borderRadius: BorderRadius.circular(20), // Image border
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(20),
-                  child: Image.asset(
-                    // imageList[index]
-                    'assets/images/$index.png',
-                    fit: BoxFit.cover,
+                  child: SvgPicture.asset(
+                    "images/${(country[index]).toLowerCase()}.svg",
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),

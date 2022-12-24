@@ -9,9 +9,9 @@ class Filter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar:
           AppBar(title: const Text('Filter'), backgroundColor: Colors.black),
-      // Implement the ExpansionTile
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -21,13 +21,19 @@ class Filter extends ConsumerWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                color: const Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      title: const Text('Countries'),
-                      subtitle: const Text("Alle"),
+                      title: const Text(
+                        'Countries',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: const Text(
+                        "Alle",
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -46,13 +52,19 @@ class Filter extends ConsumerWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                color: const Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      title: const Text('Industry'),
-                      subtitle: const Text("Alle"),
+                      title: const Text(
+                        'Industry',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: const Text(
+                        "Alle",
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,

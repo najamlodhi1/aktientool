@@ -37,20 +37,25 @@ class Marketcap extends ConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 0, 0, 0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ExpansionTile(
-              title: const Text("Marketcap:"),
-              subtitle: Text(textMarketcap.toString()),
+              title: const Text("Marketcap:",
+                  style: TextStyle(color: Colors.white)),
+              subtitle: Text(
+                textMarketcap.toString(),
+                style: const TextStyle(color: Colors.blue),
+              ),
               // Contents
               children: [
                 ListTile(
                   leading: const CircleAvatar(
                     backgroundColor: Colors.blue,
                   ),
-                  title: const Text('1000000000'),
+                  title: const Text('1000000000',
+                      style: TextStyle(color: Colors.white)),
                   onTap: () {
                     ref.read(sp_marketcap.state).state = _marketcap[0];
                   },
@@ -59,7 +64,8 @@ class Marketcap extends ConsumerWidget {
                   leading: const CircleAvatar(
                     backgroundColor: Colors.red,
                   ),
-                  title: const Text('10000000000'),
+                  title: const Text('10000000000',
+                      style: TextStyle(color: Colors.white)),
                   onTap: () {
                     ref.read(sp_marketcap.state).state = _marketcap[1];
                   },
@@ -68,7 +74,8 @@ class Marketcap extends ConsumerWidget {
                   leading: const CircleAvatar(
                     backgroundColor: Colors.amber,
                   ),
-                  title: const Text('100000000000'),
+                  title: const Text('100000000000',
+                      style: TextStyle(color: Colors.white)),
                   onTap: () {
                     ref.read(sp_marketcap.state).state = _marketcap[2];
                   },
@@ -77,7 +84,10 @@ class Marketcap extends ConsumerWidget {
                   leading: const CircleAvatar(
                     backgroundColor: Colors.pink,
                   ),
-                  title: const Text('1000000000000'),
+                  title: const Text(
+                    '1000000000000',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onTap: () {
                     ref.read(sp_marketcap.state).state = _marketcap[3];
                   },
