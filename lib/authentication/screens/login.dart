@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
-import 'package:aktientool/authentication/screens/forgot_password.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import '../../webpage/start.dart';
 import '../services/auth_service.dart';
-import 'create_account.dart';
+import 'forgot_password.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -16,54 +16,77 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 49, 49, 49),
-        title: const Text('Login'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'Email'),
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
+      body: SingleChildScrollView(
+          child: Container(
+        constraints:
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height
+                //set minimum height equal to 100% of VH
                 ),
+        width: MediaQuery.of(context).size.width,
+        //make width of outer wrapper to 100%
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color.fromARGB(255, 0, 255, 225),
+              Color.fromARGB(255, 64, 255, 226),
+              Color.fromARGB(255, 54, 244, 200),
+              Color.fromARGB(255, 82, 255, 189),
+            ],
+          ),
+        ), //show linear gradient background of page
+
+        padding: const EdgeInsets.all(20),
+        child: Column(children: <Widget>[
+          const SizedBox(
+            height: 100,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 4,
+            child: TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: 'Email'),
+            ),
+          ),
+          const SizedBox(
+            height: 30.0,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 4,
+            child: TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Password',
               ),
             ),
-            const SizedBox(
-              height: 15.0,
+          ),
+          const SizedBox(
+            height: 15.0,
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ForgotPassword(),
+                ),
+              );
+            },
+            child: const Text(
+              'Forgot Password?',
+              style: TextStyle(fontSize: 20, color: Colors.black),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ForgotPassword(),
-                  ),
-                );
-              },
-              child: const Text('Forgot Password?'),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            ElevatedButton(
+          ),
+          const SizedBox(
+            height: 30.0,
+          ),
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: ElevatedButton(
               onPressed: () async {
                 final message = await AuthService().login(
                   email: _emailController.text,
@@ -83,12 +106,19 @@ class LoginScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Login'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.black),
+              ),
+              child: const Text('LOGIN', style: TextStyle(fontSize: 15)),
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            ElevatedButton(
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: ElevatedButton(
               onPressed: () async {
                 await AuthService().signInWithGoogle().then((result) {
                   if (kDebugMode) {
@@ -108,24 +138,18 @@ class LoginScreen extends StatelessWidget {
                   }
                 });
               },
-              child: const Text('Login with Google'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.black),
+              ),
+              child: const Text('LOGIN WITH GOOGLE',
+                  style: TextStyle(fontSize: 15)),
             ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CreateAccount(),
-                  ),
-                );
-              },
-              child: const Text('Create Account'),
-            ),
-          ],
-        ),
-      ),
+          ),
+          const SizedBox(
+            height: 30.0,
+          ),
+        ]),
+      )),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:aktientool/authentication/screens/create_account.dart';
+import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/webpage/start.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,10 +36,36 @@ class MyApp extends ConsumerWidget {
         },
       ),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData(),
+      home: DefaultTabController(
+        length: 5,
+        child: Scaffold(
+          body: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  backgroundColor: Colors.black,
+                  title: Image.asset('images/logo.jpg', height: 30),
+                  pinned: true,
+                  floating: true,
+                  bottom: const TabBar(
+                    isScrollable: true,
+                    tabs: [
+                      Tab(child: Text('Home')),
+                      Tab(child: Text('Anmelden')),
+                      Tab(child: Text('Mitgliedschaft')),
+                    ],
+                  ),
+                ),
+              ];
+            },
+            body: TabBarView(
+              children: <Widget>[Start(), LoginScreen(), CreateAccount()],
+            ),
+          ),
+        ),
       ),
-      home: Start(),
     );
   }
 }

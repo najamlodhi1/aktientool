@@ -1,7 +1,6 @@
 import 'package:aktientool/services/app_services.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/footer.dart';
-import 'package:aktientool/webpage/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/cookie.dart';
@@ -24,7 +23,6 @@ class Start extends ConsumerWidget {
     });
 
     return Scaffold(
-      appBar: headerNav(context),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
