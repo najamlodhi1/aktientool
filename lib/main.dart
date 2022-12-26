@@ -38,7 +38,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
       home: DefaultTabController(
-        length: 5,
+        length: 3,
         child: Scaffold(
           body: NestedScrollView(
             headerSliverBuilder:
@@ -46,7 +46,10 @@ class MyApp extends ConsumerWidget {
               return <Widget>[
                 SliverAppBar(
                   backgroundColor: Colors.black,
-                  title: Image.asset('assets/images/logo.png'),
+                  title: Image.asset(
+                    'assets/images/logo.png',
+                    height: 30,
+                  ),
                   pinned: true,
                   floating: true,
                   bottom: const TabBar(
