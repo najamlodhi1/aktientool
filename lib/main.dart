@@ -48,8 +48,9 @@ class MyApp extends ConsumerWidget {
                   backgroundColor: Colors.black,
                   title: Image.asset(
                     'assets/images/logo.png',
-                    height: 30,
+                    height: 25,
                   ),
+                  centerTitle: true,
                   pinned: true,
                   floating: true,
                   bottom: const TabBar(
