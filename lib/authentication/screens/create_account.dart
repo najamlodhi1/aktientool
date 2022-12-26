@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
+import 'package:aktientool/datenschutz/agb.dart';
+import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
 import 'package:flutter/material.dart';
 import '../../webpage/start.dart';
 import '../services/auth_service.dart';
@@ -35,12 +37,28 @@ class CreateAccount extends StatelessWidget {
             ),
           ), //show linear gradient background of page
 
-          padding: const EdgeInsets.all(20),
+          //padding: const EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Center(
+                child: SizedBox(
+                  height: 30,
+                ),
+              ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 3,
+                  child: Column(
+                children: const [
+                  Text(
+                    "Werde JETZT kostenlos Mitglied.",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              )),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 250,
                 child: TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -48,10 +66,10 @@ class CreateAccount extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 30.0,
+                height: 10.0,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 3,
+                width: 250,
                 child: TextField(
                   controller: _passwordController,
                   obscureText: true,
@@ -63,6 +81,48 @@ class CreateAccount extends StatelessWidget {
               ),
               const SizedBox(
                 height: 30.0,
+              ),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Center(
+                    child: Wrap(
+                      children: <Widget>[
+                        const TextButton(
+                            onPressed: null,
+                            child:
+                                Text('Durch das Klicken auf MITGLIED WERDEN')),
+                        const TextButton(
+                            onPressed: null, child: Text('stimmen Sie den')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const AGB(),
+                                ),
+                              );
+                            },
+                            child: const Text('AGB')),
+                        const TextButton(onPressed: null, child: Text('und')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Datenschutzerklaerung(),
+                                ),
+                              );
+                            },
+                            child: const Text('Datenschutzrichtlinien')),
+                        const TextButton(
+                            onPressed: null, child: Text('von Aktientool zu!')),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               SizedBox(
                 width: 200,

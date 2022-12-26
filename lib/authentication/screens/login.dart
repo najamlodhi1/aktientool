@@ -40,10 +40,10 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(children: <Widget>[
           const SizedBox(
-            height: 100,
+            height: 50,
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
+            width: 250,
             child: TextField(
               controller: _emailController,
               decoration: const InputDecoration(
@@ -51,10 +51,10 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 30.0,
+            height: 10.0,
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
+            width: 250,
             child: TextField(
               controller: _passwordController,
               obscureText: true,
