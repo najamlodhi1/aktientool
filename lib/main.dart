@@ -46,7 +46,7 @@ class MyApp extends ConsumerWidget {
               return <Widget>[
                 SliverAppBar(
                   backgroundColor: Colors.black,
-                  title: Image.asset('assets/images/logo.png', height: 30),
+                  title: Image.asset('assets/images/logo.png'),
                   pinned: true,
                   floating: true,
                   bottom: const TabBar(
