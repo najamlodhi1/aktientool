@@ -1,11 +1,10 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'package:aktientool/filter/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../authentication/services/auth_service.dart';
 import '../payment/paypal_payment.dart';
-import '../webpage/start.dart';
 import 'filter.dart';
 
 class SearchArea extends AppBar {
@@ -96,61 +95,20 @@ class _SearchfieldState extends State<SearchArea> {
                       ),
                     );
                   },
-                  child: const Text('Paypal'),
+                  child: const Text('Upgrade to Premium'),
                 ),
               )
             : const SizedBox.shrink(),
-        FirebaseAuth.instance.currentUser != null
-            ? Padding(
-                padding: const EdgeInsets.all(8),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await AuthService().signOut().then((result) {
-                      if (kDebugMode) {
-                        print(result);
-                      }
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (context) => Start(),
-                        ),
-                      );
-                    }).catchError((error) {
-                      if (kDebugMode) {
-                        print('Registration Error: $error');
-                      }
-                    });
-                  },
-                  child: const Text('Logout'),
+        IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Settings(),
                 ),
-              )
-            : const SizedBox.shrink(),
-        FirebaseAuth.instance.currentUser != null
-            ? Padding(
-                padding: const EdgeInsets.all(8),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    FirebaseAuth.instance.currentUser!.delete();
-                    await AuthService().signOut().then((result) {
-                      if (kDebugMode) {
-                        print(result);
-                      }
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (context) => Start(),
-                        ),
-                      );
-                    }).catchError((error) {
-                      if (kDebugMode) {
-                        print('Registration Error: $error');
-                      }
-                    });
-                  },
-                  child: const Text('Delete Account'),
-                ),
-              )
-            : const SizedBox.shrink(),
+              );
+            },
+            icon: const Icon(Icons.settings))
       ],
       centerTitle: true,
     );

@@ -2,7 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../webpage/start.dart';
+import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
 
@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Start(),
+                      builder: (context) => const Home(),
                     ),
                   );
                 }
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         fullscreenDialog: true,
-                        builder: (context) => Start(),
+                        builder: (context) => const Home(),
                       ),
                     );
                   }

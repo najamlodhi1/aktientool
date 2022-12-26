@@ -3,7 +3,7 @@
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
 import 'package:flutter/material.dart';
-import '../../webpage/start.dart';
+import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 
 class CreateAccount extends StatelessWidget {
@@ -136,7 +136,7 @@ class CreateAccount extends StatelessWidget {
                     if (message!.contains('Success')) {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => Start(),
+                          builder: (context) => const Home(),
                         ),
                       );
                     }
