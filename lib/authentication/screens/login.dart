@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
             height: 100,
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width / 3,
             child: TextField(
               controller: _emailController,
               decoration: const InputDecoration(
@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
             height: 30.0,
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width / 3,
             child: TextField(
               controller: _passwordController,
               obscureText: true,

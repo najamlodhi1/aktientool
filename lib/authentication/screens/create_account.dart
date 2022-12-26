@@ -40,7 +40,7 @@ class CreateAccount extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width / 4,
+                width: MediaQuery.of(context).size.width / 3,
                 child: TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -51,7 +51,7 @@ class CreateAccount extends StatelessWidget {
                 height: 30.0,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 4,
+                width: MediaQuery.of(context).size.width / 3,
                 child: TextField(
                   controller: _passwordController,
                   obscureText: true,
