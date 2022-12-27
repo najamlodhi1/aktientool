@@ -51,8 +51,8 @@ class LoginScreen extends StatelessWidget {
                                 "AVm91QFLAO36yrOG4n82j0LCae-a7F4bbaIB-Mn7_ncjPJpKcT3tIVUsttuUWgdkn3Iv7aqxgJc9bFj2",
                             secretKey:
                                 "EM9PQoyPWkVkm-JoI1pMuoHYVDEkFnMv5WxZWnvf0wZusEDPSSHG7lUlmo5cAL3H33IS44SZxC9y8nTR",
-                            returnURL: "https://aktientool.com/return",
-                            cancelURL: "https://aktientool.com/cancel",
+                            returnURL: "https://aktientool.com",
+                            cancelURL: "https://aktientool.com",
                             transactions: const [
                               {
                                 "amount": {
