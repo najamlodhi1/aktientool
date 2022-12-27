@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-import '../../checkout/stripe_checkout_web.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
+import 'package:flutter_paypal/flutter_paypal.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -41,10 +41,73 @@ class LoginScreen extends StatelessWidget {
 
         padding: const EdgeInsets.all(20),
         child: Column(children: <Widget>[
-          ElevatedButton(
-            onPressed: () => redirectToCheckout(context),
-            child: const Text('Stripe Checkout in Flutter!'),
-          ),
+          TextButton(
+              onPressed: () => {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => UsePaypal(
+                            sandboxMode: true,
+                            clientId:
+                                "AVm91QFLAO36yrOG4n82j0LCae-a7F4bbaIB-Mn7_ncjPJpKcT3tIVUsttuUWgdkn3Iv7aqxgJc9bFj2",
+                            secretKey:
+                                "EM9PQoyPWkVkm-JoI1pMuoHYVDEkFnMv5WxZWnvf0wZusEDPSSHG7lUlmo5cAL3H33IS44SZxC9y8nTR",
+                            returnURL: "https://aktientool.com/return",
+                            cancelURL: "https://aktientool.com/cancel",
+                            transactions: const [
+                              {
+                                "amount": {
+                                  "total": '10.12',
+                                  "currency": "USD",
+                                  "details": {
+                                    "subtotal": '10.12',
+                                    "shipping": '0',
+                                    "shipping_discount": 0
+                                  }
+                                },
+                                "description":
+                                    "The payment transaction description.",
+                                // "payment_options": {
+                                //   "allowed_payment_method":
+                                //       "INSTANT_FUNDING_SOURCE"
+                                // },
+                                "item_list": {
+                                  "items": [
+                                    {
+                                      "name": "A demo product",
+                                      "quantity": 1,
+                                      "price": '10.12',
+                                      "currency": "USD"
+                                    }
+                                  ],
+
+                                  // shipping address is not required though
+                                  "shipping_address": {
+                                    "recipient_name": "Jane Foster",
+                                    "line1": "Travis County",
+                                    "line2": "",
+                                    "city": "Austin",
+                                    "country_code": "US",
+                                    "postal_code": "73301",
+                                    "phone": "+00000000",
+                                    "state": "Texas"
+                                  },
+                                }
+                              }
+                            ],
+                            note: "Contact us for any questions on your order.",
+                            onSuccess: (Map params) async {
+                              print("onSuccess: $params");
+                            },
+                            onError: (error) {
+                              print("onError: $error");
+                            },
+                            onCancel: (params) {
+                              print('cancelled: $params');
+                            }),
+                      ),
+                    )
+                  },
+              child: const Text("Make Payment")),
           const SizedBox(
             height: 50,
           ),
