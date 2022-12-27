@@ -101,7 +101,7 @@ class _SearchfieldState extends State<SearchArea> {
                       ),
                     );
                   },
-                  child: const Text('Upgrade to Premium'),
+                  child: const Text('Upgrade'),
                 ),
               )
             : const SizedBox.shrink(),
