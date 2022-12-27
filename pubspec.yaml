@@ -37,6 +37,8 @@ dependencies:
   google_fonts: ^3.0.1
   responsive_framework: ^0.2.0
   adaptive_navbar: ^0.0.3
+  flutter_stripe: ^7.0.0
+  stripe_payment: ^1.1.4
 
 dev_dependencies:
   flutter_test:

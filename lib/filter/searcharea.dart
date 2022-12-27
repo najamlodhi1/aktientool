@@ -81,11 +81,11 @@ class _SearchfieldState extends State<SearchArea> {
           icon: customIcon,
         ),
         const SizedBox(
-          width: 10,
+          width: 5,
         ),
         FirebaseAuth.instance.currentUser != null
             ? Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(2),
                 child: ElevatedButton(
                   onPressed: () async {
                     Navigator.of(context).push(

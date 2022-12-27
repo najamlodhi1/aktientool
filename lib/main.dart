@@ -10,7 +10,9 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   setPathUrlStrategy();
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

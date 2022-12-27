@@ -1,6 +1,8 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, must_be_immutable
+
 import 'package:flutter/material.dart';
 
+import '../../checkout/stripe_checkout_web.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
@@ -11,6 +13,7 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
+  Map<String, dynamic>? paymentIntent;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,10 @@ class LoginScreen extends StatelessWidget {
 
         padding: const EdgeInsets.all(20),
         child: Column(children: <Widget>[
+          ElevatedButton(
+            onPressed: () => redirectToCheckout(context),
+            child: const Text('Stripe Checkout in Flutter!'),
+          ),
           const SizedBox(
             height: 50,
           ),
