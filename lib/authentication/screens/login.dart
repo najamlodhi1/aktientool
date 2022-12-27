@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../stockscreener/home.dart';
@@ -115,6 +114,7 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
+          /*
           SizedBox(
             width: 200,
             height: 40,
@@ -144,7 +144,7 @@ class LoginScreen extends StatelessWidget {
               child: const Text('LOGIN WITH GOOGLE',
                   style: TextStyle(fontSize: 15)),
             ),
-          ),
+          ),*/
           const SizedBox(
             height: 30.0,
           ),
