@@ -4,7 +4,6 @@ import 'package:aktientool/payment/paypal/paypal_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webviewx/webviewx.dart';
-import 'dart:core';
 
 class PaypalPayment extends StatefulWidget {
   final Function onFinish;
@@ -28,7 +27,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
   bool isEnableAddress = false;
 
   String returnURL = 'https://aktientool.net/';
-  String cancelURL = 'cancel.example.com';
+  String cancelURL = 'https://aktientool.net/';
 
   @override
   void initState() {
