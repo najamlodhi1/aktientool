@@ -10,6 +10,7 @@ StateProvider<List<dynamic>> sp_generatedCountrieFromList =
   return [];
 });
 
+// ignore: non_constant_identifier_names
 var sp_country_url = StateProvider((ref) {
   return "";
 });
@@ -132,18 +133,25 @@ class CountrySelect extends ConsumerWidget {
 
                 if (generatedCountrieFromList[index]['isSelected'] == true) {
                   generatedCountrieFromList[index][Color] = Colors.grey;
+                  // ignore: deprecated_member_use
                   ref.watch(sp_country_url.state).state +=
+                      // ignore: prefer_interpolation_to_compose_strings
                       ":" + generatedCountrieFromList[index]['name'];
                 }
                 if (generatedCountrieFromList[index]['isSelected'] == false) {
                   generatedCountrieFromList[index][Color] = Colors.black;
+                  // ignore: deprecated_member_use
                   ref.watch(sp_country_url.state).state = ref
+                      // ignore: deprecated_member_use
                       .watch(sp_country_url.state)
                       .state
                       .replaceAll(
-                          ":" + generatedCountrieFromList[index]['name'], '');
+                          // ignore: prefer_interpolation_to_compose_strings
+                          ":" + generatedCountrieFromList[index]['name'],
+                          '');
                 }
 
+                // ignore: deprecated_member_use
                 ref.refresh(sp_generatedCountrieFromList.state).state =
                     generatedCountrieFromList;
               },

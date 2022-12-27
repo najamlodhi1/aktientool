@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:aktientool/payment/paypal/paypal_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webviewx/webviewx.dart';
 import 'dart:core';
-
-import 'paypal/paypal_service.dart';
 
 class PaypalPayment extends StatefulWidget {
   final Function onFinish;

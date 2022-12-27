@@ -397,6 +397,7 @@ checkCookies2(context, WidgetRef ref) {
 
           ElevatedButton(
             onPressed: () {
+              // ignore: deprecated_member_use
               ref.read(cookieProvider.state).state = true;
               if (kDebugMode) {
                 print("Alle Cookies erlauben");

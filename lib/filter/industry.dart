@@ -242,7 +242,6 @@ class IndustrySelect extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var generatedIndustryFromList = ref.watch(sp_generatedIndustryFromList);
-    var generatedURL = ref.watch(sp_industry_url);
 
     if (generatedIndustryFromList.toString() == "[]") {
       generatedIndustryFromList = List.generate(
@@ -279,18 +278,25 @@ class IndustrySelect extends ConsumerWidget {
 
                   if (generatedIndustryFromList[index]['isSelected'] == true) {
                     generatedIndustryFromList[index][Color] = Colors.grey;
+                    // ignore: deprecated_member_use
                     ref.watch(sp_industry_url.state).state +=
+                        // ignore: prefer_interpolation_to_compose_strings
                         ":" + generatedIndustryFromList[index]['name'];
                   }
                   if (generatedIndustryFromList[index]['isSelected'] == false) {
                     generatedIndustryFromList[index][Color] = Colors.black;
+                    // ignore: deprecated_member_use
                     ref.watch(sp_industry_url.state).state = ref
+                        // ignore: deprecated_member_use
                         .watch(sp_industry_url.state)
                         .state
                         .replaceAll(
-                            ":" + generatedIndustryFromList[index]['name'], '');
+                            // ignore: prefer_interpolation_to_compose_strings
+                            ":" + generatedIndustryFromList[index]['name'],
+                            '');
                   }
 
+                  // ignore: deprecated_member_use
                   ref.refresh(sp_generatedIndustryFromList.state).state =
                       generatedIndustryFromList;
                 },

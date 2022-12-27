@@ -65,7 +65,7 @@ class MyApp extends ConsumerWidget {
               ];
             },
             body: TabBarView(
-              children: <Widget>[Start(), LoginScreen(), CreateAccount()],
+              children: <Widget>[const Start(), LoginScreen(), CreateAccount()],
             ),
           ),
         ),

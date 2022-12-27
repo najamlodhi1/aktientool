@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
-import 'package:aktientool/filter/settings.dart';
+import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../payment/paypal_payment.dart';
+import '../payment/paypal/paypal_payment.dart';
 import 'filter.dart';
 
 class SearchArea extends AppBar {
@@ -16,7 +16,10 @@ class SearchArea extends AppBar {
 
 class _SearchfieldState extends State<SearchArea> {
   Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('AktienTool');
+  Widget customSearchBar = Image.asset(
+    'assets/images/logo.png',
+    height: 25,
+  );
 
   @override
   void initState() {
@@ -31,7 +34,7 @@ class _SearchfieldState extends State<SearchArea> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Filter(),
+                builder: (context) => const Filter(),
               ),
             );
           },
@@ -68,7 +71,10 @@ class _SearchfieldState extends State<SearchArea> {
                 );
               } else {
                 customIcon = const Icon(Icons.search);
-                customSearchBar = const Text('AktienTool');
+                customSearchBar = Image.asset(
+                  'assets/images/logo.png',
+                  height: 25,
+                );
               }
             });
           },
@@ -104,7 +110,7 @@ class _SearchfieldState extends State<SearchArea> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Settings(),
+                  builder: (context) => const Settings(),
                 ),
               );
             },

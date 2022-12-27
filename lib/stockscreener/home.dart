@@ -1,4 +1,6 @@
-import 'package:aktientool/filter/showCompanies.dart';
+// ignore_for_file: unused_local_variable
+
+import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

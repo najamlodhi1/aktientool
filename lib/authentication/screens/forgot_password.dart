@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:aktientool/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../webpage/start.dart';
 import '../services/auth_service.dart';
 import '../services/auth_status.dart';
 
@@ -41,7 +41,7 @@ class ForgotPassword extends StatelessWidget {
                 if (status == AuthStatus.successful) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Start(),
+                      builder: (context) => const MyApp(),
                     ),
                   );
                 }

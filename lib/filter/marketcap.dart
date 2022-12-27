@@ -11,10 +11,6 @@ var sp_isSelected = StateProvider((ref) {
   return [true, false, false, false];
 });
 
-var sp_foos = StateProvider((ref) {
-  return '10';
-});
-
 // ignore: must_be_immutable
 class Marketcap extends ConsumerWidget {
   List<Map> generatedCountrieFromList = [];
@@ -27,9 +23,10 @@ class Marketcap extends ConsumerWidget {
     1000000000000,
   ];
 
+  Marketcap({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var isSelected = ref.watch(sp_isSelected);
     var textMarketcap = ref.watch(sp_marketcap);
 
     return SizedBox(
@@ -57,6 +54,7 @@ class Marketcap extends ConsumerWidget {
                   title: const Text('1000000000',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
+                    // ignore: deprecated_member_use
                     ref.read(sp_marketcap.state).state = _marketcap[0];
                   },
                 ),
@@ -67,6 +65,7 @@ class Marketcap extends ConsumerWidget {
                   title: const Text('10000000000',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
+                    // ignore: deprecated_member_use
                     ref.read(sp_marketcap.state).state = _marketcap[1];
                   },
                 ),
@@ -77,6 +76,7 @@ class Marketcap extends ConsumerWidget {
                   title: const Text('100000000000',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
+                    // ignore: deprecated_member_use
                     ref.read(sp_marketcap.state).state = _marketcap[2];
                   },
                 ),
@@ -89,6 +89,7 @@ class Marketcap extends ConsumerWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
+                    // ignore: deprecated_member_use
                     ref.read(sp_marketcap.state).state = _marketcap[3];
                   },
                 ),

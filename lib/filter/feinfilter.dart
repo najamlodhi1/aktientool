@@ -178,6 +178,7 @@ class IndustrySelect extends ConsumerWidget {
                     generatedIndustryFromList[index][Color] = Colors.black;
                   }
 
+                  // ignore: deprecated_member_use
                   ref.refresh(sp_generatedIndustryFromFeinFilter.state).state =
                       generatedIndustryFromList;
                 },
