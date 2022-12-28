@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, must_be_immutable
 
+import 'package:aktientool/authentication/screens/stripe_checkout.dart';
 import 'package:flutter/material.dart';
 
-import '../../checkout/stripe_checkout_web.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
