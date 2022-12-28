@@ -24,10 +24,10 @@ class PaypalPaymentState extends State<PaypalPayment> {
   PaypalServices services = PaypalServices();
 
   Map<dynamic, dynamic> defaultCurrency = {
-    "symbol": "USD",
+    "symbol": "EUR",
     "decimalDigits": 2,
     "symbolBeforeTheNumber": true,
-    "currency": "USD"
+    "currency": "EUR"
   };
   bool isEnableShipping = false;
   bool isEnableAddress = false;
@@ -72,7 +72,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
   // item name, price and quantity
   String itemName = 'Item';
-  String itemPrice = '1.99';
+  String itemPrice = '10';
   int quantity = 1;
   // you can change default currency according to your need
 
@@ -87,18 +87,18 @@ class PaypalPaymentState extends State<PaypalPayment> {
     ];
 
     // checkout invoice details
-    String totalAmount = '1.99';
-    String subTotalAmount = '1.99';
-    String shippingCost = '0';
-    int shippingDiscountCost = 0;
-    String userFirstName = 'Gulshan';
-    String userLastName = 'Yadav';
-    String addressCity = 'Delhi';
-    String addressStreet = 'Mathura Road';
-    String addressZipCode = '110014';
-    String addressCountry = 'India';
-    String addressState = 'Delhi';
-    String addressPhoneNumber = '+919990119091';
+    String totalAmount = '10';
+    String subTotalAmount = '10';
+    String shippingCost = '10';
+    int shippingDiscountCost = 1;
+    String userFirstName = 'Gürkan';
+    String userLastName = 'Öztürk';
+    String addressCity = 'Rottenburg';
+    String addressStreet = 'Donauschwabenweg 10';
+    String addressZipCode = '72108';
+    String addressCountry = 'Deutschland';
+    String addressState = 'Tübingen';
+    String addressPhoneNumber = '+4915251509689';
 
     Map<String, dynamic> temp = {
       "intent": "sale",
