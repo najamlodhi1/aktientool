@@ -13,8 +13,8 @@ void redirectToCheckout(BuildContext _) async {
       LineItem(price: nikesPriceId, quantity: 1),
     ],
     mode: 'payment',
-    successUrl: 'https://aktientool.net',
-    cancelUrl: 'https://aktientool.net',
+    successUrl: 'https://aktientool.net/',
+    cancelUrl: 'https://aktientool.net/',
   ));
 }
 
