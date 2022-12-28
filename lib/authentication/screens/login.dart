@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../checkout/stripe_checkout_web.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
@@ -40,6 +41,10 @@ class LoginScreen extends StatelessWidget {
 
         padding: const EdgeInsets.all(20),
         child: Column(children: <Widget>[
+          ElevatedButton(
+            onPressed: () => redirectToCheckout(context),
+            child: const Text('Stripe Checkout in Flutter!'),
+          ),
           const SizedBox(
             height: 50,
           ),
