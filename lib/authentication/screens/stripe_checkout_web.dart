@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 @JS()
 library stripe;
 
@@ -19,8 +21,8 @@ void redirectToCheckout(BuildContext context) async {
           LineItem(price: nikesPriceId, quantity: 1),
         ],
         mode: 'payment',
-        successUrl: 'https://aktientool.net/',
-        cancelUrl: 'https://aktientool.net/',
+        //successUrl: 'https://aktientool.net/',
+        //cancelUrl: 'https://aktientool.net/',
       ),
     );
     Navigator.of(context).push(
