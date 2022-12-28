@@ -32,8 +32,8 @@ class PaypalPaymentState extends State<PaypalPayment> {
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
-  String returnURL = 'https://aktientool.net';
-  String cancelURL = 'https://aktientool.net';
+  String returnURL = 'aktientool.net';
+  String cancelURL = 'aktientool.net';
 
   @override
   void initState() {
@@ -72,7 +72,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
   // item name, price and quantity
   String itemName = 'Item';
-  String itemPrice = '10';
+  String itemPrice = '1.99';
   int quantity = 1;
   // you can change default currency according to your need
 
@@ -87,18 +87,18 @@ class PaypalPaymentState extends State<PaypalPayment> {
     ];
 
     // checkout invoice details
-    String totalAmount = '10';
-    String subTotalAmount = '10';
-    String shippingCost = '10';
-    int shippingDiscountCost = 1;
-    String userFirstName = 'Guerkan';
-    String userLastName = 'Oeztürk';
-    String addressCity = 'Rottenburg';
-    String addressStreet = 'Donauschwabenweg 10';
-    String addressZipCode = '72108';
-    String addressCountry = 'Deutschland';
-    String addressState = 'Tübingen';
-    String addressPhoneNumber = '+4915251509689';
+    String totalAmount = '1.99';
+    String subTotalAmount = '1.99';
+    String shippingCost = '0';
+    int shippingDiscountCost = 0;
+    String userFirstName = 'Gulshan';
+    String userLastName = 'Yadav';
+    String addressCity = 'Delhi';
+    String addressStreet = 'Mathura Road';
+    String addressZipCode = '110014';
+    String addressCountry = 'India';
+    String addressState = 'Delhi';
+    String addressPhoneNumber = '+919990119091';
 
     Map<String, dynamic> temp = {
       "intent": "sale",
@@ -108,11 +108,13 @@ class PaypalPaymentState extends State<PaypalPayment> {
           "amount": {
             "total": totalAmount,
             "currency": defaultCurrency["currency"],
+            /*
             "details": {
               "subtotal": subTotalAmount,
               "shipping": shippingCost,
               "shipping_discount": ((-1.0) * shippingDiscountCost).toString()
             }
+             */
           },
           "description": "The payment transaction description.",
           "payment_options": {
