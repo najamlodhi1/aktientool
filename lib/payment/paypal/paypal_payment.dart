@@ -24,10 +24,10 @@ class PaypalPaymentState extends State<PaypalPayment> {
   PaypalServices services = PaypalServices();
 
   Map<dynamic, dynamic> defaultCurrency = {
-    "symbol": "EUR",
+    "symbol": "USD",
     "decimalDigits": 2,
     "symbolBeforeTheNumber": true,
-    "currency": "EUR"
+    "currency": "USD"
   };
   bool isEnableShipping = false;
   bool isEnableAddress = false;
@@ -91,8 +91,8 @@ class PaypalPaymentState extends State<PaypalPayment> {
     String subTotalAmount = '10';
     String shippingCost = '10';
     int shippingDiscountCost = 1;
-    String userFirstName = 'Gürkan';
-    String userLastName = 'Öztürk';
+    String userFirstName = 'Guerkan';
+    String userLastName = 'Oeztürk';
     String addressCity = 'Rottenburg';
     String addressStreet = 'Donauschwabenweg 10';
     String addressZipCode = '72108';
