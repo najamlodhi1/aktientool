@@ -1,14 +1,13 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:aktientool/payment/paypal/paypal_service.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:webviewx/webviewx.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../payment/paypal/paypal_service.dart';
 
 class PaypalPayment extends StatefulWidget {
   final Function onFinish;
 
-  const PaypalPayment({super.key, required this.onFinish});
+  const PaypalPayment({required this.onFinish});
 
   @override
   State<StatefulWidget> createState() {
@@ -18,16 +17,24 @@ class PaypalPayment extends StatefulWidget {
 
 class PaypalPaymentState extends State<PaypalPayment> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String? checkoutUrl;
+  late String checkoutUrl;
   late String executeUrl;
   late String accessToken;
   PaypalServices services = PaypalServices();
 
+  // you can change default currency according to your need
+  Map<dynamic, dynamic> defaultCurrency = {
+    "symbol": "USD ",
+    "decimalDigits": 2,
+    "symbolBeforeTheNumber": true,
+    "currency": "USD"
+  };
+
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
-  String returnURL = 'https://aktientool.net/';
-  String cancelURL = 'https://aktientool.net/';
+  String returnURL = 'return.aktientool.net';
+  String cancelURL = 'cancel.aktientool.net';
 
   @override
   void initState() {
@@ -47,24 +54,26 @@ class PaypalPaymentState extends State<PaypalPayment> {
           });
         }
       } catch (e) {
-        if (kDebugMode) {
-          print('exception: $e');
-        }
+        print('exception: $e');
+        final snackBar = SnackBar(
+          content: Text(e.toString()),
+          duration: const Duration(seconds: 10),
+          action: SnackBarAction(
+            label: 'Close',
+            onPressed: () {
+              // Some code to undo the change.
+            },
+          ),
+        );
+        // _scaffoldKey.currentState.showSnackBar(snackBar);
       }
     });
   }
 
   // item name, price and quantity
-  String itemName = 'Item';
+  String itemName = 'iPhone X';
   String itemPrice = '1.99';
   int quantity = 1;
-  // you can change default currency according to your need
-  Map<dynamic, dynamic> defaultCurrency = {
-    "symbol": "EUR",
-    "decimalDigits": 2,
-    "symbolBeforeTheNumber": true,
-    "currency": "EUR"
-  };
 
   Map<String, dynamic> getOrderParams() {
     List items = [
@@ -78,16 +87,16 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
     // checkout invoice details
     String totalAmount = '1.99';
-    //String subTotalAmount = '1.99';
-    //String shippingCost = '0';
-    //int shippingDiscountCost = 0;
-    String userFirstName = 'John';
-    String userLastName = 'Doe';
-    String addressCity = 'Gotham City';
+    String subTotalAmount = '1.99';
+    String shippingCost = '0';
+    int shippingDiscountCost = 0;
+    String userFirstName = 'Gulshan';
+    String userLastName = 'Yadav';
+    String addressCity = 'Delhi';
     String addressStreet = 'Mathura Road';
     String addressZipCode = '110014';
-    String addressCountry = 'New York';
-    String addressState = 'New York';
+    String addressCountry = 'India';
+    String addressState = 'Delhi';
     String addressPhoneNumber = '+919990119091';
 
     Map<String, dynamic> temp = {
@@ -98,13 +107,11 @@ class PaypalPaymentState extends State<PaypalPayment> {
           "amount": {
             "total": totalAmount,
             "currency": defaultCurrency["currency"],
-            /*
             "details": {
               "subtotal": subTotalAmount,
               "shipping": shippingCost,
               "shipping_discount": ((-1.0) * shippingDiscountCost).toString()
             }
-             */
           },
           "description": "The payment transaction description.",
           "payment_options": {
@@ -134,165 +141,58 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print(checkoutUrl);
-    }
+    print(checkoutUrl);
 
     if (checkoutUrl != null) {
-      return MediaQuery(
-        data: const MediaQueryData(),
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            leading: GestureDetector(
-              child: const Icon(Icons.arrow_back_ios),
-              onTap: () => Navigator.pop(context),
-            ),
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).backgroundColor,
+          leading: GestureDetector(
+            child: const Icon(Icons.arrow_back_ios),
+            onTap: () => Navigator.pop(context),
           ),
-          body: WebViewX(
-            initialContent: checkoutUrl!,
-            javascriptMode: JavascriptMode.unrestricted,
-            navigationDelegate: (NavigationRequest request) {
-              if (request.content.source.contains(returnURL)) {
-                final uri = Uri.parse(request.content.source);
-                final payerID = uri.queryParameters['PayerID'];
-                if (payerID != null) {
-                  services
-                      .executePayment(executeUrl, payerID, accessToken)
-                      .then((id) {
-                    widget.onFinish(id);
-                    Navigator.of(context).pop();
-                  });
-                } else {
+        ),
+        body: WebView(
+          initialUrl: checkoutUrl,
+          javascriptMode: JavascriptMode.unrestricted,
+          navigationDelegate: (NavigationRequest request) {
+            if (request.url.contains(returnURL)) {
+              final uri = Uri.parse(request.url);
+              final payerID = uri.queryParameters['PayerID'];
+              if (payerID != null) {
+                services
+                    .executePayment(executeUrl, payerID, accessToken)
+                    .then((id) {
+                  widget.onFinish(id);
                   Navigator.of(context).pop();
-                }
+                });
+              } else {
                 Navigator.of(context).pop();
               }
-              if (request.content.source.contains(cancelURL)) {
-                Navigator.of(context).pop();
-              }
-              return NavigationDecision.navigate;
-            },
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-          ),
+              Navigator.of(context).pop();
+            }
+            if (request.url.contains(cancelURL)) {
+              Navigator.of(context).pop();
+            }
+            return NavigationDecision.navigate;
+          },
         ),
       );
     } else {
-      return MediaQuery(
-        data: const MediaQueryData(),
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            leading: IconButton(
+      return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.of(context).pop();
-              },
-            ),
-            backgroundColor: Colors.black12,
-            elevation: 0.0,
-          ),
-          body: const Center(
-            child: CircularProgressIndicator(),
-          ),
+              }),
+          backgroundColor: Colors.black12,
+          elevation: 0.0,
         ),
+        body:
+            Center(child: Container(child: const CircularProgressIndicator())),
       );
     }
   }
 }
-
-/*
-class PaypalPayment extends StatelessWidget {
-  PaypalPayment({
-    Key? key,
-    required this.amount,
-    required this.currency,
-  }) : super(key: key);
-  final double amount;
-  final String currency;
-
-  late WebViewXController webviewController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          /*
-      WebBrowser(
-        initialUrl:
-            'http://localhost:3000/createpaypalpayment?amount=$amount&currency=$currency',
-        javascriptEnabled: true,
-      ),
-       */
-
-      WebViewX(
-        initialContent:
-            'http://localhost:3000/createpaypalpayment?amount=$amount&currency=$currency',
-        initialSourceType: SourceType.url,
-        onWebViewCreated: (controller) => webviewController = controller,
-        onPageStarted: (src) =>
-            debugPrint('A new page has started loading: $src\n'),
-        onPageFinished: (value) {
-          if (kDebugMode) {
-            print(value);
-          }
-        },
-        jsContent: const {
-          EmbeddedJsContent(
-            js: "function testPlatformIndependentMethod() { console.log('Hi from JS') }",
-          ),
-          EmbeddedJsContent(
-            webJs:
-                "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
-            mobileJs:
-                "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
-          ),
-        },
-        dartCallBacks: {},
-        webSpecificParams: const WebSpecificParams(
-          printDebugInfo: true,
-        ),
-        mobileSpecificParams: const MobileSpecificParams(
-          androidEnableHybridComposition: true,
-        ),
-        navigationDelegate: (NavigationRequest request) async {
-          if (request.content.source
-              .contains('http://return_url/?status=success')) {}
-          if (request.content.source.contains('http://cancel_url')) {
-            Navigator.pop(context);
-          }
-          return NavigationDecision.navigate;
-        },
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-      ),
-
-      /*
-      WebView(
-        initialUrl:
-            'http://localhost:3000/createpaypalpayment?amount=$amount&currency=$currency',
-        gestureRecognizers: Set()
-          ..add(
-            Factory<DragGestureRecognizer>(
-              () => VerticalDragGestureRecognizer(),
-            ),
-          ),
-        onPageFinished: (value) {
-          if (kDebugMode) {
-            print(value);
-          }
-        },
-        navigationDelegate: (NavigationRequest request) async {
-          if (request.url.contains('http://return_url/?status=success')) {}
-          if (request.url.contains('http://cancel_url')) {
-            Navigator.pop(context);
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-       */
-    );
-  }
-}
- */
