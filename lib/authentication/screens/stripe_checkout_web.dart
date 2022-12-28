@@ -1,21 +1,43 @@
 @JS()
 library stripe;
 
+import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:js/js.dart';
 
 import '../../constants/constants.dart';
+import 'forgot_password.dart';
 
-void redirectToCheckout(BuildContext _) async {
+void redirectToCheckout(BuildContext context) async {
   final stripe = Stripe(apiKey);
-  stripe.redirectToCheckout(CheckoutOptions(
-    lineItems: [
-      LineItem(price: nikesPriceId, quantity: 1),
-    ],
-    mode: 'payment',
-    successUrl: 'https://aktientool.net/',
-    cancelUrl: 'https://aktientool.net/',
-  ));
+
+  try {
+    final checkoutSession = await stripe.redirectToCheckout(
+      CheckoutOptions(
+        lineItems: [
+          LineItem(price: nikesPriceId, quantity: 1),
+        ],
+        mode: 'payment',
+        successUrl: 'https://aktientool.net/',
+        cancelUrl: 'https://aktientool.net/',
+      ),
+    );
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ShowCompanies(),
+      ),
+    );
+    // Der Checkout-Vorgang war erfolgreich und Sie können die checkoutSession verwenden
+  } on PlatformException catch (e) {
+    // Eine Exception wurde ausgelöst, der Checkout-Vorgang ist fehlgeschlagen
+    print(e);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ForgotPassword(),
+      ),
+    );
+  }
 }
 
 @JS()
