@@ -1,9 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
-
 @JS()
 library stripe;
 
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:js/js.dart';
@@ -21,13 +18,25 @@ void redirectToCheckout(BuildContext context) async {
           LineItem(price: nikesPriceId, quantity: 1),
         ],
         mode: 'payment',
-        //successUrl: 'https://aktientool.net/',
-        //cancelUrl: 'https://aktientool.net/',
+        successUrl: 'https://aktientool.net/',
+        cancelUrl: 'https://aktientool.net/',
       ),
     );
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ShowCompanies(),
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('AlertDialog Title'),
+        content: const Text('AlertDialog description'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
       ),
     );
     // Der Checkout-Vorgang war erfolgreich und Sie können die checkoutSession verwenden
