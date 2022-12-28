@@ -23,17 +23,11 @@ class PaypalPaymentState extends State<PaypalPayment> {
   late String accessToken;
   PaypalServices services = PaypalServices();
 
-  Map<dynamic, dynamic> defaultCurrency = {
-    "symbol": "USD",
-    "decimalDigits": 2,
-    "symbolBeforeTheNumber": true,
-    "currency": "USD"
-  };
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
-  String returnURL = 'aktientool.net';
-  String cancelURL = 'aktientool.net';
+  String returnURL = 'https://aktientool.net/';
+  String cancelURL = 'https://aktientool.net/';
 
   @override
   void initState() {
@@ -55,16 +49,6 @@ class PaypalPaymentState extends State<PaypalPayment> {
       } catch (e) {
         if (kDebugMode) {
           print('exception: $e');
-          final snackBar = SnackBar(
-            content: Text(e.toString()),
-            duration: const Duration(seconds: 10),
-            action: SnackBarAction(
-              label: 'Close',
-              onPressed: () {
-                // Some code to undo the change.
-              },
-            ),
-          );
         }
       }
     });
@@ -75,6 +59,12 @@ class PaypalPaymentState extends State<PaypalPayment> {
   String itemPrice = '1.99';
   int quantity = 1;
   // you can change default currency according to your need
+  Map<dynamic, dynamic> defaultCurrency = {
+    "symbol": "EUR",
+    "decimalDigits": 2,
+    "symbolBeforeTheNumber": true,
+    "currency": "EUR"
+  };
 
   Map<String, dynamic> getOrderParams() {
     List items = [
@@ -88,16 +78,16 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
     // checkout invoice details
     String totalAmount = '1.99';
-    String subTotalAmount = '1.99';
-    String shippingCost = '0';
-    int shippingDiscountCost = 0;
-    String userFirstName = 'Gulshan';
-    String userLastName = 'Yadav';
-    String addressCity = 'Delhi';
+    //String subTotalAmount = '1.99';
+    //String shippingCost = '0';
+    //int shippingDiscountCost = 0;
+    String userFirstName = 'John';
+    String userLastName = 'Doe';
+    String addressCity = 'Gotham City';
     String addressStreet = 'Mathura Road';
     String addressZipCode = '110014';
-    String addressCountry = 'India';
-    String addressState = 'Delhi';
+    String addressCountry = 'New York';
+    String addressState = 'New York';
     String addressPhoneNumber = '+919990119091';
 
     Map<String, dynamic> temp = {
@@ -149,63 +139,57 @@ class PaypalPaymentState extends State<PaypalPayment> {
     }
 
     if (checkoutUrl != null) {
-      return MediaQuery(
-        data: const MediaQueryData(),
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            leading: GestureDetector(
-              child: const Icon(Icons.arrow_back_ios),
-              onTap: () => Navigator.pop(context),
-            ),
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).backgroundColor,
+          leading: GestureDetector(
+            child: const Icon(Icons.arrow_back_ios),
+            onTap: () => Navigator.pop(context),
           ),
-          body: WebViewX(
-            initialContent: checkoutUrl!,
-            javascriptMode: JavascriptMode.unrestricted,
-            navigationDelegate: (NavigationRequest request) {
-              if (request.content.source.contains(returnURL)) {
-                final uri = Uri.parse(request.content.source);
-                final payerID = uri.queryParameters['PayerID'];
-                if (payerID != null) {
-                  services
-                      .executePayment(executeUrl, payerID, accessToken)
-                      .then((id) {
-                    widget.onFinish(id);
-                    Navigator.of(context).pop();
-                  });
-                } else {
+        ),
+        body: WebViewX(
+          initialContent: checkoutUrl!,
+          javascriptMode: JavascriptMode.unrestricted,
+          navigationDelegate: (NavigationRequest request) {
+            if (request.content.source.contains(returnURL)) {
+              final uri = Uri.parse(request.content.source);
+              final payerID = uri.queryParameters['PayerID'];
+              if (payerID != null) {
+                services
+                    .executePayment(executeUrl, payerID, accessToken)
+                    .then((id) {
+                  widget.onFinish(id);
                   Navigator.of(context).pop();
-                }
+                });
+              } else {
                 Navigator.of(context).pop();
               }
-              if (request.content.source.contains(cancelURL)) {
-                Navigator.of(context).pop();
-              }
-              return NavigationDecision.navigate;
-            },
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-          ),
+              Navigator.of(context).pop();
+            }
+            if (request.content.source.contains(cancelURL)) {
+              Navigator.of(context).pop();
+            }
+            return NavigationDecision.navigate;
+          },
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
         ),
       );
     } else {
-      return MediaQuery(
-        data: const MediaQueryData(),
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            backgroundColor: Colors.black12,
-            elevation: 0.0,
+      return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
-          body: const Center(
-            child: CircularProgressIndicator(),
-          ),
+          backgroundColor: Colors.black12,
+          elevation: 0.0,
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
         ),
       );
     }
