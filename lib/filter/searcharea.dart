@@ -2,9 +2,8 @@
 
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../payment/paypal/paypal_payment.dart';
+import '../authentication/screens/stripe_checkout.dart';
 import 'filter.dart';
 
 class SearchArea extends AppBar {
@@ -88,18 +87,7 @@ class _SearchfieldState extends State<SearchArea> {
                 padding: const EdgeInsets.all(2),
                 child: ElevatedButton(
                   onPressed: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => PaypalPayment(
-                          onFinish: (number) async {
-                            // Payment Done
-                            if (kDebugMode) {
-                              print('order id: ' + number);
-                            }
-                          },
-                        ),
-                      ),
-                    );
+                    redirectToCheckout(context);
                   },
                   child: const Text('Upgrade'),
                 ),
