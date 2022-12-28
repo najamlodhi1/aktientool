@@ -139,57 +139,63 @@ class PaypalPaymentState extends State<PaypalPayment> {
     }
 
     if (checkoutUrl != null) {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          leading: GestureDetector(
-            child: const Icon(Icons.arrow_back_ios),
-            onTap: () => Navigator.pop(context),
+      return MediaQuery(
+        data: const MediaQueryData(),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).backgroundColor,
+            leading: GestureDetector(
+              child: const Icon(Icons.arrow_back_ios),
+              onTap: () => Navigator.pop(context),
+            ),
           ),
-        ),
-        body: WebViewX(
-          initialContent: checkoutUrl!,
-          javascriptMode: JavascriptMode.unrestricted,
-          navigationDelegate: (NavigationRequest request) {
-            if (request.content.source.contains(returnURL)) {
-              final uri = Uri.parse(request.content.source);
-              final payerID = uri.queryParameters['PayerID'];
-              if (payerID != null) {
-                services
-                    .executePayment(executeUrl, payerID, accessToken)
-                    .then((id) {
-                  widget.onFinish(id);
+          body: WebViewX(
+            initialContent: checkoutUrl!,
+            javascriptMode: JavascriptMode.unrestricted,
+            navigationDelegate: (NavigationRequest request) {
+              if (request.content.source.contains(returnURL)) {
+                final uri = Uri.parse(request.content.source);
+                final payerID = uri.queryParameters['PayerID'];
+                if (payerID != null) {
+                  services
+                      .executePayment(executeUrl, payerID, accessToken)
+                      .then((id) {
+                    widget.onFinish(id);
+                    Navigator.of(context).pop();
+                  });
+                } else {
                   Navigator.of(context).pop();
-                });
-              } else {
+                }
                 Navigator.of(context).pop();
               }
-              Navigator.of(context).pop();
-            }
-            if (request.content.source.contains(cancelURL)) {
-              Navigator.of(context).pop();
-            }
-            return NavigationDecision.navigate;
-          },
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+              if (request.content.source.contains(cancelURL)) {
+                Navigator.of(context).pop();
+              }
+              return NavigationDecision.navigate;
+            },
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          ),
         ),
       );
     } else {
-      return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return MediaQuery(
+        data: const MediaQueryData(),
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            backgroundColor: Colors.black12,
+            elevation: 0.0,
           ),
-          backgroundColor: Colors.black12,
-          elevation: 0.0,
-        ),
-        body: const Center(
-          child: CircularProgressIndicator(),
+          body: const Center(
+            child: CircularProgressIndicator(),
+          ),
         ),
       );
     }

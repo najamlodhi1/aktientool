@@ -1,11 +1,11 @@
 import 'package:aktientool/authentication/screens/create_account.dart';
-import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/webpage/start.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter/material.dart';
+import 'authentication/screens/login.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

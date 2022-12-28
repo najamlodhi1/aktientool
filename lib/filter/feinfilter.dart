@@ -1,7 +1,7 @@
-import 'package:aktientool/authentication/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../authentication/screens/login copy.dart';
 import '../constants/responsive.dart';
 
 // ignore: non_constant_identifier_names
