@@ -1,5 +1,4 @@
-import 'package:aktientool/webpage/body.dart';
-import 'package:aktientool/webpage/footer.dart';
+import 'package:aktientool/webpage/home2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/cookie.dart';
@@ -25,8 +24,9 @@ class Start extends ConsumerWidget {
         child: Wrap(
           alignment: WrapAlignment.center,
           children: const <Widget>[
-            Body(),
-            Footer(),
+            Home2(),
+            //Body(),
+            //Footer(),
           ],
         ),
       ),

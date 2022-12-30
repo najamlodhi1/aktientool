@@ -3,7 +3,7 @@
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../authentication/screens/stripe_checkout.dart';
+import '../authentication/screens/stripe_checkout_web.dart';
 import 'filter.dart';
 
 class SearchArea extends AppBar {
