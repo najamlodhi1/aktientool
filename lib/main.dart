@@ -12,6 +12,8 @@ import 'package:aktientool/webpage/components/cv_section.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'webpage/start.dart';
+
 Future<void> main() async {
   setPathUrlStrategy();
 
@@ -20,6 +22,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -39,7 +42,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    //tabController.index = 2;
     return MaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
@@ -83,6 +85,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             body: TabBarView(
               controller: tabController,
               children: [
+                Start(),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: SingleChildScrollView(
@@ -125,11 +128,11 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 style: TextStyle(
                                   color: kCaptionColor,
                                   fontSize: 15.0,
-                                  height: 1.0,
+                                  height: 1.5,
                                 ),
                               ),
                               const SizedBox(
-                                height: 10.0,
+                                height: 15.0,
                               ),
                               SizedBox(
                                 child: Wrap(
@@ -143,7 +146,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                           style: TextStyle(
                                             height: 1.5,
                                             color: Colors.white,
-                                            fontSize: 15.0,
+                                            fontSize: 17.0,
                                           ),
                                         ),
                                       ),
@@ -197,6 +200,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           height: 40.0,
                         ),
                         CvSection(),
+
                         //IosAppAd(),
                         /*const SizedBox(
             height: 70.0,
@@ -228,7 +232,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 LoginScreen(),
-                CreateAccount()
+                CreateAccount(),
               ],
             ),
           ),
