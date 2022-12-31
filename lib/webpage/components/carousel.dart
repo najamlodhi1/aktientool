@@ -3,10 +3,13 @@ import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/screen_helper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class Carousel extends StatelessWidget {
   final CarouselController carouselController = CarouselController();
+
+  Carousel(WidgetRef ref);
   @override
   Widget build(BuildContext context) {
     double carouselContainerHeight = MediaQuery.of(context).size.height *

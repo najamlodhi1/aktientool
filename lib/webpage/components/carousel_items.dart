@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 List<CarouselItemModel> carouselItems = List.generate(
-  5,
+  3,
   (index) => CarouselItemModel(
     text: Container(
       child: Column(

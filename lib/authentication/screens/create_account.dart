@@ -7,8 +7,6 @@ import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 
 class CreateAccount extends StatelessWidget {
-  CreateAccount({Key? key}) : super(key: key);
-
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
