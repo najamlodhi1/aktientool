@@ -1,5 +1,5 @@
 import 'package:aktientool/authentication/screens/create_account.dart';
-import 'package:aktientool/webpage/components/cv_section.dart';
+import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/webpage/constants.dart';
@@ -195,7 +195,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           height: 40.0,
                         ),
 
-                        CvSection(),
+                        //CvSection(),
 
                         //IosAppAd(),
                         /*const SizedBox(
@@ -222,7 +222,10 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             height: 50.0,
           ),
           TestimonialWidget(), */
-
+                        const SizedBox(
+                          height: 450,
+                        ),
+                        const Body(),
                         Footer(),
 
                         const SizedBox(height: 1, child: Start()),
