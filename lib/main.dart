@@ -95,9 +95,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const SizedBox(
-                                height: 30,
-                              ),
                               Text(
                                 "AKTIENTOOL UNTERSTÜTZT DICH",
                                 style: GoogleFonts.oswald(
@@ -127,7 +124,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               const SizedBox(
-                                height: 15.0,
+                                height: 85.0,
                               ),
                               SizedBox(
                                 child: Wrap(
@@ -139,7 +136,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                         child: Text(
                                           "Kostenlos Mitglied werden und testen!",
                                           style: TextStyle(
-                                            height: 1.5,
+                                            height: 0.5,
                                             color: Colors.white,
                                             fontSize: 17.0,
                                           ),
@@ -150,33 +147,68 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               const SizedBox(
-                                height: 25.0,
+                                height: 15.0,
                               ),
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  height: 48.0,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 28.0,
-                                  ),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      tabController.index = 2;
-                                    },
-                                    child: const Text(
-                                      "LOS GEHTS",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13.0,
-                                        fontWeight: FontWeight.bold,
+                              Wrap(
+                                children: [
+                                  MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      height: 48.0,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 28.0,
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          tabController.index = 2;
+                                        },
+                                        child: const Text(
+                                          "LOS GEHTS",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      height: 48.0,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 28.0,
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          tabController.index = 2;
+                                        },
+                                        child: const Text(
+                                          "ANMELDEN",
+                                          style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontSize: 13.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               )
                             ],
                           ),
