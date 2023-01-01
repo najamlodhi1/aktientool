@@ -103,14 +103,14 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 style: GoogleFonts.oswald(
                                   color: kPrimaryColor,
                                   fontWeight: FontWeight.w900,
-                                  fontSize: 30.0,
+                                  fontSize: 25.0,
                                 ),
                               ),
                               Text(
                                 "BEI DEINER ANLAGEENTSCHEIDUNG",
                                 style: GoogleFonts.oswald(
                                   color: Colors.white,
-                                  fontSize: 30.0,
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.w900,
                                   height: 1.3,
                                 ),
@@ -225,7 +225,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
                         Footer(),
 
-                        const SizedBox(height: 100, width: 100, child: Start()),
+                        const SizedBox(height: 1, child: Start()),
                       ],
                     ),
                   ),
