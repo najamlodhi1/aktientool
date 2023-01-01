@@ -2,7 +2,10 @@
 
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../webpage/constants.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 
@@ -14,6 +17,7 @@ class CreateAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Container(
           constraints:
@@ -22,19 +26,21 @@ class CreateAccount extends StatelessWidget {
                   ),
           width: MediaQuery.of(context).size.width,
           //make width of outer wrapper to 100%
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color.fromARGB(255, 0, 255, 225),
-                Color.fromARGB(255, 64, 255, 226),
-                Color.fromARGB(255, 54, 244, 200),
-                Color.fromARGB(255, 82, 255, 189),
-              ],
-            ),
-          ), //show linear gradient background of page
-
+          /*
+        
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color.fromARGB(255, 0, 255, 225),
+              Color.fromARGB(255, 64, 255, 226),
+              Color.fromARGB(255, 54, 244, 200),
+              Color.fromARGB(255, 82, 255, 189),
+            ],
+          ),
+        ), //show linear gradient background of page
+*/
           //padding: const EdgeInsets.all(20),
           child: Column(
             children: [
@@ -45,10 +51,14 @@ class CreateAccount extends StatelessWidget {
               ),
               SizedBox(
                   child: Column(
-                children: const [
+                children: [
                   Text(
-                    "Werde JETZT kostenlos Mitglied.",
-                    style: TextStyle(fontSize: 20),
+                    "WERDE JETZT KOSTENLOS MITGLIED",
+                    style: GoogleFonts.oswald(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 25.0,
+                    ),
                   ),
                 ],
               )),
@@ -73,7 +83,7 @@ class CreateAccount extends StatelessWidget {
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Password',
+                    hintText: 'Passwort',
                   ),
                 ),
               ),
@@ -82,38 +92,45 @@ class CreateAccount extends StatelessWidget {
               ),
               Center(
                 child: SizedBox(
-                  width: 400,
                   child: Center(
                     child: Wrap(
                       children: <Widget>[
-                        const TextButton(
-                            onPressed: null,
-                            child:
-                                Text('Durch das Klicken auf MITGLIED WERDEN')),
-                        const TextButton(
-                            onPressed: null, child: Text('stimmen Sie den')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const AGB(),
-                                ),
-                              );
-                            },
-                            child: const Text('AGB')),
-                        const TextButton(onPressed: null, child: Text('und')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const Datenschutzerklaerung(),
-                                ),
-                              );
-                            },
-                            child: const Text('Datenschutzrichtlinien')),
-                        const TextButton(
-                            onPressed: null, child: Text('von Aktientool zu!')),
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                'Durch das Klicken auf MITGLIED WERDEN stimmst Du\nden ',
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'AGB',
+                                style: const TextStyle(color: kPrimaryColor),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => const AGB(),
+                                      ),
+                                    );
+                                  },
+                              ),
+                              const TextSpan(text: ' und '),
+                              TextSpan(
+                                text: 'Datenschutzrichtlinien',
+                                style: const TextStyle(color: kPrimaryColor),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Datenschutzerklaerung(),
+                                      ),
+                                    );
+                                  },
+                              ),
+                              const TextSpan(text: ' von Aktientool zu.'),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

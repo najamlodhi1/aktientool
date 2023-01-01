@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../webpage/constants.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
@@ -15,6 +17,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
           child: Container(
         constraints:
@@ -23,6 +26,9 @@ class LoginScreen extends StatelessWidget {
                 ),
         width: MediaQuery.of(context).size.width,
         //make width of outer wrapper to 100%
+
+        /*
+        
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,
@@ -35,11 +41,29 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ), //show linear gradient background of page
+*/
 
-        padding: const EdgeInsets.all(20),
         child: Column(children: <Widget>[
+          const Center(
+            child: SizedBox(
+              height: 30,
+            ),
+          ),
+          SizedBox(
+              child: Column(
+            children: [
+              Text(
+                "WILLKOMMEN ZURÜCK :)",
+                style: GoogleFonts.oswald(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 25.0,
+                ),
+              ),
+            ],
+          )),
           const SizedBox(
-            height: 50,
+            height: 20,
           ),
           SizedBox(
             width: 250,
@@ -59,7 +83,7 @@ class LoginScreen extends StatelessWidget {
               obscureText: true,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Password',
+                hintText: 'Passwort',
               ),
             ),
           ),
@@ -75,8 +99,8 @@ class LoginScreen extends StatelessWidget {
               );
             },
             child: const Text(
-              'Forgot Password?',
-              style: TextStyle(fontSize: 20, color: Colors.black),
+              'Passwort vergessen?',
+              style: TextStyle(fontSize: 17, color: kPrimaryColor),
             ),
           ),
           const SizedBox(
@@ -91,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                   email: _emailController.text,
                   password: _passwordController.text,
                 );
-                if (message!.contains('Success')) {
+                if (message!.contains('Glückwunsch')) {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

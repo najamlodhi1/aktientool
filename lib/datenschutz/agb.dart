@@ -19,7 +19,9 @@ class AGB extends StatelessWidget {
               children: const <Widget>[
                 Text(
                   '',
-                  style: TextStyle(fontSize: 25),
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
                 ),
                 Text('''
 \n

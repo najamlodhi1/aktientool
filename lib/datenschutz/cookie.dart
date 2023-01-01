@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/impressum.dart';
 import 'package:aktientool/webpage/start.dart';
 
+import '../webpage/constants.dart';
 import 'agb.dart';
 import 'datenschutzerklaerung.dart';
 
@@ -405,7 +406,7 @@ checkCookies2(context, WidgetRef ref) {
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
+              backgroundColor: kPrimaryColor,
               fixedSize: const Size(200, 40),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),

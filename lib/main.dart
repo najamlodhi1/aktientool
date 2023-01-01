@@ -124,7 +124,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               const SizedBox(
-                                height: 85.0,
+                                height: 40.0,
                               ),
                               SizedBox(
                                 child: Wrap(

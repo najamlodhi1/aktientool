@@ -28,7 +28,7 @@ final List<DesignProcess> designProcesses = [
     title: "AKTUELLE FINANZDATEN",
     imagePath: "assets/images/4.png",
     subtitle:
-        "Wir bieten eine breite Palette an Daten zur Verfügung, einschließlich aktueller und historischer Informationen. Dies kann dir dabei helfen, fundierte Entscheidungen über ihre Investitionen zu treffen und mögliche Trends oder Muster in den Aktienmärkten zu erkennen.",
+        "Wir bieten eine breite Palette an Daten zur Verfügung, einschließlich aktueller und historischer Informationen. Dies kann dir dabei helfen, fundierte Entscheidungen über deine Investitionen zu treffen und mögliche Trends oder Muster in den Aktienmärkten zu erkennen.",
   ),
 ];
 
