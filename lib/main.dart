@@ -195,7 +195,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                       ),
                                       child: TextButton(
                                         onPressed: () {
-                                          tabController.index = 2;
+                                          tabController.index = 1;
                                         },
                                         child: const Text(
                                           "ANMELDEN",
