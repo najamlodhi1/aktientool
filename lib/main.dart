@@ -185,9 +185,9 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           width: 120,
                         ),
                         SizedBox(
-                          width: 380,
+                          height: 400,
                           child: Image.asset(
-                            "assets/images/image1.gif",
+                            "assets/images/image1.png",
                             fit: BoxFit.contain,
                           ),
                         ),
