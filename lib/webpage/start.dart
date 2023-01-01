@@ -10,6 +10,8 @@ import 'components/footer.dart';
 final cookieProvider = StateProvider((ref) => false);
 
 class Start extends ConsumerWidget {
+  const Start({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(Duration.zero, () {

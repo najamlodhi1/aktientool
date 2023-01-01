@@ -1,24 +1,20 @@
 import 'package:aktientool/authentication/screens/create_account.dart';
-import 'package:aktientool/webpage/components/footer.dart';
-import 'package:flutter/gestures.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_strategy/url_strategy.dart';
-import 'package:flutter/material.dart';
-import 'authentication/screens/login.dart';
-import 'firebase_options.dart';
 import 'package:aktientool/webpage/components/cv_section.dart';
-
+import 'package:aktientool/webpage/components/footer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/webpage/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'authentication/screens/login.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'firebase_options.dart';
 import 'webpage/start.dart';
 
-Future<void> main() async {
+main() async {
   setPathUrlStrategy();
-
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -85,7 +81,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             body: TabBarView(
               controller: tabController,
               children: [
-                Start(),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: SingleChildScrollView(
@@ -199,6 +194,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                         const SizedBox(
                           height: 40.0,
                         ),
+
                         CvSection(),
 
                         //IosAppAd(),
@@ -226,7 +222,10 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             height: 50.0,
           ),
           TestimonialWidget(), */
+
                         Footer(),
+
+                        const SizedBox(height: 100, width: 100, child: Start()),
                       ],
                     ),
                   ),
