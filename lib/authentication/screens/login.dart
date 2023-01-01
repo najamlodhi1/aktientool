@@ -115,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                   email: _emailController.text,
                   password: _passwordController.text,
                 );
-                if (message!.contains('Glückwunsch')) {
+                if (message!.contains('Success')) {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
