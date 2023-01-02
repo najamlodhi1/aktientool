@@ -1,4 +1,5 @@
 import 'package:aktientool/authentication/screens/create_account.dart';
+import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,8 +35,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-  late final tabController = TabController(length: 3, vsync: this);
-
+  late final tabController = TabController(length: 4, vsync: this);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,7 +50,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
       home: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           backgroundColor: Colors.black,
           body: NestedScrollView(
@@ -73,6 +73,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       Tab(child: Text('Home')),
                       Tab(child: Text('Anmelden')),
                       Tab(child: Text('Mitgliedschaft')),
+                      Tab(child: Text('Test')),
                     ],
                   ),
                 ),
@@ -267,6 +268,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 ),
                 LoginScreen(),
                 CreateAccount(),
+                const AllCharts(),
               ],
             ),
           ),
