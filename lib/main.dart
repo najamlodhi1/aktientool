@@ -1,5 +1,5 @@
 import 'package:aktientool/authentication/screens/create_account.dart';
-import 'package:aktientool/charts/allCharts.dart';
+import 'package:aktientool/charts/chart1/main.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -268,7 +268,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 ),
                 LoginScreen(),
                 CreateAccount(),
-                const AllCharts(),
+                const ABC(),
               ],
             ),
           ),

@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fl_chart: ^0.55.2
+  fl_chart: ^0.40.0
   cupertino_icons: ^1.0.5
   url_strategy: ^0.2.0
   firebase_core: ^2.1.1
