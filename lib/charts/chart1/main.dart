@@ -18,6 +18,7 @@ class ABC extends StatefulWidget {
 class _ABCState extends State<ABC> {
   final _assets = NetworkManager.instance.getAssets();
   final _assets2 = NetworkManager.instance.getData("AAPL");
+
   @override
   void initState() {
     super.initState();

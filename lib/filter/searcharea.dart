@@ -3,7 +3,7 @@
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../authentication/screens/stripe_checkout_web.dart';
+import '../payment/stripe/stripe_checkout_web.dart';
 import 'filter.dart';
 
 class SearchArea extends AppBar {
@@ -87,7 +87,26 @@ class _SearchfieldState extends State<SearchArea> {
                 padding: const EdgeInsets.all(2),
                 child: ElevatedButton(
                   onPressed: () async {
-                    redirectToCheckout(context);
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Upgrade'),
+                        content: const Text(
+                            'Um weitere Suchanfragen zu tätigen sind 10 Euro fällig. Möchten Sie upgraden?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              redirectToCheckout(context);
+                            },
+                            child: const Text('JA'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'NEIN'),
+                            child: const Text('NEIN'),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Text('Upgrade'),
                 ),

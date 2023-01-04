@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:js/js.dart';
 
 import '../../constants/constants.dart';
-import 'forgot_password.dart';
+import '../../authentication/screens/forgot_password.dart';
 
 void redirectToCheckout(BuildContext context) async {
   final stripe = Stripe(apiKey);
