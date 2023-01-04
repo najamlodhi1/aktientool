@@ -1,90 +1,16 @@
 @JS()
 library stripe;
 
-import 'package:aktientool/payment/stripe/shared/checkout_page.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:js/js.dart';
 
 import '../../constants/constants.dart';
+import '../../authentication/screens/forgot_password.dart';
 
 void redirectToCheckout(BuildContext context) async {
   final stripe = Stripe(apiKey);
 
-  String userUid = FirebaseAuth.instance.currentUser!.uid;
-  var docRef = await FirebaseFirestore.instance
-      .collection('users')
-      .doc(userUid)
-      .collection('checkout_sessions')
-      .add({
-    'price': 10,
-    'quantity': 1,
-    'mode': 'payment',
-    'success_url': 'https://aktientool.net',
-    'cancel_url': 'https://aktientool.net'
-  });
-
-  docRef.snapshots().listen((ds) async {
-    if (ds.exists) {
-      //check any error
-      var error;
-
-      try {
-        error = ds.get('error');
-      } catch (e) {
-        error = null;
-      }
-
-      if (error != null) {
-        //show a dialog for error message
-        print(error);
-      } else {
-        String url = ds.get('url');
-
-        var res = await Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CheckoutPage(url: url)));
-
-        if (res == 'success') {
-          //payment successfull
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text('Payment Successfull'),
-                  actions: [
-                    TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                );
-              });
-        } else {
-          //payment failed
-
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text('Payment failed'),
-                  actions: [
-                    TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                );
-              });
-        }
-      }
-    }
-  });
-}
-
-/*
   try {
     final checkoutSession = await stripe.redirectToCheckout(
       CheckoutOptions(
@@ -107,8 +33,7 @@ void redirectToCheckout(BuildContext context) async {
       ),
     );
   }
-
-  */
+}
 
 @JS()
 class Stripe {

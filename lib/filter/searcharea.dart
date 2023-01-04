@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'package:aktientool/payment/stripe/signin_page.dart';
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../payment/stripe/stripe_checkout_web.dart';
 import 'filter.dart';
 
 class SearchArea extends AppBar {
@@ -96,7 +96,12 @@ class _SearchfieldState extends State<SearchArea> {
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
-                              redirectToCheckout(context);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SigninPage(),
+                                ),
+                              );
+                              //redirectToCheckout(context);
                             },
                             child: const Text('JA'),
                           ),
