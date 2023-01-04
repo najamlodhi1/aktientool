@@ -4,6 +4,7 @@ library stripe;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:js/js.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../constants/constants.dart';
 import '../../authentication/screens/forgot_password.dart';
@@ -18,27 +19,19 @@ void redirectToCheckout(BuildContext context) async {
           LineItem(price: nikesPriceId, quantity: 1),
         ],
         mode: 'payment',
-        successUrl: 'https://aktientool.net/',
-        cancelUrl: 'https://aktientool.net/',
+        successUrl: 'https://success.com',
+        cancelUrl: 'https://cancel.com',
       ),
+      navigationDelegate: (NavigationRequest request) {
+        if (request.url.startsWith('https://success.com')) {
+          Navigator.of(context).pop('success'); // <-- Handle success case
+        } else if (request.url.startsWith('https://cancel.com')) {
+          Navigator.of(context).pop('cancel'); // <-- Handle cancel case
+        }
+        return NavigationDecision.navigate;
+      },
     );
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('AlertDialog Title'),
-        content: const Text('AlertDialog description'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'OK'),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
+
     // Der Checkout-Vorgang war erfolgreich und Sie können die checkoutSession verwenden
   } on PlatformException catch (e) {
     // Eine Exception wurde ausgelöst, der Checkout-Vorgang ist fehlgeschlagen
@@ -55,7 +48,9 @@ void redirectToCheckout(BuildContext context) async {
 class Stripe {
   external Stripe(String key);
 
-  external redirectToCheckout(CheckoutOptions options);
+  external redirectToCheckout(CheckoutOptions options,
+      {required NavigationDecision Function(NavigationRequest request)
+          navigationDelegate});
 }
 
 @JS()
