@@ -5,8 +5,6 @@ import 'package:aktientool/payment/stripe/shared/show_loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
@@ -102,7 +100,7 @@ class _HomepageState extends State<Homepage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Rs ${currentProduct.price}',
+                                  '${currentProduct.price} Euro',
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
@@ -191,7 +189,7 @@ class _HomepageState extends State<Homepage> {
                               Navigator.pop(context);
                               buyStuff(pd);
                             },
-                            child: Text('Pay ${calculateTotalPrice(pd)}')))
+                            child: Text('Pay ${calculateTotalPrice(pd)} EURO')))
                   ],
                 ),
               ),
@@ -213,8 +211,8 @@ class _HomepageState extends State<Homepage> {
       'price': pd.priceId,
       'quantity': pd.quatity,
       'mode': 'payment',
-      'success_url': 'https://success.com',
-      'cancel_url': 'https://cancel.com'
+      'success_url': 'https://aktientool.net',
+      'cancel_url': 'https://aktientool.net'
     });
 
     docRef.snapshots().listen((ds) async {
