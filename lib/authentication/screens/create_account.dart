@@ -2,6 +2,8 @@
 
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +13,29 @@ import '../services/auth_service.dart';
 
 class CreateAccount extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
+
+  Future registerWithEmailAndPassword() async {
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+          email: _emailController.toString(),
+          password: _passwordController.toString());
+      print("HALLAOLAOAL");
+
+      if (userCredential.user != null) {
+        User user = userCredential.user!;
+        print("${user.email}");
+
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+        await firestore
+            .collection('users')
+            .doc(user.uid)
+            .set({'email': user.email, 'username': 'Ashish'});
+      }
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +167,7 @@ class CreateAccount extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
+                    registerWithEmailAndPassword();
                     final message = await AuthService().registration(
                       email: _emailController.text,
                       password: _passwordController.text,
