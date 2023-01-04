@@ -21,7 +21,6 @@ class CreateAccount extends StatelessWidget {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: _emailController.toString(),
           password: _passwordController.toString());
-      print("HALLAOLAOAL");
 
       if (userCredential.user != null) {
         User user = userCredential.user!;

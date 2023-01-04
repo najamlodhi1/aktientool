@@ -41,6 +41,7 @@ dependencies:
   flutter_icons: ^1.1.0
   carousel_slider: ^4.2.1
   syncfusion_flutter_charts: ^20.4.41
+  cloud_functions_web: ^4.3.15
 
   
 

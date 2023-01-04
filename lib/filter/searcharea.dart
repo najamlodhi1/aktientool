@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
-import 'package:aktientool/payment/stripe/signin_page.dart';
+import 'package:aktientool/payment/stripe/hompage.dart';
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,8 @@ class SearchArea extends AppBar {
 }
 
 class _SearchfieldState extends State<SearchArea> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = Image.asset(
     'assets/images/logo.png',
@@ -26,7 +28,9 @@ class _SearchfieldState extends State<SearchArea> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return AppBar(
       leading: IconButton(
           onPressed: () {
@@ -87,6 +91,7 @@ class _SearchfieldState extends State<SearchArea> {
                 padding: const EdgeInsets.all(2),
                 child: ElevatedButton(
                   onPressed: () async {
+                    var uid = auth.currentUser!.uid;
                     showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
@@ -95,12 +100,13 @@ class _SearchfieldState extends State<SearchArea> {
                             'Um weitere Suchanfragen zu tätigen sind 10 Euro fällig. Möchten Sie upgraden?'),
                         actions: <Widget>[
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const SigninPage(),
+                                  builder: (context) => const Homepage(),
                                 ),
                               );
+
                               //redirectToCheckout(context);
                             },
                             child: const Text('JA'),
