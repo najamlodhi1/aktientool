@@ -19,8 +19,8 @@ void redirectToCheckout(BuildContext context) async {
       .collection('checkout_sessions')
       .add({
     'mode': 'payment',
-    'success_url': 'https://success.com',
-    'cancel_url': 'https://cancel.com'
+    'success_url': 'https://aktientool.net',
+    'cancel_url': 'https://aktientool.net'
   });
 
   docRef.snapshots().listen((ds) async {
