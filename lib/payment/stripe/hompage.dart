@@ -1,7 +1,7 @@
 import 'package:aktientool/payment/stripe/previous_purhcase.dart';
 import 'package:aktientool/payment/stripe/service/fetch_product_details.dart';
-import 'package:aktientool/payment/stripe/shared/checkout_page.dart';
 import 'package:aktientool/payment/stripe/shared/show_loading.dart';
+import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -237,10 +237,8 @@ class _HomepageState extends State<Homepage> {
 
             launchUrl(Uri.parse(url));
           } else {
-            var res = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CheckoutPage(url: url)));
+            var res = await Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ShowCompanies()));
 
             if (res == 'success') {
               //payment successfull
