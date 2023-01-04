@@ -18,6 +18,8 @@ void redirectToCheckout(BuildContext context) async {
       .doc(userUid)
       .collection('checkout_sessions')
       .add({
+    //'price': pd.priceId,
+    'quantity': 1,
     'mode': 'payment',
     'success_url': 'https://aktientool.net',
     'cancel_url': 'https://aktientool.net'
@@ -80,6 +82,7 @@ void redirectToCheckout(BuildContext context) async {
       }
     }
   });
+}
 
 /*
   try {
@@ -106,7 +109,6 @@ void redirectToCheckout(BuildContext context) async {
   }
 
   */
-}
 
 @JS()
 class Stripe {
