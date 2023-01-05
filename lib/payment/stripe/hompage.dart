@@ -49,8 +49,8 @@ class _HomepageState extends State<Homepage> {
       'price': pd.priceId,
       'quantity': pd.quatity,
       'mode': 'payment',
-      'success_url': 'https://aktientool.net',
-      'cancel_url': 'https://aktientool.net'
+      //'success_url': 'https://aktientool.net',
+      //'cancel_url': 'https://aktientool.net'
     });
 
     docRef.snapshots().listen((ds) async {
@@ -72,9 +72,6 @@ class _HomepageState extends State<Homepage> {
 
           if (kIsWeb) {
             //open url in new tab
-
-            //launchUrl(Uri.parse(url));
-
             html.window.open(url, "pay and close");
             Navigator.of(context).pop();
           } else {
