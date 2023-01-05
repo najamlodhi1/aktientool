@@ -26,13 +26,11 @@ class _HomepageState extends State<Homepage> {
         builder: (context, snapshot) {
           if (snapshot.hasData == false) {
             return loading('Loading product details');
-          } else {
-            List<ProductDetials> productDetails = snapshot.data!;
-            ProductDetials currentProduct = productDetails.elementAt(0);
-            buyStuff(currentProduct);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ShowCompanies()));
           }
+
+          List<ProductDetials> productDetails = snapshot.data!;
+          ProductDetials currentProduct = productDetails.elementAt(0);
+          buyStuff(currentProduct);
 
           return const CircularProgressIndicator();
         });
@@ -78,6 +76,7 @@ class _HomepageState extends State<Homepage> {
             //launchUrl(Uri.parse(url));
 
             html.window.open(url, "pay and close");
+            Navigator.of(context).pop();
           } else {
             var res = await Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ShowCompanies()));
