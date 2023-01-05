@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:html' as html;
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -102,7 +102,7 @@ class _HomepageState extends State<Homepage> {
                                 Text(
                                   '${currentProduct.price} Euro',
                                   style: const TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 ElevatedButton(
@@ -235,7 +235,9 @@ class _HomepageState extends State<Homepage> {
           if (kIsWeb) {
             //open url in new tab
 
-            launchUrl(Uri.parse(url));
+            //launchUrl(Uri.parse(url));
+
+            html.window.open(url, "pay and close");
           } else {
             var res = await Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ShowCompanies()));
