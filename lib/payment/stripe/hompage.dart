@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:html' as html;
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _HomepageState extends State<Homepage> {
     return FutureBuilder<List<ProductDetials>>(
         future: featchProductDetails(),
         builder: (context, snapshot) {
-          if (snapshot.hasData == false) {
+          while (snapshot.hasData == false) {
             return loading('Loading product details');
           }
 
@@ -48,8 +49,8 @@ class _HomepageState extends State<Homepage> {
       'price': pd.priceId,
       'quantity': pd.quatity,
       'mode': 'payment',
-      'success_url': 'https://aktientool.net',
-      'cancel_url': 'https://aktientool.net'
+      'success_url': '',
+      'cancel_url': ''
     });
 
     docRef.snapshots().listen((ds) async {
@@ -71,8 +72,8 @@ class _HomepageState extends State<Homepage> {
 
           if (kIsWeb) {
             //open url in new tab
-            //html.window.open(url, "pay and close");
-            //Navigator.of(context).pop();
+            html.window.open(url, "pay and close");
+            Navigator.of(context).pop();
           } else {
             var res = await Navigator.push(
                 context,
@@ -90,13 +91,13 @@ class _HomepageState extends State<Homepage> {
                             child: const Text('ok'),
                             onPressed: () {
                               Navigator.pop(context);
+                              Navigator.of(context).pop();
                             })
                       ],
                     );
                   });
             } else {
               //payment failed
-
               showDialog(
                   context: context,
                   builder: (context) {
@@ -107,6 +108,7 @@ class _HomepageState extends State<Homepage> {
                             child: const Text('ok'),
                             onPressed: () {
                               Navigator.pop(context);
+                              Navigator.of(context).pop();
                             })
                       ],
                     );
