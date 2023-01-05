@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -21,9 +19,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
         javascriptMode: JavascriptMode.unrestricted,
         navigationDelegate: (NavigationRequest request) {
           if (request.url.startsWith('https://success.com')) {
-            Navigator.pop(context, 'success');
+            Navigator.of(context).pop();
+
+            //Navigator.pop(context, 'success');
           } else if (request.url.startsWith('https://cancel.com')) {
-            Navigator.pop(context, 'cancel');
+            Navigator.of(context).pop();
+
+            //Navigator.pop(context, 'cancel');
           }
 
           return NavigationDecision.navigate;
