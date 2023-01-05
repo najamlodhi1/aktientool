@@ -1,4 +1,3 @@
-import 'package:aktientool/payment/stripe/previous_purhcase.dart';
 import 'package:aktientool/payment/stripe/service/fetch_product_details.dart';
 import 'package:aktientool/payment/stripe/shared/show_loading.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
@@ -30,171 +29,10 @@ class _HomepageState extends State<Homepage> {
           }
 
           List<ProductDetials> productDetails = snapshot.data!;
-          return Scaffold(
-              appBar: AppBar(
-                title: const Text(
-                  'SHOES STORE',
-                  style: TextStyle(color: Colors.black),
-                ),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                elevation: 0,
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PreviousPurchase(
-                                      prodctDetailsLst: productDetails,
-                                    )));
-                      },
-                      icon: const Icon(
-                        Icons.history,
-                        color: Colors.black,
-                      )),
-                  IconButton(
-                      onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
-                      },
-                      icon: const Icon(
-                        Icons.exit_to_app,
-                        color: Colors.red,
-                      ))
-                ],
-              ),
-              body: GridView.builder(
-                  itemCount: productDetails.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: kIsWeb ? 2 : 0.7, crossAxisCount: 2),
-                  itemBuilder: (context, index) {
-                    ProductDetials currentProduct =
-                        productDetails.elementAt(index);
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                                height: 170,
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image(
-                                        image: NetworkImage(
-                                            currentProduct.imageUrl))
+          ProductDetials currentProduct = productDetails.elementAt(0);
+          buyStuff(currentProduct);
 
-                                    //  Image.network(
-                                    //     currentProduct.imageUrl)
-
-                                    )),
-                            Text(
-                              currentProduct.name,
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              currentProduct.description,
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${currentProduct.price} Euro',
-                                  style: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.green),
-                                    onPressed: () {
-                                      showBuyBottomSheet(currentProduct);
-                                    },
-                                    child: const Text('Buy'))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }));
-        });
-  }
-
-  showBuyBottomSheet(ProductDetials pd) {
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(18), topRight: Radius.circular(18))),
-        builder: (context) {
-          return StatefulBuilder(builder: (context, setState) {
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: Container(
-                height: 200,
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(height: 80, child: Image.network(pd.imageUrl)),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              pd.name,
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 20,
-                              child: TextFormField(
-                                initialValue: pd.quatity.toString(),
-                                onChanged: (val) {
-                                  setState(() {
-                                    pd.quatity = int.tryParse(val) ?? 1;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Expanded(
-                          child: SizedBox(
-                            width: 5,
-                          ),
-                        ),
-                        Text(
-                          'Rs ${pd.price}',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                        width: double.maxFinite,
-                        height: 50,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black),
-                            onPressed: () {
-                              Navigator.pop(context);
-                              buyStuff(pd);
-                            },
-                            child: Text('Pay ${calculateTotalPrice(pd)} EURO')))
-                  ],
-                ),
-              ),
-            );
-          });
+          return const CircularProgressIndicator();
         });
   }
 
@@ -284,13 +122,5 @@ class _HomepageState extends State<Homepage> {
         });
       }
     });
-  }
-
-  calculateTotalPrice(ProductDetials pd) {
-    double totalPrice;
-
-    totalPrice = double.parse(pd.price) * pd.quatity;
-
-    return totalPrice;
   }
 }
