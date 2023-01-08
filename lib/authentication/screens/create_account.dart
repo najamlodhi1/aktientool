@@ -31,9 +31,29 @@ class CreateAccount extends StatelessWidget {
         await firestore
             .collection('users')
             .doc(user.uid)
-            .set({'email': user.email, 'username': 'Ashish'});
+            .set({'email': user.email});
+
+        FirebaseFirestore.instance
+            .collection('requests')
+            .add({'email': 'user.email', 'req': 5});
       }
     } catch (e) {}
+  }
+
+  CollectionReference students =
+      FirebaseFirestore.instance.collection('requests');
+
+  Future<void> addRequests(String email) {
+    // Calling the collection to add a new user
+    return students
+        //adding to firebase collection
+        .add({
+          //Data added in the form of a dictionary into the document.
+          'email': email,
+          'req': 5,
+        })
+        .then((value) => print("req data Added"))
+        .catchError((error) => print("req couldn't be added."));
   }
 
   @override
@@ -166,12 +186,14 @@ class CreateAccount extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    registerWithEmailAndPassword();
+                    //registerWithEmailAndPassword();
+
                     final message = await AuthService().registration(
                       email: _emailController.text,
                       password: _passwordController.text,
                     );
                     if (message!.contains('Success')) {
+                      addRequests(_emailController.text);
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const Home(),

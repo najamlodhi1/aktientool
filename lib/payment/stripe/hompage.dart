@@ -1,6 +1,6 @@
-import 'package:aktientool/payment/stripe/service/fetch_product_details.dart';
-import 'package:aktientool/payment/stripe/shared/checkout_page.dart';
-import 'package:aktientool/payment/stripe/shared/show_loading.dart';
+import 'package:aktientool/payment/stripe/fetch_product_details.dart';
+import 'package:aktientool/payment/stripe/checkout_page.dart';
+import 'package:aktientool/payment/stripe/show_loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

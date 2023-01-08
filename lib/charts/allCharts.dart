@@ -1,5 +1,5 @@
 // ignore_for_file: file_names
-import 'package:aktientool/charts/chart1/main.dart';
+import 'package:aktientool/charts/chart2/createchart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +18,7 @@ class AllCharts extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: const [ABC()],
+          children: const [CreateChart()],
         ),
       ),
     );
