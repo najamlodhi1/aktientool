@@ -11,13 +11,13 @@ class MyLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1,
+      aspectRatio: 16 / 9,
       child: LineChart(LineChartData(lineBarsData: [
         LineChartBarData(
             colors: bgradientColors,
-            barWidth: 5,
+            barWidth: 2,
             spots: points.map((point) => FlSpot(point.x, point.y)).toList(),
-            dotData: FlDotData(show: true)),
+            dotData: FlDotData(show: false)),
       ])),
     );
   }

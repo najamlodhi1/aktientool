@@ -1,4 +1,29 @@
+import 'package:aktientool/charts/chart2/post.dart';
 import 'package:collection/collection.dart';
+import 'package:http/http.dart' as http;
+
+var data1 = <double>[10, 30];
+var data2 = <double>[10, 30];
+var data3 = <double>[10, 30];
+var data4 = <double>[10, 30];
+int lengthJson = 0;
+
+class RemoteService {
+  getData(String url) async {
+    var response = await http.Client().get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var json = response.body;
+      print(json);
+      final List l = json.split('date');
+      lengthJson = l.length;
+      print(lengthJson);
+
+      return postFromJson(json);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+}
 
 class ChartData {
   final double x;
@@ -7,34 +32,28 @@ class ChartData {
 }
 
 List<ChartData> get chartData1 {
-  final data = <double>[10, 30, 23, 41, 581, 100];
-  return data
+  return data1
       .mapIndexed(
           ((index, element) => ChartData(x: index.toDouble(), y: element)))
       .toList();
 }
 
 List<ChartData> get chartData2 {
-  final data = <double>[];
-
-  // get API aufrufen
-  return data
+  return data2
       .mapIndexed(
           ((index, element) => ChartData(x: index.toDouble(), y: element)))
       .toList();
 }
 
 List<ChartData> get chartData3 {
-  final data = <double>[10, 30, 23, 41, 581, 100];
-  return data
+  return data3
       .mapIndexed(
           ((index, element) => ChartData(x: index.toDouble(), y: element)))
       .toList();
 }
 
 List<ChartData> get chartData4 {
-  final data = <double>[5, 10, 13, 49, 51, 10];
-  return data
+  return data4
       .mapIndexed(
           ((index, element) => ChartData(x: index.toDouble(), y: element)))
       .toList();

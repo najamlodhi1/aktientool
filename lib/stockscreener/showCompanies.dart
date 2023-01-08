@@ -195,7 +195,7 @@ class ShowCompanies extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AllCharts(),
+                            builder: (context) => const AllCharts(),
                           ),
                         );
                       },
