@@ -268,7 +268,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 ),
                 LoginScreen(),
                 CreateAccount(),
-                const CreateChart(),
+                CreateChart(),
               ],
             ),
           ),

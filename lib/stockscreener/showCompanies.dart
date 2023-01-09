@@ -14,6 +14,9 @@ import '../filter/marketcap.dart';
 
 class ShowCompanies extends ConsumerWidget {
   final ScrollController _controller = ScrollController();
+  static String companyname = "";
+  static String companysymbol = "";
+
   List<CompanyModel> companies = [];
   bool isLoading = true;
 
@@ -192,10 +195,13 @@ class ShowCompanies extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
+                        companyname = snapshot.data![index].companyname!;
+                        companysymbol = snapshot.data![index].symbol!;
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AllCharts(),
+                            builder: (context) => AllCharts(),
                           ),
                         );
                       },

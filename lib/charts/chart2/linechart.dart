@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 class MyLineChart extends StatelessWidget {
   final List<ChartData> points;
-  List<Color> bgradientColors = [Colors.white];
+  List<Color> bgradientColors = [const Color.fromARGB(255, 255, 255, 255)];
 
   MyLineChart(this.points, {Key? key}) : super(key: key);
 
@@ -15,7 +15,7 @@ class MyLineChart extends StatelessWidget {
       child: LineChart(LineChartData(lineBarsData: [
         LineChartBarData(
             colors: bgradientColors,
-            barWidth: 2,
+            barWidth: 1,
             spots: points.map((point) => FlSpot(point.x, point.y)).toList(),
             dotData: FlDotData(show: false)),
       ])),
