@@ -99,21 +99,21 @@ class _CreateChartState extends State<CreateChart> {
                             ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    yearsBack = 5;
+                                    yearsBack = 10;
                                   });
                                 },
                                 child: const Text("10 y")),
                             ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    yearsBack = 5;
+                                    yearsBack = 20;
                                   });
                                 },
                                 child: const Text("20 y")),
                             ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    yearsBack = 20;
+                                    yearsBack = 40;
                                   });
                                 },
                                 child: const Text("Max")),

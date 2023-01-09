@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 
 var data = <double>[10, 30];
+var date = <String>["", ""];
 
 class RemoteService {
   getData(String url) async {
@@ -14,6 +15,8 @@ class RemoteService {
       dynamic posts = postFromJson(response.body);
       while (lengthJson >= 0) {
         data.add(posts.historical[lengthJson].open.toDouble());
+        date.add(posts.historical[lengthJson].date.toString());
+
         lengthJson--;
       }
     } else {
