@@ -59,13 +59,14 @@ class _CreateChartState extends State<CreateChart> {
                     ),
                     child: Column(
                       children: [
+/*
                         const Text(
                           'Line Chart',
                           style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 20,
                         ),
@@ -73,7 +74,7 @@ class _CreateChartState extends State<CreateChart> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
+                        Wrap(
                           children: [
                             ElevatedButton(
                                 onPressed: () {
