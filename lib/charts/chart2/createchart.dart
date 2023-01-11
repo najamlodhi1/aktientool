@@ -14,11 +14,11 @@ class CreateChartState extends State<CreateChart> {
   // Für 4 h
   //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
   var fromURL = "";
-  int yearsBack = 1;
+  int yearsBack = 10;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
-      : "AAPL";
+      : "PLTR";
 
   @override
   initState() {
@@ -44,7 +44,7 @@ class CreateChartState extends State<CreateChart> {
             selectedDate.year - yearsBack, selectedDate.month, selectedDate.day)
         .toString()
         .substring(0, 10);
-    print(modifiedDate);
+    print("$stock $modifiedDate");
 
     fromURL =
         "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";

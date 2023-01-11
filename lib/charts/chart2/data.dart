@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 import 'linechart.dart';
 
 var data = <ChartData>[];
-var date = <String>["", ""];
-
 var data2 = <SalesData>[];
 
 class RemoteService {
@@ -27,10 +25,10 @@ class RemoteService {
             posts.historical[lengthJson].date.toString().substring(0, 4);
         String yearsMonth =
             posts.historical[lengthJson].date.toString().substring(5, 7);
-        print("yearsMonth $yearsMonth");
+        //print("yearsMonth $yearsMonth");
         String yearsDay =
             posts.historical[lengthJson].date.toString().substring(8, 11);
-        print("yearsDay $yearsDay");
+        //print("yearsDay $yearsDay");
 
         double prices =
             double.parse(posts.historical[lengthJson].open.toStringAsFixed(2));
@@ -77,9 +75,9 @@ class SalesData {
 }
 
 List<SalesData> get chartData2 {
-  print("---Hier---");
-  print(data2[0].year);
-  print(data2[0].price);
+  //print("---Hier---");
+  //print(data2[0].year);
+  //print(data2[0].price);
 
   // ChartData(DateTime(2015, 5, 1), 35),
 
