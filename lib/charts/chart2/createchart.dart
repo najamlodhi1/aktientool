@@ -10,7 +10,7 @@ class CreateChart extends StatefulWidget {
 
 class CreateChartState extends State<CreateChart> {
   var selectedDate = DateTime.now();
-  int yearsBack = 40;
+  int yearsBack = 10;
   static String modifiedDate = "";
   // Für 4 h
   //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
@@ -22,12 +22,23 @@ class CreateChartState extends State<CreateChart> {
   @override
   initState() {
     super.initState();
-
-// Zeigt Alle
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<Color> color = <Color>[];
+    color.add(const Color.fromARGB(255, 58, 255, 202));
+    color.add(const Color.fromARGB(255, 33, 254, 195));
+    color.add(const Color.fromARGB(255, 0, 255, 200));
+
+    final List<double> stops = <double>[];
+    stops.add(0.0);
+    stops.add(0.5);
+    stops.add(1.0);
+
+    final LinearGradient gradientColors =
+        LinearGradient(colors: color, stops: stops);
+
     modifiedDate = DateTime(
             selectedDate.year - yearsBack, selectedDate.month, selectedDate.day)
         .toString()
@@ -39,59 +50,13 @@ class CreateChartState extends State<CreateChart> {
 
     return Column(
       children: [
-/*
-
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SfSparkLineChart.custom(
-              trackball: const SparkChartTrackball(
-                  activationMode: SparkChartActivationMode.tap),
-              marker: const SparkChartMarker(
-                  displayMode: SparkChartMarkerDisplayMode.all),
-              labelDisplayMode: SparkChartLabelDisplayMode.all,
-              xValueMapper: (int index) => data[index].year,
-              yValueMapper: (int index) => data[index].sales,
-              dataCount: 5,
-            ),
-          ),
-        ),
-
-*/
         FutureBuilder(
             future: RemoteService().getData(fromURL),
-//getDatas(fromURL),
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return SingleChildScrollView(
                   child: Wrap(
                     children: [
-                      SfCartesianChart(
-                        primaryXAxis: DateTimeAxis(),
-                        title: ChartTitle(text: 'YESSS'),
-                        tooltipBehavior: TooltipBehavior(
-                          enable: true,
-                          header: "",
-                          //decimalPlaces: 111,
-                        ),
-                        series: <ChartSeries<SalesData, DateTime>>[
-                          AreaSeries<SalesData, DateTime>(
-                            dataSource: chartData2,
-                            xValueMapper: (SalesData data, _) => data.year,
-                            yValueMapper: (SalesData data, _) => data.price,
-                            borderWidth: 1,
-                            borderGradient: const LinearGradient(
-                                colors: <Color>[
-                                  Color.fromRGBO(230, 0, 180, 1),
-                                  Color.fromRGBO(255, 200, 0, 1)
-                                ],
-                                stops: <double>[
-                                  0.2,
-                                  0.9
-                                ]),
-                          ),
-                        ],
-                      ),
                       Container(
                         margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.all(10),
@@ -101,31 +66,52 @@ class CreateChartState extends State<CreateChart> {
                             style: BorderStyle.none,
                             width: 2,
                           ),
-                          color: Colors.teal[100],
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Column(
                           children: [
-/*
-                            const Text(
-                              'Line Chart',
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),*/
                             const SizedBox(
                               height: 20,
                             ),
-                            //MyLineChart(
-                            //  chartData,
-                            //),
+                            SfCartesianChart(
+                              //title: ChartTitle(text: 'YESSS'),
+                              tooltipBehavior: TooltipBehavior(
+                                enable: true,
+                                header: "",
+                              ),
+                              series: <ChartSeries<SalesData, DateTime>>[
+                                AreaSeries<SalesData, DateTime>(
+                                  dataSource: chartData2,
+                                  xValueMapper: (SalesData data, _) =>
+                                      data.year,
+                                  yValueMapper: (SalesData data, _) =>
+                                      data.price,
+                                  gradient: gradientColors,
+                                  borderWidth: 1,
+                                  borderGradient: const LinearGradient(
+                                      colors: <Color>[
+                                        Color.fromARGB(255, 0, 0, 0),
+                                        Color.fromARGB(255, 0, 0, 0)
+                                      ],
+                                      stops: <double>[
+                                        0.2,
+                                        0.9
+                                      ]),
+                                ),
+                              ],
+                              primaryXAxis: DateTimeAxis(),
+                            ),
                             const SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Wrap(
                               children: [
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black, // background
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         yearsBack = 1;
@@ -133,6 +119,10 @@ class CreateChartState extends State<CreateChart> {
                                     },
                                     child: const Text("1 y")),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black, // background
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         yearsBack = 3;
@@ -140,6 +130,10 @@ class CreateChartState extends State<CreateChart> {
                                     },
                                     child: const Text("3 y")),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black, // background
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         yearsBack = 5;
@@ -147,6 +141,10 @@ class CreateChartState extends State<CreateChart> {
                                     },
                                     child: const Text("5 y")),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black, // background
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         yearsBack = 10;
@@ -154,6 +152,10 @@ class CreateChartState extends State<CreateChart> {
                                     },
                                     child: const Text("10 y")),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black, // background
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         yearsBack = 20;
@@ -161,6 +163,10 @@ class CreateChartState extends State<CreateChart> {
                                     },
                                     child: const Text("20 y")),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black, // background
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         yearsBack = 40;
@@ -176,7 +182,7 @@ class CreateChartState extends State<CreateChart> {
                   ),
                 );
               } else {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               }
             }),
       ],

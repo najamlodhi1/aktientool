@@ -7,10 +7,10 @@ loading(String msg) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(msg),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        CircularProgressIndicator()
+        const Center(child: CircularProgressIndicator())
       ],
     )),
   );

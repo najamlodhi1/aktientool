@@ -52,7 +52,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           body: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {

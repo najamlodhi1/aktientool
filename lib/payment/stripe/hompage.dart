@@ -32,7 +32,7 @@ class _HomepageState extends State<Homepage> {
           ProductDetials currentProduct = productDetails.elementAt(0);
           buyStuff(currentProduct);
 
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         });
   }
 
