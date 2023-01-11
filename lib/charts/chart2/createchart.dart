@@ -18,7 +18,7 @@ class CreateChartState extends State<CreateChart> {
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
-      : "PLTR";
+      : "AAPL";
 
   @override
   initState() {
@@ -152,7 +152,7 @@ class CreateChartState extends State<CreateChart> {
                                       });
                                     },
                                     child: const Text("10 y")),
-                                ElevatedButton(
+                                /*ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:
                                           Colors.black, // background
@@ -162,7 +162,7 @@ class CreateChartState extends State<CreateChart> {
                                         yearsBack = 20;
                                       });
                                     },
-                                    child: const Text("20 y")),
+                                    child: const Text("20 y")),*/
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:
