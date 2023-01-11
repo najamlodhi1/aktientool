@@ -10,11 +10,12 @@ class CreateChart extends StatefulWidget {
 
 class CreateChartState extends State<CreateChart> {
   var selectedDate = DateTime.now();
-  int yearsBack = 10;
   static String modifiedDate = "";
   // Für 4 h
   //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
   var fromURL = "";
+  int yearsBack = 1;
+
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
