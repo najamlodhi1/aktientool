@@ -3,12 +3,12 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class CreateChart2 extends StatefulWidget {
+class CreateChart1 extends StatefulWidget {
   @override
-  State<CreateChart2> createState() => CreateChart2State();
+  State<CreateChart1> createState() => CreateChart1State();
 }
 
-class CreateChart2State extends State<CreateChart2> {
+class CreateChart1State extends State<CreateChart1> {
   var selectedDate = DateTime.now();
   static String modifiedDate = "";
   // Für 4 h

@@ -4,6 +4,8 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'chart1/createchart.dart';
+
 class AllCharts extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +19,7 @@ class AllCharts extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [CreateChart()],
+          children: [CreateChart1(), CreateChart2()],
         ),
       ),
     );
