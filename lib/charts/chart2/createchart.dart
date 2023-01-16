@@ -13,50 +13,27 @@ class CreateChart2State extends State<CreateChart2> {
   static String modifiedDate = "";
   var fromURL = "";
   int yearsBack = 10;
+  late TrackballBehavior _trackballBehavior;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
 
+  late CrosshairBehavior _crosshairBehavior;
+
   @override
-  initState() {
+  void initState() {
+    _crosshairBehavior = CrosshairBehavior(
+        enable: true,
+        lineColor: Colors.red,
+        lineDashArray: <double>[5, 5],
+        lineWidth: 2,
+        lineType: CrosshairLineType.vertical);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Color> color = <Color>[];
-    color.add(const Color.fromARGB(255, 58, 255, 202));
-    color.add(const Color.fromARGB(255, 33, 254, 195));
-    color.add(const Color.fromARGB(255, 0, 255, 200));
-
-    final List<Color> color2 = <Color>[];
-    color.add(const Color.fromARGB(255, 58, 255, 202));
-    color.add(const Color.fromARGB(255, 33, 254, 195));
-    color.add(const Color.fromARGB(255, 0, 255, 200));
-
-    final List<Color> color3 = <Color>[];
-    color.add(const Color.fromARGB(255, 58, 255, 202));
-    color.add(const Color.fromARGB(255, 33, 254, 195));
-    color.add(const Color.fromARGB(255, 0, 255, 200));
-
-    final List<double> stops = <double>[];
-    stops.add(0.0);
-    stops.add(0.5);
-    stops.add(1.0);
-
-    final LinearGradient gradientColors =
-        LinearGradient(colors: color, stops: stops);
-
-    modifiedDate = DateTime(
-            selectedDate.year - yearsBack, selectedDate.month, selectedDate.day)
-        .toString()
-        .substring(0, 10);
-    print("$stock $modifiedDate");
-
-    //fromURL =
-    //   "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
-
     fromURL =
         "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
     return Column(
@@ -86,37 +63,63 @@ class CreateChart2State extends State<CreateChart2> {
                               height: 20,
                             ),
                             SfCartesianChart(
-                              //title: ChartTitle(text: 'YESSS'),
+                              crosshairBehavior: _crosshairBehavior,
+                              primaryXAxis: DateTimeAxis(),
                               tooltipBehavior: TooltipBehavior(
-                                enable: true,
-                                header: "",
+                                enable: true, format: 'point.y',
+
+                                //header: ,
                               ),
+                              title:
+                                  ChartTitle(text: 'Umsatz & Gewinn & Verlust'),
                               series: <ChartSeries>[
                                 ColumnSeries<Data1, DateTime>(
-                                  dataSource: chartData1,
-                                  xValueMapper: (Data1 data, _) => data.year,
-                                  yValueMapper: (Data1 data, _) =>
-                                      data.information,
-                                  color:
-                                      const Color.fromARGB(255, 48, 220, 174),
-                                ),
+                                    dataSource: chartData1,
+                                    markerSettings:
+                                        const MarkerSettings(isVisible: true),
+                                    name: 'Umsatz',
+                                    xValueMapper: (Data1 data, _) => data.year,
+                                    yValueMapper: (Data1 data, _) =>
+                                        data.information,
+                                    color:
+                                        const Color.fromARGB(255, 48, 220, 174),
+                                    spacing: 0.5,
+                                    width: 1),
+                                LineSeries<Data4, DateTime>(
+                                    dataSource: chartData4,
+                                    markerSettings:
+                                        const MarkerSettings(isVisible: true),
+                                    name: 'Gewinnmarge',
+                                    xValueMapper: (Data4 data, _) => data.year,
+                                    yValueMapper: (Data4 data, _) =>
+                                        data.information,
+                                    color:
+                                        const Color.fromARGB(255, 220, 48, 166),
+                                    width: 2),
                                 ColumnSeries<Data2, DateTime>(
+                                  markerSettings:
+                                      const MarkerSettings(isVisible: true),
+                                  name: 'incomeBeforeTax ',
                                   dataSource: chartData2,
                                   xValueMapper: (Data2 data, _) => data.year,
                                   yValueMapper: (Data2 data, _) =>
                                       data.information,
                                   color:
                                       const Color.fromARGB(255, 33, 210, 254),
+                                  spacing: 0.5,
                                 ),
                                 ColumnSeries<Data3, DateTime>(
+                                  markerSettings:
+                                      const MarkerSettings(isVisible: true),
+                                  name: 'netIncome ',
                                   dataSource: chartData3,
                                   xValueMapper: (Data3 data, _) => data.year,
                                   yValueMapper: (Data3 data, _) =>
                                       data.information,
                                   color: const Color.fromARGB(255, 25, 0, 255),
+                                  spacing: 0.5,
                                 ),
                               ],
-                              primaryXAxis: DateTimeAxis(),
                             ),
                             const SizedBox(
                               height: 10,

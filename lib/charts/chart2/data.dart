@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 var data1 = <Data1>[];
 var data2 = <Data2>[];
 var data3 = <Data3>[];
+var data4 = <Data4>[];
 
 class RemoteService {
   getData(String url) async {
@@ -17,22 +18,22 @@ class RemoteService {
       data1 = [];
       data2 = [];
       data3 = [];
+      data4 = []; //netIncomeRatio
 
       dynamic posts = postFromJson(response.body);
 
       print(posts[0].revenue.toString());
       print(posts[0].incomeBeforeTax.toString());
       print(posts[0].netIncome.toString());
+      print(posts[0].netIncomeRatio.toString());
 
       while (lengthJson >= 0) {
         String years = posts[lengthJson].date.toString().substring(0, 4);
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
-        //print("yearsMonth $yearsMonth");
         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
-        //print("yearsDay $yearsDay");
 
         double revenue =
-            double.parse(posts[lengthJson].revenue.toStringAsFixed(2));
+            double.parse((posts[lengthJson]).revenue.toStringAsFixed(2));
 
         double incomeBeforeTax =
             double.parse(posts[lengthJson].incomeBeforeTax.toStringAsFixed(2));
@@ -40,20 +41,28 @@ class RemoteService {
         double netIncome =
             double.parse(posts[lengthJson].netIncome.toStringAsFixed(2));
 
+        double netIncomeRatio =
+            double.parse(posts[lengthJson].netIncomeRatio.toStringAsFixed(2));
+
         data1.add(Data1(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            revenue));
+            revenue / 1000000000));
 
         data2.add(Data2(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            incomeBeforeTax));
+            incomeBeforeTax / 1000000000));
 
         data3.add(Data3(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            netIncome));
+            netIncome / 1000000000));
+
+        data4.add(Data4(
+            DateTime(
+                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+            netIncomeRatio * 100));
 
         lengthJson--;
       }
@@ -106,5 +115,21 @@ List<Data3> get chartData3 {
   return data3
       .mapIndexed(
           ((index, element) => Data3(element.year, element.information)))
+      .toList();
+}
+
+class Data4 {
+  Data4(this.year, this.information);
+  final DateTime year;
+  final double information;
+}
+
+List<Data4> get chartData4 {
+  print("---data4---");
+  print(data4[0].information);
+
+  return data4
+      .mapIndexed(
+          ((index, element) => Data4(element.year, element.information)))
       .toList();
 }
