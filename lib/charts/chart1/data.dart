@@ -1,4 +1,4 @@
-import 'package:aktientool/charts/chart2/post.dart';
+import 'package:aktientool/charts/chart1/post.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +12,7 @@ class RemoteService {
     if (response.statusCode == 200) {
       final List l = response.body.split('open');
       int lengthJson = l.length - 2;
-      print("lengthJson: $lengthJson");
+      //print("lengthJson: $lengthJson");
 
       data = [];
       data2 = [];

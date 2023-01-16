@@ -2,49 +2,59 @@ import 'package:aktientool/charts/chart2/post.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 
-var data = <ChartData>[];
-var data2 = <SalesData>[];
+var data1 = <Data1>[];
+var data2 = <Data2>[];
+var data3 = <Data3>[];
 
 class RemoteService {
   getData(String url) async {
-    int count = 0;
     var response = await http.Client().get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final List l = response.body.split('open');
+      final List l = response.body.split('date');
       int lengthJson = l.length - 2;
       print("lengthJson: $lengthJson");
 
-      data = [];
+      data1 = [];
       data2 = [];
+      data3 = [];
+
       dynamic posts = postFromJson(response.body);
+
+      print(posts[0].revenue.toString());
+      print(posts[0].incomeBeforeTax.toString());
+      print(posts[0].netIncome.toString());
+
       while (lengthJson >= 0) {
-        String years =
-            posts.historical[lengthJson].date.toString().substring(0, 4);
-        String yearsMonth =
-            posts.historical[lengthJson].date.toString().substring(5, 7);
+        String years = posts[lengthJson].date.toString().substring(0, 4);
+        String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
         //print("yearsMonth $yearsMonth");
-        String yearsDay =
-            posts.historical[lengthJson].date.toString().substring(8, 11);
+        String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
         //print("yearsDay $yearsDay");
 
-        double prices =
-            double.parse(posts.historical[lengthJson].open.toStringAsFixed(2));
+        double revenue =
+            double.parse(posts[lengthJson].revenue.toStringAsFixed(2));
 
-        //date.add(dates);
+        double incomeBeforeTax =
+            double.parse(posts[lengthJson].incomeBeforeTax.toStringAsFixed(2));
 
-        data.add(ChartData(
-          count,
-          prices,
-        ));
+        double netIncome =
+            double.parse(posts[lengthJson].netIncome.toStringAsFixed(2));
 
-        // ChartData(DateTime(2015, 5, 1), 35),
-
-        data2.add(SalesData(
+        data1.add(Data1(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            prices));
+            revenue));
 
-        count++;
+        data2.add(Data2(
+            DateTime(
+                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+            incomeBeforeTax));
+
+        data3.add(Data3(
+            DateTime(
+                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+            netIncome));
+
         lengthJson--;
       }
     } else {
@@ -53,32 +63,48 @@ class RemoteService {
   }
 }
 
-class ChartData {
-  ChartData(this.year, this.price);
-  final int year;
-  final double price;
+class Data1 {
+  Data1(this.year, this.information);
+  final DateTime year;
+  final double information;
 }
 
-List<ChartData> get chartData {
-  return data
-      .mapIndexed(((index, element) => ChartData(element.year, element.price)))
+List<Data1> get chartData1 {
+  print("---data1---");
+  print(data1[0].information);
+  return data1
+      .mapIndexed(
+          ((index, element) => Data1(element.year, element.information)))
       .toList();
 }
 
-class SalesData {
-  SalesData(this.year, this.price);
+class Data2 {
+  Data2(this.year, this.information);
   final DateTime year;
-  final double price;
+  final double information;
 }
 
-List<SalesData> get chartData2 {
-  //print("---Hier---");
-  //print(data2[0].year);
-  //print(data2[0].price);
-
-  // ChartData(DateTime(2015, 5, 1), 35),
-
+List<Data2> get chartData2 {
+  print("---data2---");
+  print(data2[0].information);
   return data2
-      .mapIndexed(((index, element) => SalesData(element.year, element.price)))
+      .mapIndexed(
+          ((index, element) => Data2(element.year, element.information)))
+      .toList();
+}
+
+class Data3 {
+  Data3(this.year, this.information);
+  final DateTime year;
+  final double information;
+}
+
+List<Data3> get chartData3 {
+  print("---data3---");
+  print(data3[0].information);
+
+  return data3
+      .mapIndexed(
+          ((index, element) => Data3(element.year, element.information)))
       .toList();
 }

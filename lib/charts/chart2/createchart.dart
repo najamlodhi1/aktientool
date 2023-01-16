@@ -11,8 +11,6 @@ class CreateChart2 extends StatefulWidget {
 class CreateChart2State extends State<CreateChart2> {
   var selectedDate = DateTime.now();
   static String modifiedDate = "";
-  // Für 4 h
-  //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
   var fromURL = "";
   int yearsBack = 10;
 
@@ -32,6 +30,16 @@ class CreateChart2State extends State<CreateChart2> {
     color.add(const Color.fromARGB(255, 33, 254, 195));
     color.add(const Color.fromARGB(255, 0, 255, 200));
 
+    final List<Color> color2 = <Color>[];
+    color.add(const Color.fromARGB(255, 58, 255, 202));
+    color.add(const Color.fromARGB(255, 33, 254, 195));
+    color.add(const Color.fromARGB(255, 0, 255, 200));
+
+    final List<Color> color3 = <Color>[];
+    color.add(const Color.fromARGB(255, 58, 255, 202));
+    color.add(const Color.fromARGB(255, 33, 254, 195));
+    color.add(const Color.fromARGB(255, 0, 255, 200));
+
     final List<double> stops = <double>[];
     stops.add(0.0);
     stops.add(0.5);
@@ -46,9 +54,11 @@ class CreateChart2State extends State<CreateChart2> {
         .substring(0, 10);
     print("$stock $modifiedDate");
 
-    fromURL =
-        "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
+    //fromURL =
+    //   "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
 
+    fromURL =
+        "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
     return Column(
       children: [
         FutureBuilder(
@@ -81,100 +91,35 @@ class CreateChart2State extends State<CreateChart2> {
                                 enable: true,
                                 header: "",
                               ),
-                              series: <ChartSeries<SalesData, DateTime>>[
-                                AreaSeries<SalesData, DateTime>(
+                              series: <ChartSeries>[
+                                ColumnSeries<Data1, DateTime>(
+                                  dataSource: chartData1,
+                                  xValueMapper: (Data1 data, _) => data.year,
+                                  yValueMapper: (Data1 data, _) =>
+                                      data.information,
+                                  color:
+                                      const Color.fromARGB(255, 48, 220, 174),
+                                ),
+                                ColumnSeries<Data2, DateTime>(
                                   dataSource: chartData2,
-                                  xValueMapper: (SalesData data, _) =>
-                                      data.year,
-                                  yValueMapper: (SalesData data, _) =>
-                                      data.price,
-                                  gradient: gradientColors,
-                                  borderWidth: 1,
-                                  borderGradient: const LinearGradient(
-                                      colors: <Color>[
-                                        Color.fromARGB(255, 0, 0, 0),
-                                        Color.fromARGB(255, 0, 0, 0)
-                                      ],
-                                      stops: <double>[
-                                        0.2,
-                                        0.9
-                                      ]),
+                                  xValueMapper: (Data2 data, _) => data.year,
+                                  yValueMapper: (Data2 data, _) =>
+                                      data.information,
+                                  color:
+                                      const Color.fromARGB(255, 33, 210, 254),
+                                ),
+                                ColumnSeries<Data3, DateTime>(
+                                  dataSource: chartData3,
+                                  xValueMapper: (Data3 data, _) => data.year,
+                                  yValueMapper: (Data3 data, _) =>
+                                      data.information,
+                                  color: const Color.fromARGB(255, 25, 0, 255),
                                 ),
                               ],
                               primaryXAxis: DateTimeAxis(),
                             ),
                             const SizedBox(
                               height: 10,
-                            ),
-                            Wrap(
-                              children: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 1;
-                                      });
-                                    },
-                                    child: const Text("1 y")),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 3;
-                                      });
-                                    },
-                                    child: const Text("3 y")),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 5;
-                                      });
-                                    },
-                                    child: const Text("5 y")),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 10;
-                                      });
-                                    },
-                                    child: const Text("10 y")),
-                                /*ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 20;
-                                      });
-                                    },
-                                    child: const Text("20 y")),*/
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 40;
-                                      });
-                                    },
-                                    child: const Text("Max")),
-                              ],
                             ),
                           ],
                         ),
