@@ -29,21 +29,28 @@ class RemoteService {
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
 
-        double goodwill =
-            double.parse((posts[lengthJson]).goodwill.toStringAsFixed(2));
+        double freeCashFlow =
+            double.parse((posts[lengthJson]).freeCashFlow.toStringAsFixed(2));
 
-        double cashAndShortTermInvestments = double.parse(
-            (posts[lengthJson]).cashAndShortTermInvestments.toStringAsFixed(2));
+        double dividendsPaid =
+            double.parse((posts[lengthJson]).dividendsPaid.toStringAsFixed(2));
+
+        double tilgungskraft = freeCashFlow + dividendsPaid;
 
         data1.add(Data1(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            goodwill / 1000000000));
+            freeCashFlow / 1000000000));
 
         data2.add(Data2(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            cashAndShortTermInvestments / 1000000000));
+            dividendsPaid / 1000000000));
+
+        data3.add(Data3(
+            DateTime(
+                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+            tilgungskraft / 1000000000));
 
         lengthJson--;
       }
