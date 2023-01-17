@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -22,7 +24,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
             Navigator.of(context).pop();
 
             //Navigator.pop(context, 'success');
-          } else if (request.url.startsWith('https://cancel.com')) {
+          } else if (request.url.startsWith('https://aktientool.net')) {
+            log('checkout page cancel start ');
             Navigator.of(context).pop();
 
             //Navigator.pop(context, 'cancel');

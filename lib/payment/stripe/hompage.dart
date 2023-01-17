@@ -37,9 +37,9 @@ class _HomepageState extends State<Homepage> {
   }
 
   buyStuff(ProductDetials pd) async {
-    setState(() {
-      loadingPayment = true;
-    });
+    // setState(() {
+    loadingPayment = true;
+    // });
     String userUid = FirebaseAuth.instance.currentUser!.uid;
     var docRef = await FirebaseFirestore.instance
         .collection('users')
@@ -50,7 +50,7 @@ class _HomepageState extends State<Homepage> {
       'quantity': pd.quatity,
       'mode': 'payment',
       'success_url': 'https://success.com',
-      'cancel_url': 'https://cancel.com'
+      'cancel_url': 'https://aktientool.net'
     });
 
     docRef.snapshots().listen((ds) async {
