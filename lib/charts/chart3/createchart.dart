@@ -1,14 +1,14 @@
-import 'package:aktientool/charts/chart2/data.dart';
+import 'package:aktientool/charts/chart3/data.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class CreateChart2 extends StatefulWidget {
+class CreateChart3 extends StatefulWidget {
   @override
-  State<CreateChart2> createState() => CreateChart2State();
+  State<CreateChart3> createState() => CreateChart3State();
 }
 
-class CreateChart2State extends State<CreateChart2> {
+class CreateChart3State extends State<CreateChart3> {
   var selectedDate = DateTime.now();
   static String modifiedDate = "";
   var fromURL = "";
@@ -35,7 +35,7 @@ class CreateChart2State extends State<CreateChart2> {
   @override
   Widget build(BuildContext context) {
     fromURL =
-        "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
+        "https://financialmodelingprep.com/api/v3/balance-sheet-statement/$stock?limit=20&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
     return Column(
       children: [
         FutureBuilder(
@@ -70,15 +70,14 @@ class CreateChart2State extends State<CreateChart2> {
 
                                 //header: ,
                               ),
-                              title: ChartTitle(
-                                  text:
-                                      'Income Statement / Umsatz & Gewinn & Verlust'),
+                              title:
+                                  ChartTitle(text: 'Balance Sheet Statement'),
                               series: <ChartSeries>[
                                 ColumnSeries<Data1, DateTime>(
                                     dataSource: chartData1,
                                     markerSettings:
                                         const MarkerSettings(isVisible: true),
-                                    name: 'Umsatz',
+                                    name: 'Goodwill',
                                     xValueMapper: (Data1 data, _) => data.year,
                                     yValueMapper: (Data1 data, _) =>
                                         data.information,
@@ -86,21 +85,10 @@ class CreateChart2State extends State<CreateChart2> {
                                         const Color.fromARGB(255, 48, 220, 174),
                                     spacing: 0.5,
                                     width: 1),
-                                LineSeries<Data4, DateTime>(
-                                    dataSource: chartData4,
-                                    markerSettings:
-                                        const MarkerSettings(isVisible: true),
-                                    name: 'Gewinnmarge',
-                                    xValueMapper: (Data4 data, _) => data.year,
-                                    yValueMapper: (Data4 data, _) =>
-                                        data.information,
-                                    color:
-                                        const Color.fromARGB(255, 220, 48, 166),
-                                    width: 2),
-                                /*ColumnSeries<Data2, DateTime>(
+                                ColumnSeries<Data2, DateTime>(
                                   markerSettings:
                                       const MarkerSettings(isVisible: true),
-                                  name: 'incomeBeforeTax ',
+                                  name: 'Cash und Wertpapiere',
                                   dataSource: chartData2,
                                   xValueMapper: (Data2 data, _) => data.year,
                                   yValueMapper: (Data2 data, _) =>
@@ -109,17 +97,6 @@ class CreateChart2State extends State<CreateChart2> {
                                       const Color.fromARGB(255, 33, 210, 254),
                                   spacing: 0.5,
                                 ),
-                                ColumnSeries<Data3, DateTime>(
-                                  markerSettings:
-                                      const MarkerSettings(isVisible: true),
-                                  name: 'netIncome ',
-                                  dataSource: chartData3,
-                                  xValueMapper: (Data3 data, _) => data.year,
-                                  yValueMapper: (Data3 data, _) =>
-                                      data.information,
-                                  color: const Color.fromARGB(255, 25, 0, 255),
-                                  spacing: 0.5,
-                                ), */
                               ],
                             ),
                             const SizedBox(

@@ -1,4 +1,4 @@
-import 'package:aktientool/charts/chart2/post.dart';
+import 'package:aktientool/charts/chart3/post.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,7 @@ class RemoteService {
     if (response.statusCode == 200) {
       final List l = response.body.split('date');
       int lengthJson = l.length - 2;
-      print("lengthJson: $lengthJson");
+      //print("lengthJson: $lengthJson");
 
       data1 = [];
       data2 = [];
@@ -22,47 +22,28 @@ class RemoteService {
 
       dynamic posts = postFromJson(response.body);
 
-      print(posts[0].revenue.toString());
-      print(posts[0].incomeBeforeTax.toString());
-      print(posts[0].netIncome.toString());
-      print(posts[0].netIncomeRatio.toString());
+      //print(posts[0].goodwill.toString());
 
       while (lengthJson >= 0) {
         String years = posts[lengthJson].date.toString().substring(0, 4);
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
 
-        double revenue =
-            double.parse((posts[lengthJson]).revenue.toStringAsFixed(2));
+        double goodwill =
+            double.parse((posts[lengthJson]).goodwill.toStringAsFixed(2));
 
-        double incomeBeforeTax =
-            double.parse(posts[lengthJson].incomeBeforeTax.toStringAsFixed(2));
-
-        double netIncome =
-            double.parse(posts[lengthJson].netIncome.toStringAsFixed(2));
-
-        double netIncomeRatio =
-            double.parse(posts[lengthJson].netIncomeRatio.toStringAsFixed(2));
+        double cashAndShortTermInvestments = double.parse(
+            (posts[lengthJson]).cashAndShortTermInvestments.toStringAsFixed(2));
 
         data1.add(Data1(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            revenue / 1000000000));
+            goodwill / 1000000000));
 
         data2.add(Data2(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            incomeBeforeTax / 1000000000));
-
-        data3.add(Data3(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            netIncome / 1000000000));
-
-        data4.add(Data4(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            netIncomeRatio * 100));
+            cashAndShortTermInvestments / 1000000000));
 
         lengthJson--;
       }
@@ -80,7 +61,7 @@ class Data1 {
 
 List<Data1> get chartData1 {
   print("---data1---");
-  print(data1[0].information);
+  //print(data1[0].information);
   return data1
       .mapIndexed(
           ((index, element) => Data1(element.year, element.information)))
@@ -95,7 +76,7 @@ class Data2 {
 
 List<Data2> get chartData2 {
   print("---data2---");
-  print(data2[0].information);
+  //print(data2[0].information);
   return data2
       .mapIndexed(
           ((index, element) => Data2(element.year, element.information)))

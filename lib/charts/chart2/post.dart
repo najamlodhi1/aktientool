@@ -4,96 +4,202 @@
 
 import 'dart:convert';
 
-Post? postFromJson(String str) => Post.fromJson(json.decode(str));
+List<Post?>? postFromJson(String str) => json.decode(str) == null
+    ? []
+    : List<Post?>.from(json.decode(str)!.map((x) => Post.fromJson(x)));
 
-String postToJson(Post? data) => json.encode(data!.toJson());
+String postToJson(List<Post?>? data) => json.encode(
+    data == null ? [] : List<dynamic>.from(data.map((x) => x!.toJson())));
 
 class Post {
   Post({
-    this.symbol,
-    this.historical,
-  });
-
-  String? symbol;
-  List<Historical?>? historical;
-
-  factory Post.fromJson(json) => Post(
-        symbol: json["symbol"],
-        historical: json["historical"] == null
-            ? []
-            : List<Historical?>.from(
-                json["historical"]!.map((x) => Historical.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "symbol": symbol,
-        "historical": historical == null
-            ? []
-            : List<dynamic>.from(historical!.map((x) => x!.toJson())),
-      };
-}
-
-class Historical {
-  Historical({
     this.date,
-    this.open,
-    this.high,
-    this.low,
-    this.close,
-    this.adjClose,
-    this.volume,
-    this.unadjustedVolume,
-    this.change,
-    this.changePercent,
-    this.vwap,
-    this.label,
-    this.changeOverTime,
+    this.symbol,
+    this.reportedCurrency,
+    this.cik,
+    this.fillingDate,
+    this.acceptedDate,
+    this.calendarYear,
+    this.period,
+    this.revenue,
+    this.costOfRevenue,
+    this.grossProfit,
+    this.grossProfitRatio,
+    this.researchAndDevelopmentExpenses,
+    this.generalAndAdministrativeExpenses,
+    this.sellingAndMarketingExpenses,
+    this.sellingGeneralAndAdministrativeExpenses,
+    this.otherExpenses,
+    this.operatingExpenses,
+    this.costAndExpenses,
+    this.interestIncome,
+    this.interestExpense,
+    this.depreciationAndAmortization,
+    this.ebitda,
+    this.ebitdaratio,
+    this.operatingIncome,
+    this.operatingIncomeRatio,
+    this.totalOtherIncomeExpensesNet,
+    this.incomeBeforeTax,
+    this.incomeBeforeTaxRatio,
+    this.incomeTaxExpense,
+    this.netIncome,
+    this.netIncomeRatio,
+    this.eps,
+    this.epsdiluted,
+    this.weightedAverageShsOut,
+    this.weightedAverageShsOutDil,
+    this.link,
+    this.finalLink,
   });
 
   DateTime? date;
-  double? open;
-  double? high;
-  double? low;
-  double? close;
-  double? adjClose;
-  int? volume;
-  int? unadjustedVolume;
-  double? change;
-  double? changePercent;
-  double? vwap;
-  String? label;
-  double? changeOverTime;
+  Symbol? symbol;
+  ReportedCurrency? reportedCurrency;
+  String? cik;
+  DateTime? fillingDate;
+  DateTime? acceptedDate;
+  String? calendarYear;
+  Period? period;
+  int? revenue;
+  int? costOfRevenue;
+  int? grossProfit;
+  double? grossProfitRatio;
+  int? researchAndDevelopmentExpenses;
+  int? generalAndAdministrativeExpenses;
+  int? sellingAndMarketingExpenses;
+  int? sellingGeneralAndAdministrativeExpenses;
+  int? otherExpenses;
+  int? operatingExpenses;
+  int? costAndExpenses;
+  int? interestIncome;
+  int? interestExpense;
+  int? depreciationAndAmortization;
+  int? ebitda;
+  double? ebitdaratio;
+  int? operatingIncome;
+  double? operatingIncomeRatio;
+  int? totalOtherIncomeExpensesNet;
+  int? incomeBeforeTax;
+  double? incomeBeforeTaxRatio;
+  int? incomeTaxExpense;
+  int? netIncome;
+  double? netIncomeRatio;
+  double? eps;
+  double? epsdiluted;
+  int? weightedAverageShsOut;
+  int? weightedAverageShsOutDil;
+  String? link;
+  String? finalLink;
 
-  factory Historical.fromJson(Map<String, dynamic> json) => Historical(
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
         date: DateTime.parse(json["date"]),
-        open: json["open"].toDouble(),
-        high: json["high"].toDouble(),
-        low: json["low"].toDouble(),
-        close: json["close"].toDouble(),
-        adjClose: json["adjClose"].toDouble(),
-        volume: json["volume"],
-        unadjustedVolume: json["unadjustedVolume"],
-        change: json["change"].toDouble(),
-        changePercent: json["changePercent"].toDouble(),
-        vwap: json["vwap"].toDouble(),
-        label: json["label"],
-        changeOverTime: json["changeOverTime"].toDouble(),
+        symbol: symbolValues.map[json["symbol"]],
+        reportedCurrency: reportedCurrencyValues.map[json["reportedCurrency"]],
+        cik: json["cik"],
+        fillingDate: DateTime.parse(json["fillingDate"]),
+        acceptedDate: DateTime.parse(json["acceptedDate"]),
+        calendarYear: json["calendarYear"],
+        period: periodValues.map[json["period"]],
+        revenue: json["revenue"],
+        costOfRevenue: json["costOfRevenue"],
+        grossProfit: json["grossProfit"],
+        grossProfitRatio: json["grossProfitRatio"].toDouble(),
+        researchAndDevelopmentExpenses: json["researchAndDevelopmentExpenses"],
+        generalAndAdministrativeExpenses:
+            json["generalAndAdministrativeExpenses"],
+        sellingAndMarketingExpenses: json["sellingAndMarketingExpenses"],
+        sellingGeneralAndAdministrativeExpenses:
+            json["sellingGeneralAndAdministrativeExpenses"],
+        otherExpenses: json["otherExpenses"],
+        operatingExpenses: json["operatingExpenses"],
+        costAndExpenses: json["costAndExpenses"],
+        interestIncome: json["interestIncome"],
+        interestExpense: json["interestExpense"],
+        depreciationAndAmortization: json["depreciationAndAmortization"],
+        ebitda: json["ebitda"],
+        ebitdaratio: json["ebitdaratio"].toDouble(),
+        operatingIncome: json["operatingIncome"],
+        operatingIncomeRatio: json["operatingIncomeRatio"].toDouble(),
+        totalOtherIncomeExpensesNet: json["totalOtherIncomeExpensesNet"],
+        incomeBeforeTax: json["incomeBeforeTax"],
+        incomeBeforeTaxRatio: json["incomeBeforeTaxRatio"].toDouble(),
+        incomeTaxExpense: json["incomeTaxExpense"],
+        netIncome: json["netIncome"],
+        netIncomeRatio: json["netIncomeRatio"].toDouble(),
+        eps: json["eps"].toDouble(),
+        epsdiluted: json["epsdiluted"].toDouble(),
+        weightedAverageShsOut: json["weightedAverageShsOut"],
+        weightedAverageShsOutDil: json["weightedAverageShsOutDil"],
+        link: json["link"],
+        finalLink: json["finalLink"],
       );
 
   Map<String, dynamic> toJson() => {
         "date":
             "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
-        "open": open,
-        "high": high,
-        "low": low,
-        "close": close,
-        "adjClose": adjClose,
-        "volume": volume,
-        "unadjustedVolume": unadjustedVolume,
-        "change": change,
-        "changePercent": changePercent,
-        "vwap": vwap,
-        "label": label,
-        "changeOverTime": changeOverTime,
+        "symbol": symbolValues.reverse![symbol],
+        "reportedCurrency": reportedCurrencyValues.reverse![reportedCurrency],
+        "cik": cik,
+        "fillingDate":
+            "${fillingDate!.year.toString().padLeft(4, '0')}-${fillingDate!.month.toString().padLeft(2, '0')}-${fillingDate!.day.toString().padLeft(2, '0')}",
+        "acceptedDate": acceptedDate?.toIso8601String(),
+        "calendarYear": calendarYear,
+        "period": periodValues.reverse![period],
+        "revenue": revenue,
+        "costOfRevenue": costOfRevenue,
+        "grossProfit": grossProfit,
+        "grossProfitRatio": grossProfitRatio,
+        "researchAndDevelopmentExpenses": researchAndDevelopmentExpenses,
+        "generalAndAdministrativeExpenses": generalAndAdministrativeExpenses,
+        "sellingAndMarketingExpenses": sellingAndMarketingExpenses,
+        "sellingGeneralAndAdministrativeExpenses":
+            sellingGeneralAndAdministrativeExpenses,
+        "otherExpenses": otherExpenses,
+        "operatingExpenses": operatingExpenses,
+        "costAndExpenses": costAndExpenses,
+        "interestIncome": interestIncome,
+        "interestExpense": interestExpense,
+        "depreciationAndAmortization": depreciationAndAmortization,
+        "ebitda": ebitda,
+        "ebitdaratio": ebitdaratio,
+        "operatingIncome": operatingIncome,
+        "operatingIncomeRatio": operatingIncomeRatio,
+        "totalOtherIncomeExpensesNet": totalOtherIncomeExpensesNet,
+        "incomeBeforeTax": incomeBeforeTax,
+        "incomeBeforeTaxRatio": incomeBeforeTaxRatio,
+        "incomeTaxExpense": incomeTaxExpense,
+        "netIncome": netIncome,
+        "netIncomeRatio": netIncomeRatio,
+        "eps": eps,
+        "epsdiluted": epsdiluted,
+        "weightedAverageShsOut": weightedAverageShsOut,
+        "weightedAverageShsOutDil": weightedAverageShsOutDil,
+        "link": link,
+        "finalLink": finalLink,
       };
+}
+
+enum Period { FY }
+
+final periodValues = EnumValues({"FY": Period.FY});
+
+enum ReportedCurrency { USD }
+
+final reportedCurrencyValues = EnumValues({"USD": ReportedCurrency.USD});
+
+enum Symbol { AAPL }
+
+final symbolValues = EnumValues({"AAPL": Symbol.AAPL});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String>? reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String>? get reverse {
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

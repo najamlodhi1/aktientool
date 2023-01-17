@@ -1,4 +1,4 @@
-import 'package:aktientool/charts/chart2/data.dart';
+import 'package:aktientool/charts/chart1/data.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -44,7 +44,7 @@ class CreateChart1State extends State<CreateChart1> {
             selectedDate.year - yearsBack, selectedDate.month, selectedDate.day)
         .toString()
         .substring(0, 10);
-    print("$stock $modifiedDate");
+    //print("$stock $modifiedDate");
 
     fromURL =
         "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
