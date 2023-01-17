@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'chart1/createchart.dart';
+import 'chart3/createchart.dart';
+import 'chart4/createchart.dart';
 
 class AllCharts extends ConsumerWidget {
   @override
@@ -19,7 +21,12 @@ class AllCharts extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [CreateChart1(), CreateChart2()],
+          children: [
+            CreateChart1(),
+            CreateChart2(),
+            CreateChart3(),
+            CreateChart4()
+          ],
         ),
       ),
     );
