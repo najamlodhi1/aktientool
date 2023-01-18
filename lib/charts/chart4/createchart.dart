@@ -77,7 +77,7 @@ class CreateChart4State extends State<CreateChart4> {
                                     dataSource: chartData1,
                                     markerSettings:
                                         const MarkerSettings(isVisible: true),
-                                    name: '1',
+                                    name: 'freeCashFlow',
                                     xValueMapper: (Data1 data, _) => data.year,
                                     yValueMapper: (Data1 data, _) =>
                                         data.information,
@@ -88,13 +88,25 @@ class CreateChart4State extends State<CreateChart4> {
                                 ColumnSeries<Data2, DateTime>(
                                   markerSettings:
                                       const MarkerSettings(isVisible: true),
-                                  name: '2',
+                                  name: 'dividendsPaid',
                                   dataSource: chartData2,
                                   xValueMapper: (Data2 data, _) => data.year,
                                   yValueMapper: (Data2 data, _) =>
                                       data.information,
                                   color:
                                       const Color.fromARGB(255, 33, 210, 254),
+                                  spacing: 0.5,
+                                ),
+                                ColumnSeries<Data3, DateTime>(
+                                  markerSettings:
+                                      const MarkerSettings(isVisible: true),
+                                  name: 'Tilgungskraft',
+                                  dataSource: chartData3,
+                                  xValueMapper: (Data3 data, _) => data.year,
+                                  yValueMapper: (Data3 data, _) =>
+                                      data.information,
+                                  color:
+                                      const Color.fromARGB(255, 217, 33, 254),
                                   spacing: 0.5,
                                 ),
                               ],
