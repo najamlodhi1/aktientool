@@ -1,4 +1,4 @@
-import 'package:aktientool/charts/chart4/post.dart';
+import 'package:aktientool/charts/chart5/post.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,6 @@ class RemoteService {
     if (response.statusCode == 200) {
       final List l = response.body.split('date');
       int lengthJson = l.length - 2;
-      //print("lengthJson: $lengthJson");
 
       data1 = [];
       data2 = [];
@@ -29,28 +28,13 @@ class RemoteService {
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
 
-        double freeCashFlow =
-            double.parse((posts[lengthJson]).freeCashFlow.toStringAsFixed(2));
-
-        double dividendsPaid =
-            double.parse((posts[lengthJson]).dividendsPaid.toStringAsFixed(2));
-
-        double tilgungskraft = freeCashFlow + dividendsPaid;
+        double daysOfSalesOutstanding = double.parse(
+            (posts[lengthJson]).daysOfSalesOutstanding.toStringAsFixed(2));
 
         data1.add(Data1(
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            freeCashFlow / 1000000000));
-
-        data2.add(Data2(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            dividendsPaid / 1000000000));
-
-        data3.add(Data3(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            tilgungskraft / 1000000000));
+            daysOfSalesOutstanding));
 
         lengthJson--;
       }

@@ -60,7 +60,7 @@ class Data1 {
 }
 
 List<Data1> get chartData1 {
-  print("---data1---");
+  //print("---data1---");
   //print(data1[0].information);
   return data1
       .mapIndexed(
@@ -75,7 +75,7 @@ class Data2 {
 }
 
 List<Data2> get chartData2 {
-  print("---data2---");
+  //print("---data2---");
   //print(data2[0].information);
   return data2
       .mapIndexed(
@@ -90,8 +90,8 @@ class Data3 {
 }
 
 List<Data3> get chartData3 {
-  print("---data3---");
-  print(data3[0].information);
+  //print("---data3---");
+  //print(data3[0].information);
 
   return data3
       .mapIndexed(
@@ -106,8 +106,8 @@ class Data4 {
 }
 
 List<Data4> get chartData4 {
-  print("---data4---");
-  print(data4[0].information);
+  //print("---data4---");
+  //print(data4[0].information);
 
   return data4
       .mapIndexed(

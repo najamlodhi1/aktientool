@@ -13,7 +13,6 @@ class RemoteService {
     if (response.statusCode == 200) {
       final List l = response.body.split('date');
       int lengthJson = l.length - 2;
-      print("lengthJson: $lengthJson");
 
       data1 = [];
       data2 = [];
@@ -22,11 +21,12 @@ class RemoteService {
 
       dynamic posts = postFromJson(response.body);
 
+/*
       print(posts[0].revenue.toString());
       print(posts[0].incomeBeforeTax.toString());
       print(posts[0].netIncome.toString());
       print(posts[0].netIncomeRatio.toString());
-
+*/
       while (lengthJson >= 0) {
         String years = posts[lengthJson].date.toString().substring(0, 4);
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
@@ -79,8 +79,8 @@ class Data1 {
 }
 
 List<Data1> get chartData1 {
-  print("---data1---");
-  print(data1[0].information);
+  //print("---data1---");
+  //print(data1[0].information);
   return data1
       .mapIndexed(
           ((index, element) => Data1(element.year, element.information)))
@@ -94,8 +94,8 @@ class Data2 {
 }
 
 List<Data2> get chartData2 {
-  print("---data2---");
-  print(data2[0].information);
+  //print("---data2---");
+  //print(data2[0].information);
   return data2
       .mapIndexed(
           ((index, element) => Data2(element.year, element.information)))
@@ -109,8 +109,8 @@ class Data3 {
 }
 
 List<Data3> get chartData3 {
-  print("---data3---");
-  print(data3[0].information);
+  //print("---data3---");
+  //print(data3[0].information);
 
   return data3
       .mapIndexed(
@@ -125,8 +125,8 @@ class Data4 {
 }
 
 List<Data4> get chartData4 {
-  print("---data4---");
-  print(data4[0].information);
+  //print("---data4---");
+  //print(data4[0].information);
 
   return data4
       .mapIndexed(
