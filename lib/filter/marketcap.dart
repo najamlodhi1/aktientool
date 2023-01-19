@@ -104,7 +104,7 @@ class Marketcap extends ConsumerWidget {
                   ),
                   onTap: () {
                     // ignore: deprecated_member_use
-                    ref.read(sp_marketcap.state).state = _marketcap[3];
+                    ref.read(sp_marketcap.state).state = _marketcap[4];
                   },
                 ),
               ],

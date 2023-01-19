@@ -8,53 +8,26 @@ class CreateChart0 extends StatefulWidget {
 }
 
 class CreateChart0State extends State<CreateChart0> {
-  var selectedDate = DateTime.now();
-  static String modifiedDate = "";
-  // Für 4 h
-  //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
-  var fromURL = "";
-  int yearsBack = 10;
-
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
-
-  @override
-  initState() {
-    super.initState();
-    RemoteService().getData(fromURL);
-  }
+  var fromURL = "";
 
   @override
   Widget build(BuildContext context) {
-    final List<Color> color = <Color>[];
-    color.add(const Color.fromARGB(255, 58, 255, 202));
-    color.add(const Color.fromARGB(255, 33, 254, 195));
-    color.add(const Color.fromARGB(255, 0, 255, 200));
-
-    final List<double> stops = <double>[];
-    stops.add(0.0);
-    stops.add(0.5);
-    stops.add(1.0);
-
-    final LinearGradient gradientColors =
-        LinearGradient(colors: color, stops: stops);
-
-    modifiedDate = DateTime(
-            selectedDate.year - yearsBack, selectedDate.month, selectedDate.day)
-        .toString()
-        .substring(0, 10);
-    //print("$stock $modifiedDate");
-
     fromURL =
         "https://financialmodelingprep.com/api/v3/profile/$stock?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
 
     return Column(
       children: [
-        FutureBuilder(
+        FutureBuilder<dynamic>(
             future: RemoteService().getData(fromURL),
-            builder: (ctx, snapshot) {
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<dynamic> snapshot,
+            ) {
               if (snapshot.connectionState == ConnectionState.done) {
+                //final splitted = snapshot.data.toString().split(' ');
                 return SingleChildScrollView(
                   child: Wrap(
                     children: [
@@ -65,7 +38,7 @@ class CreateChart0State extends State<CreateChart0> {
                           border: Border.all(
                             color: Colors.teal,
                             style: BorderStyle.none,
-                            width: 2,
+                            //width: 200,
                           ),
                           color: const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(30.0),
@@ -76,8 +49,56 @@ class CreateChart0State extends State<CreateChart0> {
                               const SizedBox(
                                 height: 20,
                               ),
+                              Image.network(
+                                snapshot.data[0].image.toString(),
+                                width: 100.0,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: '${snapshot.data[0].companyName}\n',
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          "${"Marktkapitalisierung: " + snapshot.data[0].mktCap} \n",
+                                    ),
+                                    TextSpan(
+                                      text: snapshot.data[0].exchangeShortName +
+                                          "\n",
+                                    ),
+                                    TextSpan(
+                                      text: snapshot.data[0].sector + "\n",
+                                    ),
+                                    TextSpan(
+                                      text: snapshot.data[0].industry + "\n",
+                                    ),
+                                    TextSpan(
+                                      text: snapshot.data[0].website + "\n",
+                                    ),
+                                    TextSpan(
+                                      text: snapshot.data[0].description + "\n",
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          "${"Mitarbeiter: " + snapshot.data[0].fullTimeEmployees}\n",
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          "${"Börsengang: " + snapshot.data[0].ipoDate}\n",
+                                    ),
+                                    TextSpan(
+                                      text: snapshot.data[0].ceo + "\n",
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Wrap(
-                                children: const [],
+                                children: const [
+                                  /*
+                                  Image.network(
+                                    snapshot.data[0].image.toString(),
+                                    width: 100.0,
+                                  ),*/
+                                ],
                               ),
                             ],
                           ),
