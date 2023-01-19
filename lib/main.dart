@@ -52,6 +52,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       ),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
+      //
       home: user != null
           ? const Home()
           : DefaultTabController(
