@@ -1,18 +1,9 @@
 // ignore_for_file: file_names
-import 'package:aktientool/charts/chart2/createchart.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'chart0/createchart.dart';
-import 'chart1/createchart.dart';
-import 'chart3/createchart.dart';
-import 'chart4/createchart.dart';
-import 'chart5/createchart.dart';
-import 'chart6/createchart.dart';
-import 'chart7/createchart.dart';
-import 'chart8/createchart.dart';
-import 'chart9/createchart.dart';
 
 class AllCharts extends ConsumerWidget {
   @override
@@ -29,6 +20,8 @@ class AllCharts extends ConsumerWidget {
         child: Column(
           children: [
             CreateChart0(),
+
+            /*
             CreateChart1(),
             CreateChart2(),
             CreateChart3(),
@@ -38,7 +31,7 @@ class AllCharts extends ConsumerWidget {
             CreateChart7(),
             CreateChart8(),
             CreateChart9(),
-            //    CreateChart10(),
+            */
           ],
         ),
       ),

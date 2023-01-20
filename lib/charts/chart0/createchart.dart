@@ -49,12 +49,11 @@ class CreateChart0State extends State<CreateChart0> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              /*
                               Image.network(
                                 snapshot.data[0].image.toString(),
                                 width: 100.0,
                               ),
-                              */
+                              /*
                               RichText(
                                 text: TextSpan(
                                   text: '${snapshot.data[0].companyName}\n',
@@ -90,9 +89,11 @@ class CreateChart0State extends State<CreateChart0> {
                                     TextSpan(
                                       text: snapshot.data[0].ceo + "\n",
                                     ),
+                                    
                                   ],
                                 ),
                               ),
+                              */
                             ],
                           ),
                         ),
