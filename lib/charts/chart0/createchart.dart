@@ -91,15 +91,6 @@ class CreateChart0State extends State<CreateChart0> {
                                   ],
                                 ),
                               ),
-                              Wrap(
-                                children: const [
-                                  /*
-                                  Image.network(
-                                    snapshot.data[0].image.toString(),
-                                    width: 100.0,
-                                  ),*/
-                                ],
-                              ),
                             ],
                           ),
                         ),
