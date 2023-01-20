@@ -38,22 +38,21 @@ class CreateChart0State extends State<CreateChart0> {
                           border: Border.all(
                             color: Colors.teal,
                             style: BorderStyle.none,
-                            //width: 200,
+                            width: 2,
                           ),
                           color: const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: Expanded(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Image.network(
-                                snapshot.data[0].image.toString(),
-                                width: 100.0,
-                              ),
-                              /*
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.network(
+                              snapshot.data[0].image.toString(),
+                              width: 100.0,
+                            ),
+                            /*
                               RichText(
                                 text: TextSpan(
                                   text: '${snapshot.data[0].companyName}\n',
@@ -94,8 +93,7 @@ class CreateChart0State extends State<CreateChart0> {
                                 ),
                               ),
                               */
-                            ],
-                          ),
+                          ],
                         ),
                       ),
                     ],
