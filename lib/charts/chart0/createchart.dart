@@ -4,32 +4,37 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../webpage/constants.dart';
 
 class CreateChart0 extends StatefulWidget {
+  const CreateChart0({super.key});
+
   @override
   State<CreateChart0> createState() => CreateChart0State();
 }
 
 class CreateChart0State extends State<CreateChart0> {
+  var fromURL = "";
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
-  var fromURL = "";
+
+  Future<dynamic> loadData() {
+    return RemoteService().getData(
+        "https://financialmodelingprep.com/api/v3/profile/$stock?apikey=9ad9c8dfa54c11aff6c1489d109e87b6");
+  }
 
   @override
   Widget build(BuildContext context) {
-    fromURL =
-        "https://financialmodelingprep.com/api/v3/profile/$stock?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
+    print("symbol $stock");
 
     return Column(
       children: [
         FutureBuilder<dynamic>(
-            future: RemoteService().getData(fromURL),
+            future: loadData(),
             builder: (
-              BuildContext context,
-              AsyncSnapshot<dynamic> snapshot,
+              ctx,
+              snapshot,
             ) {
               if (snapshot.connectionState == ConnectionState.done) {
                 //final splitted = snapshot.data.toString().split(' ');
@@ -54,7 +59,7 @@ class CreateChart0State extends State<CreateChart0> {
                               padding: const EdgeInsets.all(8.0),
                               child: Image.network(
                                 snapshot.data[0].image.toString(),
-                                width: 50.0,
+                                width: 100.0,
                               ),
                             ),
                             RichText(

@@ -2,7 +2,6 @@
 import 'package:aktientool/charts/chart2/createchart.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'chart0/createchart.dart';
 import 'chart1/createchart.dart';
@@ -14,9 +13,16 @@ import 'chart7/createchart.dart';
 import 'chart8/createchart.dart';
 import 'chart9/createchart.dart';
 
-class AllCharts extends ConsumerWidget {
+class AllCharts extends StatefulWidget {
+  const AllCharts({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  State<AllCharts> createState() => _AllChartsState();
+}
+
+class _AllChartsState extends State<AllCharts> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
@@ -28,7 +34,7 @@ class AllCharts extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CreateChart0(),
+            const CreateChart0(),
             CreateChart1(),
             CreateChart2(),
             CreateChart3(),

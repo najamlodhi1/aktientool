@@ -1,14 +1,23 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:aktientool/charts/chart0/post.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 var companyInfo = <CompanyInfo>[];
 
+var sp_companyInfo = StateProvider((ref) {
+  return companyInfo;
+});
+
 class RemoteService {
-  Future<dynamic> getData(String url) async {
+  getData(String url) async {
+    print("rein: $url");
+
     var response = await http.Client().get(Uri.parse(url));
     if (response.statusCode == 200) {
-      //print(response.body);
+      print(response.body);
       var posts = postFromJson(response.body);
 
       companyInfo.add(CompanyInfo(
