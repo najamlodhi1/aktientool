@@ -22,7 +22,7 @@ class RemoteService {
           posts[0].website,
           posts[0].description,
           posts[0].fullTimeEmployees,
-          posts[0].ipoDate.toString(),
+          posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
           posts[0].ceo));
 
       return companyInfo;

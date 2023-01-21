@@ -1,6 +1,11 @@
 import 'package:aktientool/charts/chart0/data.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../webpage/constants.dart';
 
 class CreateChart0 extends StatefulWidget {
   @override
@@ -45,54 +50,89 @@ class CreateChart0State extends State<CreateChart0> {
                         ),
                         child: Column(
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Image.network(
-                              snapshot.data[0].image.toString(),
-                              width: 100.0,
-                            ),
-                            /*
-                              RichText(
-                                text: TextSpan(
-                                  text: '${snapshot.data[0].companyName}\n',
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          "${"Marktkapitalisierung: " + snapshot.data[0].mktCap} \n",
-                                    ),
-                                    TextSpan(
-                                      text: snapshot.data[0].exchangeShortName +
-                                          "\n",
-                                    ),
-                                    TextSpan(
-                                      text: snapshot.data[0].sector + "\n",
-                                    ),
-                                    TextSpan(
-                                      text: snapshot.data[0].industry + "\n",
-                                    ),
-                                    TextSpan(
-                                      text: snapshot.data[0].website + "\n",
-                                    ),
-                                    TextSpan(
-                                      text: snapshot.data[0].description + "\n",
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          "${"Mitarbeiter: " + snapshot.data[0].fullTimeEmployees}\n",
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          "${"Börsengang: " + snapshot.data[0].ipoDate}\n",
-                                    ),
-                                    TextSpan(
-                                      text: snapshot.data[0].ceo + "\n",
-                                    ),
-                                    
-                                  ],
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(
+                                snapshot.data[0].image.toString(),
+                                width: 50.0,
                               ),
-                              */
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: GoogleFonts.oswald(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 15.0,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${snapshot.data[0].companyName}',
+                                    style: GoogleFonts.oswald(
+                                      color: kPrimaryColor,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 30.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' (${snapshot.data[0].exchangeShortName})\n',
+                                    style: GoogleFonts.oswald(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Sektor: ${snapshot.data[0].sector} / ${snapshot.data[0].industry}\n',
+                                    style: GoogleFonts.oswald(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "${"Börsenwert: " + snapshot.data[0].mktCap}\n",
+                                    style: GoogleFonts.oswald(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "${"Ceo: " + snapshot.data[0].ceo}\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "${"Mitarbeiter: " + snapshot.data[0].fullTimeEmployees}\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "${"Börsengang: " + snapshot.data[0].ipoDate}\n",
+                                  ),
+                                  const TextSpan(
+                                    text: "Öffne: ",
+                                  ),
+                                  TextSpan(
+                                    text: snapshot.data[0].website + "\n",
+                                    style: const TextStyle(
+                                        color: kPrimaryColor, fontSize: 18),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launch(snapshot.data[0].website);
+                                      },
+                                  ),
+                                  const TextSpan(
+                                    text: "\n",
+                                  ),
+                                  TextSpan(
+                                    text: snapshot.data[0].description + "\n",
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
