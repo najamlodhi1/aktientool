@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../webpage/constants.dart';
 import '../../stockscreener/home.dart';
@@ -111,11 +112,13 @@ class LoginScreen extends StatelessWidget {
             height: 40,
             child: ElevatedButton(
               onPressed: () async {
+                final pref = await SharedPreferences.getInstance();
                 final message = await AuthService().login(
                   email: _emailController.text,
                   password: _passwordController.text,
                 );
                 if (message!.contains('Success')) {
+                  pref.setBool('isLogin', true);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
