@@ -179,9 +179,6 @@ class ShowCompanies extends ConsumerWidget {
             controller: _controller,
             child: Wrap(
               children: [
-                //Marketcap(),
-                //Filter2(),
-                //Feinfilter(),
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   primary: true,

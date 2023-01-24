@@ -107,7 +107,7 @@ class CvSection extends StatelessWidget {
                         : MediaQuery.of(context).size.aspectRatio * 1.5,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
+                    return Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

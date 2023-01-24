@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'webpage/start.dart';
 
+// flutter run -d chrome --web-renderer html
 main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
@@ -287,7 +288,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       ),
                       LoginScreen(),
                       CreateAccount(),
-                      AllCharts(),
+                      const AllCharts(),
                     ],
                   ),
                 ),
