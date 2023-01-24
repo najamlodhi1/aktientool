@@ -1,17 +1,8 @@
 // ignore_for_file: file_names
-import 'package:aktientool/charts/chart2/createchart.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
-import 'chart0/createchart.dart';
-import 'chart1/createchart.dart';
-import 'chart3/createchart.dart';
-import 'chart4/createchart.dart';
-import 'chart5/createchart.dart';
-import 'chart6/createchart.dart';
-import 'chart7/createchart.dart';
-import 'chart8/createchart.dart';
-import 'chart9/createchart.dart';
+import 'chart10/createchart.dart';
 
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
@@ -34,6 +25,7 @@ class _AllChartsState extends State<AllCharts> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            /*
             const CreateChart0(),
             CreateChart1(),
             CreateChart2(),
@@ -44,6 +36,8 @@ class _AllChartsState extends State<AllCharts> {
             CreateChart7(),
             CreateChart8(),
             CreateChart9(),
+            */
+            CreateChart10(),
           ],
         ),
       ),

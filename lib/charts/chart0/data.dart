@@ -13,11 +13,11 @@ var sp_companyInfo = StateProvider((ref) {
 
 class RemoteService {
   getData(String url) async {
-    print("rein: $url");
+    //print("rein: $url");
 
     var response = await http.Client().get(Uri.parse(url));
     if (response.statusCode == 200) {
-      print(response.body);
+      //print(response.body);
       var posts = postFromJson(response.body);
 
       companyInfo.add(CompanyInfo(
