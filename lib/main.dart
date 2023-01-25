@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'authentication/screens/login.dart';
@@ -39,6 +40,18 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   late final tabController = TabController(length: 4, vsync: this);
+  bool? isLoggedIn = false;
+  Future<void> isLogIn() async {
+    final pref = await SharedPreferences.getInstance();
+    isLoggedIn = pref.getBool('isLogin');
+  }
+
+  @override
+  void initState() {
+    isLogIn();
+    super.initState();
+  }
+
   final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -54,7 +67,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
       //
-      home: user != null
+      home: isLoggedIn == true
           ? const Home()
           : DefaultTabController(
               length: 4,
