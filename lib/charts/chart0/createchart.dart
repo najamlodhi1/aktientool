@@ -17,9 +17,9 @@ class CreateChart0State extends State<CreateChart0> {
   var fromURL = "";
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
-      : "AAPL";
+      : "PLTR";
 
-  Future<dynamic> loadData() {
+  loadData() {
     return RemoteService().getData(
         "https://financialmodelingprep.com/api/v3/profile/$stock?apikey=9ad9c8dfa54c11aff6c1489d109e87b6");
   }
@@ -33,11 +33,10 @@ class CreateChart0State extends State<CreateChart0> {
         FutureBuilder<dynamic>(
             future: loadData(),
             builder: (
-              ctx,
+              context,
               snapshot,
             ) {
               if (snapshot.connectionState == ConnectionState.done) {
-                //final splitted = snapshot.data.toString().split(' ');
                 return SingleChildScrollView(
                   child: Wrap(
                     children: [

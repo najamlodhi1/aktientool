@@ -2,7 +2,7 @@
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
-import 'chart10/createchart.dart';
+import 'chart0/createchart.dart';
 
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
@@ -24,10 +24,9 @@ class _AllChartsState extends State<AllCharts> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            /*
-            const CreateChart0(),
-            CreateChart1(),
+          children: const [
+            CreateChart0(),
+            /*CreateChart1(),
             CreateChart2(),
             CreateChart3(),
             CreateChart4(),
@@ -36,8 +35,8 @@ class _AllChartsState extends State<AllCharts> {
             CreateChart7(),
             CreateChart8(),
             CreateChart9(),
-            */
-            CreateChart10(),
+            
+            CreateChart10(),*/
           ],
         ),
       ),
