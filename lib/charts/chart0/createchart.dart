@@ -14,7 +14,6 @@ class CreateChart0 extends StatefulWidget {
 }
 
 class CreateChart0State extends State<CreateChart0> {
-  var fromURL = "";
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "PLTR";
