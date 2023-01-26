@@ -541,9 +541,20 @@ Weitere Informationen zur Datennutzung durch Amazon erhalten Sie in der Datensch
                     child: const Text(
                         "https://www.amazon.de/gp/help/customer/display.html/ref=footer_privacy?ie=UTF8&nodeId=3312401.\n")),
                 const Text(
-                  '9. Zahlungsanbieter und Reseller',
+                  '9. Zahlungsanbieter',
                   style: TextStyle(fontSize: 25),
                 ),
+                const Text('''\nStripe
+Die Zahlungsabwicklung erfolgt über den Paymentdienstleister Stripe Payments Europe Ltd, Block 4, Harcourt Centre, Harcourt Road, Dublin 2, Ireland, an den wir Ihre im Rahmen des Bestellvorgangs mitgeteilten Informationen nebst den Informationen über Ihre Bestellung (Name, Anschrift, Kontonummer, Bankleitzahl, evtl. Kreditkartennummer, Rechnungsbetrag, Währung und Transaktionsnummer) weitergeben. Die Weitergabe Ihrer Daten erfolgt ausschließlich zum Zwecke der Zahlungsabwicklung mit dem Payment-Dienstleister Stripe Payments Europe Ltd. Nähere Informationen zum Datenschutz von Stripe finden Sie unter der URL:
+'''),
+                TextButton(
+                    onPressed: () {
+                      js.context
+                          .callMethod('open', ['https://stripe.com/de/terms']);
+                    },
+                    child: const Text("https://stripe.com/de/terms\n")),
+
+/*
                 const Text('''\nPayPal
 Auf unserer Website bieten wir u.a. die Bezahlung via PayPal an. Anbieter dieses Zahlungsdienstes ist die PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg (im Folgenden “PayPal”).
 
@@ -551,6 +562,8 @@ Wenn Sie die Bezahlung via PayPal auswählen, werden die von Ihnen eingegebenen 
 
 Die Übermittlung Ihrer Daten an PayPal erfolgt auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) und Art. 6 Abs. 1 lit. b DSGVO (Verarbeitung zur Erfüllung eines Vertrags). Sie haben die Möglichkeit, Ihre Einwilligung zur Datenverarbeitung jederzeit zu widerrufen. Ein Widerruf wirkt sich auf die Wirksamkeit von in der Vergangenheit liegenden Datenverarbeitungsvorgängen nicht aus.
 '''),
+*/
+
                 TextButton(
                     onPressed: () {
                       js.context

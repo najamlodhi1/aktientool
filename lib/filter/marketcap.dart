@@ -8,7 +8,7 @@ var sp_marketcap = StateProvider((ref) {
 
 // ignore: non_constant_identifier_names
 var sp_isSelected = StateProvider((ref) {
-  return [true, false, false, false, false];
+  return [true, false, false, false];
 });
 
 // ignore: must_be_immutable
@@ -21,7 +21,6 @@ class Marketcap extends ConsumerWidget {
     10000000000,
     100000000000,
     1000000000000,
-    10000000000000,
   ];
 
   Marketcap({super.key});
@@ -40,7 +39,7 @@ class Marketcap extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ExpansionTile(
-              title: const Text("Marketcap:",
+              title: const Text("Marketcap in Dollar:",
                   style: TextStyle(color: Colors.white)),
               subtitle: Text(
                 textMarketcap.toString(),
@@ -52,7 +51,7 @@ class Marketcap extends ConsumerWidget {
                   leading: const CircleAvatar(
                     backgroundColor: Colors.blue,
                   ),
-                  title: const Text('1000000000',
+                  title: const Text('>1 billion (milliard)',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
                     // ignore: deprecated_member_use
@@ -63,7 +62,7 @@ class Marketcap extends ConsumerWidget {
                   leading: const CircleAvatar(
                     backgroundColor: Colors.red,
                   ),
-                  title: const Text('10000000000',
+                  title: const Text('>10 billion (milliard)',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
                     // ignore: deprecated_member_use
@@ -74,7 +73,7 @@ class Marketcap extends ConsumerWidget {
                   leading: const CircleAvatar(
                     backgroundColor: Colors.amber,
                   ),
-                  title: const Text('100000000000',
+                  title: const Text('>100 billion (milliard)',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
                     // ignore: deprecated_member_use
@@ -86,25 +85,12 @@ class Marketcap extends ConsumerWidget {
                     backgroundColor: Colors.pink,
                   ),
                   title: const Text(
-                    '1000000000000',
+                    '>1000 billion (milliard)',
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     // ignore: deprecated_member_use
                     ref.read(sp_marketcap.state).state = _marketcap[3];
-                  },
-                ),
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: Color.fromARGB(255, 144, 190, 158),
-                  ),
-                  title: const Text(
-                    '10000000000000',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    // ignore: deprecated_member_use
-                    ref.read(sp_marketcap.state).state = _marketcap[4];
                   },
                 ),
               ],

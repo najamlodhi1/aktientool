@@ -47,7 +47,7 @@ Sollte der Betrieb von Aktientool.Net eingestellt werden, werden geleistete Zahl
 Für die Nutzung der Seite Aktientool.Net sind gewisse Systemvoraussetzungen auf Seiten des Nutzers notwendig. Vor Abschluss der Mitgliedschaft hat sich der Nutzer zu überzeugen, dass er die angebotene Funktionalität der Seite Aktientool.Net in seinem Sinne ausreichend nutzen kann. Zudem können sich diese Systemvoraussetzungen aufgrund technischer Anpassungen und Erweiterungen jederzeit ändern. Durch die Nutzung standardisierter Komponenten und Technologien wird versucht, eine größtmögliche Kompatibilität mit den unterschiedlichen Systemen der Nutzer zu erreichen. Der Erfolg dieser Bemühungen kann jedoch aufgrund der technischen Komplexität nicht garantiert werden.
 
 
-§2 Mitgliedschaft und Premium-Mitgliedschaft bei Aktientool.Net
+§2 Mitgliedschaft bei Aktientool.Net
 Ein Vertrag zwischen
 
 Aktientool.Net 
@@ -58,41 +58,36 @@ Geschäftsführerin: Betül Öztürk
 und dem Nutzer kommt mit Erlangung der Mitgliedschaft zustande.
 
 §2.1 Die Mitgliedschaft
-Um Mitglied zu werden, muss sich der Nutzer als Mitglied registrieren. Die Registrierung erfolgt durch Vergabe eines Benutzernamens und eines geheim zuhaltenden Passworts und der E-Mailadresse. Die Mitgliedschaft wird aktiv, sobald ein Bestätigungslink über die angegebene E-Mailadresse angeklickt wird.
+Um Mitglied zu werden, muss sich der Nutzer als Mitglied registrieren. Die Registrierung erfolgt durch Vergabe eines geheim zuhaltenden Passworts und der E-Mailadresse.
+Die Mitgliedschaft ist kostenlos und unverbindlich. Mitglieder haben einen erweiterten Datenzugriff, ohne jedoch Zugriff auf alle Daten der Seite Aktientool.Net zu haben. 
+Der Umfang des erweiterten Datenzugriffs kann ohne Ankündigung erweitert oder eingeschränkt werden.
 
-Die einfache Mitgliedschaft ist kostenlos und unverbindlich. Einfache Mitglieder haben im Vergleich zu Gästen (anonymen Nutzern) einen erweiterten Datenzugriff, ohne jedoch Zugriff auf alle Daten der Seite Aktientool.Net zu haben. Der Umfang des erweiterten Datenzugriffs kann ohne Ankündigung erweitert oder eingeschränkt werden.
+§2.2 Die Anfragepakete
+Die Anfragepakete sind kostenpflichtig und berechtigt zum Zugriff aller auf der Seite Aktientool.Net bereitgestellten Aktiendaten und -kennzahlen.
 
-§2.2 Die Premium-Mitgliedschaft
-Die Premium-Mitgliedschaft ist kostenpflichtig und berechtigt zum Zugriff aller auf der Seite Aktientool.Net bereitgestellten Aktiendaten und -kennzahlen.
-
-§2.2.1 Bezahlung bei Premium-Mitgliedschaft
-Die Erlangung der Premium-Mitgliedschaft durch Bezahlung erfolgt wahlweise durch ein Abo ("Premium Abo") oder durch eine Einmalzahlung für einen Jahr.
+§2.2.1 Bezahlung bei Upgrade
 
 Die Bezahlung geht in folgenden Schritten vonstatten:
 
-Klick auf Button für Abschluss bzw. Verlängerung der Premium-Mitgliedschaft
-Auswahl des Bezahl-Modells: Abo ("Premium Abo") monatlich oder jährlich.
-Klick auf Button für die Einleitung der Bezahlung
-Durchführung des Bezahlvorgangs über den Drittanbieter (PayPal oder Stripe)
+1. Klick auf Upgrade Button leitet den Nutzer zu Stripe weiter.
+2. Zahlungsmethode auswählen.
+3. Persönliche Daten eigeben.
+4. Klick auf Button Zahlen.
 
 §2.2.2 Preise
-Die Preise der Premium-Mitgliedschaft sind abhängig von Ihrem Anleger-Typus und Ihrer Zahlweise (Abo, Einmalzahlung).
+Die Preise sind abhängig von Ihrem ausgewählten Anfragepaket.
 
-Abo ("Premium-Mitgliedschaft")
-Anleger: 14,90 Euro pro Monat
-Anleger: 99,00 Euro pro Jahr
+Es existieren 2 Produkte:
+20 Anfragen: 10 Euro einmalig
+100 Anfragen: 30 Euro einmalig
 
-Bei jeder Bezahlung wird die Laufzeit um die vorhandene Restlaufzeit verlängert. Es verfallen keine Tage.
+§2.3 Ende des Anfragepakets
 
-§2.3 Ende der Premium-Mitgliedschaft
-Die Premium-Mitgliedschaft erlischt bei Einmalzahlung automatisch zum Ende der durch den Nutzer gewählten Laufzeit.
-
-Beim Monats-Abo hingegen ist eine explizite Kündigung notwendig. Diese kann jederzeit ohne Einhaltung einer Kündigungsfrist geschehen. Ihr Abo können Sie jederzeit über Ihre Profilseite kündigen.
-
-Im Fall einer Kündigung bleiben Sie bis zum Ende der bezahlten Laufzeit Premium-Mitglied.
+Es wird kein Monats-Abo abgeschlossen. Daher ist eine Kündigung nicht notwendig.
+Die Benutzung wird automatisch mit dem Aufbrauchen des Anfragepakets beendet.
 
 §2.4 Löschung des Benutzerkontos
-Sie können Ihr Benutzerkonto jederzeit selbständig löschen. Dabei entstehen Ihnen keine Kosten. Achten Sie darauf, dass hierdurch kein Rückzahlungsanspruch entsteht. Als neues Premium-Mitglied steht Ihnen jedoch ein Widerrufsrecht zu (siehe §6 Widerrufsbelehrung).
+Sie können Ihr Benutzerkonto jederzeit selbständig löschen. Dabei entstehen Ihnen keine Kosten.
 
 
 §3 Datennutzung und Urheberrecht
@@ -108,6 +103,7 @@ Im Rahmen der Finanzcommunity sind Screenshots mit aktienbezogenen Daten (Kennza
 §4 Datenfehler
 Aufgrund der hohen Komplexität und des hohen Volumens der bereitgestellten Daten ist es Aktientool.Net nicht möglich, die Fehlerfreiheit aller Daten zu garantieren.
 Allerdings wird sich bemüht, die Fehler auf ein Mindestmaß zu reduzieren.
+
 
 §5 Haftung
 §5.1 Haftungsfälle
@@ -168,7 +164,7 @@ Es gilt deutsches Recht, unter Ausschluss des UN-Kaufrechts.
 
 Ist der Nutzer ein Verbraucher, sind darüber hinaus die zwingenden Verbraucherschutzbestimmungen anwendbar, die in dem Staat gelten, in dem der Nutzer seinen gewöhnlichen Aufenthalt hat, soweit diese dem Nutzer einen weitergehenden Schutz gewähren.
 
-Stand: 29. November 2022
+Stand: 29. Dezember 2022
 \n'''),
               ],
             ),
