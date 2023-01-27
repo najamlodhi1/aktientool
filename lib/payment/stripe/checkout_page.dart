@@ -20,11 +20,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
         initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted,
         navigationDelegate: (NavigationRequest request) {
-          if (request.url.startsWith('https://success.com')) {
+          if (request.url.startsWith('https://aktientool.net/success')) {
             Navigator.of(context).pop();
 
             //Navigator.pop(context, 'success');
-          } else if (request.url.startsWith('https://aktientool.net')) {
+          } else if (request.url.startsWith('https://aktientool.net/cancel')) {
             log('checkout page cancel start ');
             Navigator.of(context).pop();
 

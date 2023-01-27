@@ -18,8 +18,8 @@ void redirectToCheckout(BuildContext context) async {
           LineItem(price: nikesPriceId, quantity: 1),
         ],
         mode: 'payment',
-        successUrl: 'https://aktientool.net/',
-        cancelUrl: 'https://aktientool.net/',
+        successUrl: 'https://aktientool.net/success',
+        cancelUrl: 'https://aktientool.net/cancel',
       ),
     );
 
