@@ -95,7 +95,7 @@ List<CarouselItemModel> carouselItems = List.generate(
     ),
     image: Container(
       child: Image.asset(
-        "web/images/image1.gif",
+        "assets/images/image1.gif",
         fit: BoxFit.contain,
       ),
     ),

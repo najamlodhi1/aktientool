@@ -38,7 +38,7 @@ class PortfolioStats extends StatelessWidget {
               runSpacing: 20.0,
               children: stats.map((stat) {
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
                   // Just use the helper here really
                   width: ScreenHelper.isMobile(context)
                       ? constraint.maxWidth / 2.0 - 20
@@ -54,12 +54,12 @@ class PortfolioStats extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10.0,
                       ),
                       Text(
                         stat.text,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           color: kCaptionColor,
                         ),

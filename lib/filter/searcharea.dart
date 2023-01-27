@@ -18,7 +18,7 @@ class _SearchfieldState extends State<SearchArea> {
 
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = Image.asset(
-    'web/images/logo.png',
+    'assets/images/logo.png',
     height: 25,
   );
 
@@ -75,7 +75,7 @@ class _SearchfieldState extends State<SearchArea> {
               } else {
                 customIcon = const Icon(Icons.search);
                 customSearchBar = Image.asset(
-                  'web/images/logo.png',
+                  'assets/images/logo.png',
                   height: 25,
                 );
               }

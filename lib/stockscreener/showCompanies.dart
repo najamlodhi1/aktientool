@@ -160,7 +160,7 @@ class ShowCompanies extends ConsumerWidget {
               child: SizedBox.fromSize(
                 size: const Size.fromRadius(10),
                 child: SvgPicture.asset(
-                  "web/images/${(snapshot.data![index].country).toLowerCase()}.svg",
+                  "assets/images/${(snapshot.data![index].country).toLowerCase()}.svg",
                   fit: BoxFit.cover,
                 ),
               ),
