@@ -20,6 +20,7 @@ class RemoteService {
       //print(response.body);
       var posts = postFromJson(response.body);
 
+      companyInfo.clear();
       companyInfo.add(CompanyInfo(
           posts[0].image,
           posts[0].companyName,
