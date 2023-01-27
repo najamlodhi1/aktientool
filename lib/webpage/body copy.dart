@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       Image.asset(
-                        'assets/images/scallable.png',
+                        'web/images/scallable.png',
                         fit: BoxFit.fill,
                       ),
                     ],
@@ -77,7 +77,7 @@ class Body extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       Image.asset(
-                        'assets/images/tool.png',
+                        'web/images/tool.png',
                         fit: BoxFit.fill,
                       ),
                     ],
@@ -104,7 +104,7 @@ class Body extends StatelessWidget {
                 children: [
                   Wrap(
                     children: <Widget>[
-                      Image.asset('assets/images/youtube.png'),
+                      Image.asset('web/images/youtube.png'),
                     ],
                   ),
                 ],
@@ -129,7 +129,7 @@ class Body extends StatelessWidget {
                 children: [
                   Wrap(
                     children: <Widget>[
-                      Image.asset('assets/images/amazon.png'),
+                      Image.asset('web/images/amazon.png'),
                     ],
                   ),
                 ],

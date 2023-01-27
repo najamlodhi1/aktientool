@@ -129,7 +129,7 @@ class Start extends ConsumerWidget {
             SizedBox(
               width: 500,
               child: Image.asset(
-                "assets/images/image1.gif",
+                "web/images/image1.gif",
                 fit: BoxFit.contain,
               ),
             ),

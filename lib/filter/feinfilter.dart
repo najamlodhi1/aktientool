@@ -41,7 +41,7 @@ class Feinfilter extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage("assets/images/feinfilter.png"),
+                  image: AssetImage("web/images/feinfilter.png"),
                   fit: BoxFit.fill),
             ),
           ),
@@ -180,7 +180,7 @@ class IndustrySelect extends ConsumerWidget {
                     size: const Size.fromRadius(20),
                     child: Image.asset(
                       // imageList[index]
-                      "assets/images/${index + 39}.png",
+                      "web/images/${index + 39}.png",
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -80,7 +80,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       SliverAppBar(
                         backgroundColor: Colors.black,
                         title: Image.asset(
-                          'assets/images/logo.png',
+                          'web/images/logo.png',
                           height: 25,
                         ),
                         centerTitle: true,
@@ -240,7 +240,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                               SizedBox(
                                 height: 400,
                                 child: Image.asset(
-                                  "assets/images/image1.png",
+                                  "web/images/image1.png",
                                   fit: BoxFit.contain,
                                 ),
                               ),

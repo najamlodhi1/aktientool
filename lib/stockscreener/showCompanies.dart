@@ -160,7 +160,7 @@ class ShowCompanies extends ConsumerWidget {
               child: SizedBox.fromSize(
                 size: const Size.fromRadius(10),
                 child: SvgPicture.asset(
-                  "assets/images/${(snapshot.data![index].country).toLowerCase()}.svg",
+                  "web/images/${(snapshot.data![index].country).toLowerCase()}.svg",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -198,7 +198,7 @@ class ShowCompanies extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AllCharts(),
+                            builder: (context) => const AllCharts(),
                           ),
                         );
                       },

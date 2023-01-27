@@ -41,7 +41,7 @@ class Industry extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage("assets/images/Industry.png"),
+                  image: AssetImage("web/images/Industry.png"),
                   fit: BoxFit.fill),
             ),
           ),
@@ -305,7 +305,7 @@ class IndustrySelect extends ConsumerWidget {
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(20),
                     child: Image.asset(
-                      "assets/images/${index + 39}.png",
+                      "web/images/${index + 39}.png",
                       fit: BoxFit.cover,
                     ),
                   ),

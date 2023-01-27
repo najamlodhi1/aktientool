@@ -8,25 +8,25 @@ import 'package:responsive_framework/responsive_framework.dart';
 final List<DesignProcess> designProcesses = [
   DesignProcess(
     title: "BENUTZERFREUNDLICH",
-    imagePath: "assets/images/design.png",
+    imagePath: "web/images/design.png",
     subtitle:
         "Wir haben uns bei der Gestaltung unserer Software bemüht, sie so intuitiv und benutzerfreundlich wie möglich zu gestalten, damit du dich nicht durch verwirrende Menüs oder unübersichtliche Daten kämpfen zu musst.",
   ),
   DesignProcess(
     title: "QUALITATIVE ANALYSE",
-    imagePath: "assets/images/develop.png",
+    imagePath: "web/images/develop.png",
     subtitle:
         "Unser Tool unterstützt dich dabei, die wirtschaftliche Stärke und das zukünftige Wachstumspotential einer Aktie gründlich zu beurteilen und informierte Investitionsentscheidungen zu treffen.",
   ),
   DesignProcess(
     title: "UMFANGREICHE FILTER",
-    imagePath: "assets/images/write.png",
+    imagePath: "web/images/write.png",
     subtitle:
         "Die Filterfunktionen ermöglichen es, die Aktien anzuzeigen, die deinen Anforderungen entsprechen. Du kannst beispielsweise Aktien mit einer Dividendenrendite von mindestens 3% oder einem KGV von weniger als 15 anzeigen lassen.",
   ),
   DesignProcess(
     title: "AKTUELLE FINANZDATEN",
-    imagePath: "assets/images/promote.png",
+    imagePath: "web/images/promote.png",
     subtitle:
         "Wir bieten eine breite Palette an Daten zur Verfügung, einschließlich aktueller und historischer Informationen. Dies kann dir dabei helfen, fundierte Entscheidungen über ihre Investitionen zu treffen und mögliche Trends oder Muster in den Aktienmärkten zu erkennen.",
   ),
