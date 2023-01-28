@@ -18,7 +18,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       child: Scaffold(
           body: WebView(
         initialUrl: widget.url,
-        javascriptMode: JavascriptMode.unrestricted,
+        javascriptMode: JavascriptMode.disabled,
         navigationDelegate: (NavigationRequest request) {
           if (request.url.startsWith('https://aktientool.net/success')) {
             Navigator.of(context).pop();

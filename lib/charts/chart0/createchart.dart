@@ -16,7 +16,7 @@ class CreateChart0 extends StatefulWidget {
 class CreateChart0State extends State<CreateChart0> {
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
-      : "PLTR";
+      : "AAPL";
 
   loadData() {
     return RemoteService().getData(

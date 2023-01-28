@@ -28,12 +28,13 @@ class RemoteService {
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
 
+/*
         print("----");
         print(years);
         print(posts[lengthJson]);
         print(posts[lengthJson].daysOfSalesOutstanding.toString());
         print("----");
-
+*/
         double altmanZScore =
             double.parse((posts[lengthJson]).altmanZScore.toStringAsFixed(2));
 

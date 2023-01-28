@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'chart0/createchart.dart';
 import 'chart1/createchart.dart';
+import 'chart11/createchart.dart';
 import 'chart2/createchart.dart';
 import 'chart3/createchart.dart';
 import 'chart4/createchart.dart';
@@ -36,7 +37,8 @@ class _AllChartsState extends State<AllCharts> {
         child: Column(
           children: [
             const CreateChart0(),
-            CreateChart1(),
+            const CreateChart1(),
+            const CreateChart11(),
             CreateChart2(),
             CreateChart3(),
             CreateChart4(),

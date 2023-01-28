@@ -28,7 +28,6 @@ class RemoteService {
         double revenue =
             double.parse((posts[lengthJson]).revenue.toStringAsFixed(2));
 
-        print(revenue.toString());
         data1.add(Data1(DateTime(int.parse(years)), revenue));
 
         lengthJson--;
