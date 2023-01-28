@@ -18,8 +18,11 @@ class RemoteService {
       data2 = [];
       dynamic posts = postFromJson(response.body);
       while (lengthJson >= 0) {
+        print(posts.historical[lengthJson].date.toString());
+
         String years =
             posts.historical[lengthJson].date.toString().substring(0, 4);
+
         String yearsMonth =
             posts.historical[lengthJson].date.toString().substring(5, 7);
         //print("yearsMonth $yearsMonth");

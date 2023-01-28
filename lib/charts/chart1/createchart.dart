@@ -55,6 +55,7 @@ class CreateChart1State extends State<CreateChart1> {
             future: RemoteService().getData(fromURL),
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
+                print(snapshot);
                 return SingleChildScrollView(
                   child: Wrap(
                     children: [

@@ -56,8 +56,8 @@ class Historical {
   double? low;
   double? close;
   double? adjClose;
-  int? volume;
-  int? unadjustedVolume;
+  double? volume;
+  double? unadjustedVolume;
   double? change;
   double? changePercent;
   double? vwap;
@@ -71,8 +71,8 @@ class Historical {
         low: json["low"].toDouble(),
         close: json["close"].toDouble(),
         adjClose: json["adjClose"].toDouble(),
-        volume: json["volume"],
-        unadjustedVolume: json["unadjustedVolume"],
+        volume: json["volume"].toDouble(),
+        unadjustedVolume: json["unadjustedVolume"].toDouble(),
         change: json["change"].toDouble(),
         changePercent: json["changePercent"].toDouble(),
         vwap: json["vwap"].toDouble(),
