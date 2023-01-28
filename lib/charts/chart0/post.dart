@@ -1,4 +1,4 @@
-// https://financialmodelingprep.com/api/v3/profile/PLTR?apikey=9ad9c8dfa54c11aff6c1489d109e87b6
+// https://financialmodelingprep.com/api/v3/profile/PLTR?apikey=${FMPKEY}
 
 // To parse this JSON data, do
 //

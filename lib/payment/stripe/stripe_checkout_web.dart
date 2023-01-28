@@ -1,6 +1,7 @@
 @JS()
 library stripe;
 
+import 'package:aktientool/env/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:js/js.dart';
@@ -9,13 +10,13 @@ import '../../constants/constants.dart';
 import '../../authentication/screens/forgot_password.dart';
 
 void redirectToCheckout(BuildContext context) async {
-  final stripe = Stripe(apiKey);
+  final stripe = Stripe(Env.apiKey);
 
   try {
     final checkoutSession = await stripe.redirectToCheckout(
       CheckoutOptions(
         lineItems: [
-          LineItem(price: nikesPriceId, quantity: 1),
+          LineItem(price: Env.nikesPriceId, quantity: 1),
         ],
         mode: 'payment',
         successUrl: 'https://aktientool.net/success',

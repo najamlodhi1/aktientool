@@ -1,4 +1,5 @@
 import 'package:aktientool/charts/chart6/data.dart';
+import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -35,7 +36,7 @@ class CreateChart6State extends State<CreateChart6> {
   @override
   Widget build(BuildContext context) {
     fromURL =
-        "https://financialmodelingprep.com/api/v4/score?symbol=$stock&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
+        "https://financialmodelingprep.com/api/v4/score?symbol=$stock&apikey=${Env.fmpKey}";
 
     return Column(
       children: [

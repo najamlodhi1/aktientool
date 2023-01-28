@@ -44,6 +44,7 @@ dependencies:
   cloud_functions_web: ^4.3.15
   syncfusion_flutter_datagrid: ^20.4.44
   data_table_2: ^2.3.10
+  envied: ^0.3.0
 
   
 
@@ -52,6 +53,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+  envied_generator: ^0.3.0
+  build_runner: ^2.3.3
 
 flutter:
   uses-material-design: true

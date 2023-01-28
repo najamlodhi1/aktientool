@@ -1,5 +1,5 @@
 // https://app.quicktype.io/
-// https://financialmodelingprep.com/api/v4/advanced_discounted_cash_flow?symbol=AAPL&apikey=9ad9c8dfa54c11aff6c1489d109e87b6
+// https://financialmodelingprep.com/api/v4/advanced_discounted_cash_flow?symbol=AAPL&apikey=${APIKEY1}}
 
 import 'dart:convert';
 

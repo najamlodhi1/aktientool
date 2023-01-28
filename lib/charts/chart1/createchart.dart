@@ -1,4 +1,5 @@
 import 'package:aktientool/charts/chart1/data.dart';
+import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -11,8 +12,9 @@ class CreateChart1 extends StatefulWidget {
 class CreateChart1State extends State<CreateChart1> {
   var selectedDate = DateTime.now();
   static String modifiedDate = "";
+
   // Für 4 h
-  //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
+  //https://financialmodelingprep.com/api/v3/historical-chart/4hour/AAPL?apikey=${FMPKEY}";
   var fromURL = "";
   int yearsBack = 10;
 
@@ -47,7 +49,7 @@ class CreateChart1State extends State<CreateChart1> {
     //print("$stock $modifiedDate");
 
     fromURL =
-        "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=9ad9c8dfa54c11aff6c1489d109e87b6";
+        "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?from=$modifiedDate&apikey=${Env.fmpKey}";
 
     return Column(
       children: [

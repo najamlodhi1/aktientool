@@ -1,4 +1,5 @@
 import 'package:aktientool/charts/chart11/data.dart';
+import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +19,7 @@ class CreateChart11State extends State<CreateChart11> {
 
   loadData() {
     return RemoteService().getData(
-        "https://financialmodelingprep.com/api/v3/stock-price-change/$stock?apikey=9ad9c8dfa54c11aff6c1489d109e87b6");
+        "https://financialmodelingprep.com/api/v3/stock-price-change/$stock?apikey=${Env.fmpKey}");
   }
 
   @override
