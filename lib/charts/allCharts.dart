@@ -37,7 +37,7 @@ class _AllChartsState extends State<AllCharts> {
         child: Column(
           children: [
             const CreateChart0(),
-            const CreateChart1(),
+            CreateChart1(),
             const CreateChart11(),
             CreateChart2(),
             CreateChart3(),
