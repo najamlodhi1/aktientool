@@ -45,6 +45,8 @@ dependencies:
   syncfusion_flutter_datagrid: ^20.4.44
   data_table_2: ^2.3.10
   envied: ^0.3.0
+  translator: ^0.1.7
+
 
   
 
