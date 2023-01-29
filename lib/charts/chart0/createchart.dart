@@ -1,7 +1,6 @@
 import 'package:aktientool/charts/chart0/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -61,9 +60,33 @@ class CreateChart0State extends State<CreateChart0> {
                                 width: 100.0,
                               ),
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Expanded(
+                                  child: Divider(
+                                    indent: 20.0,
+                                    endIndent: 10.0,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                Text(
+                                  snapshot.data[0].companyName.toString(),
+                                  style: const TextStyle(
+                                      color: kPrimaryColor, fontSize: 30),
+                                ),
+                                const Expanded(
+                                  child: Divider(
+                                    indent: 10.0,
+                                    endIndent: 20.0,
+                                    thickness: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
                             RichText(
                               text: TextSpan(
-                                text: '',
+                                text: "\n",
                                 style: GoogleFonts.oswald(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w900,
@@ -71,20 +94,12 @@ class CreateChart0State extends State<CreateChart0> {
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: '${snapshot.data[0].companyName}',
-                                    style: GoogleFonts.oswald(
-                                      color: kPrimaryColor,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 30.0,
-                                    ),
-                                  ),
-                                  TextSpan(
                                     text:
-                                        ' (${snapshot.data[0].exchangeShortName})\n',
+                                        'Exchange: ${snapshot.data[0].exchangeShortName}\n',
                                     style: GoogleFonts.oswald(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
+                                      //fontWeight: FontWeight.w900,
+                                      fontSize: 16.0,
                                     ),
                                   ),
                                   TextSpan(
@@ -92,8 +107,8 @@ class CreateChart0State extends State<CreateChart0> {
                                         'Sektor: ${snapshot.data[0].sector} / ${snapshot.data[0].industry}\n',
                                     style: GoogleFonts.oswald(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
+                                      //fontWeight: FontWeight.w900,
+                                      fontSize: 16.0,
                                     ),
                                   ),
                                   TextSpan(
@@ -101,42 +116,82 @@ class CreateChart0State extends State<CreateChart0> {
                                         "${"Börsenwert: " + snapshot.data[0].mktCap}\n",
                                     style: GoogleFonts.oswald(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
+                                      //fontWeight: FontWeight.w900,
+                                      fontSize: 16.0,
                                     ),
                                   ),
                                   TextSpan(
                                     text: "${"Ceo: " + snapshot.data[0].ceo}\n",
+                                    style: GoogleFonts.oswald(
+                                      color: Colors.black,
+                                      //fontWeight: FontWeight.w900,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                   TextSpan(
                                     text:
                                         "${"Mitarbeiter: " + snapshot.data[0].fullTimeEmployees}\n",
+                                    style: GoogleFonts.oswald(
+                                      color: Colors.black,
+                                      //fontWeight: FontWeight.w900,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                   TextSpan(
                                     text:
                                         "${"Börsengang: " + snapshot.data[0].ipoDate}\n",
-                                  ),
-                                  const TextSpan(
-                                    text: "Öffne: ",
-                                  ),
-                                  TextSpan(
-                                    text: snapshot.data[0].website + "\n",
-                                    style: const TextStyle(
-                                        color: kPrimaryColor, fontSize: 18),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        launch(snapshot.data[0].website);
-                                      },
+                                    style: GoogleFonts.oswald(
+                                      color: Colors.black,
+                                      //fontWeight: FontWeight.w900,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                   const TextSpan(
                                     text: "\n",
                                   ),
-                                  TextSpan(
-                                    text: snapshot.data[0].description + "\n",
-                                  ),
                                 ],
                               ),
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Expanded(
+                                  child: Divider(
+                                    indent: 20.0,
+                                    endIndent: 10.0,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                const Text(
+                                  "Mehr auf: ",
+                                  style: TextStyle(color: Colors.blueGrey),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    launch(snapshot.data[0].website);
+                                  },
+                                  child: Text(
+                                    (snapshot.data[0].website)
+                                        .toString()
+                                        .replaceAll("https://www.", ""),
+                                    style: const TextStyle(
+                                        fontSize: 16, color: kPrimaryColor),
+                                  ),
+                                ),
+                                const Expanded(
+                                  child: Divider(
+                                    indent: 10.0,
+                                    endIndent: 20.0,
+                                    thickness: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Text(""),
+                            Text(
+                              snapshot.data[0].description + "\n",
+                              style: const TextStyle(fontSize: 16),
+                            )
                           ],
                         ),
                       ),
