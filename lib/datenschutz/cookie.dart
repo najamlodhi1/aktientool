@@ -399,11 +399,12 @@ checkCookies2(context, WidgetRef ref) {
           ElevatedButton(
             onPressed: () {
               // ignore: deprecated_member_use
+
+              Navigator.pop(context);
               ref.read(cookieProvider.state).state = true;
               if (kDebugMode) {
                 print("Alle Cookies erlauben");
               }
-              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: kPrimaryColor,
