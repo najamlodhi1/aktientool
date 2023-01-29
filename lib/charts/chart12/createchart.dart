@@ -1,4 +1,5 @@
 import 'package:aktientool/charts/chart12/data.dart';
+import 'package:aktientool/charts/chart12/datagridwidget.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
@@ -32,22 +33,41 @@ class CreateChart12State extends State<CreateChart12> {
               snapshot,
             ) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return SingleChildScrollView(
-                  child: Wrap(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.teal,
-                            style: BorderStyle.none,
-                            width: 2,
-                          ),
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Column(
+                if (snapshot.data != null) {
+                  return SingleChildScrollView(
+                    child: Wrap(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.teal,
+                                style: BorderStyle.none,
+                                width: 2,
+                              ),
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child:
+                                DataGridWidget(companyInfoList: snapshot.data)),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Container(); //TODO: Return Error Message for null
+                }
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }),
+      ],
+    );
+  }
+}
+
+/*
+ Column(
                           children: [
                             RichText(
                               text: TextSpan(
@@ -78,16 +98,5 @@ class CreateChart12State extends State<CreateChart12> {
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }),
-      ],
-    );
-  }
-}
+                        )
+ */

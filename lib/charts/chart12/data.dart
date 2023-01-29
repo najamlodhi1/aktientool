@@ -2,6 +2,7 @@
 
 import 'package:aktientool/charts/chart12/post.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 var companyInfo = <CompanyInfo>[];
@@ -16,13 +17,10 @@ class RemoteService {
       var posts = postFromJson(response.body);
 
       companyInfo.clear();
-
-      companyInfo.add(CompanyInfo(
-        posts.historical[0].declarationDate,
-        posts.historical[0].recordDate,
-        posts.historical[0].paymentDate,
-        posts.historical[0].dividend.toString(),
-      ));
+      companyInfo = posts.historical
+          .map((e) => CompanyInfo(e.declarationDate, e.recordDate,
+              e.paymentDate, e.dividend.toString()))
+          .toList();
 
       return companyInfo;
     } else {
