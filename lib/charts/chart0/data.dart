@@ -43,7 +43,9 @@ class RemoteService {
           translatedDescription.toString(),
           posts[0].fullTimeEmployees,
           posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
-          posts[0].ceo));
+          posts[0].ceo,
+          posts[0].city,
+          posts[0].state));
 
       return companyInfo;
     } else {
@@ -65,7 +67,9 @@ class CompanyInfo {
       this.description,
       this.fullTimeEmployees,
       this.ipoDate,
-      this.ceo);
+      this.ceo,
+      this.city,
+      this.state);
 
   final String image;
   final String companyName;
@@ -79,6 +83,8 @@ class CompanyInfo {
   final String fullTimeEmployees;
   final String ipoDate;
   final String ceo;
+  final String city;
+  final String state;
 }
 
 List get companyData {
@@ -95,6 +101,8 @@ List get companyData {
           element.description,
           element.fullTimeEmployees,
           element.ipoDate,
-          element.ceo))
+          element.ceo,
+          element.city,
+          element.state))
       .toList();
 }

@@ -122,6 +122,12 @@ class CreateChart0State extends State<CreateChart0> {
                             ),
                             const Divider(),
                             Text(
+                              "${"Sitz: " + snapshot.data[0].city}, " +
+                                  snapshot.data[0].state,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
                               snapshot.data[0].description + "\n",
                               style: const TextStyle(fontSize: 16),
                             ),
