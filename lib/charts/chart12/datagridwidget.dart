@@ -15,7 +15,7 @@ class DataGridWidget extends StatelessWidget {
     return Column(
       children: [
         const Text(
-          'Dividen History',
+          'Dividend History',
           style: TextStyle(fontSize: 20),
         ),
         SfDataGridTheme(
