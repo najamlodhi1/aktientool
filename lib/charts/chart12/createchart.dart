@@ -3,7 +3,6 @@ import 'package:aktientool/charts/chart12/datagridwidget.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CreateChart12 extends StatefulWidget {
   const CreateChart12({super.key});
