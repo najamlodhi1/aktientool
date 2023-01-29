@@ -1,8 +1,6 @@
-# aktientool
+# Aktientool
 
 is a finance startup to analize stock datas
-
-## Getting Started
 
 - [Visit: Aktientool.net](https://aktientool.net)
 
