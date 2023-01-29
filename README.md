@@ -1,21 +1,9 @@
-# aktientool
+# Aktientool
 
-A new Flutter project.
+is a financial startup for analyzing stock data
 
-## Getting Started
+- [Visit: Aktientool.net](https://aktientool.net)
 
-This project is a starting point for a Flutter application.
+If you have an advice or found an error/bug 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# aktientool
-# aktientool
-# aktientool
-# aktientool
-# aktientool
+-> feel free to contact me via Whatsapp: +4915251509689

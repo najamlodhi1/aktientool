@@ -4,6 +4,7 @@ import 'package:aktientool/charts/chart0/post.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:translator/translator.dart';
 
 var companyInfo = <CompanyInfo>[];
 
@@ -12,28 +13,39 @@ var sp_companyInfo = StateProvider((ref) {
 });
 
 class RemoteService {
+  translate(String input) async {
+    final translator = GoogleTranslator();
+    return await translator.translate(input, to: 'en');
+  }
+
   getData(String url) async {
+    var translator = GoogleTranslator();
+
     //print("rein: $url");
 
     var response = await http.Client().get(Uri.parse(url));
     if (response.statusCode == 200) {
-      //print(response.body);
       var posts = postFromJson(response.body);
+
+      String x = posts[0].description;
+      var translatedDescription = await translator.translate(x, to: 'de');
 
       companyInfo.clear();
       companyInfo.add(CompanyInfo(
           posts[0].image,
           posts[0].companyName,
           posts[0].symbol,
-          posts[0].mktCap.toString(),
+          "${(posts[0].mktCap / 1000000000).toStringAsFixed(2)} Billion \$",
           posts[0].exchangeShortName,
           posts[0].sector,
           posts[0].industry,
           posts[0].website,
-          posts[0].description,
+          translatedDescription.toString(),
           posts[0].fullTimeEmployees,
           posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
-          posts[0].ceo));
+          posts[0].ceo,
+          posts[0].city,
+          posts[0].state));
 
       return companyInfo;
     } else {
@@ -55,7 +67,9 @@ class CompanyInfo {
       this.description,
       this.fullTimeEmployees,
       this.ipoDate,
-      this.ceo);
+      this.ceo,
+      this.city,
+      this.state);
 
   final String image;
   final String companyName;
@@ -69,6 +83,8 @@ class CompanyInfo {
   final String fullTimeEmployees;
   final String ipoDate;
   final String ceo;
+  final String city;
+  final String state;
 }
 
 List get companyData {
@@ -85,6 +101,8 @@ List get companyData {
           element.description,
           element.fullTimeEmployees,
           element.ipoDate,
-          element.ceo))
+          element.ceo,
+          element.city,
+          element.state))
       .toList();
 }

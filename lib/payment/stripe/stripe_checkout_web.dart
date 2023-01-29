@@ -19,8 +19,8 @@ void redirectToCheckout(BuildContext context) async {
           LineItem(price: Env.nikesPriceId, quantity: 1),
         ],
         mode: 'payment',
-        successUrl: 'https://aktientool.net/success',
-        cancelUrl: 'https://aktientool.net/cancel',
+        successUrl: 'https://aktientool.net/?ret=success',
+        cancelUrl: 'https://aktientool.net/?ret=cancel',
       ),
     );
 
