@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -160,7 +161,9 @@ class CountrySelect extends ConsumerWidget {
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(20),
                   child: SvgPicture.asset(
-                    "images/${(country[index]).toLowerCase()}.svg",
+                    (kIsWeb)
+                        ? "assets/images/${(country[index]).toLowerCase()}.svg"
+                        : "images/${(country[index]).toLowerCase()}.svg",
                     fit: BoxFit.contain,
                   ),
                 ),
