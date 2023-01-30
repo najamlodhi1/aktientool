@@ -21,8 +21,15 @@ class RemoteService {
           .map((e) => CompanyInfo(e.declarationDate, e.recordDate,
               e.paymentDate, e.dividend.toString()))
           .toList();
-
-      return companyInfo;
+      companyInfo.removeWhere((element) =>
+          element.recordDate == "" ||
+          element.declarationDate == "" ||
+          element.paymentDate == "");
+      if (companyInfo.isEmpty) {
+        return null;
+      } else {
+        return companyInfo;
+      }
     } else {
       throw Exception('Failed to load data');
     }
