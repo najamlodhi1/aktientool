@@ -33,6 +33,11 @@ class ShowCompanies extends ConsumerWidget {
     String marketcapStartUrl = ref.watch(sp_marketcap_start).toString();
     String marketcapEndUrl = ref.watch(sp_marketcap_end).toString();
 
+    String modifiedMarketcapStartUrl =
+        (int.parse(marketcapStartUrl) * 1000000000).toString();
+    String modifiedMarketcapEndUrl =
+        (int.parse(marketcapEndUrl) * 1000000000).toString();
+
     industryUrl = ref.watch(sp_industry_url).toString();
     if (industryUrl.contains(":")) {
       industryUrl = industryUrl.substring(1);
@@ -43,7 +48,8 @@ class ShowCompanies extends ConsumerWidget {
     }
 
     String url =
-        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$marketcapStartUrl&offset=$offset";
+        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$modifiedMarketcapStartUrl&offset=$offset";
+    print(url);
 
     var responses = await Dio().get(url);
     var x = responses;
