@@ -1,33 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
-var sp_marketcap = StateProvider((ref) {
+var sp_marketcap_start = StateProvider((ref) {
   return 1000000000;
 });
-
-// ignore: non_constant_identifier_names
-var sp_isSelected = StateProvider((ref) {
-  return [true, false, false, false];
+var sp_marketcap_end = StateProvider((ref) {
+  return 100000000000000;
+});
+var sp_marketcap_start_temp = StateProvider((ref) {
+  return 1000000000;
+});
+var sp_marketcap_end_temp = StateProvider((ref) {
+  return 100000000000000;
+});
+var chk_marketcap = StateProvider((ref) {
+  return true;
 });
 
 // ignore: must_be_immutable
 class Marketcap extends ConsumerWidget {
   List<Map> generatedCountrieFromList = [];
   var icon = Icons.search;
-
-  final List<int> _marketcap = [
-    1000000000,
-    10000000000,
-    100000000000,
-    1000000000000,
-  ];
+  Timer? timerMarketCap;
 
   Marketcap({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var textMarketcap = ref.watch(sp_marketcap);
+    var intMarketcapStart = ref.watch(sp_marketcap_start);
+    var intMarketcapEnd = ref.watch(sp_marketcap_end);
+    var intMarketcapStartTemp = ref.watch(sp_marketcap_start_temp);
+    var intMarketcapEndTemp = ref.watch(sp_marketcap_end_temp);
+    var chkMarketcap = ref.watch(chk_marketcap);
 
     return SizedBox(
       child: Card(
@@ -42,59 +49,111 @@ class Marketcap extends ConsumerWidget {
               title: const Text("Marketcap in Dollar:",
                   style: TextStyle(color: Colors.white)),
               subtitle: Text(
-                textMarketcap.toString(),
+                "$intMarketcapStart to $intMarketcapEnd",
                 style: const TextStyle(color: Colors.blue),
               ),
+              childrenPadding: const EdgeInsets.only(left: 16, right: 16),
               // Contents
               children: [
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: Colors.blue,
-                  ),
-                  title: const Text('>1 billion (milliard)',
-                      style: TextStyle(color: Colors.white)),
-                  onTap: () {
-                    // ignore: deprecated_member_use
-                    ref.read(sp_marketcap.state).state = _marketcap[0];
-                  },
+                Row(
+                  children: [
+                    Checkbox(
+                      checkColor: Colors.white,
+                      activeColor: Colors.blue,
+                      side: const BorderSide(width: 2, color: Colors.white),
+                      value: chkMarketcap,
+                      onChanged: (bool? value) {
+                        ref.read(chk_marketcap.state).state = value!;
+                        if (value) {
+                          ref.read(sp_marketcap_start.state).state = 1000000000;
+                          ref.read(sp_marketcap_end.state).state =
+                              100000000000000;
+                        } else {
+                          ref.read(sp_marketcap_start.state).state = 0;
+                          ref.read(sp_marketcap_end.state).state = 0;
+                        }
+                      },
+                    ),
+                    const Text(
+                      "Market Cap",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: Colors.red,
-                  ),
-                  title: const Text('>10 billion (milliard)',
-                      style: TextStyle(color: Colors.white)),
-                  onTap: () {
-                    // ignore: deprecated_member_use
-                    ref.read(sp_marketcap.state).state = _marketcap[1];
-                  },
-                ),
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: Colors.amber,
-                  ),
-                  title: const Text('>100 billion (milliard)',
-                      style: TextStyle(color: Colors.white)),
-                  onTap: () {
-                    // ignore: deprecated_member_use
-                    ref.read(sp_marketcap.state).state = _marketcap[2];
-                  },
-                ),
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: Colors.pink,
-                  ),
-                  title: const Text(
-                    '>1000 billion (milliard)',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    // ignore: deprecated_member_use
-                    ref.read(sp_marketcap.state).state = _marketcap[3];
-                  },
-                ),
+                const SizedBox(height: 16),
+                chkMarketcap
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text(
+                                  "0",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "25000000M",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "50000000M",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "75000000M",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "100000000M",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          RangeSlider(
+                            min: 0,
+                            max: 100000000000000,
+                            values: RangeValues(
+                                intMarketcapStartTemp.toDouble(),
+                                intMarketcapEndTemp.toDouble()),
+                            onChanged: (values) {
+                              ref.read(sp_marketcap_start_temp.state).state =
+                                  values.start.toInt();
+                              ref.read(sp_marketcap_end_temp.state).state =
+                                  values.end.toInt();
+
+                              if (timerMarketCap != null) {
+                                timerMarketCap!.cancel();
+                              }
+
+                              timerMarketCap =
+                                  Timer(const Duration(milliseconds: 500), () {
+                                ref.read(sp_marketcap_start.state).state =
+                                    values.start.toInt();
+                                ref.read(sp_marketcap_end.state).state =
+                                    values.end.toInt();
+                              });
+                            },
+                          )
+                        ],
+                      )
+                    : const SizedBox()
               ],
-            ),
+            )
           ],
         ),
       ),

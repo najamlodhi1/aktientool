@@ -30,7 +30,8 @@ class ShowCompanies extends ConsumerWidget {
   Future<List<CompanyModel>> getCompanyList(int? offset, ref) async {
     String industryUrl = ref.watch(sp_industry_url).toString();
     String countryUrl = ref.watch(sp_country_url).toString();
-    String marketcapUrl = ref.watch(sp_marketcap).toString();
+    String marketcapStartUrl = ref.watch(sp_marketcap_start).toString();
+    String marketcapEndUrl = ref.watch(sp_marketcap_end).toString();
 
     industryUrl = ref.watch(sp_industry_url).toString();
     if (industryUrl.contains(":")) {
@@ -42,7 +43,7 @@ class ShowCompanies extends ConsumerWidget {
     }
 
     String url =
-        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$marketcapUrl&offset=$offset";
+        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$marketcapStartUrl&offset=$offset";
 
     var responses = await Dio().get(url);
     var x = responses;

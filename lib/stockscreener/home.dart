@@ -14,7 +14,7 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int marketcap = ref.watch(sp_marketcap);
+    int marketcap = ref.watch(sp_marketcap_start);
     List<dynamic> generatedCountrieFromList =
         ref.watch(sp_generatedCountrieFromList);
     List<dynamic> generatedIndustryFromList =
