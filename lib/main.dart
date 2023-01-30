@@ -44,6 +44,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool? isLoggedIn = false;
   bool mIsShowStripeCancelDialog = false;
   bool mIsShowStripeSuccessDialog = false;
+
   Future<void> isLogIn() async {
     final pref = await SharedPreferences.getInstance();
     isLoggedIn = pref.getBool('isLogin');
@@ -66,9 +67,11 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        title: 'Aktientool',
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           dragDevices: {
             PointerDeviceKind.mouse,
