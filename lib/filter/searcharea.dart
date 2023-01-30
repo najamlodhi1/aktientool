@@ -109,10 +109,35 @@ class _SearchfieldState extends State<SearchArea> {
 
                               //redirectToCheckout(context);
                             },
-                            child: const Text('JA'),
+                            child: const Text('20'),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.pop(context, 'NEIN'),
+                            onPressed: () async {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const Homepage(),
+                                ),
+                              );
+
+                              //redirectToCheckout(context);
+                            },
+                            child: const Text('50'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const Homepage(),
+                                ),
+                              );
+
+                              //redirectToCheckout(context);
+                            },
+                            child: const Text('100'),
+                          ),
+                          TextButton(
+                            onPressed: () =>
+                                Navigator.pop(context, 'ABBRECHEN'),
                             child: const Text('NEIN'),
                           ),
                         ],
