@@ -5,16 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: non_constant_identifier_names
 var sp_marketcap_start = StateProvider((ref) {
-  return 1000000000;
+  return 0;
 });
 var sp_marketcap_end = StateProvider((ref) {
-  return 100000000000000;
+  return 1000;
 });
 var sp_marketcap_start_temp = StateProvider((ref) {
-  return 1000000000;
+  return 0;
 });
 var sp_marketcap_end_temp = StateProvider((ref) {
-  return 100000000000000;
+  return 1000;
 });
 var chk_marketcap = StateProvider((ref) {
   return true;
@@ -46,10 +46,10 @@ class Marketcap extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ExpansionTile(
-              title: const Text("Marketcap in Dollar:",
+              title: const Text("Marketcap in Billion \$:",
                   style: TextStyle(color: Colors.white)),
               subtitle: Text(
-                "$intMarketcapStart to $intMarketcapEnd",
+                "${(intMarketcapStart / 1).toStringAsFixed(0)}B \$   to ${(intMarketcapEnd / 1).toStringAsFixed(0)}B \$",
                 style: const TextStyle(color: Colors.blue),
               ),
               childrenPadding: const EdgeInsets.only(left: 16, right: 16),
@@ -65,9 +65,8 @@ class Marketcap extends ConsumerWidget {
                       onChanged: (bool? value) {
                         ref.read(chk_marketcap.state).state = value!;
                         if (value) {
-                          ref.read(sp_marketcap_start.state).state = 1000000000;
-                          ref.read(sp_marketcap_end.state).state =
-                              100000000000000;
+                          ref.read(sp_marketcap_start.state).state = 0;
+                          ref.read(sp_marketcap_end.state).state = 1000;
                         } else {
                           ref.read(sp_marketcap_start.state).state = 0;
                           ref.read(sp_marketcap_end.state).state = 0;
@@ -98,25 +97,25 @@ class Marketcap extends ConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  "25000000M",
+                                  "250B",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
-                                  "50000000M",
+                                  "500B",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
-                                  "75000000M",
+                                  "750B",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
-                                  "100000000M",
+                                  "1000B",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -126,7 +125,7 @@ class Marketcap extends ConsumerWidget {
                           ),
                           RangeSlider(
                             min: 0,
-                            max: 100000000000000,
+                            max: 1000,
                             values: RangeValues(
                                 intMarketcapStartTemp.toDouble(),
                                 intMarketcapEndTemp.toDouble()),
