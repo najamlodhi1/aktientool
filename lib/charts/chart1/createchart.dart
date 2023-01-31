@@ -86,14 +86,19 @@ class CreateChart1State extends State<CreateChart1> {
                             trackballBehavior: TrackballBehavior(
                               shouldAlwaysShow: true,
                               activationMode: ActivationMode.singleTap,
+                              tooltipDisplayMode: TrackballDisplayMode.none,
                               enable: true,
+                            ),
+                            crosshairBehavior: CrosshairBehavior(
+                              enable: true,
+                              activationMode: ActivationMode.singleTap,
+                              lineWidth: 0.6,
                             ),
                             enableAxisAnimation: true,
                             tooltipBehavior: TooltipBehavior(
                               enable: true,
                               header: "",
                             ),
-                            crosshairBehavior: CrosshairBehavior(enable: true, activationMode: ActivationMode.singleTap, lineWidth: 0.6,),
                             series: <ChartSeries<SalesData, DateTime>>[
                               AreaSeries<SalesData, DateTime>(
                                 dataSource: chartData2,
@@ -102,14 +107,12 @@ class CreateChart1State extends State<CreateChart1> {
                                 gradient: gradientColors,
                                 borderWidth: 1,
                                 borderGradient: const LinearGradient(
-                                    colors: <Color>[
-                                      Color.fromARGB(255, 0, 0, 0),
-                                      Color.fromARGB(255, 0, 0, 0)
-                                    ],
-                                    stops: <double>[
-                                      0.2,
-                                      0.9
-                                    ]),
+                                  colors: <Color>[
+                                    Color.fromARGB(255, 0, 0, 0),
+                                    Color.fromARGB(255, 0, 0, 0)
+                                  ],
+                                  stops: <double>[0.2, 0.9],
+                                ),
                               ),
                             ],
                             primaryXAxis: DateTimeAxis(),
