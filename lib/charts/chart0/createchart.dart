@@ -107,19 +107,6 @@ class CreateChart0State extends State<CreateChart0> {
                               style: const TextStyle(
                                   fontSize: 16, color: Colors.black),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                launch(snapshot.data[0].ceo);
-                              },
-                              child: Text(
-                                (snapshot.data[0].ceo)
-                                    .toString()
-                                    .replaceAll("https://www.", "")
-                                    .toUpperCase(),
-                                style: const TextStyle(
-                                    fontSize: 16, color: kPrimaryColor),
-                              ),
-                            ),
                             const Divider(),
                             Text(
                               "Mitarbeiter: " +
