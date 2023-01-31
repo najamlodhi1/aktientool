@@ -4,8 +4,6 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../constants/constants.dart';
-
 class CreateChart1 extends StatefulWidget {
   @override
   State<CreateChart1> createState() => CreateChart1State();
