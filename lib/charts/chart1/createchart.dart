@@ -4,6 +4,8 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../constants/constants.dart';
+
 class CreateChart1 extends StatefulWidget {
   @override
   State<CreateChart1> createState() => CreateChart1State();
@@ -54,108 +56,111 @@ class CreateChart1State extends State<CreateChart1> {
     return Column(
       children: [
         FutureBuilder(
-            future: RemoteService().getData(fromURL),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                print(snapshot);
-                return SingleChildScrollView(
-                  child: Wrap(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.teal,
-                            style: BorderStyle.none,
-                            width: 2,
-                          ),
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(30.0),
+          future: RemoteService().getData(fromURL),
+          builder: (ctx, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              print(snapshot);
+              return SingleChildScrollView(
+                child: Wrap(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.teal,
+                          style: BorderStyle.none,
+                          width: 2,
                         ),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SfCartesianChart(
+                            //title: ChartTitle(text: 'YESSS'),
+                            legend: Legend(isVisible: false),
+                            trackballBehavior: TrackballBehavior(
+                              shouldAlwaysShow: true,
+                              activationMode: ActivationMode.singleTap,
+                              enable: true,
                             ),
-                            SfCartesianChart(
-                              //title: ChartTitle(text: 'YESSS'),
-                              tooltipBehavior: TooltipBehavior(
-                                enable: true,
-                                header: "",
+                            enableAxisAnimation: true,
+                            tooltipBehavior: TooltipBehavior(
+                              enable: true,
+                              header: "",
+                            ),
+                            crosshairBehavior: CrosshairBehavior(enable: true, activationMode: ActivationMode.singleTap, lineWidth: 0.6,),
+                            series: <ChartSeries<SalesData, DateTime>>[
+                              AreaSeries<SalesData, DateTime>(
+                                dataSource: chartData2,
+                                xValueMapper: (SalesData data, _) => data.year,
+                                yValueMapper: (SalesData data, _) => data.price,
+                                gradient: gradientColors,
+                                borderWidth: 1,
+                                borderGradient: const LinearGradient(
+                                    colors: <Color>[
+                                      Color.fromARGB(255, 0, 0, 0),
+                                      Color.fromARGB(255, 0, 0, 0)
+                                    ],
+                                    stops: <double>[
+                                      0.2,
+                                      0.9
+                                    ]),
                               ),
-                              series: <ChartSeries<SalesData, DateTime>>[
-                                AreaSeries<SalesData, DateTime>(
-                                  dataSource: chartData2,
-                                  xValueMapper: (SalesData data, _) =>
-                                      data.year,
-                                  yValueMapper: (SalesData data, _) =>
-                                      data.price,
-                                  gradient: gradientColors,
-                                  borderWidth: 1,
-                                  borderGradient: const LinearGradient(
-                                      colors: <Color>[
-                                        Color.fromARGB(255, 0, 0, 0),
-                                        Color.fromARGB(255, 0, 0, 0)
-                                      ],
-                                      stops: <double>[
-                                        0.2,
-                                        0.9
-                                      ]),
+                            ],
+                            primaryXAxis: DateTimeAxis(),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Wrap(
+                            children: [
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black, // background
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      yearsBack = 1;
+                                    });
+                                  },
+                                  child: const Text("1 y")),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black, // background
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      yearsBack = 3;
+                                    });
+                                  },
+                                  child: const Text("3 y")),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black, // background
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      yearsBack = 5;
+                                    });
+                                  },
+                                  child: const Text("5 y")),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.black, // background
                                 ),
-                              ],
-                              primaryXAxis: DateTimeAxis(),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Wrap(
-                              children: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 1;
-                                      });
-                                    },
-                                    child: const Text("1 y")),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 3;
-                                      });
-                                    },
-                                    child: const Text("3 y")),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 5;
-                                      });
-                                    },
-                                    child: const Text("5 y")),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 10;
-                                      });
-                                    },
-                                    child: const Text("10 y")),
-                                /*ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    yearsBack = 10;
+                                  });
+                                },
+                                child: const Text("10 y"),
+                              ),
+                              /*ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:
                                           Colors.black, // background
@@ -166,29 +171,30 @@ class CreateChart1State extends State<CreateChart1> {
                                       });
                                     },
                                     child: const Text("20 y")),*/
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black, // background
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        yearsBack = 40;
-                                      });
-                                    },
-                                    child: const Text("Max")),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.black, // background
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    yearsBack = 40;
+                                  });
+                                },
+                                child: const Text("Max"),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ],
     );
   }
