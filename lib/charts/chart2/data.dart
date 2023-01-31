@@ -1,11 +1,7 @@
 import 'package:aktientool/charts/chart2/post.dart';
-import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 
-var data1 = <Data1>[];
-var data2 = <Data2>[];
-var data3 = <Data3>[];
-var data4 = <Data4>[];
+var data1, data2, data3, data4 = <Data1>[];
 
 class RemoteService {
   getData(String url) async {
@@ -15,18 +11,9 @@ class RemoteService {
       int lengthJson = l.length - 2;
 
       data1 = [];
-      data2 = [];
-      data3 = [];
-      data4 = []; //netIncomeRatio
 
       dynamic posts = postFromJson(response.body);
 
-/*
-      print(posts[0].revenue.toString());
-      print(posts[0].incomeBeforeTax.toString());
-      print(posts[0].netIncome.toString());
-      print(posts[0].netIncomeRatio.toString());
-*/
       while (lengthJson >= 0) {
         String years = posts[lengthJson].date.toString().substring(0, 4);
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
@@ -35,7 +22,16 @@ class RemoteService {
         double revenue =
             double.parse((posts[lengthJson]).revenue.toStringAsFixed(2));
 
-        double incomeBeforeTax =
+        data1.add(Data1(
+            DateTime(
+                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+            revenue / 1000000000));
+
+        lengthJson--;
+
+/*
+
+ double incomeBeforeTax =
             double.parse(posts[lengthJson].incomeBeforeTax.toStringAsFixed(2));
 
         double netIncome =
@@ -43,11 +39,6 @@ class RemoteService {
 
         double netIncomeRatio =
             double.parse(posts[lengthJson].netIncomeRatio.toStringAsFixed(2));
-
-        data1.add(Data1(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            revenue / 1000000000));
 
         data2.add(Data2(
             DateTime(
@@ -63,8 +54,7 @@ class RemoteService {
             DateTime(
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
             netIncomeRatio * 100));
-
-        lengthJson--;
+*/
       }
     } else {
       throw Exception('Failed to load data');
@@ -78,7 +68,7 @@ class Data1 {
   final double information;
 }
 
-List<Data1> get chartData1 {
+List get chartData1 {
   //print("---data1---");
   //print(data1[0].information);
   return data1
@@ -87,6 +77,7 @@ List<Data1> get chartData1 {
       .toList();
 }
 
+/*
 class Data2 {
   Data2(this.year, this.information);
   final DateTime year;
@@ -133,3 +124,4 @@ List<Data4> get chartData4 {
           ((index, element) => Data4(element.year, element.information)))
       .toList();
 }
+*/

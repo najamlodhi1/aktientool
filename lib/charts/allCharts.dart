@@ -2,6 +2,7 @@
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'chart1test/createchart.dart';
+import 'chart2/createchart.dart';
 
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
@@ -29,7 +30,7 @@ class _AllChartsState extends State<AllCharts> {
 
             //const CreateChart11(), // Performance
             //const CreateChart12(), // Dividend History
-            //CreateChart2(),
+            CreateChart2(),
             //CreateChart3(),
             //CreateChart4(),
             /*CreateChart5(),

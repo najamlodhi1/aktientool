@@ -21,7 +21,6 @@ class RemoteService {
     DateTime date_10year = DateTime(now.year - 10, now.month, now.day);
 
     var response = await http.Client().get(Uri.parse(url));
-    print("getget");
     //print("date $currentDate");
     //print("newDate $newDate");
 
