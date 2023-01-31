@@ -138,13 +138,13 @@ class _SearchfieldState extends State<SearchArea> {
                           TextButton(
                             onPressed: () =>
                                 Navigator.pop(context, 'ABBRECHEN'),
-                            child: const Text('NEIN'),
+                            child: const Text('CANCEL'),
                           ),
                         ],
                       ),
                     );
                   },
-                  child: const Text('Upgrade'),
+                  child: const Text('9999'),
                 ),
               )
             : const SizedBox.shrink(),

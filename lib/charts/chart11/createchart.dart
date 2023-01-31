@@ -2,7 +2,6 @@ import 'package:aktientool/charts/chart11/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../webpage/constants.dart';
 
 class CreateChart11 extends StatefulWidget {
@@ -50,168 +49,143 @@ class CreateChart11State extends State<CreateChart11> {
                         ),
                         child: Column(
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                text: 'Kursentwicklung \n',
-                                style: GoogleFonts.oswald(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 30.0,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        '${'1D: ' + snapshot.data[0].the1D}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1D))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the1D)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'5D: ' + snapshot.data[0].the5D}% - ${(1000 + (10 * double.parse(snapshot.data[0].the5D))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the5D)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'1M: ' + snapshot.data[0].the1M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1M))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the1M)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'3M: ' + snapshot.data[0].the3M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the3M))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the3M)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'6M: ' + snapshot.data[0].the6M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the6M))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the6M)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'1Y: ' + snapshot.data[0].the1Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1Y))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the1Y)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'3Y: ' + snapshot.data[0].the3Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the3Y))).toStringAsFixed(2)} \$ \n', //1889.30
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the3Y)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'5Y: ' + snapshot.data[0].the5Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the5Y))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: ((1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the5Y))) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'10Y: ' + snapshot.data[0].the10Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the10Y))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].the10Y)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${'Max: ' + snapshot.data[0].max}% - ${(1000 + (10 * double.parse(snapshot.data[0].max))).toStringAsFixed(2)} \$ \n',
-                                    style: GoogleFonts.oswald(
-                                      color: (1000 +
-                                                  (10 *
-                                                      double.parse(snapshot
-                                                          .data[0].max)) >
-                                              1000.00)
-                                          ? kPrimaryColor
-                                          : Colors.red,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            const Text(
+                              'Performance',
+                              style: TextStyle(fontSize: 20),
                             ),
+                            const Divider(),
+                            Text(
+                              '${'1D: ' + snapshot.data[0].the1D}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1D))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the1D)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+
+                            Text(
+                              '${'5D: ' + snapshot.data[0].the5D}% - ${(1000 + (10 * double.parse(snapshot.data[0].the5D))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the5D)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'1M: ' + snapshot.data[0].the1M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1M))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the1M)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'3M: ' + snapshot.data[0].the3M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the3M))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the3M)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'6M: ' + snapshot.data[0].the6M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the6M))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the6M)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'1Y: ' + snapshot.data[0].the1Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1Y))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the1Y)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'3Y: ' + snapshot.data[0].the3Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the3Y))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the3Y)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'5Y: ' + snapshot.data[0].the5Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the5Y))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the5Y)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'10Y: ' + snapshot.data[0].the10Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the10Y))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(snapshot
+                                                      .data[0].the10Y)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            Text(
+                              '${'MAX: ' + snapshot.data[0].max}% - ${(1000 + (10 * double.parse(snapshot.data[0].max))).toStringAsFixed(2)} \$',
+                              style: TextStyle(
+                                  color: (1000 +
+                                              (10 *
+                                                  double.parse(
+                                                      snapshot.data[0].the1D)) >
+                                          1000.00)
+                                      ? kPrimaryColor
+                                      : Colors.red,
+                                  fontSize: 16),
+                            ),
+                            const Divider(),
+                            ////////////////////
                           ],
                         ),
                       ),

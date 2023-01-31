@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'chart0/createchart.dart';
 import 'chart1/createchart.dart';
+import 'chart11/createchart.dart';
 import 'chart12/createchart.dart';
+import 'chart2/createchart.dart';
+import 'chart3/createchart.dart';
+import 'chart4/createchart.dart';
 
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
@@ -27,14 +31,14 @@ class _AllChartsState extends State<AllCharts> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const CreateChart12(),
-            const CreateChart0(),
-            CreateChart1(),
-            /*           const CreateChart11(),
+            const CreateChart0(), // Info
+            CreateChart1(), // Chart
+            const CreateChart11(), // Performance
+            const CreateChart12(), // Dividend History
             CreateChart2(),
             CreateChart3(),
             CreateChart4(),
-            CreateChart5(),
+            /*CreateChart5(),
             CreateChart6(),
             CreateChart7(),
             CreateChart8(),
