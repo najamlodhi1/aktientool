@@ -33,6 +33,8 @@ class RemoteService {
       dataMax = [];
       data10 = [];
       data1 = [];
+      data3 = [];
+      data5 = [];
 
       dynamic posts = postFromJson(response.body);
       while (lengthJson >= 0) {
