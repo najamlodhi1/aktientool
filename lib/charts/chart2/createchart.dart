@@ -10,22 +10,29 @@ class CreateChart2 extends StatefulWidget {
 }
 
 class CreateChart2State extends State<CreateChart2> {
-  final DataGridController _dataGridController = DataGridController();
-
-  late List<Datas> _employees;
-  late DataSource _employeeDataSource;
-
-  var selectList = [];
-
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
 
+  final DataGridController _dataGridController = DataGridController();
+  late List<Data> myDatas;
+  late DataSource myDataSource;
+  var selectList = [];
+
+  List<Data> getData() {
+    return [
+      //RemoteService().getData(
+      //"https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+
+      Data(1.5, DateTime.now()),
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
-    _employees = getData();
-    _employeeDataSource = DataSource(_employees);
+    myDatas = getData();
+    myDataSource = DataSource(myDatas);
   }
 
   @override
@@ -114,10 +121,12 @@ class CreateChart2State extends State<CreateChart2> {
                                 },
                                 child: Container(
                                     color: Colors.grey[400],
-                                    child: const Center(
+                                    child: Center(
                                         child: Text(
-                                      'Show Chart',
-                                      style: TextStyle(
+                                      snapshot.data[0].year
+                                          .toString()
+                                          .substring(0, 10),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ))),
                               ),
@@ -127,90 +136,23 @@ class CreateChart2State extends State<CreateChart2> {
                               checkboxShape: const CircleBorder(),
                               allowSorting: false,
                               selectionMode: SelectionMode.multiple,
-                              source: _employeeDataSource,
+                              source: myDataSource,
                               columns: [
-                                GridTextColumn(
-                                    columnName: 'id',
-                                    label: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        'ID',
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )),
-                                GridTextColumn(
-                                    columnName: 'A',
-                                    label: Container(
+                                for (int i = 0; i < 2; i++) ...[
+                                  GridTextColumn(
+                                      columnName: "Date",
+                                      label: Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         alignment: Alignment.center,
-                                        child: const Text(
-                                          'A',
+                                        child: Text(
+                                          snapshot.data[i].year
+                                              .toString()
+                                              .substring(0, 4),
                                           overflow: TextOverflow.ellipsis,
-                                        ))),
-                                GridTextColumn(
-                                    columnName: 'B',
-                                    label: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          'B',
-                                          overflow: TextOverflow.ellipsis,
-                                        ))),
-                                GridTextColumn(
-                                    columnName: 'C',
-                                    label: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          'C',
-                                          overflow: TextOverflow.ellipsis,
-                                        ))),
-                                GridTextColumn(
-                                    columnName: 'D',
-                                    label: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        'D',
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )),
-                                GridTextColumn(
-                                    columnName: 'E',
-                                    label: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          'E',
-                                          overflow: TextOverflow.ellipsis,
-                                        ))),
-                                GridTextColumn(
-                                    columnName: 'F',
-                                    label: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          'F',
-                                          overflow: TextOverflow.ellipsis,
-                                        ))),
-                                GridTextColumn(
-                                    columnName: 'G',
-                                    label: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          'G',
-                                          overflow: TextOverflow.ellipsis,
-                                        ))),
+                                        ),
+                                      )),
+                                ],
                               ],
                             ),
                           ],
@@ -228,25 +170,14 @@ class CreateChart2State extends State<CreateChart2> {
   }
 }
 
-List<Datas> getData() {
-  return [
-    Datas(1, "A", 'B', 'C', 'D', 'E', 'F', 'G'),
-    //Datas(2, "A", 'B', 'C', 'D', 'E', 'F', 'G'),
-  ];
-}
-
 class DataSource extends DataGridSource {
-  DataSource(List<Datas> employees) {
+  DataSource(List<Data> employees) {
     dataGridRows = employees
-        .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'id', value: dataGridRow.id),
-              DataGridCell<String>(columnName: 'A', value: dataGridRow.a),
-              DataGridCell<String>(columnName: 'B', value: dataGridRow.b),
-              DataGridCell<String>(columnName: 'C', value: dataGridRow.c),
-              DataGridCell<String>(columnName: 'D', value: dataGridRow.d),
-              DataGridCell<String>(columnName: 'E', value: dataGridRow.e),
-              DataGridCell<String>(columnName: 'F', value: dataGridRow.f),
-              DataGridCell<String>(columnName: 'G', value: dataGridRow.g),
+        .map<DataGridRow>((value) => DataGridRow(cells: [
+              for (int i = 0; i < 2; i++) ...[
+                DataGridCell<double>(
+                    columnName: 'revenue', value: value.revenue)
+              ],
             ]))
         .toList();
   }
@@ -260,26 +191,11 @@ class DataSource extends DataGridSource {
         cells: row.getCells().map<Widget>((dataGridCell) {
       return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          alignment: (dataGridCell.columnName == 'id' ||
-                  dataGridCell.columnName == 'salary')
-              ? Alignment.center
-              : Alignment.center,
+          alignment: Alignment.center,
           child: Text(
             dataGridCell.value.toString(),
             overflow: TextOverflow.ellipsis,
           ));
     }).toList());
   }
-}
-
-class Datas {
-  Datas(this.id, this.a, this.b, this.c, this.d, this.e, this.f, this.g);
-  final int id;
-  final String a;
-  final String b;
-  final String c;
-  final String d;
-  final String e;
-  final String f;
-  final String g;
 }
