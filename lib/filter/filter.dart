@@ -1,4 +1,4 @@
-import 'package:aktientool/filter/feinfilter.dart';
+import 'package:aktientool/filter/industry.dart';
 import 'package:aktientool/filter/marketcap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -38,7 +38,10 @@ class ShowCompanies extends ConsumerWidget {
     String modifiedMarketcapEndUrl =
         (int.parse(marketcapEndUrl) * 1000000000).toString();
 
+    print(industryUrl);
     industryUrl = ref.watch(sp_industry_url).toString();
+    print(industryUrl);
+
     if (industryUrl.contains(":")) {
       industryUrl = industryUrl.substring(1);
     }

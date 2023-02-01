@@ -263,7 +263,7 @@ class IndustrySelect extends ConsumerWidget {
         title: const Text('Industry auswählen'),
       ),
       body: GridView.builder(
-        itemCount: 39,
+        itemCount: 169,
         itemBuilder: (ctx, index) {
           return Card(
               key: ValueKey(generatedIndustryFromList[index]['name']),
@@ -299,6 +299,8 @@ class IndustrySelect extends ConsumerWidget {
                   // ignore: deprecated_member_use
                   ref.refresh(sp_generatedIndustryFromList.state).state =
                       generatedIndustryFromList;
+
+                  print(ref.watch(sp_industry_url.state).state);
                 },
                 leading: ClipRRect(
                   //borderRadius: BorderRadius.circular(20), // Image border

@@ -159,7 +159,7 @@ class CountrySelect extends ConsumerWidget {
               leading: ClipRRect(
                 //borderRadius: BorderRadius.circular(20), // Image border
                 child: SizedBox.fromSize(
-                  size: const Size.fromRadius(20),
+                  size: const Size.fromRadius(50),
                   child: SvgPicture.asset(
                     (kIsWeb)
                         ? "assets/images/${(country[index]).toLowerCase()}.svg"
