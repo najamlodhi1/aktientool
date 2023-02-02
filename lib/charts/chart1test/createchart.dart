@@ -1,6 +1,7 @@
 import 'package:aktientool/charts/chart1test/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -11,35 +12,15 @@ class CreateChart1Test extends StatefulWidget {
 
 class CreateChart1TestState extends State<CreateChart1Test> {
   var chartData;
+  List<FlSpot> getFLData = [];
 
   var selectedDate = DateTime.now();
-
   var fromURL = "";
+  int anzeige = 2;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
-
-  @override
-  initState() {
-    FutureBuilder(
-      future: RemoteService().getData(fromURL), // async work
-      builder: (ctx, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return const Text('Loading....');
-          default:
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              return Text('Result: ${snapshot.data}');
-            }
-        }
-      },
-    );
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +38,187 @@ class CreateChart1TestState extends State<CreateChart1Test> {
         LinearGradient(colors: color, stops: stops);
 
     //print("$stock $modifiedDate");
+
+    sfc() {
+      return SfCartesianChart(
+        title: ChartTitle(text: 'Chart'),
+        legend: Legend(isVisible: false),
+        trackballBehavior: TrackballBehavior(
+          shouldAlwaysShow: true,
+          activationMode: ActivationMode.singleTap,
+          tooltipDisplayMode: TrackballDisplayMode.none,
+          enable: true,
+        ),
+        crosshairBehavior: CrosshairBehavior(
+          enable: true,
+          activationMode: ActivationMode.singleTap,
+          lineWidth: 0.6,
+        ),
+        enableAxisAnimation: true,
+        tooltipBehavior: TooltipBehavior(
+          enable: true,
+          header: "",
+        ),
+        series: <ChartSeries<ChartData, DateTime>>[
+          AreaSeries<ChartData, DateTime>(
+            dataSource: chartData,
+            xValueMapper: (ChartData data, _) => data.year,
+            yValueMapper: (ChartData data, _) => data.data,
+            gradient: gradientColors,
+            borderWidth: 1,
+            borderGradient: const LinearGradient(
+              colors: <Color>[
+                Color.fromARGB(255, 0, 0, 0),
+                Color.fromARGB(255, 0, 0, 0)
+              ],
+              stops: <double>[0.2, 0.9],
+            ),
+          ),
+        ],
+        primaryXAxis: DateTimeAxis(),
+      );
+    }
+
+    btn() {
+      return SizedBox(
+        child: Wrap(
+          children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black, // background
+                ),
+                onPressed: () {
+                  setState(() {
+                    chartData = chartData1;
+                    getFLData = flchartData1;
+                  });
+                },
+                child: const Text("1 y")),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black, // background
+                ),
+                onPressed: () {
+                  setState(() {
+                    chartData = chartData3;
+                    getFLData = flchartData3;
+                  });
+                },
+                child: const Text("3 y")),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black, // background
+                ),
+                onPressed: () {
+                  setState(() {
+                    chartData = chartData5;
+                    getFLData = flchartData5;
+                  });
+                },
+                child: const Text("5 y")),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black, // background
+              ),
+              onPressed: () {
+                setState(() {
+                  chartData = chartData10;
+                  getFLData = flchartData10;
+                });
+              },
+              child: const Text("10 y"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black, // background
+              ),
+              onPressed: () {
+                setState(() {
+                  chartData = chartDataMax;
+                  getFLData = flchartDataMax;
+                });
+              },
+              child: const Text("Max"),
+            ),
+
+            //
+          ],
+        ),
+      );
+    }
+
+    flc() {
+      return FutureBuilder(
+        future: RemoteService().getData(fromURL),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (getFLData.isEmpty) {
+              getFLData = flchartData10;
+            }
+
+            var x = snapshot.data as List<FlSpot>;
+
+            //print(getFLData);
+            //print("--------------------------------------------------------");
+            //print(x);
+            return AspectRatio(
+              aspectRatio: 2,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                        spots: //flchartData10,
+
+                            getFLData
+                                .map((point) => FlSpot(point.x, point.y))
+                                .toList(),
+                        isCurved: true,
+                        dotData: FlDotData(
+                          show: false,
+                        ),
+                        color: Colors.red),
+                  ],
+                  borderData: FlBorderData(
+                      border: const Border(
+                          bottom: BorderSide(), left: BorderSide())),
+                  gridData: FlGridData(show: true),
+                  backgroundColor: Colors.black,
+                  titlesData: FlTitlesData(
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: (value, meta) {
+                          anzeige += 1;
+
+                          if (anzeige == 3) {
+                            anzeige = 0;
+                            String date = chartDataMax[value.toInt()]
+                                .year
+                                .toString()
+                                .substring(0, 7);
+
+                            return Text(date);
+                          }
+                          return const Text("");
+                        },
+                      ),
+                    ),
+                    leftTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    topTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      );
+    }
 
     fromURL =
         "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?serietype=line&apikey=${Env.fmpKey}";
@@ -79,104 +241,19 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               child: Column(
                 children: [
+                  /*const SizedBox(
+                    height: 20,
+                  ),
+                  sfc(),
+                */
+
+                  flc(),
                   const SizedBox(
                     height: 20,
                   ),
-                  SfCartesianChart(
-                    title: ChartTitle(text: 'Chart'),
-                    legend: Legend(isVisible: false),
-                    trackballBehavior: TrackballBehavior(
-                      shouldAlwaysShow: true,
-                      activationMode: ActivationMode.singleTap,
-                      tooltipDisplayMode: TrackballDisplayMode.none,
-                      enable: true,
-                    ),
-                    crosshairBehavior: CrosshairBehavior(
-                      enable: true,
-                      activationMode: ActivationMode.singleTap,
-                      lineWidth: 0.6,
-                    ),
-                    enableAxisAnimation: true,
-                    tooltipBehavior: TooltipBehavior(
-                      enable: true,
-                      header: "",
-                    ),
-                    series: <ChartSeries<ChartData, DateTime>>[
-                      AreaSeries<ChartData, DateTime>(
-                        dataSource: chartData,
-                        xValueMapper: (ChartData data, _) => data.year,
-                        yValueMapper: (ChartData data, _) => data.data,
-                        gradient: gradientColors,
-                        borderWidth: 1,
-                        borderGradient: const LinearGradient(
-                          colors: <Color>[
-                            Color.fromARGB(255, 0, 0, 0),
-                            Color.fromARGB(255, 0, 0, 0)
-                          ],
-                          stops: <double>[0.2, 0.9],
-                        ),
-                      ),
-                    ],
-                    primaryXAxis: DateTimeAxis(),
-                  ),
+                  btn(),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  Wrap(
-                    children: [
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black, // background
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              chartData = chartData1;
-                            });
-                          },
-                          child: const Text("1 y")),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black, // background
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              chartData = chartData3;
-                            });
-                          },
-                          child: const Text("3 y")),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black, // background
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              chartData = chartData5;
-                            });
-                          },
-                          child: const Text("5 y")),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black, // background
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            chartData = chartData10;
-                          });
-                        },
-                        child: const Text("10 y"),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black, // background
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            chartData = chartDataMax;
-                          });
-                        },
-                        child: const Text("Max"),
-                      ),
-                    ],
+                    height: 20,
                   ),
                 ],
               ),

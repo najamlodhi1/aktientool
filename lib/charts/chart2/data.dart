@@ -24,6 +24,7 @@ class RemoteService {
         data.add(Data(revenue, curDate));
         lengthJson--;
       }
+
       return data;
     } else {
       throw Exception('Failed to load data');

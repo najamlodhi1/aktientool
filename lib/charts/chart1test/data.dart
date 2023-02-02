@@ -1,5 +1,6 @@
 import 'package:aktientool/charts/chart1test/post.dart';
 import 'package:collection/collection.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:http/http.dart' as http;
 
 var data = <ChartData>[];
@@ -8,11 +9,16 @@ var data3 = <ChartData>[];
 var data5 = <ChartData>[];
 var data10 = <ChartData>[];
 var dataMax = <ChartData>[];
+List<FlSpot> points = [];
+
+var fldata1 = <FlSpot>[];
+var fldata3 = <FlSpot>[];
+var fldata5 = <FlSpot>[];
+var fldata10 = <FlSpot>[];
+var fldataMax = <FlSpot>[];
 
 class RemoteService {
   getData(String url) async {
-    int count = 0;
-
     DateTime now = DateTime.now();
     DateTime currentDate = DateTime(now.year, now.month, now.day);
     DateTime date_1year = DateTime(now.year - 1, now.month, now.day);
@@ -30,11 +36,20 @@ class RemoteService {
       int lengthJson = l.length - 2;
       //print("lengthJson: $lengthJson");
 
+      int count = 0;
+
       dataMax = [];
       data10 = [];
       data1 = [];
       data3 = [];
       data5 = [];
+      points = [];
+
+      fldataMax = [];
+      fldata10 = [];
+      fldata1 = [];
+      fldata3 = [];
+      fldata5 = [];
 
       dynamic posts = postFromJson(response.body);
       while (lengthJson >= 0) {
@@ -59,6 +74,9 @@ class RemoteService {
                 int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
             stockValue));
 
+        flchartDataMax.add(FlSpot(count as double, stockValue));
+        //points.add(FlSpot(count as double, stockValue));
+
         if (int.parse(years) >= date_1year.year &&
             int.parse(yearsMonth) >= date_1year.month) {
           //print("$years-$yearsMonth-$yearsDay");
@@ -66,6 +84,8 @@ class RemoteService {
               DateTime(
                   int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
               stockValue));
+          fldata1.add(FlSpot(count as double, stockValue));
+          //points.add(FlSpot(count as double, stockValue));
         }
 
         if (int.parse(years) >= date_3year.year &&
@@ -75,6 +95,8 @@ class RemoteService {
               DateTime(
                   int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
               stockValue));
+          //points.add(FlSpot(count as double, stockValue));
+          fldata3.add(FlSpot(count as double, stockValue));
         }
         if (int.parse(years) >= date_5year.year &&
             int.parse(yearsMonth) >= date_5year.month) {
@@ -83,6 +105,8 @@ class RemoteService {
               DateTime(
                   int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
               stockValue));
+          //points.add(FlSpot(count as double, stockValue));
+          fldata5.add(FlSpot(count as double, stockValue));
         }
         if (int.parse(years) >= date_10year.year &&
             int.parse(yearsMonth) >= date_10year.month) {
@@ -91,15 +115,67 @@ class RemoteService {
               DateTime(
                   int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
               stockValue));
+          //points.add(FlSpot(count as double, stockValue));
+          fldata10.add(FlSpot(count as double, stockValue));
         }
-
         count++;
         lengthJson--;
       }
+      return points;
     } else {
       throw Exception('Failed to load data');
     }
   }
+}
+
+class FLChartData1 {
+  FLChartData1(this.data, this.numb);
+  final double numb;
+  final double data;
+}
+
+List<FlSpot> get flchartData1 {
+  return fldata1;
+}
+
+class FLChartData3 {
+  FLChartData3(this.data, this.numb);
+  final double numb;
+  final double data;
+}
+
+List<FlSpot> get flchartData3 {
+  return fldata3;
+}
+
+class FLChartData5 {
+  FLChartData5(this.data, this.numb);
+  final double numb;
+  final double data;
+}
+
+List<FlSpot> get flchartData5 {
+  return fldata5;
+}
+
+class FLChartData10 {
+  FLChartData10(this.data, this.numb);
+  final double numb;
+  final double data;
+}
+
+List<FlSpot> get flchartData10 {
+  return fldata10;
+}
+
+class FLChartDataMax {
+  FLChartDataMax(this.data, this.numb);
+  final double numb;
+  final double data;
+}
+
+List<FlSpot> get flchartDataMax {
+  return fldataMax;
 }
 
 class ChartData1 {
