@@ -18,6 +18,12 @@ class CreateChart1TestState extends State<CreateChart1Test> {
   var fromURL = "";
   int anzeige = 2;
 
+  final List<Color> _gradientColors = [
+    const Color(0xFF6FFF7C),
+    const Color(0xFF0087FF),
+    const Color(0xFF5620FF),
+  ];
+
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
@@ -167,21 +173,27 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                 LineChartData(
                   lineBarsData: [
                     LineChartBarData(
-                        spots: //flchartData10,
+                      spots: //flchartData10,
 
-                            getFLData
-                                .map((point) => FlSpot(point.x, point.y))
-                                .toList(),
-                        isCurved: true,
-                        dotData: FlDotData(
-                          show: false,
-                        ),
-                        color: Colors.red),
+                          getFLData
+                              .map((point) => FlSpot(point.x, point.y))
+                              .toList(),
+                      isCurved: false,
+                      color: Colors.white,
+                      barWidth: 2,
+                      isStrokeCapRound: false,
+                      dotData: FlDotData(
+                        show: false,
+                      ),
+                    ),
                   ],
                   borderData: FlBorderData(
                       border: const Border(
                           bottom: BorderSide(), left: BorderSide())),
-                  gridData: FlGridData(show: true),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                  ),
                   backgroundColor: Colors.black,
                   titlesData: FlTitlesData(
                     bottomTitles: AxisTitles(
