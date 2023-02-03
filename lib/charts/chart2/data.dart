@@ -1,7 +1,7 @@
 import 'package:aktientool/charts/chart2/post.dart';
 import 'package:http/http.dart' as http;
 
-var data1, data2, data3, data4 = <Data1>[];
+var data, costOfRevenue = <Data>[];
 
 class RemoteService {
   getData(String url) async {
@@ -10,7 +10,8 @@ class RemoteService {
       final List l = response.body.split('date');
       int lengthJson = l.length - 2;
 
-      data1 = [];
+      data = [];
+      costOfRevenue = [];
 
       dynamic posts = postFromJson(response.body);
 
@@ -19,63 +20,44 @@ class RemoteService {
         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
 
-        double revenue =
-            double.parse((posts[lengthJson]).revenue.toStringAsFixed(2));
+        double revenueData =
+            double.parse((posts[lengthJson]).revenue.toStringAsFixed(2)) / 1000;
 
-        data1.add(Data1(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            revenue / 1000000000));
+        double costOfRevenueData =
+            double.parse((posts[lengthJson]).costOfRevenue.toStringAsFixed(2)) /
+                1000;
+
+        data.add(Data(
+          DateTime(
+              int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+          revenueData,
+          costOfRevenueData,
+        ));
 
         lengthJson--;
-
-/*
-
- double incomeBeforeTax =
-            double.parse(posts[lengthJson].incomeBeforeTax.toStringAsFixed(2));
-
-        double netIncome =
-            double.parse(posts[lengthJson].netIncome.toStringAsFixed(2));
-
-        double netIncomeRatio =
-            double.parse(posts[lengthJson].netIncomeRatio.toStringAsFixed(2));
-
-        data2.add(Data2(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            incomeBeforeTax / 1000000000));
-
-        data3.add(Data3(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            netIncome / 1000000000));
-
-        data4.add(Data4(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            netIncomeRatio * 100));
-*/
       }
+      return data;
     } else {
       throw Exception('Failed to load data');
     }
   }
 }
 
-class Data1 {
-  Data1(this.year, this.information);
+class Data {
+  Data(this.year, this.revenue, this.costOfRevenueData);
   final DateTime year;
-  final double information;
+  final double revenue;
+  final double costOfRevenueData;
 }
 
-List get chartData1 {
-  //print("---data1---");
-  //print(data1[0].information);
-  return data1
-      .mapIndexed(
-          ((index, element) => Data1(element.year, element.information)))
+List get allData {
+  return data
+      .mapIndexed(((index, element) =>
+          Data(element.year, element.revenue, element.costOfRevenueData)))
       .toList();
 }
+
+
 
 /*
 class Data2 {
