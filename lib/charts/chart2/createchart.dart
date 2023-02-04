@@ -141,7 +141,7 @@ class CreateChart2State extends State<CreateChart2> {
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: AspectRatio(
-          aspectRatio: 3,
+          aspectRatio: 6,
           child: Container(
             child: BarChart(
               BarChartData(
