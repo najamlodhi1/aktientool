@@ -46,6 +46,8 @@ dependencies:
   data_table_2: ^2.3.10
   envied: ^0.3.0
   translator: ^0.1.7
+  stacked_bar_chart: ^1.0.7+6
+  charts_painter: ^3.0.0
 
 
   

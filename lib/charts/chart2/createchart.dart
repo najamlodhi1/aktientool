@@ -86,10 +86,7 @@ class CreateChart2State extends State<CreateChart2> {
                                 height: 10,
                               ),
                               buildTable(),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              loadChart(),
+                              makeScrollable(loadChart()),
                             ],
                           ),
                         ),
@@ -129,10 +126,7 @@ class CreateChart2State extends State<CreateChart2> {
                     height: 10,
                   ),
                   buildTable(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  loadChart(),
+                  makeScrollable(loadChart()),
                 ],
               ),
             ),
@@ -148,40 +142,53 @@ class CreateChart2State extends State<CreateChart2> {
         padding: const EdgeInsets.all(24),
         child: AspectRatio(
           aspectRatio: 3,
-          child: BarChart(
-            BarChartData(
-              barGroups: [
-                for (int i = 0; i < saveList.length; i++)
-                  generateGroupData(i, saveList[i]),
-              ],
-              barTouchData: BarTouchData(
-                  enabled: true,
-                  handleBuiltInTouches: false,
-                  touchCallback: (event, response) {
-                    if (response != null &&
-                        response.spot != null &&
-                        event is FlTapUpEvent) {
-                      setState(() {
-                        final x = response.spot!.touchedBarGroup.x;
-                        final isShowing = showingTooltip == x;
-                        if (isShowing) {
-                          showingTooltip = -1;
-                        } else {
-                          showingTooltip = x;
-                        }
-                      });
-                    }
-                  },
-                  mouseCursorResolver: (event, response) {
-                    return response == null || response.spot == null
-                        ? MouseCursor.defer
-                        : SystemMouseCursors.click;
-                  }),
+          child: Container(
+            child: BarChart(
+              BarChartData(
+                barGroups: [
+                  for (int i = 0; i < saveList.length; i++)
+                    generateGroupData(i, saveList[i]),
+                ],
+                barTouchData: BarTouchData(
+                    enabled: true,
+                    handleBuiltInTouches: false,
+                    touchCallback: (event, response) {
+                      if (response != null &&
+                          response.spot != null &&
+                          event is FlTapUpEvent) {
+                        setState(() {
+                          final x = response.spot!.touchedBarGroup.x;
+                          final isShowing = showingTooltip == x;
+                          if (isShowing) {
+                            showingTooltip = -1;
+                          } else {
+                            showingTooltip = x;
+                          }
+                        });
+                      }
+                    },
+                    mouseCursorResolver: (event, response) {
+                      return response == null || response.spot == null
+                          ? MouseCursor.defer
+                          : SystemMouseCursors.click;
+                    }),
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget makeScrollable(Widget loadChart,
+      {double width = 2000.0, double height = 2000.0}) {
+    return Scrollbar(
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+                width: width, //MediaQuery.of(context).size.width,
+                //height: height,
+                child: loadChart)));
   }
 
   buildTable() {
@@ -191,9 +198,8 @@ class CreateChart2State extends State<CreateChart2> {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           border: const TableBorder(
-            top: BorderSide(color: Colors.grey, width: 0.5),
+            //top: BorderSide(color: Colors.grey, width: 0.5),
             bottom: BorderSide(color: Colors.grey, width: 0.5),
-            left: BorderSide(color: Colors.grey, width: 0.5),
             right: BorderSide(color: Colors.grey, width: 0.5),
             horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
             verticalInside: BorderSide(color: Colors.grey, width: 0.5),
