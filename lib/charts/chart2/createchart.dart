@@ -198,7 +198,7 @@ class CreateChart2State extends State<CreateChart2> {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           border: const TableBorder(
-            //top: BorderSide(color: Colors.grey, width: 0.5),
+            top: BorderSide(color: Colors.grey, width: 0.5),
             bottom: BorderSide(color: Colors.grey, width: 0.5),
             right: BorderSide(color: Colors.grey, width: 0.5),
             horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
@@ -227,7 +227,19 @@ class CreateChart2State extends State<CreateChart2> {
                 ),
                 for (int x = 0; x < data.length; x++) ...[
                   DataCell(
-                    Text(data[data.length - 1 - x].revenue.toString()),
+                    ColoredBox(
+                      color: x < data.length - 1
+                          ? data[data.length - 1 - x].revenue >=
+                                  data[data.length - 1 - x - 1].revenue
+                              ? Colors.green
+                              : Colors.red
+                          : Colors.white,
+                      child: Center(
+                        child: Text(
+                          data[data.length - 1 - x].revenue.toString(),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ],
@@ -258,8 +270,22 @@ class CreateChart2State extends State<CreateChart2> {
                 ),
                 for (int x = 0; x < data.length; x++) ...[
                   DataCell(
-                    Text(
-                        data[data.length - 1 - x].costOfRevenueData.toString()),
+                    ColoredBox(
+                      color: x < data.length - 1
+                          ? data[data.length - 1 - x].costOfRevenueData >=
+                                  data[data.length - 1 - x - 1]
+                                      .costOfRevenueData
+                              ? Colors.green
+                              : Colors.red
+                          : Colors.white,
+                      child: Center(
+                        child: Text(
+                          data[data.length - 1 - x]
+                              .costOfRevenueData
+                              .toString(),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ],
