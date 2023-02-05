@@ -86,6 +86,7 @@ class RemoteService {
               stockValue));
           fldata1.add(FlSpot(count as double, stockValue));
           //points.add(FlSpot(count as double, stockValue));
+          print("val1");
         }
 
         if (int.parse(years) >= date_3year.year &&
@@ -97,6 +98,7 @@ class RemoteService {
               stockValue));
           //points.add(FlSpot(count as double, stockValue));
           fldata3.add(FlSpot(count as double, stockValue));
+          print("val3");
         }
         if (int.parse(years) >= date_5year.year &&
             int.parse(yearsMonth) >= date_5year.month) {
