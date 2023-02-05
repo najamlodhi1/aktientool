@@ -2,7 +2,6 @@ import 'package:aktientool/charts/chart4/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CreateChart4 extends StatefulWidget {
   @override
@@ -10,122 +9,230 @@ class CreateChart4 extends StatefulWidget {
 }
 
 class CreateChart4State extends State<CreateChart4> {
-  var selectedDate = DateTime.now();
-  static String modifiedDate = "";
-  var fromURL = "";
-  int yearsBack = 10;
-  late TrackballBehavior _trackballBehavior;
-
+  bool? isRowSelected;
+  int selectedIndex1 = -1;
+  int selectedIndex2 = -1;
+  var saveList = [0];
+  var tableData;
+  int datalength = 0;
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
-
-  late CrosshairBehavior _crosshairBehavior;
+  late int showingTooltip;
 
   @override
   void initState() {
-    _crosshairBehavior = CrosshairBehavior(
-        enable: true,
-        lineColor: Colors.red,
-        lineDashArray: <double>[5, 5],
-        lineWidth: 2,
-        lineType: CrosshairLineType.vertical);
+    showingTooltip = -1;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    fromURL =
-        "https://financialmodelingprep.com/api/v3/cash-flow-statement/$stock?limit=20&apikey=${Env.fmpKey}";
+    print(tableData);
 
-    return Column(
-      children: [
-        FutureBuilder(
-            future: RemoteService().getData(fromURL),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return SingleChildScrollView(
-                  child: Wrap(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.teal,
-                            style: BorderStyle.none,
-                            width: 2,
+    if (tableData == null) {
+      return Column(
+        children: [
+          FutureBuilder<dynamic>(
+              future: RemoteService().getData(
+                  "https://financialmodelingprep.com/api/v3/cash-flow-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  tableData = snapshot.data;
+                  print("-----");
+                  datalength = data.length;
+                  print(datalength.toString());
+                  print("-----");
+                  return SingleChildScrollView(
+                    child: Wrap(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.teal,
+                              style: BorderStyle.none,
+                              width: 2,
+                            ),
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            SfCartesianChart(
-                              crosshairBehavior: _crosshairBehavior,
-                              primaryXAxis: DateTimeAxis(),
-                              tooltipBehavior: TooltipBehavior(
-                                enable: true, format: 'point.y',
-
-                                //header: ,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
                               ),
-                              title: ChartTitle(text: 'Cash Flow Statement'),
-                              series: <ChartSeries>[
-                                ColumnSeries<Data1, DateTime>(
-                                    dataSource: chartData1,
-                                    markerSettings:
-                                        const MarkerSettings(isVisible: true),
-                                    name: 'freeCashFlow',
-                                    xValueMapper: (Data1 data, _) => data.year,
-                                    yValueMapper: (Data1 data, _) =>
-                                        data.information,
-                                    color:
-                                        const Color.fromARGB(255, 48, 220, 174),
-                                    spacing: 0.5,
-                                    width: 1),
-                                ColumnSeries<Data2, DateTime>(
-                                  markerSettings:
-                                      const MarkerSettings(isVisible: true),
-                                  name: 'dividendsPaid',
-                                  dataSource: chartData2,
-                                  xValueMapper: (Data2 data, _) => data.year,
-                                  yValueMapper: (Data2 data, _) =>
-                                      data.information,
-                                  color:
-                                      const Color.fromARGB(255, 33, 210, 254),
-                                  spacing: 0.5,
-                                ),
-                                ColumnSeries<Data3, DateTime>(
-                                  markerSettings:
-                                      const MarkerSettings(isVisible: true),
-                                  name: 'Tilgungskraft',
-                                  dataSource: chartData3,
-                                  xValueMapper: (Data3 data, _) => data.year,
-                                  yValueMapper: (Data3 data, _) =>
-                                      data.information,
-                                  color:
-                                      const Color.fromARGB(255, 217, 33, 254),
-                                  spacing: 0.5,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          ],
+                              const Text("cash-flow-statement"),
+                              const Text(
+                                  "All numbers are in thousands, Currency in USD"),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              buildTable(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              }),
+        ],
+      );
+    } else {
+      return SingleChildScrollView(
+        child: Wrap(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.teal,
+                  style: BorderStyle.none,
+                  width: 2,
+                ),
+                color: const Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text("cash-flow-statement"),
+                  const Text("All numbers are in thousands, Currency in USD"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildTable(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  buildTable() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          border: const TableBorder(
+            top: BorderSide(color: Colors.grey, width: 0.5),
+            bottom: BorderSide(color: Colors.grey, width: 0.5),
+            right: BorderSide(color: Colors.grey, width: 0.5),
+            horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+            verticalInside: BorderSide(color: Colors.grey, width: 0.5),
+          ),
+          rows: [
+            DataRow(
+              selected: 1 == selectedIndex1,
+              onSelectChanged: (bool? value) {
+                setState(() {
+                  if (selectedIndex1 == 1) {
+                    selectedIndex1 = 0;
+                    saveList = [];
+                  } else {
+                    selectedIndex1 = 1;
+                    saveList = [];
+                    for (int i = 0; i < data.length; i++) {
+                      saveList.add(int.parse(data[i].goodwill.toString()));
+                    }
+                  }
+                });
+              },
+              cells: [
+                const DataCell(
+                  Text('operatingCashFlow'),
+                ),
+                for (int x = 0; x < data.length; x++) ...[
+                  DataCell(
+                    ColoredBox(
+                      color: x < data.length - 1
+                          ? data[data.length - 1 - x].operatingCashFlow >=
+                                  data[data.length - 1 - x - 1]
+                                      .operatingCashFlow
+                              ? Colors.green
+                              : Colors.red
+                          : Colors.white,
+                      child: Center(
+                        child: Text(
+                          data[data.length - 1 - x]
+                              .operatingCashFlow
+                              .toString(),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }),
-      ],
+                ],
+              ],
+            ),
+            DataRow(
+              selected: 1 == selectedIndex2,
+              onSelectChanged: (bool? value) {
+                setState(() {
+                  if (selectedIndex2 == 1) {
+                    selectedIndex2 = 0;
+                    saveList = [];
+                  } else {
+                    selectedIndex2 = 1;
+                    saveList = [];
+                    for (int i = 0; i < data.length; i++) {
+                      saveList.add(int.parse(
+                          data[i].cashAndShortTermInvestments.toString()));
+                    }
+                  }
+                });
+              },
+              cells: [
+                const DataCell(
+                  Text('netIncome'),
+                ),
+                for (int x = 0; x < data.length; x++) ...[
+                  DataCell(
+                    ColoredBox(
+                      color: x < data.length - 1
+                          ? data[data.length - 1 - x].netIncome >=
+                                  data[data.length - 1 - x - 1].netIncome
+                              ? Colors.green
+                              : Colors.red
+                          : Colors.white,
+                      child: Center(
+                        child: Text(
+                          data[data.length - 1 - x].netIncome.toString(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ],
+          columns: <DataColumn>[
+            const DataColumn(label: Text("Year")),
+            for (int x = 0; x < data.length; x++) ...[
+              DataColumn(
+                  label: Text(data[data.length - 1 - x]
+                      .year
+                      .toString()
+                      .substring(0, 4))),
+            ],
+          ],
+        ),
+      ),
     );
   }
+}
+
+class Data {
+  Data(this.goodwill, this.year);
+  final double goodwill;
+  final DateTime year;
 }

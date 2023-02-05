@@ -33,7 +33,6 @@ class RemoteService {
           revenueData,
           costOfRevenueData,
         ));
-
         lengthJson--;
       }
       return data;
@@ -56,54 +55,3 @@ List get allData {
           Data(element.year, element.revenue, element.costOfRevenueData)))
       .toList();
 }
-
-
-
-/*
-class Data2 {
-  Data2(this.year, this.information);
-  final DateTime year;
-  final double information;
-}
-
-List<Data2> get chartData2 {
-  //print("---data2---");
-  //print(data2[0].information);
-  return data2
-      .mapIndexed(
-          ((index, element) => Data2(element.year, element.information)))
-      .toList();
-}
-
-class Data3 {
-  Data3(this.year, this.information);
-  final DateTime year;
-  final double information;
-}
-
-List<Data3> get chartData3 {
-  //print("---data3---");
-  //print(data3[0].information);
-
-  return data3
-      .mapIndexed(
-          ((index, element) => Data3(element.year, element.information)))
-      .toList();
-}
-
-class Data4 {
-  Data4(this.year, this.information);
-  final DateTime year;
-  final double information;
-}
-
-List<Data4> get chartData4 {
-  //print("---data4---");
-  //print(data4[0].information);
-
-  return data4
-      .mapIndexed(
-          ((index, element) => Data4(element.year, element.information)))
-      .toList();
-}
-*/

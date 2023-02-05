@@ -1,10 +1,7 @@
+import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/charts/chart2/data.dart';
 import 'package:aktientool/env/env.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import '../allCharts.dart';
 
 class CreateChart2 extends StatefulWidget {
   @override
@@ -29,16 +26,6 @@ class CreateChart2State extends State<CreateChart2> {
     super.initState();
   }
 
-  BarChartGroupData generateGroupData(int x, int y) {
-    return BarChartGroupData(
-      x: x,
-      showingTooltipIndicators: showingTooltip == x ? [0] : [],
-      barRods: [
-        BarChartRodData(toY: y.toDouble()),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     print(tableData);
@@ -53,12 +40,9 @@ class CreateChart2State extends State<CreateChart2> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   tableData = snapshot.data;
                   print("-----");
-
                   datalength = data.length;
                   print(datalength.toString());
-
                   print("-----");
-
                   return SingleChildScrollView(
                     child: Wrap(
                       children: [
@@ -86,7 +70,6 @@ class CreateChart2State extends State<CreateChart2> {
                                 height: 10,
                               ),
                               buildTable(),
-                              makeScrollable(loadChart()),
                             ],
                           ),
                         ),
@@ -126,7 +109,6 @@ class CreateChart2State extends State<CreateChart2> {
                     height: 10,
                   ),
                   buildTable(),
-                  makeScrollable(loadChart()),
                 ],
               ),
             ),
@@ -134,61 +116,6 @@ class CreateChart2State extends State<CreateChart2> {
         ),
       );
     }
-  }
-
-  loadChart() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: AspectRatio(
-          aspectRatio: 6,
-          child: Container(
-            child: BarChart(
-              BarChartData(
-                barGroups: [
-                  for (int i = 0; i < saveList.length; i++)
-                    generateGroupData(i, saveList[i]),
-                ],
-                barTouchData: BarTouchData(
-                    enabled: true,
-                    handleBuiltInTouches: false,
-                    touchCallback: (event, response) {
-                      if (response != null &&
-                          response.spot != null &&
-                          event is FlTapUpEvent) {
-                        setState(() {
-                          final x = response.spot!.touchedBarGroup.x;
-                          final isShowing = showingTooltip == x;
-                          if (isShowing) {
-                            showingTooltip = -1;
-                          } else {
-                            showingTooltip = x;
-                          }
-                        });
-                      }
-                    },
-                    mouseCursorResolver: (event, response) {
-                      return response == null || response.spot == null
-                          ? MouseCursor.defer
-                          : SystemMouseCursors.click;
-                    }),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget makeScrollable(Widget loadChart,
-      {double width = 2000.0, double height = 2000.0}) {
-    return Scrollbar(
-        child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: SizedBox(
-                width: width, //MediaQuery.of(context).size.width,
-                //height: height,
-                child: loadChart)));
   }
 
   buildTable() {
@@ -247,15 +174,12 @@ class CreateChart2State extends State<CreateChart2> {
             DataRow(
               selected: 1 == selectedIndex2,
               onSelectChanged: (bool? value) {
-                const AllCharts().checkPopup(context);
-
                 setState(() {
                   if (selectedIndex2 == 1) {
                     selectedIndex2 = 0;
                     saveList = [];
                   } else {
                     selectedIndex2 = 1;
-                    print("1");
                     saveList = [];
                     for (int i = 0; i < data.length; i++) {
                       saveList
