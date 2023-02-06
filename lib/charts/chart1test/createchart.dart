@@ -11,6 +11,7 @@ class CreateChart1Test extends StatefulWidget {
 
 class CreateChart1TestState extends State<CreateChart1Test> {
   List<FlSpot> getFLData = [];
+  int buttonIndex = 3;
 
   var selectedDate = DateTime.now();
   var fromURL = "";
@@ -39,6 +40,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                 onPressed: () {
                   setState(() {
                     getFLData = flchartData1;
+                    buttonIndex = 0;
                   });
                 },
                 child: const Text("1 y")),
@@ -49,6 +51,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                 onPressed: () {
                   setState(() {
                     getFLData = flchartData3;
+                    buttonIndex = 1;
                   });
                 },
                 child: const Text("3 y")),
@@ -59,6 +62,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                 onPressed: () {
                   setState(() {
                     getFLData = flchartData5;
+                    buttonIndex = 2;
                   });
                 },
                 child: const Text("5 y")),
@@ -69,6 +73,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               onPressed: () {
                 setState(() {
                   getFLData = flchartData10;
+                  buttonIndex = 3;
                 });
               },
               child: const Text("10 y"),
@@ -80,6 +85,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               onPressed: () {
                 setState(() {
                   getFLData = flchartDataMax;
+                  buttonIndex = 4;
                 });
               },
               child: const Text("Max"),
@@ -122,19 +128,32 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
+                    interval: buttonIndex == 0
+                        ? 30
+                        : buttonIndex == 1
+                            ? 45
+                            : buttonIndex == 2
+                                ? 70
+                                : buttonIndex == 4
+                                    ? 600
+                                    : 150,
                     getTitlesWidget: (value, meta) {
-                      anzeige += 1;
-                      if (anzeige == 3) {
-                        anzeige = 0;
-                        String date = chartDataMax[value.toInt()]
-                            .year
-                            .toString()
-                            .substring(0, 7);
-
-                        return Text(date);
-                      } else {
+                      //anzeige += 1;
+                      //if (anzeige == 3) {
+                      //anzeige = 0;
+                      if (value == meta.min || value == meta.max) {
                         return const Text("");
                       }
+
+                      String date = chartDataMax[value.toInt()]
+                          .year
+                          .toString()
+                          .substring(0, 7);
+
+                      return Text(date);
+                      //} else {
+                      //return const Text("");
+                      //}
                     },
                   ),
                 ),
