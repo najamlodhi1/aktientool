@@ -97,6 +97,27 @@ class CreateChart1TestState extends State<CreateChart1Test> {
       );
     }
 
+    double calculateDateTitlesInterval(int btnIndex) {
+      int maxScreenWidth = 1200;
+      switch (btnIndex) {
+        // 1 y
+        case 0:
+          return maxScreenWidth / MediaQuery.of(context).size.width * 30;
+        // 3 y
+        case 1:
+          return maxScreenWidth / MediaQuery.of(context).size.width * 45;
+        // 5 y
+        case 2:
+          return maxScreenWidth / MediaQuery.of(context).size.width * 70;
+        // Max
+        case 4:
+          return maxScreenWidth / MediaQuery.of(context).size.width * 600;
+        // 10 y
+        default:
+          return maxScreenWidth / MediaQuery.of(context).size.width * 150;
+      }
+    }
+
     flc() {
       if (getFLData.isEmpty) {
         getFLData = flchartData10;
@@ -128,15 +149,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    interval: buttonIndex == 0
-                        ? 30
-                        : buttonIndex == 1
-                            ? 45
-                            : buttonIndex == 2
-                                ? 70
-                                : buttonIndex == 4
-                                    ? 600
-                                    : 150,
+                    interval: calculateDateTitlesInterval(buttonIndex),
                     getTitlesWidget: (value, meta) {
                       //anzeige += 1;
                       //if (anzeige == 3) {

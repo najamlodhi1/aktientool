@@ -61,7 +61,11 @@ class ShowCompanies extends ConsumerWidget {
     var encoded = utf8.encode(y);
     var decoded = utf8.decode(encoded);
     final List resultBody = jsonDecode(decoded);
-    companies.addAll(resultBody.map((c) => CompanyModel.fromJson(c)));
+
+    if (resultBody.isNotEmpty) {
+      companies.addAll(resultBody.map((c) => CompanyModel.fromJson(c)));
+    }
+
     return companies;
   }
 
@@ -96,8 +100,8 @@ class ShowCompanies extends ConsumerWidget {
         // ignore: avoid_print
         print("reach the top");
         // ignore: deprecated_member_use
-        ref.watch(sp_offset.state).state = 0;
-        offset = 50;
+        //ref.watch(sp_offset.state).state = 0;
+        //offset = 50;
       }
     }
 
