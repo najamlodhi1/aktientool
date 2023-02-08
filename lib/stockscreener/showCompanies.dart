@@ -11,6 +11,7 @@ import '../constants/responsive.dart';
 import '../filter/country.dart';
 import '../filter/industry.dart';
 import '../filter/marketcap.dart';
+import '../filter/searcharea.dart';
 
 class ShowCompanies extends ConsumerWidget {
   final ScrollController _controller = ScrollController();
@@ -32,13 +33,14 @@ class ShowCompanies extends ConsumerWidget {
     String countryUrl = ref.watch(sp_country_url).toString();
     String marketcapStartUrl = ref.watch(sp_marketcap_start).toString();
     String marketcapEndUrl = ref.watch(sp_marketcap_end).toString();
+    String search = ref.watch(sp_search);
 
     String modifiedMarketcapStartUrl =
         (int.parse(marketcapStartUrl) * 1000000000).toString();
     String modifiedMarketcapEndUrl =
         (int.parse(marketcapEndUrl) * 1000000000).toString();
 
-    String cname = "";
+    //String cname = "";
     industryUrl = ref.watch(sp_industry_url).toString();
     //print(industryUrl);
 
@@ -54,7 +56,7 @@ class ShowCompanies extends ConsumerWidget {
     print(modifiedMarketcapEndUrl);
 
     String url =
-        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$modifiedMarketcapStartUrl&p_marketcapEnd=$modifiedMarketcapEndUrl&p_cname=$cname&offset=$offset";
+        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$modifiedMarketcapStartUrl&p_marketcapEnd=$modifiedMarketcapEndUrl&p_cname=$search&offset=$offset";
     //https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=US:TR&p_industry=Semiconductors&p_marketcap=10000&offset=0&p_marketcapEnd=100000000&p_cname=ap
     print(url);
     var responses = await Dio().get(url);

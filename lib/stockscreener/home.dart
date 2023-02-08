@@ -14,8 +14,9 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int marketcap_start = ref.watch(sp_marketcap_start);
-    int marketcap_end = ref.watch(sp_marketcap_end);
+    int marketcapStart = ref.watch(sp_marketcap_start);
+    int marketcapEnd = ref.watch(sp_marketcap_end);
+    String search = ref.watch(sp_search);
 
     List<dynamic> generatedCountrieFromList =
         ref.watch(sp_generatedCountrieFromList);
@@ -24,8 +25,20 @@ class Home extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: SearchArea(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: SearchArea(),
+      ),
       body: SafeArea(child: ShowCompanies()),
     );
+
+    /*
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: SearchArea(),
+      body: SafeArea(child: ShowCompanies()),
+      
+    );
+    */
   }
 }
