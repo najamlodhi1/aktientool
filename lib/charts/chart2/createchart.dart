@@ -11,8 +11,8 @@ class CreateChart2 extends StatefulWidget {
 
 class CreateChart2State extends State<CreateChart2> {
   bool? isRowSelected;
-  int selectedIndex1 = -1;
-  int selectedIndex2 = 1;
+  int selectedIndex1 = 1;
+  int selectedIndex2 = -1;
   var saveList = [0];
   var tableData;
   int datalength = 0;
@@ -136,6 +136,10 @@ class CreateChart2State extends State<CreateChart2> {
             DataRow(
               selected: 1 == selectedIndex1,
               onSelectChanged: (bool? value) {
+                BarChartScreen.showCostOfRevenueNotifier.value = {
+                  'revenue': value!,
+                  'cost': BarChartScreen.showCostOfRevenueNotifier.value['cost']
+                };
                 setState(() {
                   if (selectedIndex1 == 1) {
                     selectedIndex1 = 0;
@@ -175,7 +179,11 @@ class CreateChart2State extends State<CreateChart2> {
             DataRow(
               selected: 1 == selectedIndex2,
               onSelectChanged: (bool? value) {
-                BarChartScreen.showCostOfRevenueNotifier.value = value!;
+                BarChartScreen.showCostOfRevenueNotifier.value = {
+                  'revenue':
+                      BarChartScreen.showCostOfRevenueNotifier.value['revenue'],
+                  'cost': value!
+                };
                 setState(() {
                   if (selectedIndex2 == 1) {
                     selectedIndex2 = 0;

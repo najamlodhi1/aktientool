@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 class BarChartScreen extends StatefulWidget {
   BarChartScreen({super.key});
 
-  static ValueNotifier<bool> showCostOfRevenueNotifier =
-      ValueNotifier<bool>(true);
+  static ValueNotifier<Map<String, dynamic>> showCostOfRevenueNotifier =
+      ValueNotifier<Map<String, dynamic>>({'revenue': true, 'cost': false});
 
   @override
   State<BarChartScreen> createState() => _BarChartScreenState();
@@ -64,8 +64,8 @@ class _BarChartScreenState extends State<BarChartScreen> {
                     padding: const EdgeInsets.all(12.0),
                     child: ValueListenableBuilder(
                       valueListenable: BarChartScreen.showCostOfRevenueNotifier,
-                      builder:
-                          (BuildContext context, bool showCost, Widget? child) {
+                      builder: (BuildContext context,
+                          Map<String, dynamic> showCost, Widget? child) {
                         return BarChart(BarChartData(
                             borderData:
                                 FlBorderData(border: Border.all(width: 0)),
@@ -121,18 +121,19 @@ class _BarChartScreenState extends State<BarChartScreen> {
                                                 DateFormat('yy').format(e.year))
                                             : e.year.year,
                                         barRods: [
-                                          BarChartRodData(
-                                              toY: e.revenue,
-                                              width: MediaQuery.of(context)
-                                                          .size
-                                                          .width <
-                                                      1000
-                                                  ? 4
-                                                  : 20,
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          if (showCost)
+                                          if (showCost['revenue'] == true)
+                                            BarChartRodData(
+                                                toY: e.revenue,
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width <
+                                                        1000
+                                                    ? 4
+                                                    : 20,
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                          if (showCost['cost'] == true)
                                             BarChartRodData(
                                                 toY: e.costOfRevenueData,
                                                 width: MediaQuery.of(context)
