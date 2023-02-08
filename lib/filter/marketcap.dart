@@ -1,20 +1,21 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: non_constant_identifier_names
 var sp_marketcap_start = StateProvider((ref) {
   return 0;
 });
 var sp_marketcap_end = StateProvider((ref) {
-  return 1000;
+  return 3000;
 });
 var sp_marketcap_start_temp = StateProvider((ref) {
   return 0;
 });
 var sp_marketcap_end_temp = StateProvider((ref) {
-  return 1000;
+  return 3000;
 });
 var chk_marketcap = StateProvider((ref) {
   return true;
@@ -66,10 +67,10 @@ class Marketcap extends ConsumerWidget {
                         ref.read(chk_marketcap.state).state = value!;
                         if (value) {
                           ref.read(sp_marketcap_start.state).state = 0;
-                          ref.read(sp_marketcap_end.state).state = 1000;
+                          ref.read(sp_marketcap_end.state).state = 3000;
                         } else {
                           ref.read(sp_marketcap_start.state).state = 0;
-                          ref.read(sp_marketcap_end.state).state = 0;
+                          ref.read(sp_marketcap_end.state).state = 3000;
                         }
                       },
                     ),
@@ -115,7 +116,7 @@ class Marketcap extends ConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  "1000B",
+                                  "3000B",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -124,8 +125,8 @@ class Marketcap extends ConsumerWidget {
                             ),
                           ),
                           RangeSlider(
-                            min: 0,
-                            max: 1000,
+                            min: 0, //2449068320102
+                            max: 3000, //3000000000000
                             values: RangeValues(
                                 intMarketcapStartTemp.toDouble(),
                                 intMarketcapEndTemp.toDouble()),
@@ -140,7 +141,7 @@ class Marketcap extends ConsumerWidget {
                               }
 
                               timerMarketCap =
-                                  Timer(const Duration(milliseconds: 500), () {
+                                  Timer(const Duration(milliseconds: 100), () {
                                 ref.read(sp_marketcap_start.state).state =
                                     values.start.toInt();
                                 ref.read(sp_marketcap_end.state).state =

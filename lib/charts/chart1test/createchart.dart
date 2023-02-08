@@ -112,8 +112,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                       .map((point) => FlSpot(point.x, point.y))
                       .toList(),
                   //isCurved: false,
-                  color: Colors.white,
-                  barWidth: 2,
+                  color: const Color.fromARGB(255, 76, 175, 147),
+                  barWidth: 3,
                   //isStrokeCapRound: false,
                   dotData: FlDotData(
                     show: false,
@@ -123,7 +123,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               borderData: FlBorderData(
                   border:
                       const Border(bottom: BorderSide(), left: BorderSide())),
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.white,
               titlesData: FlTitlesData(
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
