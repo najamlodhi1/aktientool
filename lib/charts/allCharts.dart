@@ -1,4 +1,5 @@
 // ignore_for_file: file_names
+import 'package:aktientool/charts/chart1test/CustomBarChart/BarChartScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'chart0/createchart.dart';
@@ -49,9 +50,9 @@ class _AllChartsState extends State<AllCharts> {
           children: [
             const CreateChart0(), // Info
             CreateChart1Test(), // Chart
-
             const CreateChart11(), // Performance
             //const CreateChart12(), // Dividend History
+            BarChartScreen(), // Bar Chart of cost and revenue
             CreateChart2(),
             CreateChart3(),
             CreateChart4(),

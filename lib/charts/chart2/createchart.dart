@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/chart1test/CustomBarChart/BarChartScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/charts/chart2/data.dart';
 import 'package:aktientool/env/env.dart';
@@ -11,7 +12,7 @@ class CreateChart2 extends StatefulWidget {
 class CreateChart2State extends State<CreateChart2> {
   bool? isRowSelected;
   int selectedIndex1 = -1;
-  int selectedIndex2 = -1;
+  int selectedIndex2 = 1;
   var saveList = [0];
   var tableData;
   int datalength = 0;
@@ -174,6 +175,7 @@ class CreateChart2State extends State<CreateChart2> {
             DataRow(
               selected: 1 == selectedIndex2,
               onSelectChanged: (bool? value) {
+                BarChartScreen.showCostOfRevenueNotifier.value = value!;
                 setState(() {
                   if (selectedIndex2 == 1) {
                     selectedIndex2 = 0;
