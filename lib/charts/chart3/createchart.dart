@@ -1,48 +1,40 @@
-import 'package:aktientool/charts/chart3/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'BalanceReportModel.dart';
+import 'data.dart';
 
 class CreateChart3 extends StatefulWidget {
+  const CreateChart3({super.key});
+
   @override
   State<CreateChart3> createState() => CreateChart3State();
 }
 
 class CreateChart3State extends State<CreateChart3> {
-  bool? isRowSelected;
-  int selectedIndex1 = -1;
-  int selectedIndex2 = -1;
-  var saveList = [0];
-  var tableData;
-  int datalength = 0;
+  List<BalanceReportModel> tableData = [];
+
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
-  late int showingTooltip;
-
-  @override
-  void initState() {
-    showingTooltip = -1;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    print(tableData);
-
-    if (tableData == null) {
+    if (tableData.isEmpty) {
       return Column(
         children: [
           FutureBuilder<dynamic>(
-              future: RemoteService().getData(
+              future: BalanceService().getData(
                   "https://financialmodelingprep.com/api/v3/balance-sheet-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   tableData = snapshot.data;
-                  print("-----");
-                  datalength = data.length;
-                  print(datalength.toString());
-                  print("-----");
+                  if (kDebugMode) {
+                    print("-----");
+                    print(tableData.length.toString());
+                    print("-----");
+                  }
                   return SingleChildScrollView(
                     child: Wrap(
                       children: [
@@ -131,82 +123,56 @@ class CreateChart3State extends State<CreateChart3> {
             horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
             verticalInside: BorderSide(color: Colors.grey, width: 0.5),
           ),
-          rows: [
-            DataRow(
-              selected: 1 == selectedIndex1,
+          rows: buildTableRows,
+          columns: <DataColumn>[
+            const DataColumn(label: Text("Year")),
+            for (int x = 0; x < tableData.length; x++) ...[
+              DataColumn(
+                  label: Text(tableData[tableData.length - 1 - x]
+                      .date
+                      .year
+                      .toString())),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<DataRow> get buildTableRows {
+    return tableData
+        .map((data) => DataRow(
+              selected: BalanceService.isSelected
+                  .value[data.reports[tableData.indexOf(data)].title]!,
               onSelectChanged: (bool? value) {
-                setState(() {
-                  if (selectedIndex1 == 1) {
-                    selectedIndex1 = 0;
-                    saveList = [];
-                  } else {
-                    selectedIndex1 = 1;
-                    saveList = [];
-                    for (int i = 0; i < data.length; i++) {
-                      saveList.add(int.parse(data[i].goodwill.toString()));
-                    }
-                  }
-                });
+                var temp = BalanceService.isSelected.value;
+                temp[data.reports[tableData.indexOf(data)].title] = value!;
+                BalanceService.isSelected.value = temp;
+                BalanceService.isSelected.notifyListeners();
+                setState(() {});
               },
               cells: [
-                const DataCell(
-                  Text('goodwill'),
+                DataCell(
+                  Text(data.reports[tableData.indexOf(data)].title),
                 ),
-                for (int x = 0; x < data.length; x++) ...[
+                for (int x = 0; x < tableData.length; x++) ...[
                   DataCell(
                     ColoredBox(
-                      color: x < data.length - 1
-                          ? data[data.length - 1 - x].goodwill >=
-                                  data[data.length - 1 - x - 1].goodwill
+                      color: x < tableData.length - 1
+                          ? tableData[tableData.length - 1 - x]
+                                      .reports[tableData.indexOf(data)]
+                                      .value >=
+                                  tableData[tableData.length - 1 - x - 1]
+                                      .reports[tableData.indexOf(data)]
+                                      .value
                               ? Colors.green
                               : Colors.red
                           : Colors.white,
                       child: Center(
                         child: Text(
-                          data[data.length - 1 - x].goodwill.toString(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ],
-            ),
-            DataRow(
-              selected: 1 == selectedIndex2,
-              onSelectChanged: (bool? value) {
-                setState(() {
-                  if (selectedIndex2 == 1) {
-                    selectedIndex2 = 0;
-                    saveList = [];
-                  } else {
-                    selectedIndex2 = 1;
-                    saveList = [];
-                    for (int i = 0; i < data.length; i++) {
-                      saveList.add(int.parse(
-                          data[i].cashAndShortTermInvestments.toString()));
-                    }
-                  }
-                });
-              },
-              cells: [
-                const DataCell(
-                  Text('cashAndShortTermInvestments'),
-                ),
-                for (int x = 0; x < data.length; x++) ...[
-                  DataCell(
-                    ColoredBox(
-                      color: x < data.length - 1
-                          ? data[data.length - 1 - x]
-                                      .cashAndShortTermInvestments >=
-                                  data[data.length - 1 - x - 1]
-                                      .cashAndShortTermInvestments
-                              ? Colors.green
-                              : Colors.red
-                          : Colors.white,
-                      child: Center(
-                        child: Text(
-                          data[data.length - 1 - x]
-                              .cashAndShortTermInvestments
+                          tableData[tableData.length - 1 - x]
+                              .reports[tableData.indexOf(data)]
+                              .value
                               .toString(),
                         ),
                       ),
@@ -214,26 +180,7 @@ class CreateChart3State extends State<CreateChart3> {
                   ),
                 ],
               ],
-            ),
-          ],
-          columns: <DataColumn>[
-            const DataColumn(label: Text("Year")),
-            for (int x = 0; x < data.length; x++) ...[
-              DataColumn(
-                  label: Text(data[data.length - 1 - x]
-                      .year
-                      .toString()
-                      .substring(0, 4))),
-            ],
-          ],
-        ),
-      ),
-    );
+            ))
+        .toList();
   }
-}
-
-class Data {
-  Data(this.goodwill, this.year);
-  final double goodwill;
-  final DateTime year;
 }

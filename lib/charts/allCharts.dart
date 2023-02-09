@@ -1,5 +1,5 @@
 // ignore_for_file: file_names
-import 'package:aktientool/charts/chart1test/CustomBarChart/BarChartScreen.dart';
+import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'chart0/createchart.dart';
@@ -8,7 +8,9 @@ import 'chart11/createchart.dart';
 import 'chart12/createchart.dart';
 import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
+import 'chart3/BarChartBalanceScreen.dart';
 import 'chart3/createchart.dart';
+import 'chart4/BarChartCashFlowScreen.dart';
 import 'chart4/createchart.dart';
 import 'chart5/createchart.dart';
 import 'chart6/createchart.dart';
@@ -53,9 +55,11 @@ class _AllChartsState extends State<AllCharts> {
             CreateChart1Test(), // Chart
             const CreateChart11(), // Performance
             const CreateChart12(), // Dividend History
-            BarChartScreen(), // Bar Chart of cost and revenue
+            const BarChartIncomeScreen(), // Bar Chart income
             CreateChart2(),
-            CreateChart3(),
+            const BarChartBalanceScreen(), // Bar Chart Balance
+            const CreateChart3(),
+            const BarChartCashFlowScreen(), // Bar Chart CashFlow
             CreateChart4(),
             CreateChart5(),
             CreateChart6(),

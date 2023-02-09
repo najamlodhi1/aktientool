@@ -1,57 +1,52 @@
-import 'package:aktientool/charts/chart4/post.dart';
+import 'dart:convert';
+import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../chart2/IncomeReportModel.dart';
+import 'CashFlowReportModel.dart';
 
-var data, netIncome = <Data>[];
-
-class RemoteService {
-  getData(String url) async {
+class CashFlowService {
+  static final ValueNotifier<Map<String, bool>> isSelected =
+      ValueNotifier<Map<String, bool>>({});
+  static List<Color> colors = [Colors.green, Colors.red];
+  Future<List<CashFlowReportModel>> getData(String url) async {
     var response = await http.Client().get(Uri.parse(url));
+
     if (response.statusCode == 200) {
-      final List l = response.body.split('date');
-      int lengthJson = l.length - 2;
-      //print("lengthJson: $lengthJson");
+      var temp = parseData(response.body);
+      isSelected.value = {};
 
-      data = [];
-      netIncome = [];
-
-      dynamic posts = postFromJson(response.body);
-
-      while (lengthJson >= 0) {
-        String years = posts[lengthJson].date.toString().substring(0, 4);
-        String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
-        String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
-
-        double operatingCashFlow = double.parse(
-            (posts[lengthJson]).operatingCashFlow.toStringAsFixed(2));
-
-        double netIncome =
-            double.parse((posts[lengthJson]).netIncome.toStringAsFixed(2));
-
-        data.add(Data(
-          DateTime(
-              int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-          operatingCashFlow,
-          netIncome,
-        ));
-        lengthJson--;
+      for (ReportItemModel element in temp[0].reports) {
+        isSelected.value[element.title] =
+            element.title == 'Operating Cash Flow' ? true : false;
       }
-      return data;
+
+      temp.sort((a, b) => a.date.year.compareTo(b.date.year));
+      colors.addAll(generateRandomColors(count: temp[0].reports.length - 2));
+      return temp;
     } else {
       throw Exception('Failed to load data');
     }
   }
+
+  List<CashFlowReportModel> parseData(String res) {
+    final parsed = jsonDecode(res).cast<Map<String, dynamic>>();
+    return parsed
+        .map<CashFlowReportModel>((e) => CashFlowReportModel.fromJson(e))
+        .toList();
+  }
 }
 
-class Data {
-  Data(this.year, this.operatingCashFlow, this.netIncome);
-  final DateTime year;
-  final double operatingCashFlow;
-  final double netIncome;
-}
-
-List get allData {
-  return data
-      .mapIndexed(((index, element) =>
-          Data(element.year, element.operatingCashFlow, element.netIncome)))
-      .toList();
+List<Color> generateRandomColors({required int count}) {
+  final Random random = Random();
+  List<Color> colors = [];
+  for (int i = 0; i < count; i++) {
+    colors.add(Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    ));
+  }
+  return colors;
 }

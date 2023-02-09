@@ -1,8 +1,10 @@
-import 'package:aktientool/charts/chart1test/CustomBarChart/BarChartScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/charts/chart2/data.dart';
 import 'package:aktientool/env/env.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'IncomeReportModel.dart';
 
 class CreateChart2 extends StatefulWidget {
   @override
@@ -10,40 +12,27 @@ class CreateChart2 extends StatefulWidget {
 }
 
 class CreateChart2State extends State<CreateChart2> {
-  bool? isRowSelected;
-  int selectedIndex1 = 1;
-  int selectedIndex2 = -1;
-  var saveList = [0];
-  var tableData;
-  int datalength = 0;
+  List<IncomeReportModel> tableData = [];
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
-  late int showingTooltip;
-
-  @override
-  void initState() {
-    showingTooltip = -1;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    print(tableData);
-
-    if (tableData == null) {
+    if (tableData.isEmpty) {
       return Column(
         children: [
-          FutureBuilder<dynamic>(
-              future: RemoteService().getData(
+          FutureBuilder<List<IncomeReportModel>>(
+              future: IncomeService().getData(
                   "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  tableData = snapshot.data;
-                  print("-----");
-                  datalength = data.length;
-                  print(datalength.toString());
-                  print("-----");
+                  tableData = snapshot.data!;
+                  if (kDebugMode) {
+                    print("-----");
+                    print(tableData.length.toString());
+                    print("-----");
+                  }
                   return SingleChildScrollView(
                     child: Wrap(
                       children: [
@@ -132,90 +121,56 @@ class CreateChart2State extends State<CreateChart2> {
             horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
             verticalInside: BorderSide(color: Colors.grey, width: 0.5),
           ),
-          rows: [
-            DataRow(
-              selected: 1 == selectedIndex1,
+          rows: buildTableRows,
+          columns: <DataColumn>[
+            const DataColumn(label: Text("Year")),
+            for (int x = 0; x < tableData.length; x++) ...[
+              DataColumn(
+                  label: Text(tableData[tableData.length - 1 - x]
+                      .date
+                      .year
+                      .toString())),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<DataRow> get buildTableRows {
+    return tableData
+        .map((data) => DataRow(
+              selected: IncomeService.isSelected
+                  .value[data.reports[tableData.indexOf(data)].title]!,
               onSelectChanged: (bool? value) {
-                BarChartScreen.showCostOfRevenueNotifier.value = {
-                  'revenue': value!,
-                  'cost': BarChartScreen.showCostOfRevenueNotifier.value['cost']
-                };
-                setState(() {
-                  if (selectedIndex1 == 1) {
-                    selectedIndex1 = 0;
-                    saveList = [];
-                  } else {
-                    selectedIndex1 = 1;
-                    saveList = [];
-                    for (int i = 0; i < data.length; i++) {
-                      saveList.add(int.parse(data[i].revenue.toString()));
-                    }
-                  }
-                });
+                var temp = IncomeService.isSelected.value;
+                temp[data.reports[tableData.indexOf(data)].title] = value!;
+                IncomeService.isSelected.value = temp;
+                IncomeService.isSelected.notifyListeners();
+                setState(() {});
               },
               cells: [
-                const DataCell(
-                  Text('Revenue'),
+                DataCell(
+                  Text(data.reports[tableData.indexOf(data)].title),
                 ),
-                for (int x = 0; x < data.length; x++) ...[
+                for (int x = 0; x < tableData.length; x++) ...[
                   DataCell(
                     ColoredBox(
-                      color: x < data.length - 1
-                          ? data[data.length - 1 - x].revenue >=
-                                  data[data.length - 1 - x - 1].revenue
+                      color: x < tableData.length - 1
+                          ? tableData[tableData.length - 1 - x]
+                                      .reports[tableData.indexOf(data)]
+                                      .value >=
+                                  tableData[tableData.length - 1 - x - 1]
+                                      .reports[tableData.indexOf(data)]
+                                      .value
                               ? Colors.green
                               : Colors.red
                           : Colors.white,
                       child: Center(
                         child: Text(
-                          data[data.length - 1 - x].revenue.toString(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ],
-            ),
-            DataRow(
-              selected: 1 == selectedIndex2,
-              onSelectChanged: (bool? value) {
-                BarChartScreen.showCostOfRevenueNotifier.value = {
-                  'revenue':
-                      BarChartScreen.showCostOfRevenueNotifier.value['revenue'],
-                  'cost': value!
-                };
-                setState(() {
-                  if (selectedIndex2 == 1) {
-                    selectedIndex2 = 0;
-                    saveList = [];
-                  } else {
-                    selectedIndex2 = 1;
-                    saveList = [];
-                    for (int i = 0; i < data.length; i++) {
-                      saveList
-                          .add(int.parse(data[i].costOfRevenueData.toString()));
-                    }
-                  }
-                });
-              },
-              cells: [
-                const DataCell(
-                  Text('Cost of Revenue'),
-                ),
-                for (int x = 0; x < data.length; x++) ...[
-                  DataCell(
-                    ColoredBox(
-                      color: x < data.length - 1
-                          ? data[data.length - 1 - x].costOfRevenueData >=
-                                  data[data.length - 1 - x - 1]
-                                      .costOfRevenueData
-                              ? Colors.green
-                              : Colors.red
-                          : Colors.white,
-                      child: Center(
-                        child: Text(
-                          data[data.length - 1 - x]
-                              .costOfRevenueData
+                          tableData[tableData.length - 1 - x]
+                              .reports[tableData.indexOf(data)]
+                              .value
                               .toString(),
                         ),
                       ),
@@ -223,26 +178,7 @@ class CreateChart2State extends State<CreateChart2> {
                   ),
                 ],
               ],
-            ),
-          ],
-          columns: <DataColumn>[
-            const DataColumn(label: Text("Year")),
-            for (int x = 0; x < data.length; x++) ...[
-              DataColumn(
-                  label: Text(data[data.length - 1 - x]
-                      .year
-                      .toString()
-                      .substring(0, 4))),
-            ],
-          ],
-        ),
-      ),
-    );
+            ))
+        .toList();
   }
-}
-
-class Data {
-  Data(this.revenue, this.year);
-  final double revenue;
-  final DateTime year;
 }

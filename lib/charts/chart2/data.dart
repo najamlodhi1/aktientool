@@ -1,57 +1,37 @@
-import 'package:aktientool/charts/chart2/post.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../chart3/data.dart';
+import 'IncomeReportModel.dart';
 
-var data, costOfRevenue = <Data>[];
-
-class RemoteService {
-  getData(String url) async {
+class IncomeService {
+  static final ValueNotifier<Map<String, bool>> isSelected =
+      ValueNotifier<Map<String, bool>>({});
+  static List<Color> colors = [Colors.green, Colors.red];
+  Future<List<IncomeReportModel>> getData(String url) async {
     var response = await http.Client().get(Uri.parse(url));
+
     if (response.statusCode == 200) {
-      final List l = response.body.split('date');
-      int lengthJson = l.length - 2;
+      var temp = parseData(response.body);
+      isSelected.value = {};
 
-      data = [];
-      costOfRevenue = [];
-
-      dynamic posts = postFromJson(response.body);
-
-      while (lengthJson >= 0) {
-        String years = posts[lengthJson].date.toString().substring(0, 4);
-        String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
-        String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
-
-        double revenueData =
-            double.parse((posts[lengthJson]).revenue.toStringAsFixed(2)) / 1000;
-
-        double costOfRevenueData =
-            double.parse((posts[lengthJson]).costOfRevenue.toStringAsFixed(2)) /
-                1000;
-
-        data.add(Data(
-          DateTime(
-              int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-          revenueData,
-          costOfRevenueData,
-        ));
-        lengthJson--;
+      for (ReportItemModel element in temp[0].reports) {
+        isSelected.value[element.title] =
+            element.title == 'Revenue' ? true : false;
       }
-      return data;
+
+      temp.sort((a, b) => a.date.year.compareTo(b.date.year));
+      colors.addAll(generateRandomColors(count: temp[0].reports.length - 2));
+      return temp;
     } else {
       throw Exception('Failed to load data');
     }
   }
-}
 
-class Data {
-  Data(this.year, this.revenue, this.costOfRevenueData);
-  final DateTime year;
-  final double revenue;
-  final double costOfRevenueData;
-}
-
-List get allData {
-  return data
-      .mapIndexed(((index, element) =>
-          Data(element.year, element.revenue, element.costOfRevenueData)))
-      .toList();
+  List<IncomeReportModel> parseData(String res) {
+    final parsed = jsonDecode(res).cast<Map<String, dynamic>>();
+    return parsed
+        .map<IncomeReportModel>((e) => IncomeReportModel.fromJson(e))
+        .toList();
+  }
 }
