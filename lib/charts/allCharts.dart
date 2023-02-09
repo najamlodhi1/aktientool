@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'chart0/createchart.dart';
 import 'chart10/createchart.dart';
 import 'chart11/createchart.dart';
+import 'chart12/createchart.dart';
 import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
 import 'chart3/createchart.dart';
@@ -51,7 +52,7 @@ class _AllChartsState extends State<AllCharts> {
             const CreateChart0(), // Info
             CreateChart1Test(), // Chart
             const CreateChart11(), // Performance
-            //const CreateChart12(), // Dividend History
+            const CreateChart12(), // Dividend History
             BarChartScreen(), // Bar Chart of cost and revenue
             CreateChart2(),
             CreateChart3(),
