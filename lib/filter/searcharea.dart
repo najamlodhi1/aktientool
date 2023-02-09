@@ -22,7 +22,11 @@ class SearchArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final text = ref.watch(sp_search);
+    String text = ref.watch(sp_search);
+    searchController.text = text;
+    searchController.selection = TextSelection.fromPosition(
+      TextPosition(offset: text.length),
+    );
 
     {
       return AppBar(
@@ -40,9 +44,7 @@ class SearchArea extends ConsumerWidget {
         title: ListTile(
           title: TextField(
             textAlign: TextAlign.center,
-            controller: TextEditingController(
-              text: text,
-            ),
+            controller: searchController,
             decoration: const InputDecoration(
               hintText: 'Aktie eingeben',
               hintStyle: TextStyle(
@@ -56,17 +58,21 @@ class SearchArea extends ConsumerWidget {
               color: Colors.white,
             ),
             onChanged: (newText) {
-              ref.read(sp_search.notifier).update(
-                    (state) => newText,
-                  );
+              ref.read(sp_search.notifier).state = newText;
+              /*ref.read(sp_search.notifier).update(
+                    (state) => searchController.text,
+                  );*/
             },
           ),
         ),
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-            onPressed: () {
-              ref.read(sp_search.notifier).state = "";
+          searchController.text.isEmpty
+              ? const SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    searchController.text = "";
+                    ref.read(sp_search.notifier).state = "";
 
 /*
             setState(() {
@@ -106,9 +112,9 @@ class SearchArea extends ConsumerWidget {
             }
 
             );*/
-            },
-            icon: customIcon,
-          ),
+                  },
+                  icon: customIcon,
+                ),
           const SizedBox(
             width: 5,
           ),
