@@ -1,5 +1,6 @@
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'BalanceReportModel.dart';
@@ -111,30 +112,39 @@ class CreateChart3State extends State<CreateChart3> {
   }
 
   buildTable() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: DataTable(
-          border: const TableBorder(
-            top: BorderSide(color: Colors.grey, width: 0.5),
-            bottom: BorderSide(color: Colors.grey, width: 0.5),
-            right: BorderSide(color: Colors.grey, width: 0.5),
-            horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
-            verticalInside: BorderSide(color: Colors.grey, width: 0.5),
-          ),
-          rows: buildTableRows,
-          columns: <DataColumn>[
-            const DataColumn(label: Text("Year")),
-            for (int x = 0; x < tableData.length; x++) ...[
-              DataColumn(
-                  label: Text(tableData[tableData.length - 1 - x]
-                      .date
-                      .year
-                      .toString())),
-            ],
-          ],
+    return SizedBox(
+      width: tableData.length * 170,
+      height: tableData[0].reports.length * 50,
+      child: DataTable2(
+        columnSpacing: 50,
+        horizontalMargin: 24,
+        minWidth: tableData.length * 170,
+        fixedLeftColumns: 2,
+        fixedTopRows: 0,
+        border: const TableBorder(
+          top: BorderSide(color: Colors.grey, width: 0.5),
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
+          right: BorderSide(color: Colors.grey, width: 0.5),
+          horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+          verticalInside: BorderSide(color: Colors.grey, width: 0.5),
         ),
+        rows: buildTableRows,
+        columns: <DataColumn2>[
+          MediaQuery.of(context).size.width < 1000
+              ? const DataColumn2(
+                  fixedWidth: 100,
+                  label: Text("Year"),
+                )
+              : const DataColumn2(
+                  fixedWidth: 220,
+                  label: Text("Year"),
+                ),
+          for (int x = 0; x < tableData.length; x++) ...[
+            DataColumn2(
+                label: Text(
+                    tableData[tableData.length - 1 - x].date.year.toString())),
+          ],
+        ],
       ),
     );
   }
