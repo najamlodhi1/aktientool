@@ -128,7 +128,8 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                                 i < e.reports.length;
                                                 i++)
                                               if (showBarsNotifier[
-                                                  e.reports[i].title]!)
+                                                      e.reports[i].title] ==
+                                                  true)
                                                 createRod(e.reports[i],
                                                     IncomeService.colors[i])
                                           ]))

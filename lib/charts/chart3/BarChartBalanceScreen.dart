@@ -129,7 +129,8 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                                                 i < e.reports.length;
                                                 i++)
                                               if (showBarsNotifier[
-                                                  e.reports[i].title]!)
+                                                      e.reports[i].title] ==
+                                                  true)
                                                 createRod(e.reports[i],
                                                     BalanceService.colors[i])
                                           ]))

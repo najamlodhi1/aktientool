@@ -140,30 +140,30 @@ class CreateChart3State extends State<CreateChart3> {
   }
 
   List<DataRow> get buildTableRows {
-    return tableData
-        .map((data) => DataRow(
-              selected: BalanceService.isSelected
-                  .value[data.reports[tableData.indexOf(data)].title]!,
+    return List.generate(
+        tableData[0].reports.length,
+        (index) => DataRow(
+              selected: BalanceService
+                  .isSelected.value[tableData[0].reports[index].title]!,
               onSelectChanged: (bool? value) {
-                var temp = BalanceService.isSelected.value;
-                temp[data.reports[tableData.indexOf(data)].title] = value!;
-                BalanceService.isSelected.value = temp;
+                BalanceService.isSelected
+                    .value[tableData[0].reports[index].title] = value!;
                 BalanceService.isSelected.notifyListeners();
                 setState(() {});
               },
               cells: [
                 DataCell(
-                  Text(data.reports[tableData.indexOf(data)].title),
+                  Text(tableData[0].reports[index].title),
                 ),
                 for (int x = 0; x < tableData.length; x++) ...[
                   DataCell(
                     ColoredBox(
                       color: x < tableData.length - 1
                           ? tableData[tableData.length - 1 - x]
-                                      .reports[tableData.indexOf(data)]
+                                      .reports[index]
                                       .value >=
                                   tableData[tableData.length - 1 - x - 1]
-                                      .reports[tableData.indexOf(data)]
+                                      .reports[index]
                                       .value
                               ? Colors.green
                               : Colors.red
@@ -171,7 +171,7 @@ class CreateChart3State extends State<CreateChart3> {
                       child: Center(
                         child: Text(
                           tableData[tableData.length - 1 - x]
-                              .reports[tableData.indexOf(data)]
+                              .reports[index]
                               .value
                               .toString(),
                         ),
@@ -180,7 +180,6 @@ class CreateChart3State extends State<CreateChart3> {
                   ),
                 ],
               ],
-            ))
-        .toList();
+            ));
   }
 }
