@@ -35,6 +35,24 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
     super.initState();
   }
 
+  double calculateChartWidth(
+      Map<String, bool> _showBarsNotifier, List<BalanceReportModel> _data) {
+    double interval = MediaQuery.of(context).size.width < 1000 ? 200 : 400;
+    double chartWidth = MediaQuery.of(context).size.width >= interval
+        ? MediaQuery.of(context).size.width - interval
+        : MediaQuery.of(context).size.width;
+
+    try {
+      for (int i = 0; i < _data.length; i++) {
+        if (_showBarsNotifier[_data[0].reports[i].title]!) {
+          chartWidth += interval;
+        }
+      }
+    } catch (err) {}
+
+    return chartWidth;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BalanceReportModel>>(
@@ -68,7 +86,8 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                           child: BarChart(BarChartData(
                               borderData:
                                   FlBorderData(border: Border.all(width: 0)),
-                              groupsSpace: 15,
+                              groupsSpace:
+                                  calculateChartWidth(showBarsNotifier, data),
                               titlesData: FlTitlesData(
                                   show: true,
                                   rightTitles: AxisTitles(

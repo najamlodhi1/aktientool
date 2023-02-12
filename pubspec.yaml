@@ -11,7 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fl_chart: ^0.55.2
+  fl_chart:
+    git:
+      url: https://github.com/koosoftware/fl_chart
+      ref: b4c909c
+
   cupertino_icons: ^1.0.5
   url_strategy: ^0.2.0
   firebase_core: ^2.1.1
