@@ -1,0 +1,1078 @@
+import 'dart:math';
+
+import 'package:aktientool/charts/DCFLevered/DCFLeveredModel.dart';
+import 'package:aktientool/charts/DCFLevered/DCFLeveredService.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class DCFLeveredScreen extends StatefulWidget {
+  const DCFLeveredScreen({super.key});
+
+  @override
+  State<DCFLeveredScreen> createState() => _DCFLeveredScreenState();
+}
+
+class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
+  List<DCFLeveredModel> tableData = [];
+  late Future<List<DCFLeveredModel>> getFuture;
+  @override
+  void initState() {
+    super.initState();
+    getFuture = DCFLeveredService().getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<DCFLeveredModel>>(
+        future: getFuture,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (tableData.isEmpty) {
+              tableData = snapshot.data!;
+            }
+            calculateFreeCashFlow();
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                freeCashFlow(),
+                weightedAverage(),
+                buildUp(),
+                terminalValue(),
+                intrinsicValue(),
+              ],
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        });
+  }
+
+  Widget intrinsicValue() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.teal,
+          style: BorderStyle.none,
+          width: 2,
+        ),
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("Intrinsic Value"),
+          const SizedBox(
+            height: 10,
+          ),
+          buildIntrinsicValueTable(),
+        ],
+      ),
+    );
+  }
+
+  Widget terminalValue() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.teal,
+          style: BorderStyle.none,
+          width: 2,
+        ),
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("Terminal Value"),
+          const SizedBox(
+            height: 10,
+          ),
+          buildTerminalValueTable(),
+        ],
+      ),
+    );
+  }
+
+  Widget weightedAverage() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.teal,
+          style: BorderStyle.none,
+          width: 2,
+        ),
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("Weighted Average Cost Of Capital"),
+          const SizedBox(
+            height: 10,
+          ),
+          buildWeightedAverageTable(),
+        ],
+      ),
+    );
+  }
+
+  Widget freeCashFlow() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.teal,
+          style: BorderStyle.none,
+          width: 2,
+        ),
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("Discounted Cash Flow (DCF) Analysis Levered"),
+          const Text("Free Cash Flow"),
+          const SizedBox(
+            height: 10,
+          ),
+          buildCashFlowTable(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildUp() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.teal,
+          style: BorderStyle.none,
+          width: 2,
+        ),
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("Build Up Free Cash Flow"),
+          const SizedBox(
+            height: 10,
+          ),
+          buildbuildUpTable(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCashFlowTable() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        border: const TableBorder(
+          top: BorderSide(color: Colors.grey, width: 0.5),
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
+          right: BorderSide(color: Colors.grey, width: 0.5),
+          horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+          verticalInside: BorderSide(color: Colors.grey, width: 0.5),
+        ),
+        rows: buildCashFlowTableRows,
+        columns: <DataColumn>[
+          const DataColumn(label: Text("Year")),
+          ...List.generate(
+            tableData.length,
+            (index) =>
+                DataColumn(label: Text(tableData[index].year.toString())),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildbuildUpTable() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        border: const TableBorder(
+          top: BorderSide(color: Colors.grey, width: 0.5),
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
+          right: BorderSide(color: Colors.grey, width: 0.5),
+          horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+          verticalInside: BorderSide(color: Colors.grey, width: 0.5),
+        ),
+        rows: buildbuildUpTableRows,
+        columns: <DataColumn>[
+          const DataColumn(label: Text("Year")),
+          ...List.generate(
+            tableData.length,
+            (index) =>
+                DataColumn(label: Text(tableData[index].year.toString())),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildWeightedAverageTable() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: DataTable(
+        border: const TableBorder(
+          top: BorderSide(color: Colors.grey, width: 0.5),
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
+          right: BorderSide(color: Colors.grey, width: 0.5),
+          horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+          verticalInside: BorderSide(color: Colors.grey, width: 0.5),
+        ),
+        rows: buildWeightedAverageTableRows,
+        columns: const <DataColumn>[
+          DataColumn(label: Text("Title")),
+          DataColumn(label: Text("Price"), numeric: true)
+        ],
+      ),
+    );
+  }
+
+  Widget buildTerminalValueTable() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: DataTable(
+        border: const TableBorder(
+          top: BorderSide(color: Colors.grey, width: 0.5),
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
+          right: BorderSide(color: Colors.grey, width: 0.5),
+          horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+          verticalInside: BorderSide(color: Colors.grey, width: 0.5),
+        ),
+        rows: buildTerminalValueTableRows,
+        columns: const <DataColumn>[
+          DataColumn(label: Text("Title")),
+          DataColumn(label: Text("Price"), numeric: true)
+        ],
+      ),
+    );
+  }
+
+  Widget buildIntrinsicValueTable() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: DataTable(
+        border: const TableBorder(
+          top: BorderSide(color: Colors.grey, width: 0.5),
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
+          right: BorderSide(color: Colors.grey, width: 0.5),
+          horizontalInside: BorderSide(color: Colors.grey, width: 0.5),
+          verticalInside: BorderSide(color: Colors.grey, width: 0.5),
+        ),
+        rows: buildIntrinsicValueTableRows,
+        columns: const <DataColumn>[
+          DataColumn(label: Text("Title")),
+          DataColumn(label: Text("Price"), numeric: true)
+        ],
+      ),
+    );
+  }
+
+  List<DataRow> get buildIntrinsicValueTableRows {
+    return [
+      simpleCashFlowRow('Enterprise Value', [tableData.last.enterpriseValue]),
+      simpleCashFlowRow('Net Debt', [tableData.last.netDebt]),
+      simpleCashFlowRow('Equity Value', [tableData.last.equityValue]),
+      simpleCashFlowRow(
+          'Shares Outstanding', [tableData.last.dilutedSharesOutstanding]),
+      simpleCashFlowRow(
+          'Equity Value Per Share', [tableData.last.equityValuePerShare])
+    ];
+  }
+
+  List<DataRow> get buildTerminalValueTableRows {
+    return [
+      simpleCashFlowRow('Growth in perpetuity method:', [0]),
+      fieldLongTermValueRow(
+          'Long-term growth rate', [tableData.last.longTermGrowthRate]),
+      simpleCashFlowRow('WACC (%)', [tableData.first.wacc]),
+      simpleCashFlowRow(
+          'Free cash flow (t + 1)', [tableData.last.freeCashFlowT1]),
+      simpleCashFlowRow('Terminal Value', [tableData.last.terminalValue]),
+      simpleCashFlowRow('Present Value of Terminal Value',
+          [tableData.last.presentTerminalValue])
+    ];
+  }
+
+  List<DataRow> get buildWeightedAverageTableRows {
+    return [
+      simpleCashFlowRow('Share price', [tableData.last.price]),
+      simpleCashFlowRow('Beta', [tableData.last.beta]),
+      simpleCashFlowRow('Diluted Shares Outstanding',
+          [tableData.last.dilutedSharesOutstanding]),
+      fieldCostofDebtRow('Cost of Debt', [tableData.last.costofDebt]),
+      simpleCashFlowRow('Tax Rate', [tableData.last.taxRate]),
+      simpleCashFlowRow(
+          'After-tax Cost of Debt', [tableData.last.afterTaxCostOfDebt]),
+      fieldRiskFreeRateRow('Risk-Free Rate', [tableData.last.riskFreeRate]),
+      fieldMarketRiskRow(
+          'Market Risk Premium', [tableData.last.marketRiskPremium]),
+      simpleCashFlowRow('Cost of Equity', [tableData.last.costOfEquity]),
+      simpleCashFlowRow('Total Debt', [tableData.last.totalDebt]),
+      simpleCashFlowRow('Total Equity', [tableData.last.totalEquity]),
+      simpleCashFlowRow('Total Capital', [tableData.last.totalCapital]),
+      simpleCashFlowRow('Debt Weighting', [tableData.last.debtWeighting]),
+      simpleCashFlowRow('Equity Weighting', [tableData.last.equityWeighting]),
+      fieldWaccRow('Wacc', [tableData.first.wacc]),
+    ];
+  }
+
+  List<DataRow> get buildCashFlowTableRows {
+    return [
+      simpleCashFlowRow('Revenue', tableData.map((e) => e.revenue).toList()),
+      fieldCashFlowRow(
+          'Revenue (%)', tableData.map((e) => e.revenuePercentage).toList(), 0),
+      simpleCashFlowRow('Operating Cash Flow',
+          tableData.map((e) => e.operatingCashFlow).toList()),
+      fieldCashFlowRow('Operating Cash Flow (%)',
+          tableData.map((e) => e.operatingCashFlowPercentage).toList(), 1),
+      simpleCashFlowRow('Capital Expenditure',
+          tableData.map((e) => e.capitalExpenditure).toList()),
+      fieldCashFlowRow('Capital Expenditure (%)',
+          tableData.map((e) => e.capitalExpenditurePercentage).toList(), 2),
+      simpleCashFlowRow(
+          'Free Cash Flow', tableData.map((e) => e.freeCashFlow).toList())
+    ];
+  }
+
+  List<DataRow> get buildbuildUpTableRows {
+    return [
+      simpleCashFlowRow('Revenue', tableData.map((e) => e.revenue).toList()),
+      simpleCashFlowRow('Operating Cash Flow',
+          tableData.map((e) => e.operatingCashFlow).toList()),
+      simpleCashFlowRow('Capital Expenditure',
+          tableData.map((e) => e.capitalExpenditure).toList()),
+      simpleCashFlowRow(
+          'Free Cash Flow', tableData.map((e) => e.freeCashFlow).toList()),
+      fieldBuildUpRow('WACC', tableData.map((e) => e.wacc).toList()),
+      simpleBuildUpRow('PV LFCF', tableData.map((e) => e.pvLfcf).toList()),
+      lastBuildUpRow('SUM PV LFCF', tableData.map((e) => e.sumPvLfcf).toList()),
+    ];
+  }
+
+  DataRow simpleCashFlowRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        ...List.generate(
+          data.length,
+          (index) =>
+              DataCell(Text(data[index] == 0 ? '' : data[index].toString())),
+        )
+      ],
+    );
+  }
+
+  DataRow simpleBuildUpRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        ...List.generate(
+          data.length,
+          (index) {
+            if (tableData[index].year < DateTime.now().year) {
+              return DataCell(Container());
+            }
+            return DataCell(Text(data[index].toString()));
+          },
+        )
+      ],
+    );
+  }
+
+  DataRow lastBuildUpRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        ...List.generate(
+          data.length,
+          (index) {
+            if (data[index] == 0) {
+              return DataCell(Container());
+            }
+            return DataCell(Text(data[index].toString()));
+          },
+        )
+      ],
+    );
+  }
+
+  DataRow fieldCashFlowRow(String title, List<double> data, int type) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                readOnly: title == 'Capital Expenditure (%)',
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      if (type == 0) {
+                        tableData[index].revenuePercentage =
+                            double.tryParse(value)!;
+                      } else if (type == 1) {
+                        tableData[index].operatingCashFlowPercentage =
+                            double.tryParse(value)!;
+                      } else if (type == 2) {
+                        tableData[index].capitalExpenditurePercentage =
+                            double.tryParse(value)!;
+                      }
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: title == 'Capital Expenditure (%)'
+                        ? null
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (type == 0) {
+                                      tableData[index].revenuePercentage++;
+                                    } else if (type == 1) {
+                                      tableData[index]
+                                          .operatingCashFlowPercentage++;
+                                    } else if (type == 2) {
+                                      tableData[index]
+                                          .capitalExpenditurePercentage++;
+                                    }
+                                  });
+                                },
+                                child: const SizedBox(
+                                  height: 17,
+                                  width: 25,
+                                  child: Icon(Icons.arrow_drop_up),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (type == 0) {
+                                      tableData[index].revenuePercentage--;
+                                    } else if (type == 1) {
+                                      tableData[index]
+                                          .operatingCashFlowPercentage--;
+                                    } else if (type == 2) {
+                                      tableData[index]
+                                          .capitalExpenditurePercentage--;
+                                    }
+                                  });
+                                },
+                                child: const SizedBox(
+                                  height: 17,
+                                  width: 25,
+                                  child: Icon(Icons.arrow_drop_down),
+                                ),
+                              )
+                            ],
+                          )),
+              )));
+        })
+      ],
+    );
+  }
+
+  DataRow fieldLongTermValueRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      tableData.last.longTermGrowthRate =
+                          double.tryParse(value)!;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.longTermGrowthRate++;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_up),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.longTermGrowthRate--;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_down),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+        })
+      ],
+    );
+  }
+
+  DataRow fieldCostofDebtRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      tableData.last.costofDebt = double.tryParse(value)!;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.costofDebt++;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_up),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.costofDebt--;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_down),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+        })
+      ],
+    );
+  }
+
+  DataRow fieldRiskFreeRateRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      tableData.last.riskFreeRate = double.tryParse(value)!;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.riskFreeRate++;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_up),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.riskFreeRate--;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_down),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+        })
+      ],
+    );
+  }
+
+  DataRow fieldMarketRiskRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      tableData.last.marketRiskPremium =
+                          double.tryParse(value)!;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.marketRiskPremium++;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_up),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.last.marketRiskPremium--;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_down),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+        })
+      ],
+    );
+  }
+
+  DataRow fieldWaccRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      tableData.first.wacc = double.tryParse(value)!;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.first.wacc++;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_up),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData.first.wacc--;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_down),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+        })
+      ],
+    );
+  }
+
+  DataRow fieldBuildUpRow(String title, List<double> data) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(title),
+        ),
+        ...List.generate(data.length, (index) {
+          if (tableData[index].year < DateTime.now().year) {
+            return DataCell(Container());
+          }
+          return DataCell(Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 100,
+              child: TextFormField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  DecimalTextInputFormatter(
+                      decimalRange: 10, beforeDecimalRange: 10)
+                ],
+                textAlign: TextAlign.center,
+                controller: TextEditingController(text: data[index].toString()),
+                onChanged: (value) {
+                  if (double.tryParse(value)! > 0) {
+                    setState(() {
+                      tableData[index].wacc = double.tryParse(value)!;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData[index].wacc++;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_up),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              tableData[index].wacc--;
+                            });
+                          },
+                          child: const SizedBox(
+                            height: 17,
+                            width: 25,
+                            child: Icon(Icons.arrow_drop_down),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+        })
+      ],
+    );
+  }
+
+  void calculateFreeCashFlow() {
+    for (var i = 0; i < tableData.length; i++) {
+      if (i != 0) {
+        tableData[i].revenue =
+            tableData[i - 1].revenue * (tableData[i].revenuePercentage / 100) +
+                tableData[i - 1].revenue;
+
+        // tableData[i].revenuePercentage =
+        //     (tableData[i - 1].revenue - tableData[i].revenue) /
+        //         tableData[i - 1].revenue *
+        //         -100;
+      }
+
+      tableData[i].operatingCashFlow = tableData[i].revenue *
+          (tableData[i].operatingCashFlowPercentage / 100);
+
+      tableData[i].capitalExpenditure = tableData[i].revenue *
+          (tableData[i].capitalExpenditurePercentage / 100);
+
+      tableData[i].freeCashFlow =
+          tableData[i].operatingCashFlow + tableData[i].capitalExpenditure;
+    }
+
+    tableData.last.afterTaxCostOfDebt = tableData.last.costofDebt -
+        ((tableData.last.costofDebt / 100) * tableData.last.taxRate);
+
+    tableData.last.costOfEquity =
+        (((tableData.last.marketRiskPremium / 100) * tableData.last.beta) +
+                tableData.last.riskFreeRate / 100) *
+            100;
+
+    // tableData.last.totalEquity =
+    //     tableData.last.price * tableData.last.dilutedSharesOutstanding;
+
+    // tableData.last.totalCapital =
+    //     tableData.last.totalDebt * tableData.last.totalEquity;
+
+    // tableData.last.debtWeighting =
+    //     tableData.last.totalDebt / tableData.last.totalCapital * 100;
+
+    // tableData.last.equityWeighting =
+    //     tableData.last.totalEquity / tableData.last.totalCapital * 100;
+
+    // tableData.first.wacc =
+    //     (((tableData.last.totalEquity / tableData.last.totalCapital) *
+    //                 (tableData.last.costOfEquity / 100)) +
+    //             ((tableData.last.totalDebt / tableData.last.totalCapital) *
+    //                 (tableData.last.costofDebt / 100) *
+    //                 (1 - tableData.last.taxRate / 100))) *
+    //         100;
+
+    int pvlfcfIndex = 0;
+    double sumpvlfcf = 0;
+
+    for (var i = 0; i < tableData.length; i++) {
+      if (tableData[i].year < DateTime.now().year) {
+        continue;
+      }
+      tableData[i].pvLfcf = tableData[i].freeCashFlow /
+          pow((1 + (tableData[i].wacc / 100)), ((pvlfcfIndex + 5) - 4));
+      sumpvlfcf = sumpvlfcf + tableData[i].pvLfcf;
+      pvlfcfIndex++;
+    }
+
+    tableData.last.sumPvLfcf = sumpvlfcf;
+
+    tableData.last.freeCashFlowT1 = tableData.last.freeCashFlow *
+        (1 + tableData.last.longTermGrowthRate / 100); // correct
+
+    tableData.last.presentTerminalValue = tableData.last.terminalValue /
+        pow((1 + (tableData.last.wacc / 100)), 5);
+
+    tableData.last.enterpriseValue =
+        tableData.last.sumPvLfcf + tableData.last.presentTerminalValue;
+
+    tableData.last.equityValue =
+        tableData.last.enterpriseValue - tableData.last.netDebt;
+
+    tableData.last.equityValuePerShare =
+        tableData.last.equityValue / tableData.last.dilutedSharesOutstanding;
+  }
+}
+
+class DecimalTextInputFormatter extends TextInputFormatter {
+  DecimalTextInputFormatter(
+      {required this.decimalRange, required this.beforeDecimalRange})
+      : assert(decimalRange > 0 || beforeDecimalRange > 0);
+
+  final int decimalRange;
+  final int beforeDecimalRange;
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, // unused.
+      TextEditingValue newValue) {
+    TextSelection newSelection = newValue.selection;
+    String truncated = newValue.text;
+
+    String value;
+
+    value = newValue.text;
+
+    if (value.contains(".")) {
+      if (value.split(".")[0].length > beforeDecimalRange) {
+        truncated = oldValue.text;
+        newSelection = oldValue.selection;
+      }
+    } else {
+      if (value.length > beforeDecimalRange) {
+        truncated = oldValue.text;
+        newSelection = oldValue.selection;
+      }
+    }
+
+    value = newValue.text;
+
+    if (value.contains(".") &&
+        value.substring(value.indexOf(".") + 1).length > decimalRange) {
+      truncated = oldValue.text;
+      newSelection = oldValue.selection;
+    } else if (value == ".") {
+      truncated = "0.";
+
+      newSelection = newValue.selection.copyWith(
+        baseOffset: min(truncated.length, truncated.length + 1),
+        extentOffset: min(truncated.length, truncated.length + 1),
+      );
+    }
+
+    return TextEditingValue(
+      text: truncated,
+      selection: newSelection,
+      composing: TextRange.empty,
+    );
+  }
+}

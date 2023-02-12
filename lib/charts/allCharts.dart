@@ -2,6 +2,7 @@
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
+import 'DCFLevered/DCFLeveredScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart10/createchart.dart';
 import 'chart11/createchart.dart';
@@ -51,6 +52,7 @@ class _AllChartsState extends State<AllCharts> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const DCFLeveredScreen(),
             const CreateChart0(), // Info
             CreateChart1Test(), // Chart
             const CreateChart11(), // Performance
