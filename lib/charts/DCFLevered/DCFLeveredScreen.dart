@@ -15,6 +15,7 @@ class DCFLeveredScreen extends StatefulWidget {
 class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
   List<DCFLeveredModel> tableData = [];
   late Future<List<DCFLeveredModel>> getFuture;
+  bool iseditable = true;
   @override
   void initState() {
     super.initState();
@@ -27,6 +28,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            Future.delayed(const Duration(seconds: 1))
+                .then((value) => iseditable = false);
             if (tableData.isEmpty) {
               tableData = snapshot.data!;
             }
@@ -446,12 +449,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -541,12 +547,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -610,12 +619,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -678,12 +690,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -746,12 +761,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -815,12 +833,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -886,12 +907,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,10}')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
-                      decimalRange: 10, beforeDecimalRange: 10)
+                      decimalRange: 5, beforeDecimalRange: 30)
                 ],
                 textAlign: TextAlign.center,
-                controller: TextEditingController(text: data[index].toString()),
+                controller: !iseditable
+                    ? null
+                    : TextEditingController(
+                        text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value)! > 0) {
                     setState(() {
@@ -1009,8 +1033,12 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     tableData.last.freeCashFlowT1 = tableData.last.freeCashFlow *
         (1 + tableData.last.longTermGrowthRate / 100); // correct
 
+    tableData.last.terminalValue = tableData.last.freeCashFlowT1 /
+        ((tableData.first.wacc / 100) -
+            (tableData.last.longTermGrowthRate / 100));
+
     tableData.last.presentTerminalValue = tableData.last.terminalValue /
-        pow((1 + (tableData.last.wacc / 100)), 5);
+        pow((1 + (tableData.first.wacc / 100)), 5);
 
     tableData.last.enterpriseValue =
         tableData.last.sumPvLfcf + tableData.last.presentTerminalValue;
