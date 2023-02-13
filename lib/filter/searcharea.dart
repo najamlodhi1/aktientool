@@ -35,7 +35,7 @@ class SearchArea extends ConsumerWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Filter(),
+                  builder: (context) => Filter(),
                 ),
               );
             },
