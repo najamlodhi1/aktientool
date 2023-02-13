@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:aktientool/charts/DCFLevered/DCFLeveredModel.dart';
 import 'package:aktientool/charts/DCFLevered/DCFLeveredService.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -190,9 +191,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
   }
 
   Widget buildCashFlowTable() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: DataTable(
+    return SizedBox(
+      width: tableData.length * 220,
+      height: tableData.length * 52,
+      child: DataTable2(
+        columnSpacing: 50,
+        horizontalMargin: 24,
+        minWidth: tableData.length * 220,
+        fixedLeftColumns: 1,
+        fixedTopRows: 0,
         border: const TableBorder(
           top: BorderSide(color: Colors.grey, width: 0.5),
           bottom: BorderSide(color: Colors.grey, width: 0.5),
@@ -214,9 +221,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
   }
 
   Widget buildbuildUpTable() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: DataTable(
+    return SizedBox(
+      width: tableData.length * 220,
+      height: tableData.length * 52,
+      child: DataTable2(
+        columnSpacing: 50,
+        horizontalMargin: 24,
+        minWidth: tableData.length * 220,
+        fixedLeftColumns: 1,
+        fixedTopRows: 0,
         border: const TableBorder(
           top: BorderSide(color: Colors.grey, width: 0.5),
           bottom: BorderSide(color: Colors.grey, width: 0.5),
@@ -447,7 +460,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -457,7 +470,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       if (type == 0) {
                         tableData[index].revenuePercentage =
@@ -547,7 +560,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -557,7 +570,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       tableData.last.longTermGrowthRate =
                           double.tryParse(value)!;
@@ -607,6 +620,18 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     );
   }
 
+  void changeWacc() {
+    double wacc = (((tableData.last.totalEquity / tableData.last.totalCapital) *
+                (tableData.last.costOfEquity / 100)) +
+            ((tableData.last.totalDebt / tableData.last.totalCapital) *
+                (tableData.last.costofDebt / 100) *
+                (1 - tableData.last.taxRate / 100))) *
+        100;
+    for (var i = 0; i < tableData.length; i++) {
+      tableData[i].wacc = wacc;
+    }
+  }
+
   DataRow fieldCostofDebtRow(String title, List<double> data) {
     return DataRow(
       cells: [
@@ -621,7 +646,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -631,9 +656,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       tableData.last.costofDebt = double.tryParse(value)!;
+                      changeWacc();
                     });
                   }
                 },
@@ -651,6 +677,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                             iseditable = true;
                             setState(() {
                               tableData.last.costofDebt++;
+                              changeWacc();
                             });
                           },
                           child: const SizedBox(
@@ -664,6 +691,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                             iseditable = true;
                             setState(() {
                               tableData.last.costofDebt--;
+                              changeWacc();
                             });
                           },
                           child: const SizedBox(
@@ -694,7 +722,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -704,7 +732,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       tableData.last.riskFreeRate = double.tryParse(value)!;
                     });
@@ -767,7 +795,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -777,7 +805,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       tableData.last.marketRiskPremium =
                           double.tryParse(value)!;
@@ -841,7 +869,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -851,7 +879,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       tableData.first.wacc = double.tryParse(value)!;
                     });
@@ -917,7 +945,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,5}')),
                   DecimalTextInputFormatter(
                       decimalRange: 5, beforeDecimalRange: 30)
                 ],
@@ -927,7 +955,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     : TextEditingController(
                         text: data[index].toStringAsFixed(3)),
                 onChanged: (value) {
-                  if (double.tryParse(value)! > 0) {
+                  if (double.tryParse(value) is double) {
                     setState(() {
                       tableData[index].wacc = double.tryParse(value)!;
                     });
@@ -1018,14 +1046,6 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
     // tableData.last.equityWeighting =
     //     tableData.last.totalEquity / tableData.last.totalCapital * 100;
-
-    // tableData.first.wacc =
-    //     (((tableData.last.totalEquity / tableData.last.totalCapital) *
-    //                 (tableData.last.costOfEquity / 100)) +
-    //             ((tableData.last.totalDebt / tableData.last.totalCapital) *
-    //                 (tableData.last.costofDebt / 100) *
-    //                 (1 - tableData.last.taxRate / 100))) *
-    //         100;
 
     int pvlfcfIndex = 0;
     double sumpvlfcf = 0;
