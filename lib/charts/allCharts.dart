@@ -4,7 +4,6 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'chart0/createchart.dart';
-import 'chart10/createchart.dart';
 import 'chart11/createchart.dart';
 import 'chart12/createchart.dart';
 import 'chart1test/createchart.dart';
@@ -13,11 +12,6 @@ import 'chart3/BarChartBalanceScreen.dart';
 import 'chart3/createchart.dart';
 import 'chart4/BarChartCashFlowScreen.dart';
 import 'chart4/createchart.dart';
-import 'chart5/createchart.dart';
-import 'chart6/createchart.dart';
-import 'chart7/createchart.dart';
-import 'chart8/createchart.dart';
-import 'chart9/createchart.dart';
 
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
@@ -52,7 +46,6 @@ class _AllChartsState extends State<AllCharts> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const DCFLeveredScreen(),
             const CreateChart0(), // Info
             CreateChart1Test(), // Chart
             const CreateChart11(), // Performance
@@ -63,12 +56,10 @@ class _AllChartsState extends State<AllCharts> {
             const CreateChart3(),
             const BarChartCashFlowScreen(), // Bar Chart CashFlow
             CreateChart4(),
-            CreateChart5(),
-            CreateChart6(),
-            CreateChart7(),
-            CreateChart8(),
-            CreateChart9(),
-            CreateChart10(),
+            const DCFLeveredScreen(),
+
+            // const CreateChart13()
+
 /**/
           ],
         ),

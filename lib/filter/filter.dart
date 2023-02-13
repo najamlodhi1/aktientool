@@ -2,12 +2,11 @@ import 'package:aktientool/filter/industry.dart';
 import 'package:aktientool/filter/marketcap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'country.dart';
 
 class Filter extends ConsumerWidget {
-  const Filter({super.key});
-
+  Filter({super.key});
+  bool isShowCalender = false;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -80,6 +79,21 @@ class Filter extends ConsumerWidget {
                 ),
               ),
             ),
+            // const CreateChart13(),
+            MaterialButton(
+                color: Colors.white,
+                child: const Text('IPO Calendar'),
+                onPressed: () {
+                  /*
+                 
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => const CreateChart13()));
+
+
+*/
+                }),
           ],
         ),
       ),
