@@ -28,8 +28,6 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            Future.delayed(const Duration(seconds: 1))
-                .then((value) => iseditable = false);
             if (tableData.isEmpty) {
               tableData = snapshot.data!;
             }
@@ -487,6 +485,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                             children: [
                               InkWell(
                                 onTap: () {
+                                  iseditable = true;
                                   setState(() {
                                     if (type == 0) {
                                       tableData[index].revenuePercentage++;
@@ -507,6 +506,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  iseditable = true;
                                   setState(() {
                                     if (type == 0) {
                                       tableData[index].revenuePercentage--;
@@ -575,6 +575,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       children: [
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.longTermGrowthRate++;
                             });
@@ -587,6 +588,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.longTermGrowthRate--;
                             });
@@ -646,6 +648,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       children: [
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.costofDebt++;
                             });
@@ -658,6 +661,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.costofDebt--;
                             });
@@ -717,6 +721,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       children: [
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.riskFreeRate++;
                             });
@@ -729,6 +734,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.riskFreeRate--;
                             });
@@ -789,6 +795,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       children: [
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.marketRiskPremium++;
                             });
@@ -801,6 +808,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.last.marketRiskPremium--;
                             });
@@ -860,6 +868,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       children: [
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.first.wacc++;
                             });
@@ -872,6 +881,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData.first.wacc--;
                             });
@@ -934,6 +944,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       children: [
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData[index].wacc++;
                             });
@@ -946,6 +957,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                            iseditable = true;
                             setState(() {
                               tableData[index].wacc--;
                             });
@@ -1048,6 +1060,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
     tableData.last.equityValuePerShare =
         tableData.last.equityValue / tableData.last.dilutedSharesOutstanding;
+    Future.delayed(const Duration(seconds: 1))
+        .then((value) => iseditable = false);
   }
 }
 
