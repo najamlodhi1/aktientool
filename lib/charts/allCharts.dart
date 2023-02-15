@@ -4,6 +4,7 @@ import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
+import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart11/createchart.dart';
 import 'chart12/createchart.dart';
@@ -59,6 +60,7 @@ class _AllChartsState extends State<AllCharts> {
             CreateChart4(),
             const DCFLeveredScreen(),
             const ConcensusScreen(),
+            const Institutionalholders()
             // const CreateChart13()
 
 /**/
