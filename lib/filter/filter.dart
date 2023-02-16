@@ -2,6 +2,7 @@ import 'package:aktientool/filter/industry.dart';
 import 'package:aktientool/filter/marketcap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../charts/chart13/createchart.dart';
 import 'country.dart';
 
 class Filter extends ConsumerWidget {
@@ -82,17 +83,12 @@ class Filter extends ConsumerWidget {
             // const CreateChart13(),
             MaterialButton(
                 color: Colors.white,
-                child: const Text('IPO Calendar'),
+                child: const Text('Countries'),
                 onPressed: () {
-                  /*
-                 
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (ctx) => const CreateChart13()));
-
-
-*/
                 }),
           ],
         ),
