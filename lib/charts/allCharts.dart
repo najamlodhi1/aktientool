@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
+import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,8 @@ class _AllChartsState extends State<AllCharts> {
             CreateChart4(),
             const DCFLeveredScreen(),
             const ConcensusScreen(),
-            const Institutionalholders()
+            const Institutionalholders(),
+            const StockNewsScreen(),
             // const CreateChart13()
 
 /**/
