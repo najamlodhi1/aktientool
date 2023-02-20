@@ -29,44 +29,51 @@ class CreateChart13State extends State<CreateChart13> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          FutureBuilder<dynamic>(
-              future: loadData(),
-              builder: (
-                context,
-                snapshot,
-              ) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.data != null) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        child: Container(
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.teal,
-                                style: BorderStyle.none,
-                                width: 2,
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text('IPO Calendar'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder<dynamic>(
+                future: loadData(),
+                builder: (
+                  context,
+                  snapshot,
+                ) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.data != null) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                          child: Container(
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.teal,
+                                  style: BorderStyle.none,
+                                  width: 2,
+                                ),
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(30.0),
                               ),
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child:
-                                DataGridWidget(companyInfoList: snapshot.data)),
-                      ),
-                    );
+                              child: DataGridWidget(
+                                  companyInfoList: snapshot.data)),
+                        ),
+                      );
+                    } else {
+                      return Container(); //TODO: Return Error Message for null
+                    }
                   } else {
-                    return Container(); //TODO: Return Error Message for null
+                    return const Center(child: CircularProgressIndicator());
                   }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              }),
-        ],
+                }),
+          ],
+        ),
       ),
     );
   }

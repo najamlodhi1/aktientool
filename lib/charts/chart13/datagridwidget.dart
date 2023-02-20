@@ -18,47 +18,6 @@ class DataGridWidget extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: const Icon(
-                Icons.keyboard_arrow_left,
-                size: 50,
-                color: Colors.black,
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 20),
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: 60,
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: MaterialButton(
-                child: const Text(
-                  'Back',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ),
-          const Text(
-            'IPO Calendar',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 30),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: DataTable(
