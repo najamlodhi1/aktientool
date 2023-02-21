@@ -41,6 +41,7 @@ class CreateChart13State extends State<CreateChart13> {
                   if (snapshot.data != null) {
                     return Container(
                       height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
                         child: Container(
                             margin: const EdgeInsets.all(10),

@@ -51,6 +51,7 @@ dependencies:
   stacked_bar_chart: ^1.0.7+6
   syncfusion_flutter_datagrid: 20.4.44
   syncfusion_flutter_charts: ^20.4.41
+  intl: ^0.18.0
 
 
   
