@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
+import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
@@ -8,7 +9,7 @@ import 'DCFLevered/DCFLeveredScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart11/createchart.dart';
-import 'chart12/createchart.dart';
+import 'chart12/CompanyScreen.dart';
 import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
 import 'chart3/BarChartBalanceScreen.dart';
@@ -52,7 +53,8 @@ class _AllChartsState extends State<AllCharts> {
             const CreateChart0(), // Info
             CreateChart1Test(), // Chart
             const CreateChart11(), // Performance
-            const CreateChart12(), // Dividend History
+            const CompanyScreen(), // Dividend History
+            const ScoreScreen(),
             const BarChartIncomeScreen(), // Bar Chart income
             CreateChart2(),
             const BarChartBalanceScreen(), // Bar Chart Balance
