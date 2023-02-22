@@ -166,16 +166,16 @@ class ShowCompanies extends ConsumerWidget {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+            /*Text(
               "MC: \$${((snapshot.data![index].marketcap) / 1000000000).toStringAsFixed(0)} B",
               style: const TextStyle(
                 color: Colors.yellow,
                 fontSize: 15,
               ),
-            ),
+            ),*/
             ClipRRect(
               child: SizedBox.fromSize(
                 size: const Size.fromRadius(10),
@@ -250,7 +250,9 @@ class ShowCompanies extends ConsumerWidget {
                             ),
                             Center(
                               child: Text(
-                                "${snapshot.data![index].price} \$",
+                                "MC: \$${((snapshot.data![index].marketcap)! / 1000000000).toStringAsFixed(0)} B",
+
+                                //"${snapshot.data![index].price} \$",
                                 style: const TextStyle(
                                   color: Color.fromARGB(255, 0, 255, 145),
                                   fontSize: 20,
