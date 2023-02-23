@@ -26,7 +26,9 @@ class CreateChart4State extends State<CreateChart4> {
               future: CashFlowService().getData(
                   "https://financialmodelingprep.com/api/v3/cash-flow-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData &&
+                    snapshot.data!.isNotEmpty) {
                   tableData = snapshot.data!;
                   if (kDebugMode) {
                     print("-----");
@@ -67,7 +69,8 @@ class CreateChart4State extends State<CreateChart4> {
                     ),
                   );
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  //return const Center(child: CircularProgressIndicator());
+                  return const SizedBox();
                 }
               }),
         ],

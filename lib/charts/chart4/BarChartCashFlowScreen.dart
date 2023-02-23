@@ -173,7 +173,8 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                 }),
           );
         }
-        return const Center(child: CircularProgressIndicator());
+        //return const Center(child: CircularProgressIndicator());
+        return const SizedBox();
       },
     );
   }

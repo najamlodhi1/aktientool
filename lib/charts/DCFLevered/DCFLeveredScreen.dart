@@ -44,7 +44,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
               ],
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            //return const Center(child: CircularProgressIndicator());
+            return const SizedBox();
           }
         });
   }
@@ -477,7 +478,9 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 controller: !iseditable
                     ? null
                     : TextEditingController(
-                        text: data[index].toStringAsFixed(3)),
+                        text: data[index].isNaN
+                            ? "NaN"
+                            : data[index].toStringAsFixed(3)),
                 onChanged: (value) {
                   if (double.tryParse(value) is double) {
                     setState(() {

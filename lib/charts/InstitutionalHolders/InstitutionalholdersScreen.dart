@@ -25,10 +25,11 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
     return FutureBuilder<List<InstitutionalholdersModel>>(
         future: getFuture,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             return bodyWidget(snapshot.data!);
           } else {
-            return const Center(child: CircularProgressIndicator());
+            //return const Center(child: CircularProgressIndicator());
+            return const SizedBox();
           }
         });
   }

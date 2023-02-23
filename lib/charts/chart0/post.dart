@@ -62,27 +62,27 @@ class Post {
   double changes;
   String companyName;
   String currency;
-  String cik;
-  String isin;
-  String cusip;
+  String? cik;
+  String? isin;
+  String? cusip;
   String exchange;
   String exchangeShortName;
-  String industry;
-  String website;
-  String description;
+  String? industry;
+  String? website;
+  String? description;
   String ceo;
   String sector;
-  String country;
-  String fullTimeEmployees;
-  String phone;
-  String address;
-  String city;
-  String state;
-  String zip;
+  String? country;
+  String? fullTimeEmployees;
+  String? phone;
+  String? address;
+  String? city;
+  String? state;
+  String? zip;
   dynamic dcfDiff;
   double dcf;
   String image;
-  DateTime ipoDate;
+  DateTime? ipoDate;
   bool defaultImage;
   bool isEtf;
   bool isActivelyTrading;
@@ -120,7 +120,7 @@ class Post {
         dcfDiff: json["dcfDiff"],
         dcf: json["dcf"],
         image: json["image"],
-        ipoDate: DateTime.parse(json["ipoDate"]),
+        ipoDate: json["ipoDate"] == "" ? null : DateTime.parse(json["ipoDate"]),
         defaultImage: json["defaultImage"],
         isEtf: json["isEtf"],
         isActivelyTrading: json["isActivelyTrading"],
@@ -159,8 +159,9 @@ class Post {
         "dcfDiff": dcfDiff,
         "dcf": dcf,
         "image": image,
-        "ipoDate":
-            "${ipoDate.year.toString().padLeft(4, '0')}-${ipoDate.month.toString().padLeft(2, '0')}-${ipoDate.day.toString().padLeft(2, '0')}",
+        "ipoDate": ipoDate == null
+            ? ""
+            : "${ipoDate!.year.toString().padLeft(4, '0')}-${ipoDate!.month.toString().padLeft(2, '0')}-${ipoDate!.day.toString().padLeft(2, '0')}",
         "defaultImage": defaultImage,
         "isEtf": isEtf,
         "isActivelyTrading": isActivelyTrading,

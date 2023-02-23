@@ -229,7 +229,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               if (snapshot.connectionState == ConnectionState.done) {
                 return showChart();
               } else {
-                return const Center(child: CircularProgressIndicator());
+                //return const Center(child: CircularProgressIndicator());
+                return const SizedBox();
               }
             },
           ),

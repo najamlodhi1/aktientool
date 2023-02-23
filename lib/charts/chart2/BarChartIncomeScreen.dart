@@ -166,7 +166,8 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
             ),
           );
         }
-        return const Center(child: CircularProgressIndicator());
+        //return const Center(child: CircularProgressIndicator());
+        return const SizedBox();
       },
     );
   }

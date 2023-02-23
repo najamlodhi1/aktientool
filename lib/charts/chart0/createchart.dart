@@ -110,7 +110,7 @@ class CreateChart0State extends State<CreateChart0> {
                             const Divider(),
                             Text(
                               "Mitarbeiter: " +
-                                  snapshot.data[0].fullTimeEmployees,
+                                  (snapshot.data[0].fullTimeEmployees ?? ""),
                               style: const TextStyle(
                                   fontSize: 16, color: Colors.black),
                             ),
@@ -123,7 +123,7 @@ class CreateChart0State extends State<CreateChart0> {
                             const Divider(),
                             Text(
                               "${"Sitz: " + snapshot.data[0].city}, " +
-                                  snapshot.data[0].state,
+                                  (snapshot.data[0].state ?? ""),
                               style: const TextStyle(fontSize: 16),
                             ),
                             const Divider(),

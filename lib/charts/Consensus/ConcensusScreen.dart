@@ -27,7 +27,8 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
           if (snapshot.hasData) {
             return bodyWidget(snapshot.data!);
           } else {
-            return const Center(child: CircularProgressIndicator());
+            //return const Center(child: CircularProgressIndicator());
+            return const SizedBox();
           }
         });
   }

@@ -25,12 +25,14 @@ class CreateChart3State extends State<CreateChart3> {
     if (tableData.isEmpty) {
       return Column(
         children: [
-          FutureBuilder<dynamic>(
+          FutureBuilder<List<BalanceReportModel>>(
               future: BalanceService().getData(
                   "https://financialmodelingprep.com/api/v3/balance-sheet-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  tableData = snapshot.data;
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData &&
+                    snapshot.data!.isNotEmpty) {
+                  tableData = snapshot.data!;
                   if (kDebugMode) {
                     print("-----");
                     print(tableData.length.toString());
@@ -70,7 +72,8 @@ class CreateChart3State extends State<CreateChart3> {
                     ),
                   );
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  //return const Center(child: CircularProgressIndicator());
+                  return const SizedBox();
                 }
               }),
         ],

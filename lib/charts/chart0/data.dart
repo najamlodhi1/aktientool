@@ -27,8 +27,12 @@ class RemoteService {
     if (response.statusCode == 200) {
       var posts = postFromJson(response.body);
 
-      String x = posts[0].description;
-      var translatedDescription = await translator.translate(x, to: 'de');
+      String x = posts[0].description ?? "";
+
+      Translation? translatedDescription;
+      if (x.isNotEmpty) {
+        translatedDescription = await translator.translate(x, to: 'de');
+      }
 
       companyInfo.clear();
       companyInfo.add(CompanyInfo(
@@ -38,14 +42,14 @@ class RemoteService {
           "${(posts[0].mktCap / 1000000000).toStringAsFixed(2)} Billion \$",
           posts[0].exchangeShortName,
           posts[0].sector,
-          posts[0].industry,
-          posts[0].website,
-          translatedDescription.toString(),
-          posts[0].fullTimeEmployees,
+          posts[0].industry ?? "",
+          posts[0].website ?? "",
+          translatedDescription?.toString() ?? "",
+          posts[0].fullTimeEmployees ?? "",
           posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
           posts[0].ceo,
-          posts[0].city,
-          posts[0].state));
+          posts[0].city ?? "",
+          posts[0].state ?? ""));
 
       return companyInfo;
     } else {

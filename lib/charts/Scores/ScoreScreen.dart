@@ -28,7 +28,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
           if (snapshot.hasData) {
             return bodyWidget(snapshot.data!);
           } else {
-            return const Center(child: CircularProgressIndicator());
+            //return const Center(child: CircularProgressIndicator());
+            return const SizedBox();
           }
         });
   }

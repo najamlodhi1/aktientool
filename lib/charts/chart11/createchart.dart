@@ -193,7 +193,8 @@ class CreateChart11State extends State<CreateChart11> {
                   ),
                 );
               } else {
-                return const Center(child: CircularProgressIndicator());
+                //return const Center(child: CircularProgressIndicator());
+                return const SizedBox();
               }
             }),
       ],

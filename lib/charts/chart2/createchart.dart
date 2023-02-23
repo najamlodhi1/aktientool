@@ -27,7 +27,9 @@ class CreateChart2State extends State<CreateChart2> {
               future: IncomeService().getData(
                   "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData &&
+                    snapshot.data!.isNotEmpty) {
                   tableData = snapshot.data!;
                   if (kDebugMode) {
                     print("-----");
@@ -68,7 +70,8 @@ class CreateChart2State extends State<CreateChart2> {
                     ),
                   );
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  //return const Center(child: CircularProgressIndicator());
+                  return const SizedBox();
                 }
               }),
         ],
