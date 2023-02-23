@@ -5,6 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class CreateChart1Test extends StatefulWidget {
+  const CreateChart1Test({super.key});
+
   @override
   State<CreateChart1Test> createState() => CreateChart1TestState();
 }
@@ -185,6 +187,10 @@ class CreateChart1TestState extends State<CreateChart1Test> {
         "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?serietype=line&apikey=${Env.fmpKey}";
 
     showChart() {
+      String todayPrice = flchartData1[0].toString().replaceAll(")", "");
+      int x = todayPrice.indexOf(" ");
+      String todayPriceFinal = todayPrice.substring(x);
+
       return SingleChildScrollView(
         child: Wrap(
           children: [
@@ -202,6 +208,13 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               child: Column(
                 children: [
+                  Text(
+                    todayPriceFinal,
+                    style: const TextStyle(fontSize: 30),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   flc(),
                   const SizedBox(
                     height: 20,

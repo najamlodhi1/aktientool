@@ -14,7 +14,7 @@ class CreateChart11 extends StatefulWidget {
 class CreateChart11State extends State<CreateChart11> {
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
-      : "PLTR";
+      : "AAPL";
 
   loadData() {
     return RemoteService().getData(
@@ -55,7 +55,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'1D: ' + snapshot.data[0].the1D}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1D))).toStringAsFixed(2)} \$',
+                              '${'1D: ' + snapshot.data[0].the1D}% : ${(1000 + (10 * double.parse(snapshot.data[0].the1D))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -69,7 +69,7 @@ class CreateChart11State extends State<CreateChart11> {
                             const Divider(),
 
                             Text(
-                              '${'5D: ' + snapshot.data[0].the5D}% - ${(1000 + (10 * double.parse(snapshot.data[0].the5D))).toStringAsFixed(2)} \$',
+                              '${'5D: ' + snapshot.data[0].the5D}% : ${(1000 + (10 * double.parse(snapshot.data[0].the5D))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -82,7 +82,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'1M: ' + snapshot.data[0].the1M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1M))).toStringAsFixed(2)} \$',
+                              '${'1M: ' + snapshot.data[0].the1M}% : ${(1000 + (10 * double.parse(snapshot.data[0].the1M))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -95,7 +95,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'3M: ' + snapshot.data[0].the3M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the3M))).toStringAsFixed(2)} \$',
+                              '${'3M: ' + snapshot.data[0].the3M}% : ${(1000 + (10 * double.parse(snapshot.data[0].the3M))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -108,7 +108,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'6M: ' + snapshot.data[0].the6M}% - ${(1000 + (10 * double.parse(snapshot.data[0].the6M))).toStringAsFixed(2)} \$',
+                              '${'6M: ' + snapshot.data[0].the6M}% : ${(1000 + (10 * double.parse(snapshot.data[0].the6M))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -121,7 +121,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'1Y: ' + snapshot.data[0].the1Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the1Y))).toStringAsFixed(2)} \$',
+                              '${'1Y: ' + snapshot.data[0].the1Y}% : ${(1000 + (10 * double.parse(snapshot.data[0].the1Y))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -134,7 +134,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'3Y: ' + snapshot.data[0].the3Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the3Y))).toStringAsFixed(2)} \$',
+                              '${'3Y: ' + snapshot.data[0].the3Y}% : ${(1000 + (10 * double.parse(snapshot.data[0].the3Y))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -160,7 +160,7 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'10Y: ' + snapshot.data[0].the10Y}% - ${(1000 + (10 * double.parse(snapshot.data[0].the10Y))).toStringAsFixed(2)} \$',
+                              '${'10Y: ' + snapshot.data[0].the10Y}% : ${(1000 + (10 * double.parse(snapshot.data[0].the10Y))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
@@ -173,12 +173,12 @@ class CreateChart11State extends State<CreateChart11> {
                             ),
                             const Divider(),
                             Text(
-                              '${'MAX: ' + snapshot.data[0].max}% - ${(1000 + (10 * double.parse(snapshot.data[0].max))).toStringAsFixed(2)} \$',
+                              '${'MAX: ' + snapshot.data[0].max}% : ${(1000 + (10 * double.parse(snapshot.data[0].max))).toStringAsFixed(2)} \$',
                               style: TextStyle(
                                   color: (1000 +
                                               (10 *
                                                   double.parse(
-                                                      snapshot.data[0].the1D)) >
+                                                      snapshot.data[0].max)) >
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,

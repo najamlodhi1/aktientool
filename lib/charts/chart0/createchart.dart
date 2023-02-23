@@ -4,6 +4,7 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../webpage/constants.dart';
+import 'dart:html' as html;
 
 class CreateChart0 extends StatefulWidget {
   const CreateChart0({super.key});
@@ -61,14 +62,16 @@ class CreateChart0State extends State<CreateChart0> {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Expanded(
+                              children: const [
+                                Divider(),
+                                /*Expanded(
                                   child: Divider(
                                     indent: 20.0,
                                     endIndent: 10.0,
                                     thickness: 1,
                                   ),
                                 ),
+                                
                                 Text(
                                   snapshot.data[0].companyName.toString(),
                                   style: const TextStyle(
@@ -81,6 +84,7 @@ class CreateChart0State extends State<CreateChart0> {
                                     thickness: 1,
                                   ),
                                 ),
+                                */
                               ],
                             ),
                             const Text(""),
@@ -102,10 +106,17 @@ class CreateChart0State extends State<CreateChart0> {
                                   fontSize: 16, color: Colors.black),
                             ),
                             const Divider(),
-                            Text(
-                              "Ceo: " + snapshot.data[0].ceo,
-                              style: const TextStyle(
-                                  fontSize: 16, color: Colors.black),
+                            TextButton(
+                              onPressed: () {
+                                html.window.open(
+                                    'https://www.google.com/search?q=${snapshot.data[0].ceo}',
+                                    snapshot.data[0].ceo);
+                              },
+                              child: Text(
+                                "Ceo: " + snapshot.data[0].ceo,
+                                style: const TextStyle(
+                                    fontSize: 16, color: kPrimaryColor),
+                              ),
                             ),
                             const Divider(),
                             Text(

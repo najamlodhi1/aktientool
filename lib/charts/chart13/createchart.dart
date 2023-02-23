@@ -21,9 +21,7 @@ class CreateChart13State extends State<CreateChart13> {
   loadData() {
     log('api key : ${Env.fmpKey}');
     return RemoteService().getData(
-        "https://financialmodelingprep.com/api/v3/ipo_calendar?&apikey=${Env.fmpKey}"
-        // "https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/$stock?apikey=${Env.fmpKey}"
-        );
+        "https://financialmodelingprep.com/api/v3/ipo_calendar?&apikey=${Env.fmpKey}");
   }
 
   @override
@@ -78,38 +76,3 @@ class CreateChart13State extends State<CreateChart13> {
     );
   }
 }
-
-/*
- Column(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                text: 'Dividend History \n',
-                                style: GoogleFonts.oswald(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15.0,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        'Declared ${snapshot.data[0].declarationDate}\n',
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Record ${snapshot.data[0].recordDate}\n',
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Payable ${snapshot.data[0].paymentDate}\n',
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Amount ${snapshot.data[0].dividend}\$\n',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
- */

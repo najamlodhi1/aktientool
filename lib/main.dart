@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'authentication/screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'charts/allCharts.dart';
 import 'firebase_options.dart';
 import 'webpage/start.dart';
 
@@ -135,7 +136,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 return const Home();
               } else {
                 return DefaultTabController(
-                  length: 3,
+                  length: 4,
                   child: Scaffold(
                     backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                     body: NestedScrollView(
@@ -158,7 +159,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 Tab(child: Text('Home')),
                                 Tab(child: Text('Anmelden')),
                                 Tab(child: Text('Registrieren')),
-                                //Tab(child: Text('Test')),
+                                Tab(child: Text('Test')),
                               ],
                             ),
                           ),
@@ -362,7 +363,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           ),
                           LoginScreen(),
                           CreateAccount(),
-                          //const AllCharts(),
+                          const AllCharts(),
                         ],
                       ),
                     ),
