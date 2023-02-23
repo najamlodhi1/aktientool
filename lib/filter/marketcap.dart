@@ -9,13 +9,13 @@ var sp_marketcap_start = StateProvider((ref) {
   return 0;
 });
 var sp_marketcap_end = StateProvider((ref) {
-  return 3000;
+  return 2500;
 });
 var sp_marketcap_start_temp = StateProvider((ref) {
   return 0;
 });
 var sp_marketcap_end_temp = StateProvider((ref) {
-  return 3000;
+  return 2500;
 });
 var chk_marketcap = StateProvider((ref) {
   return true;
@@ -67,10 +67,10 @@ class Marketcap extends ConsumerWidget {
                         ref.read(chk_marketcap.state).state = value!;
                         if (value) {
                           ref.read(sp_marketcap_start.state).state = 0;
-                          ref.read(sp_marketcap_end.state).state = 3000;
+                          ref.read(sp_marketcap_end.state).state = 2500;
                         } else {
                           ref.read(sp_marketcap_start.state).state = 0;
-                          ref.read(sp_marketcap_end.state).state = 3000;
+                          ref.read(sp_marketcap_end.state).state = 2500;
                         }
                       },
                     ),
@@ -116,7 +116,7 @@ class Marketcap extends ConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  "3000B",
+                                  "2500B",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -126,7 +126,7 @@ class Marketcap extends ConsumerWidget {
                           ),
                           RangeSlider(
                             min: 0, //2449068320102
-                            max: 3000, //3000000000000
+                            max: 2500, //2500000000000
                             values: RangeValues(
                                 intMarketcapStartTemp.toDouble(),
                                 intMarketcapEndTemp.toDouble()),
