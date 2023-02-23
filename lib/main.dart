@@ -1,6 +1,5 @@
 import 'dart:html' as html;
 import 'package:aktientool/authentication/screens/create_account.dart';
-import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
@@ -136,7 +135,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 return const Home();
               } else {
                 return DefaultTabController(
-                  length: 4,
+                  length: 3,
                   child: Scaffold(
                     backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                     body: NestedScrollView(
@@ -158,8 +157,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                               tabs: const <Widget>[
                                 Tab(child: Text('Home')),
                                 Tab(child: Text('Anmelden')),
-                                Tab(child: Text('Mitgliedschaft')),
-                                Tab(child: Text('Test')),
+                                Tab(child: Text('Registrieren')),
+                                //Tab(child: Text('Test')),
                               ],
                             ),
                           ),
@@ -176,7 +175,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 alignment: WrapAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: 500,
+                                    width: 600,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -213,7 +212,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 40.0,
+                                          height: 20.0,
                                         ),
                                         SizedBox(
                                           child: Wrap(
@@ -224,7 +223,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                                   cursor:
                                                       SystemMouseCursors.click,
                                                   child: Text(
-                                                    "Kostenlos Mitglied werden und testen!",
+                                                    "Registrieren und kostenlos testen!",
                                                     style: TextStyle(
                                                       height: 0.5,
                                                       color: Colors.white,
@@ -237,7 +236,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 15.0,
+                                          height: 20.0,
                                         ),
                                         Wrap(
                                           children: [
@@ -260,7 +259,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                                     tabController.index = 2;
                                                   },
                                                   child: const Text(
-                                                    "LOS GEHTS",
+                                                    "REGISTRIEREN",
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 13.0,
@@ -310,7 +309,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                     ),
                                   ),
                                   const SizedBox(
-                                    width: 120,
+                                    width: 100,
                                   ),
                                   SizedBox(
                                     height: 400,
@@ -320,7 +319,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                     ),
                                   ),
                                   const SizedBox(
-                                    height: 40.0,
+                                    height: 0.0,
                                   ),
 
                                   //CvSection(),
@@ -363,7 +362,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           ),
                           LoginScreen(),
                           CreateAccount(),
-                          const AllCharts(),
+                          //const AllCharts(),
                         ],
                       ),
                     ),
