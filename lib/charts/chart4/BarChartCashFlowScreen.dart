@@ -36,15 +36,15 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
   }
 
   double calculateChartWidth(
-      Map<String, bool> _showBarsNotifier, List<CashFlowReportModel> _data) {
+      Map<String, bool> showBarsNotifier, List<CashFlowReportModel> data) {
     double interval = MediaQuery.of(context).size.width < 1000 ? 200 : 400;
     double chartWidth = MediaQuery.of(context).size.width >= interval
         ? MediaQuery.of(context).size.width - interval
         : MediaQuery.of(context).size.width;
 
     try {
-      for (int i = 0; i < _data.length; i++) {
-        if (_showBarsNotifier[_data[0].reports[i].title]!) {
+      for (int i = 0; i < data.length; i++) {
+        if (showBarsNotifier[data[0].reports[i].title]!) {
           chartWidth += interval;
         }
       }
@@ -79,6 +79,9 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Container(
                           height: 600,
                           width: MediaQuery.of(context).size.width,
