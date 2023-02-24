@@ -69,8 +69,8 @@ class ShareHoldersState extends State<ShareHolders> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 22)),
-                              const Text(
-                                  "All numbers are in thousands, Currency in USD"),
+                              //const Text(
+                              //    "All numbers are in thousands, Currency in USD"),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -109,7 +109,7 @@ class ShareHoldersState extends State<ShareHolders> {
                     height: 10,
                   ),
                   const Text("Income Statement"),
-                  const Text("All numbers are in thousands, Currency in USD"),
+                  //const Text("All numbers are in thousands, Currency in USD"),
                   const SizedBox(
                     height: 10,
                   ),

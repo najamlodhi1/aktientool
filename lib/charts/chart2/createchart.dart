@@ -62,8 +62,8 @@ class CreateChart2State extends State<CreateChart2> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 22)),
-                              const Text(
-                                  "All numbers are in thousands, Currency in USD"),
+                              // const Text(
+                              //    "All numbers are in thousands, Currency in USD"),
                               const SizedBox(
                                 height: 10,
                               ),

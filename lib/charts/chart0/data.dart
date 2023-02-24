@@ -39,7 +39,7 @@ class RemoteService {
           posts[0].image,
           posts[0].companyName,
           posts[0].symbol,
-          "${(posts[0].mktCap / 1000000000).toStringAsFixed(2)} Billion \$",
+          "${(posts[0].mktCap / 1000000000).toStringAsFixed(2)} Billion ",
           posts[0].exchangeShortName,
           posts[0].sector,
           posts[0].industry ?? "",
