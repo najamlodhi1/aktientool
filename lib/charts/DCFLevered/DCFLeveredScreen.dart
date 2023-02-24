@@ -68,7 +68,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Intrinsic Value"),
+          const Text("Intrinsic Value",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
           const SizedBox(
             height: 10,
           ),
@@ -96,7 +97,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Terminal Value"),
+          const Text("Terminal Value",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
           const SizedBox(
             height: 10,
           ),
@@ -124,7 +126,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Weighted Average Cost Of Capital"),
+          const Text("Weighted Average Cost Of Capital",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
           const SizedBox(
             height: 10,
           ),
@@ -152,8 +155,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Discounted Cash Flow (DCF) Analysis Levered"),
-          const Text("Free Cash Flow"),
+          const Text("Discounted Cash Flow (DCF) Analysis Levered",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+          const Text("Free Cash Flow",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
           const SizedBox(
             height: 10,
           ),
@@ -181,7 +186,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Build Up Free Cash Flow"),
+          const Text("Build Up Free Cash Flow",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
           const SizedBox(
             height: 10,
           ),

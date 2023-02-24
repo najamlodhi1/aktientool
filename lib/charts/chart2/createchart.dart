@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'IncomeReportModel.dart';
 
 class CreateChart2 extends StatefulWidget {
+  const CreateChart2({super.key});
+
   @override
   State<CreateChart2> createState() => CreateChart2State();
 }
@@ -56,7 +58,10 @@ class CreateChart2State extends State<CreateChart2> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("Income Statement"),
+                              const Text("Income Statement",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22)),
                               const Text(
                                   "All numbers are in thousands, Currency in USD"),
                               const SizedBox(
@@ -97,7 +102,9 @@ class CreateChart2State extends State<CreateChart2> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text("Income Statement"),
+                  const Text("Income Statement",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
                   const Text("All numbers are in thousands, Currency in USD"),
                   const SizedBox(
                     height: 10,

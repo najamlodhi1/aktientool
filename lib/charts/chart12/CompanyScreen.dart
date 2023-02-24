@@ -49,8 +49,10 @@ class _CompanyScreenState extends State<CompanyScreen> {
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: PaginatedDataTable(
-        header: const Text("Dividend History",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+        header: const Center(
+          child: Text("Dividend History",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+        ),
         source: tempdata,
         columns: const [
           DataColumn(label: Text("Declared")),

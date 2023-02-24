@@ -4,6 +4,8 @@ import 'package:aktientool/env/env.dart';
 import 'package:flutter/material.dart';
 
 class ShareHolders extends StatefulWidget {
+  const ShareHolders({super.key});
+
   @override
   State<ShareHolders> createState() => ShareHoldersState();
 }
@@ -63,7 +65,10 @@ class ShareHoldersState extends State<ShareHolders> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("Income Statement"),
+                              const Text("Income Statement",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22)),
                               const Text(
                                   "All numbers are in thousands, Currency in USD"),
                               const SizedBox(

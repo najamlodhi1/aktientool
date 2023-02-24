@@ -187,7 +187,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
         "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?serietype=line&apikey=${Env.fmpKey}";
 
     showChart() {
-      String todayPrice = flchartData1[0].toString().replaceAll(")", "");
+      String todayPrice =
+          flchartData1[flchartData1.length - 1].toString().replaceAll(")", "");
       int x = todayPrice.indexOf(" ");
       String todayPriceFinal = todayPrice.substring(x);
 

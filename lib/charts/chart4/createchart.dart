@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CreateChart4 extends StatefulWidget {
+  const CreateChart4({super.key});
+
   @override
   State<CreateChart4> createState() => CreateChart4State();
 }
@@ -55,7 +57,10 @@ class CreateChart4State extends State<CreateChart4> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("cash-flow-statement"),
+                              const Text("Cashflow Statement",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22)),
                               const Text(
                                   "All numbers are in thousands, Currency in USD"),
                               const SizedBox(
@@ -96,7 +101,9 @@ class CreateChart4State extends State<CreateChart4> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text("cash-flow-statement"),
+                  const Text("Cashflow Statement",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
                   const Text("All numbers are in thousands, Currency in USD"),
                   const SizedBox(
                     height: 10,

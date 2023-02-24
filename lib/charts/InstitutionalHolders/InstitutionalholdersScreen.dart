@@ -64,14 +64,18 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
       child: PaginatedDataTable(
         header: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text("Top Shareholders",
+          children: const [
+            Text("Top Shareholders",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+
+            /*
             if (top25 > 0)
               Text(
                   "Top 25 shareholders own ${top25.toStringAsFixed(2)}% of the company",
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 14)),
+
+                      */
           ],
         ),
         source: tempdata,

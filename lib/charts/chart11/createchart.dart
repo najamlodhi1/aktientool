@@ -49,10 +49,10 @@ class CreateChart11State extends State<CreateChart11> {
                         ),
                         child: Column(
                           children: [
-                            const Text(
-                              'Performance',
-                              style: TextStyle(fontSize: 20),
-                            ),
+                            const Text('Performance with 1000\$',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 22)),
+
                             const Divider(),
                             Text(
                               '${'1D: ' + snapshot.data[0].the1D}% : ${(1000 + (10 * double.parse(snapshot.data[0].the1D))).toStringAsFixed(2)} \$',
@@ -64,7 +64,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
 
@@ -78,7 +78,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -91,7 +91,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -104,7 +104,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -117,7 +117,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -130,7 +130,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -143,7 +143,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -156,7 +156,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -169,7 +169,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             Text(
@@ -182,7 +182,7 @@ class CreateChart11State extends State<CreateChart11> {
                                           1000.00)
                                       ? kPrimaryColor
                                       : Colors.red,
-                                  fontSize: 16),
+                                  fontSize: 18),
                             ),
                             const Divider(),
                             ////////////////////
