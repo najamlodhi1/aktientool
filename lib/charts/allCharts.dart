@@ -51,8 +51,10 @@ class _AllChartsState extends State<AllCharts> {
         child: Column(
           children: [
             const CreateChart0(), // Info
-            CreateChart1Test(), // Chart
+            const CreateChart1Test(), // Chart
             const CreateChart11(), // Performance
+            const Institutionalholders(),
+
             const CompanyScreen(), // Dividend History
             const ScoreScreen(),
             const BarChartIncomeScreen(), // Bar Chart income
@@ -63,7 +65,6 @@ class _AllChartsState extends State<AllCharts> {
             CreateChart4(),
             const DCFLeveredScreen(),
             const ConcensusScreen(),
-            const Institutionalholders(),
             const StockNewsScreen(),
             // const CreateChart13()
 

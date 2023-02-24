@@ -49,23 +49,25 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            children: const [
-              SizedBox(width: 20),
-              Text('Analyst Rating',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
-            ],
+          const Center(
+            child: Text('Analyst Rating',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
           ),
           const Divider(height: 10, thickness: 1),
-          Row(
+          Wrap(
             children: [
               Expanded(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                 customTextWidget('Strong Buy', data.strongBuy),
+                const Divider(),
                 customTextWidget('Moderate Buy', data.buy),
+                const Divider(),
                 customTextWidget('Hold', data.hold),
+                const Divider(),
                 customTextWidget('Moderate Sell', data.sell),
-                customTextWidget('Strong Sell', data.strongSell)
+                const Divider(),
+                customTextWidget('Strong Sell', data.strongSell),
+                const Divider(),
               ])),
               customCellRow(data.consensus.toLowerCase())
             ],
@@ -84,7 +86,8 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
           Text(title,
               style:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Text(value.toString())
+          Text(value.toString(),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17))
         ],
       ),
     );
@@ -94,6 +97,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
     return Expanded(
       child: Column(
         children: [
+          /*
           Container(
             height: 120,
             margin: const EdgeInsets.all(15),
@@ -126,6 +130,8 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
                         fontSize: 25,
                         color: Colors.white))),
           ),
+
+          */
           Container(
             height: 170,
             padding: const EdgeInsets.all(15),
