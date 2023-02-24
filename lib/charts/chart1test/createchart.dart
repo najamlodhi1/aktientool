@@ -136,7 +136,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                       .toList(),
                   //isCurved: false,
                   color: const Color.fromARGB(255, 76, 175, 147),
-                  barWidth: 3,
+                  barWidth: 2,
                   //isStrokeCapRound: false,
                   dotData: FlDotData(
                     show: false,
