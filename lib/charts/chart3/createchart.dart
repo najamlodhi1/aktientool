@@ -105,7 +105,7 @@ class CreateChart3State extends State<CreateChart3> {
                   const Text("Balance Sheet",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
-                  const Text("All numbers are in thousands, Currency in USD"),
+                  //const Text("All numbers are in thousands, Currency in USD"),
                   const SizedBox(
                     height: 10,
                   ),
