@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter, prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
+
 import 'package:aktientool/payment/stripe/fetch_product_details.dart';
 import 'package:aktientool/payment/stripe/checkout_page.dart';
 import 'package:aktientool/payment/stripe/show_loading.dart';

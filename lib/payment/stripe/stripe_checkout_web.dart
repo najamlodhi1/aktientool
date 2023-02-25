@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, unused_import, unused_local_variable, avoid_print
+
 @JS()
 library stripe;
 

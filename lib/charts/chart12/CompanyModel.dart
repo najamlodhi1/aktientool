@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class DividendModel {
   final String declarationDate;
   final String recordDate;

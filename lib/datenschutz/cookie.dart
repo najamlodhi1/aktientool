@@ -1,5 +1,7 @@
 // ignore: file_names
 
+// ignore_for_file: deprecated_member_use, duplicate_ignore
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

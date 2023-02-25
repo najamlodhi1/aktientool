@@ -1,6 +1,8 @@
 // https://app.quicktype.io/
 // https://financialmodelingprep.com/api/v3/cash-flow-statement/AAPL?limit=20&apikey=${FMPKEY}
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 List<Post?>? postFromJson(String str) => json.decode(str) == null

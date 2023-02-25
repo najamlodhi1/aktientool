@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches, file_names
+
 import 'package:aktientool/charts/chart2/IncomeReportModel.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';

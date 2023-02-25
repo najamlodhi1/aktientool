@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, avoid_unnecessary_containers
+
 import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/globals.dart';
 import 'package:aktientool/webpage/header_item.dart';

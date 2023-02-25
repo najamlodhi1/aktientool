@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports, use_key_in_widget_constructors
+
 import 'package:aktientool/webpage/components/carousel_items.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/screen_helper.dart';

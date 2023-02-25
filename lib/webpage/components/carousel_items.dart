@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:aktientool/webpage/carousel_item_model.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:aktientool/charts/chart11/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';

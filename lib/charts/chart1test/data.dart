@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, avoid_print, depend_on_referenced_packages
+
 import 'package:aktientool/charts/chart1test/post.dart';
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';

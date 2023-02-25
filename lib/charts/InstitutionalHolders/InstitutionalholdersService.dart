@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';

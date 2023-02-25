@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, empty_catches
+
 import 'package:aktientool/charts/chart3/BalanceReportModel.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';

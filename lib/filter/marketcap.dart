@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'dart:async';
 

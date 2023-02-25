@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class ScoreModel {
   final double altmanZScore;
   final double piotroskiScore;

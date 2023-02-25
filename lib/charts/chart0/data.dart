@@ -2,15 +2,10 @@
 
 import 'package:aktientool/charts/chart0/post.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:translator/translator.dart';
 
 var companyInfo = <CompanyInfo>[];
-
-var sp_companyInfo = StateProvider((ref) {
-  return companyInfo;
-});
 
 class RemoteService {
   translate(String input) async {

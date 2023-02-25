@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+
 import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/screen_helper.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,8 @@ final List<String> sponsorsLogo = [
 ];
 
 class Sponsors extends StatelessWidget {
+  const Sponsors({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter, avoid_print, prefer_interpolation_to_compose_strings, deprecated_member_use
+
 import 'package:aktientool/charts/chart0/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';

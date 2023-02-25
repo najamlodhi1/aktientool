@@ -15,6 +15,8 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   Map<String, dynamic>? paymentIntent;
 
+  LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

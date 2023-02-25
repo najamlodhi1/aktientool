@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:aktientool/charts/Scores/ScoreModel.dart';
 import 'package:aktientool/env/env.dart';

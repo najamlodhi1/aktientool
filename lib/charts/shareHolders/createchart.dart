@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
+
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/charts/shareHolders/data.dart';
 import 'package:aktientool/env/env.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: file_names, must_be_immutable, avoid_print, duplicate_ignore
 import 'dart:convert';
 import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/models/company.dart';

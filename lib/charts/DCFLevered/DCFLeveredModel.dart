@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+// ignore_for_file: file_names
 
 class DCFLeveredModel {
   int year;

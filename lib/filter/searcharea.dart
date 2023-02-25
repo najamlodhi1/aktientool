@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, deprecated_member_use
+// ignore_for_file: prefer_interpolation_to_compose_strings, deprecated_member_use, non_constant_identifier_names, must_be_immutable, unused_local_variable
 
 import 'package:aktientool/payment/stripe/hompage.dart';
 import 'package:aktientool/settings/settings.dart';

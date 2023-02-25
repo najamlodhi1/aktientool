@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers
+
 import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/screen_helper.dart';
 import 'package:aktientool/webpage/stat.dart';

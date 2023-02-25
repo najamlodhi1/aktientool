@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_interpolation_to_compose_strings
+
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert' as convert;

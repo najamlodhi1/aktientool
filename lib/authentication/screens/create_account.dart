@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, must_be_immutable, empty_catches, avoid_print
 
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
@@ -15,6 +15,8 @@ class CreateAccount extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  CreateAccount({super.key});
+
   Future registerWithEmailAndPassword() async {
     try {
       final FirebaseAuth auth = FirebaseAuth.instance;
@@ -24,7 +26,7 @@ class CreateAccount extends StatelessWidget {
 
       if (userCredential.user != null) {
         User user = userCredential.user!;
-        print("${user.email}");
+        //print("${user.email}");
 
         FirebaseFirestore firestore = FirebaseFirestore.instance;
 

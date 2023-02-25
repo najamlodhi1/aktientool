@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
+// ignore_for_file: avoid_web_libraries_in_flutter, file_names
 
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
