@@ -8,7 +8,7 @@ class CompanyModel {
   String? country;
   String? exchange;
   String? industry;
-  int? marketcap;
+  double? marketcap;
   String? companyname;
   String? exchangeshortname;
   String? isactivelytrading;
