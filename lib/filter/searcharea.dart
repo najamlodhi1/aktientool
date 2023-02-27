@@ -127,53 +127,60 @@ class SearchArea extends ConsumerWidget {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Upgrade'),
-                          content: const Text(
-                              'Um weitere Suchanfragen zu tätigen sind 10 Euro fällig. Möchten Sie upgraden?'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
-                                  ),
-                                );
+                            title: const Text('Upgrade'),
+                            content: const Text(
+                                'Um weitere Suchanfragen zu tätigen sind 10 Euro fällig. Möchten Sie upgraden?'),
+                            actions: <Widget>[
+                              IconButton(
+                                icon: Image.asset('assets/images/30.png'),
+                                iconSize: 250,
+                                padding: const EdgeInsets.all(5.0),
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const Homepage(),
+                                    ),
+                                  );
 
-                                //redirectToCheckout(context);
-                              },
-                              child: const Text('20'),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
-                                  ),
-                                );
+                                  //redirectToCheckout(context);
+                                },
+                              ),
+                              IconButton(
+                                icon: Image.asset('assets/images/100.png'),
+                                iconSize: 250,
+                                padding: const EdgeInsets.all(5.0),
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const Homepage(),
+                                    ),
+                                  );
 
-                                //redirectToCheckout(context);
-                              },
-                              child: const Text('50'),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
-                                  ),
-                                );
+                                  //redirectToCheckout(context);
+                                },
+                              ),
+                              IconButton(
+                                icon: Image.asset('assets/images/200.png'),
+                                iconSize: 250,
+                                padding: const EdgeInsets.all(5.0),
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const Homepage(),
+                                    ),
+                                  );
 
-                                //redirectToCheckout(context);
-                              },
-                              child: const Text('100'),
-                            ),
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(context, 'ABBRECHEN'),
-                              child: const Text('CANCEL'),
-                            ),
-                          ],
-                        ),
+                                  //redirectToCheckout(context);
+                                },
+                              ),
+                              IconButton(
+                                icon: Image.asset('assets/images/cancel.png'),
+                                iconSize: 250,
+                                padding: const EdgeInsets.all(5.0),
+                                onPressed: () =>
+                                    Navigator.pop(context, 'ABBRECHEN'),
+                              ),
+                            ]),
                       );
                     },
                     child: const Text('9999'),
