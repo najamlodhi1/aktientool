@@ -127,9 +127,10 @@ class SearchArea extends ConsumerWidget {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Upgrade'),
+                            title: const Text(
+                                'Upgraden um weiterhin den Aktientool zu benutzen. Es existieren 3 Pakete. 30 Anfragen kosten 10 EURO'),
                             content: const Text(
-                                'Um weitere Suchanfragen zu tätigen sind 10 Euro fällig. Möchten Sie upgraden?'),
+                                'Hinweis: Es wird kein Abo abgeschlossen. Sie bezahlen einmalig. Wenn die Anzahl der Anfragen auf 0 steht können Sie erneut einen Paket buchen.'),
                             actions: <Widget>[
                               IconButton(
                                 icon: Image.asset('assets/images/30.png'),
