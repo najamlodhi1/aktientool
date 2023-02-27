@@ -412,9 +412,9 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           (index) => DataCell(Text((title == 'Share price' ? '\$ ' : '') +
               (data[index] == 0
                   ? ''
-                  : data[index].toStringAsFixed(2).length > 6
+                  : ((data[index] > 1000000)
                       ? (data[index] / 1000000).toStringAsFixed(2)
-                      : data[index].toStringAsFixed(2)) +
+                      : data[index].toStringAsFixed(2))) +
               (title == 'After-tax Cost of Debt' ? '%' : ''))),
         )
       ],
@@ -433,7 +433,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             if (tableData[index].year < DateTime.now().year) {
               return DataCell(Container());
             }
-            return DataCell(Text(data[index].toStringAsFixed(2).length > 6
+            return DataCell(Text(data[index] > 1000000
                 ? (data[index] / 1000000).toStringAsFixed(2)
                 : data[index].toStringAsFixed(2)));
           },
@@ -454,7 +454,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             if (data[index] == 0) {
               return DataCell(Container());
             }
-            return DataCell(Text(data[index].toStringAsFixed(2).length > 6
+            return DataCell(Text(data[index] > 1000000
                 ? (data[index] / 1000000).toStringAsFixed(2)
                 : data[index].toStringAsFixed(2)));
           },
