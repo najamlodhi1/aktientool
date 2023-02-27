@@ -50,7 +50,7 @@ class CreateChart0State extends State<CreateChart0> {
                             style: BorderStyle.none,
                             width: 2,
                           ),
-                          color: const Color.fromARGB(255, 255, 255, 255),
+                          color: const Color.fromARGB(255, 14, 209, 161),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Column(
@@ -59,8 +59,18 @@ class CreateChart0State extends State<CreateChart0> {
                               padding: const EdgeInsets.all(8.0),
                               child: Image.network(
                                 snapshot.data[0].image.toString(),
-                                width: 100.0,
+                                width: 300.0,
                               ),
+                            ),
+                            Text(
+                              snapshot.data[0].companyName.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 100),
+                            ),
+                            const Text(
+                              "Aktien Analyse",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 50),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
