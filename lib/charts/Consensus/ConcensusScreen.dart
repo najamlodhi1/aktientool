@@ -58,8 +58,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
           const Divider(height: 10, thickness: 1),
           Wrap(
             children: [
-              Expanded(
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Column(mainAxisSize: MainAxisSize.min, children: [
                 customTextWidget('Strong Buy', data.strongBuy),
                 const Divider(),
                 customTextWidget('Moderate Buy', data.buy),
@@ -70,7 +69,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
                 const Divider(),
                 customTextWidget('Strong Sell', data.strongSell),
                 const Divider(),
-              ])),
+              ]),
               customCellRow(data.consensus.toLowerCase())
             ],
           )
@@ -96,10 +95,9 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
   }
 
   Widget customCellRow(String consensus) {
-    return Expanded(
-      child: Column(
-        children: [
-          /*
+    return Column(
+      children: [
+        /*
           Container(
             height: 120,
             margin: const EdgeInsets.all(15),
@@ -134,22 +132,21 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
           ),
 
           */
-          Container(
-            height: 170,
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                customCell('strongSell', consensus),
-                customCell('sell', consensus),
-                customCell('hold', consensus),
-                customCell('buy', consensus),
-                customCell('strongBuy', consensus)
-              ],
-            ),
+        Container(
+          height: 170,
+          padding: const EdgeInsets.all(15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              customCell('strongSell', consensus),
+              customCell('sell', consensus),
+              customCell('hold', consensus),
+              customCell('buy', consensus),
+              customCell('strongBuy', consensus)
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
