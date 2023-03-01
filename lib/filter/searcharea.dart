@@ -15,6 +15,7 @@ class SearchArea extends ConsumerWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController searchController = TextEditingController();
   Icon customIcon = const Icon(Icons.cancel);
+  bool isFirst = true;
   Widget customSearchBar = Image.asset(
     'assets/images/logo.png',
     height: 25,
@@ -120,101 +121,34 @@ class SearchArea extends ConsumerWidget {
           const SizedBox(
             width: 5,
           ),
-          FirebaseAuth.instance.currentUser != null
-              ? Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      var uid = auth.currentUser!.uid;
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          scrollable: true,
-                          title: const Text(
-                              'Upgraden um weiterhin den Aktientool zu benutzen. Es existieren 3 Pakete. 30 Anfragen kosten 10 EURO'),
-                          content: Column(
-                            children: [
-                              const Text(
-                                  'Hinweis: Es wird kein Abo abgeschlossen. Sie bezahlen einmalig. Wenn die Anzahl der Anfragen auf 0 steht können Sie erneut einen Paket buchen.'),
-                              const SizedBox(height: 10),
-                              Wrap(
-                                alignment: WrapAlignment.center,
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                runAlignment: WrapAlignment.center,
-                                children: [
-                                  IconButton(
-                                    icon: Image.asset('assets/images/30.png'),
-                                    iconSize: 250,
-                                    padding: const EdgeInsets.all(5.0),
-                                    onPressed: () async {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Homepage(),
-                                        ),
-                                      );
-
-                                      //redirectToCheckout(context);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Image.asset('assets/images/100.png'),
-                                    iconSize: 250,
-                                    padding: const EdgeInsets.all(5.0),
-                                    onPressed: () async {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Homepage(),
-                                        ),
-                                      );
-
-                                      //redirectToCheckout(context);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Image.asset('assets/images/200.png'),
-                                    iconSize: 250,
-                                    padding: const EdgeInsets.all(5.0),
-                                    onPressed: () async {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Homepage(),
-                                        ),
-                                      );
-
-                                      //redirectToCheckout(context);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon:
-                                        Image.asset('assets/images/cancel.png'),
-                                    iconSize: 250,
-                                    padding: const EdgeInsets.all(5.0),
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'ABBRECHEN'),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    child: StreamBuilder<int>(
-                        stream: RequestService().getrequests(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            requestsLeft = snapshot.data!;
-                          }
-                          return Text(snapshot.hasData
-                              ? snapshot.data!.toString()
-                              : '0');
-                        }),
-                  ),
-                )
-              : const SizedBox.shrink(),
+          if (FirebaseAuth.instance.currentUser != null)
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: ElevatedButton(
+                onPressed: () async {
+                  // var uid = auth.currentUser!.uid;
+                  upgradepopup(context);
+                },
+                child: StreamBuilder<int>(
+                    stream: RequestService().getrequests(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        requestsLeft = snapshot.data!;
+                        if (requestsLeft == 0 && isFirst) {
+                          isFirst = false;
+                          Future.delayed(const Duration(milliseconds: 200))
+                              .then((value) {
+                            upgradepopup(context);
+                          });
+                        }
+                      }
+                      return Text(
+                          snapshot.hasData ? snapshot.data!.toString() : '0');
+                    }),
+              ),
+            )
+          else
+            const SizedBox.shrink(),
           IconButton(
               onPressed: () {
                 Navigator.push(
@@ -229,5 +163,78 @@ class SearchArea extends ConsumerWidget {
         centerTitle: true,
       );
     }
+  }
+
+  void upgradepopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        scrollable: true,
+        title: const Text(
+            'Upgraden um weiterhin den Aktientool zu benutzen. Es existieren 3 Pakete. 30 Anfragen kosten 10 EURO'),
+        content: Column(
+          children: [
+            const Text(
+                'Hinweis: Es wird kein Abo abgeschlossen. Sie bezahlen einmalig. Wenn die Anzahl der Anfragen auf 0 steht können Sie erneut einen Paket buchen.'),
+            const SizedBox(height: 10),
+            Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runAlignment: WrapAlignment.center,
+              children: [
+                IconButton(
+                  icon: Image.asset('assets/images/30.png'),
+                  iconSize: 250,
+                  padding: const EdgeInsets.all(5.0),
+                  onPressed: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const Homepage(),
+                      ),
+                    );
+
+                    //redirectToCheckout(context);
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset('assets/images/100.png'),
+                  iconSize: 250,
+                  padding: const EdgeInsets.all(5.0),
+                  onPressed: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const Homepage(),
+                      ),
+                    );
+
+                    //redirectToCheckout(context);
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset('assets/images/200.png'),
+                  iconSize: 250,
+                  padding: const EdgeInsets.all(5.0),
+                  onPressed: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const Homepage(),
+                      ),
+                    );
+
+                    //redirectToCheckout(context);
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset('assets/images/cancel.png'),
+                  iconSize: 250,
+                  padding: const EdgeInsets.all(5.0),
+                  onPressed: () => Navigator.pop(context, 'ABBRECHEN'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
