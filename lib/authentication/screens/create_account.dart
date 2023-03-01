@@ -12,47 +12,20 @@ import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 
 class CreateAccount extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
   CreateAccount({super.key});
 
-  Future registerWithEmailAndPassword() async {
-    try {
-      final FirebaseAuth auth = FirebaseAuth.instance;
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-          email: _emailController.toString(),
-          password: _passwordController.toString());
-
-      if (userCredential.user != null) {
-        User user = userCredential.user!;
-        //print("${user.email}");
-
-        FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-        await firestore
-            .collection('users')
-            .doc(user.uid)
-            .set({'email': user.email});
-
-        FirebaseFirestore.instance
-            .collection('requests')
-            .add({'email': 'user.email', 'req': 5});
-      }
-    } catch (e) {}
-  }
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   CollectionReference students =
       FirebaseFirestore.instance.collection('requests');
 
-  Future<void> addRequests(String email) {
-    // Calling the collection to add a new user
+  Future<void> addRequests(String email, String id) {
     return students
-        //adding to firebase collection
-        .add({
-          //Data added in the form of a dictionary into the document.
+        .doc(id)
+        .set({
           'email': email,
-          'req': 5,
+          'req': 3,
         })
         .then((value) => print("req data Added"))
         .catchError((error) => print("req couldn't be added."));
@@ -191,11 +164,10 @@ class CreateAccount extends StatelessWidget {
                     //registerWithEmailAndPassword();
 
                     final message = await AuthService().registration(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                    );
-                    if (message!.contains('Success')) {
-                      addRequests(_emailController.text);
+                        email: _emailController.text,
+                        password: _passwordController.text);
+                    if (message is UserCredential) {
+                      addRequests(_emailController.text, message.user!.uid);
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const Home(),

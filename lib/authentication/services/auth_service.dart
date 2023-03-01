@@ -8,16 +8,13 @@ import 'auth_status.dart';
 class AuthService {
   AuthStatus _status = AuthStatus.unknown;
 
-  Future<String?> registration({
+  Future registration({
     required String email,
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return 'Success';
+      return await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
@@ -31,16 +28,15 @@ class AuthService {
     }
   }
 
-  Future<String?> login({
+  Future login({
     required String email,
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      return await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
@@ -65,7 +61,7 @@ class AuthService {
     GoogleAuthProvider authProvider = GoogleAuthProvider();
     try {
       final UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithPopup(authProvider);
+          await FirebaseAuth.instance.signInWithPopup(authProvider);
       user = userCredential.user;
     } catch (e) {
       if (kDebugMode) {
@@ -92,7 +88,8 @@ class AuthService {
     await FirebaseAuth.instance
         .sendPasswordResetEmail(email: email)
         .then((value) => _status = AuthStatus.successful)
-        .catchError((e) => _status = AuthExceptionHandler.handleAuthException(e));
+        .catchError(
+            (e) => _status = AuthExceptionHandler.handleAuthException(e));
     return _status;
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, deprecated_member_use, non_constant_identifier_names, must_be_immutable, unused_local_variable
 
+import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/payment/stripe/hompage.dart';
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'filter.dart';
 
 final sp_search = StateProvider((ref) => "");
+int requestsLeft = 0;
 
 class SearchArea extends ConsumerWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -184,7 +186,16 @@ class SearchArea extends ConsumerWidget {
                             ]),
                       );
                     },
-                    child: const Text('9999'),
+                    child: StreamBuilder<int>(
+                        stream: RequestService().getrequests(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            requestsLeft = snapshot.data!;
+                          }
+                          return Text(snapshot.hasData
+                              ? snapshot.data!.toString()
+                              : '0');
+                        }),
                   ),
                 )
               : const SizedBox.shrink(),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../authentication/services/request_service.dart';
 import '../constants/responsive.dart';
 import '../filter/country.dart';
 import '../filter/industry.dart';
@@ -212,15 +213,17 @@ class ShowCompanies extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
-                        companyname = snapshot.data![index].companyname!;
-                        companysymbol = snapshot.data![index].symbol!;
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AllCharts(),
-                          ),
-                        );
+                        if (requestsLeft > 0) {
+                          companyname = snapshot.data![index].companyname!;
+                          companysymbol = snapshot.data![index].symbol!;
+                          RequestService().updateRequests();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AllCharts(),
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         margin: const EdgeInsets.all(2.0),
