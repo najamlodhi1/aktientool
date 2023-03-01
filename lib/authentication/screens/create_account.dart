@@ -17,16 +17,13 @@ class CreateAccount extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  CollectionReference students =
+  CollectionReference requests =
       FirebaseFirestore.instance.collection('requests');
 
   Future<void> addRequests(String email, String id) {
-    return students
-        .doc(id)
-        .set({
-          'email': email,
-          'req': 3,
-        })
+    return requests
+        .doc(email)
+        .set({'request': 3, 'created': DateTime.now()})
         .then((value) => print("req data Added"))
         .catchError((error) => print("req couldn't be added."));
   }

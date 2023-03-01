@@ -129,61 +129,77 @@ class SearchArea extends ConsumerWidget {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                            title: const Text(
-                                'Upgraden um weiterhin den Aktientool zu benutzen. Es existieren 3 Pakete. 30 Anfragen kosten 10 EURO'),
-                            content: const Text(
-                                'Hinweis: Es wird kein Abo abgeschlossen. Sie bezahlen einmalig. Wenn die Anzahl der Anfragen auf 0 steht können Sie erneut einen Paket buchen.'),
-                            actions: <Widget>[
-                              IconButton(
-                                icon: Image.asset('assets/images/30.png'),
-                                iconSize: 250,
-                                padding: const EdgeInsets.all(5.0),
-                                onPressed: () async {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => const Homepage(),
-                                    ),
-                                  );
+                          scrollable: true,
+                          title: const Text(
+                              'Upgraden um weiterhin den Aktientool zu benutzen. Es existieren 3 Pakete. 30 Anfragen kosten 10 EURO'),
+                          content: Column(
+                            children: [
+                              const Text(
+                                  'Hinweis: Es wird kein Abo abgeschlossen. Sie bezahlen einmalig. Wenn die Anzahl der Anfragen auf 0 steht können Sie erneut einen Paket buchen.'),
+                              const SizedBox(height: 10),
+                              Wrap(
+                                alignment: WrapAlignment.center,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                runAlignment: WrapAlignment.center,
+                                children: [
+                                  IconButton(
+                                    icon: Image.asset('assets/images/30.png'),
+                                    iconSize: 250,
+                                    padding: const EdgeInsets.all(5.0),
+                                    onPressed: () async {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Homepage(),
+                                        ),
+                                      );
 
-                                  //redirectToCheckout(context);
-                                },
-                              ),
-                              IconButton(
-                                icon: Image.asset('assets/images/100.png'),
-                                iconSize: 250,
-                                padding: const EdgeInsets.all(5.0),
-                                onPressed: () async {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => const Homepage(),
-                                    ),
-                                  );
+                                      //redirectToCheckout(context);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Image.asset('assets/images/100.png'),
+                                    iconSize: 250,
+                                    padding: const EdgeInsets.all(5.0),
+                                    onPressed: () async {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Homepage(),
+                                        ),
+                                      );
 
-                                  //redirectToCheckout(context);
-                                },
-                              ),
-                              IconButton(
-                                icon: Image.asset('assets/images/200.png'),
-                                iconSize: 250,
-                                padding: const EdgeInsets.all(5.0),
-                                onPressed: () async {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => const Homepage(),
-                                    ),
-                                  );
+                                      //redirectToCheckout(context);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Image.asset('assets/images/200.png'),
+                                    iconSize: 250,
+                                    padding: const EdgeInsets.all(5.0),
+                                    onPressed: () async {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Homepage(),
+                                        ),
+                                      );
 
-                                  //redirectToCheckout(context);
-                                },
+                                      //redirectToCheckout(context);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon:
+                                        Image.asset('assets/images/cancel.png'),
+                                    iconSize: 250,
+                                    padding: const EdgeInsets.all(5.0),
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'ABBRECHEN'),
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                icon: Image.asset('assets/images/cancel.png'),
-                                iconSize: 250,
-                                padding: const EdgeInsets.all(5.0),
-                                onPressed: () =>
-                                    Navigator.pop(context, 'ABBRECHEN'),
-                              ),
-                            ]),
+                            ],
+                          ),
+                        ),
                       );
                     },
                     child: StreamBuilder<int>(

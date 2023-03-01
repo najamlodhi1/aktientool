@@ -5,15 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 class RequestService {
   CollectionReference request =
       FirebaseFirestore.instance.collection('requests');
-  final id = FirebaseAuth.instance.currentUser!.uid;
+  final id = FirebaseAuth.instance.currentUser!.email;
 
   Stream<int> getrequests() {
     return request.doc(id).snapshots().map(fromSnapshot);
   }
 
   Future updateRequests() {
-    return request.doc(id).update({'req': (requestsLeft - 1)});
+    return request.doc(id).update({'request': (requestsLeft - 1)});
   }
 
-  static int fromSnapshot(DocumentSnapshot doc) => doc.get("req");
+  static int fromSnapshot(DocumentSnapshot doc) => doc.get("request");
 }
