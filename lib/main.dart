@@ -2,6 +2,7 @@
 
 import 'dart:html' as html;
 import 'package:aktientool/authentication/screens/create_account.dart';
+import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
@@ -26,17 +27,13 @@ main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  String? q = Uri.base.queryParameters["q"];
+  runApp(ProviderScope(child: MyApp(clicks: q)));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, this.clicks});
+  final String? clicks;
   @override
   State<MyApp> createState() => MyAppState();
 }
@@ -60,6 +57,9 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         mIsShowStripeCancelDialog = true;
       });
     } else if (currentUrl.contains("ret=success")) {
+      if (widget.clicks != null) {
+        RequestService().addRequests(int.parse(widget.clicks!));
+      }
       setState(() {
         mIsShowStripeSuccessDialog = true;
       });

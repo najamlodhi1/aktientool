@@ -11,6 +11,16 @@ class RequestService {
     return request.doc(id).snapshots().map(fromSnapshot);
   }
 
+  Future<int> getrequestsfuture() {
+    return request.doc(id).get().then(fromSnapshot);
+  }
+
+  Future addRequests(int amount) async {
+    return request
+        .doc(id)
+        .update({'request': (await getrequestsfuture() + amount)});
+  }
+
   Future updateRequests() {
     return request.doc(id).update({'request': (requestsLeft - 1)});
   }

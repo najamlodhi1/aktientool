@@ -28,14 +28,20 @@ class _HomepageState extends State<Homepage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ProductDetials> productDetails = snapshot.data!;
-            buyStuff(productDetails[widget.paymenttype - 1]);
+            buyStuff(
+                productDetails[widget.paymenttype - 1],
+                widget.paymenttype == 1
+                    ? 30
+                    : widget.paymenttype == 2
+                        ? 100
+                        : 200);
             return const Center(child: CircularProgressIndicator());
           }
           return loading('Loading product details');
         });
   }
 
-  buyStuff(ProductDetials pd) async {
+  buyStuff(ProductDetials pd, int clicks) async {
     // setState(() {
     loadingPayment = true;
     // });
@@ -48,7 +54,7 @@ class _HomepageState extends State<Homepage> {
       'price': pd.priceId,
       'quantity': pd.quatity,
       'mode': 'payment',
-      'success_url': 'https://aktientool.net/?ret=success',
+      'success_url': 'https://aktientool.net/?ret=success&q=$clicks',
       'cancel_url': 'https://aktientool.net/?ret=cancel'
     });
 
