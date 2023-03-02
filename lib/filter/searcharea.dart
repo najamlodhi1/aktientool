@@ -2,6 +2,7 @@
 
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/payment/stripe/hompage.dart';
+import 'package:aktientool/payment/stripe/stripe_checkout_web.dart';
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -189,11 +190,10 @@ class SearchArea extends ConsumerWidget {
                   onPressed: () async {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const Homepage(),
+                        builder: (context) => const Homepage(paymenttype: 1),
                       ),
                     );
-
-                    //redirectToCheckout(context);
+                    redirectToCheckout(context, 1);
                   },
                 ),
                 IconButton(
@@ -203,11 +203,10 @@ class SearchArea extends ConsumerWidget {
                   onPressed: () async {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const Homepage(),
+                        builder: (context) => const Homepage(paymenttype: 2),
                       ),
                     );
-
-                    //redirectToCheckout(context);
+                    redirectToCheckout(context, 2);
                   },
                 ),
                 IconButton(
@@ -217,11 +216,10 @@ class SearchArea extends ConsumerWidget {
                   onPressed: () async {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const Homepage(),
+                        builder: (context) => const Homepage(paymenttype: 3),
                       ),
                     );
-
-                    //redirectToCheckout(context);
+                    redirectToCheckout(context, 3);
                   },
                 ),
                 IconButton(

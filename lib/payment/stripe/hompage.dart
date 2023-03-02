@@ -11,8 +11,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:html' as html;
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
-
+  const Homepage({Key? key, required this.paymenttype}) : super(key: key);
+  final int paymenttype;
   @override
   State<Homepage> createState() => _HomepageState();
 }
@@ -26,15 +26,12 @@ class _HomepageState extends State<Homepage> {
     return FutureBuilder<List<ProductDetials>>(
         future: featchProductDetails(),
         builder: (context, snapshot) {
-          while (snapshot.hasData == false) {
-            return loading('Loading product details');
+          if (snapshot.hasData) {
+            List<ProductDetials> productDetails = snapshot.data!;
+            buyStuff(productDetails[widget.paymenttype - 1]);
+            return const Center(child: CircularProgressIndicator());
           }
-
-          List<ProductDetials> productDetails = snapshot.data!;
-          ProductDetials currentProduct = productDetails.elementAt(0);
-          buyStuff(currentProduct);
-
-          return const Center(child: CircularProgressIndicator());
+          return loading('Loading product details');
         });
   }
 

@@ -11,14 +11,16 @@ import 'package:js/js.dart';
 import '../../constants/constants.dart';
 import '../../authentication/screens/forgot_password.dart';
 
-void redirectToCheckout(BuildContext context) async {
+void redirectToCheckout(BuildContext context, int type) async {
   final stripe = Stripe(Env.apiKey);
 
   try {
     final checkoutSession = await stripe.redirectToCheckout(
       CheckoutOptions(
         lineItems: [
-          LineItem(price: Env.nikesPriceId, quantity: 1),
+          if (type == 1) LineItem(price: Env.priceId20, quantity: 1),
+          if (type == 2) LineItem(price: Env.priceId50, quantity: 1),
+          if (type == 3) LineItem(price: Env.priceId100, quantity: 1)
         ],
         mode: 'payment',
         successUrl: 'https://aktientool.net/?ret=success',
