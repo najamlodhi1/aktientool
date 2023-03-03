@@ -165,17 +165,17 @@ class CreateAccount extends StatelessWidget {
                         password: _passwordController.text);
                     if (message is UserCredential) {
                       addRequests(_emailController.text, message.user!.uid);
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                'Verification Email is sent. Please verify to continue')),
+                      );
+                      AuthService().signOut();
+                    } else if (message is String) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(message)),
                       );
                     }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(message),
-                      ),
-                    );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.black),

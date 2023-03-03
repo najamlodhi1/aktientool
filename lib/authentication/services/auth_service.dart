@@ -1,20 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import 'auth_status.dart';
 
 class AuthService {
   AuthStatus _status = AuthStatus.unknown;
 
-  Future registration({
-    required String email,
-    required String password,
-  }) async {
+  Future registration({required String email, required String password}) async {
     try {
       return await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        value.user!.sendEmailVerification();
+        return value;
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
@@ -28,23 +25,28 @@ class AuthService {
     }
   }
 
-  Future login({
-    required String email,
-    required String password,
-  }) async {
+  Future login({required String email, required String password}) async {
     try {
-      return await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      return await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
+        if (value.user!.emailVerified) {
+          return value;
+        } else {
+          await value.user!.sendEmailVerification();
+          AuthService().signOut();
+          throw FirebaseAuthException(
+              code: 'Email-Not-Verified',
+              message: 'Verification Email is sent. Please verify to continue');
+        }
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
         return 'Wrong password provided for that user.';
-      } else {
-        return e.message;
       }
+      return e.message;
     } catch (e) {
       return e.toString();
     }
@@ -55,34 +57,34 @@ class AuthService {
     return 'User signed out';
   }
 
-  Future<User?> signInWithGoogle() async {
-    await Firebase.initializeApp();
-    User? user;
-    GoogleAuthProvider authProvider = GoogleAuthProvider();
-    try {
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithPopup(authProvider);
-      user = userCredential.user;
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
+  // Future<User?> signInWithGoogle() async {
+  //   await Firebase.initializeApp();
+  //   User? user;
+  //   GoogleAuthProvider authProvider = GoogleAuthProvider();
+  //   try {
+  //     final UserCredential userCredential =
+  //         await FirebaseAuth.instance.signInWithPopup(authProvider);
+  //     user = userCredential.user;
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print(e);
+  //     }
+  //   }
 
-    if (user != null) {}
+  //   if (user != null) {}
 
-    return user;
-  }
+  //   return user;
+  // }
 
-  void signOutGoogle() async {
-    GoogleSignIn googleSignIn = GoogleSignIn();
+  // void signOutGoogle() async {
+  //   GoogleSignIn googleSignIn = GoogleSignIn();
 
-    await googleSignIn.signOut();
-    await FirebaseAuth.instance.signOut();
-    if (kDebugMode) {
-      print("User signed out of Google account");
-    }
-  }
+  //   await googleSignIn.signOut();
+  //   await FirebaseAuth.instance.signOut();
+  //   if (kDebugMode) {
+  //     print("User signed out of Google account");
+  //   }
+  // }
 
   Future<AuthStatus> resetPassword({required String email}) async {
     await FirebaseAuth.instance

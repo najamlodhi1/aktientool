@@ -400,8 +400,6 @@ checkCookies2(context, WidgetRef ref) {
 
           ElevatedButton(
             onPressed: () {
-              // ignore: deprecated_member_use
-
               Navigator.pop(context);
               ref.read(cookieProvider.state).state = true;
               if (kDebugMode) {

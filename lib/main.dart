@@ -79,7 +79,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             PointerDeviceKind.mouse,
             PointerDeviceKind.touch,
             PointerDeviceKind.stylus,
-            PointerDeviceKind.unknown,
+            PointerDeviceKind.unknown
           },
         ),
         debugShowCheckedModeBanner: false,
@@ -90,7 +90,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             builder: (context, ssFirebase) {
               User? firebaseUser = ssFirebase.data;
 
-              if (firebaseUser != null) {
+              if (firebaseUser != null && firebaseUser.emailVerified) {
                 Future.delayed(
                   const Duration(milliseconds: 1000),
                   () async {

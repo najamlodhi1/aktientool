@@ -222,7 +222,11 @@ class ShowCompanies extends ConsumerWidget {
                             MaterialPageRoute(
                               builder: (context) => const AllCharts(),
                             ),
-                          );
+                          ).then((value) {
+                            if (requestsLeft == 0) {
+                              upgradepopup(context);
+                            }
+                          });
                         }
                       },
                       child: Container(
