@@ -134,9 +134,9 @@ class SearchArea extends ConsumerWidget {
                     stream: RequestService().getrequests(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
+                        isFirst = false;
                         requestsLeft = snapshot.data!;
                         if (requestsLeft == 0 && isFirst) {
-                          isFirst = false;
                           Future.delayed(const Duration(milliseconds: 200))
                               .then((value) {
                             upgradepopup(context);

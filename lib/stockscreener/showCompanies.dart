@@ -227,6 +227,8 @@ class ShowCompanies extends ConsumerWidget {
                               upgradepopup(context);
                             }
                           });
+                        } else {
+                          upgradepopup(context);
                         }
                       },
                       child: Container(
