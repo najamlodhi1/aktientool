@@ -13,7 +13,7 @@ class RemoteService {
     return await translator.translate(input, to: 'en');
   }
 
-  getData(String url) async {
+  Future<CompanyInfo> getData(String url) async {
     var translator = GoogleTranslator();
 
     //print("rein: $url");
@@ -46,7 +46,7 @@ class RemoteService {
           posts[0].city ?? "",
           posts[0].state ?? ""));
 
-      return companyInfo;
+      return companyInfo[0];
     } else {
       throw Exception('Failed to load data');
     }
