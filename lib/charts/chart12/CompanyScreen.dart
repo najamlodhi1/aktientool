@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import '../chart0/createchart.dart';
 import 'CompanyModel.dart';
 import 'CompanyService.dart';
 import 'DataSource.dart';
@@ -47,21 +48,35 @@ class _CompanyScreenState extends State<CompanyScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
-      child: PaginatedDataTable(
-        header: const Center(
-          child: Text("Dividend History",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            cardColor: primaryColor,
+            textTheme:
+                const TextTheme(bodySmall: TextStyle(color: Colors.white))),
+        child: PaginatedDataTable(
+          arrowHeadColor: Colors.white,
+          header: const Center(
+            child: Text("Dividend History",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                    color: Colors.white)),
+          ),
+          source: tempdata,
+          columns: const [
+            DataColumn(
+                label: Text("Declared", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Record", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Payable", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Amount", style: TextStyle(color: Colors.white)))
+          ],
         ),
-        source: tempdata,
-        columns: const [
-          DataColumn(label: Text("Declared")),
-          DataColumn(label: Text("Record")),
-          DataColumn(label: Text("Payable")),
-          DataColumn(label: Text("Amount"))
-        ],
       ),
     );
   }

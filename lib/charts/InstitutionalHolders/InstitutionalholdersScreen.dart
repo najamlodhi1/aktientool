@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import '../chart0/createchart.dart';
 import 'DataSource.dart';
 import 'InstitutionalholdersModel.dart';
 import 'InstitutionalholdersService.dart';
@@ -55,39 +56,41 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.teal,
-          style: BorderStyle.none,
-          width: 2,
-        ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
+        border:
+            Border.all(color: Colors.teal, style: BorderStyle.none, width: 2),
         borderRadius: BorderRadius.circular(30.0),
       ),
-      child: PaginatedDataTable(
-        header: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Text("Top Shareholders",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
-
-            /*
-            if (top25 > 0)
-              Text(
-                  "Top 25 shareholders own ${top25.toStringAsFixed(2)}% of the company",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 14)),
-
-                      */
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            cardColor: primaryColor,
+            textTheme:
+                const TextTheme(bodySmall: TextStyle(color: Colors.white))),
+        child: PaginatedDataTable(
+          arrowHeadColor: Colors.white,
+          header: const Center(
+            child: Text("Top Shareholders",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                    color: Colors.white)),
+          ),
+          source: tempdata,
+          columns: const [
+            DataColumn(
+                label:
+                    Text("Ownership", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Name", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Shares", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Change", style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text("Reported Date",
+                    style: TextStyle(color: Colors.white)))
           ],
         ),
-        source: tempdata,
-        columns: const [
-          DataColumn(label: Text("Ownership")),
-          DataColumn(label: Text("Name")),
-          DataColumn(label: Text("Shares")),
-          DataColumn(label: Text("Change")),
-          DataColumn(label: Text("Reported Date"))
-        ],
       ),
     );
   }

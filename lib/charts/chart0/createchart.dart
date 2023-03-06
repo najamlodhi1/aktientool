@@ -2,9 +2,9 @@ import 'package:aktientool/charts/chart0/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../webpage/constants.dart';
-import 'dart:html' as html;
+
+const primaryColor = Color(0xff442881);
+const secondaryColor = Color(0xff5B2D90);
 
 class CreateChart0 extends StatefulWidget {
   const CreateChart0({super.key});
@@ -14,9 +14,6 @@ class CreateChart0 extends StatefulWidget {
 }
 
 class CreateChart0State extends State<CreateChart0> {
-  final primaryColor = const Color(0xff442881);
-  final secondaryColor = const Color(0xff5B2D90);
-
   double? apppadding = 50;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty

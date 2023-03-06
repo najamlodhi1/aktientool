@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart1test/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
@@ -46,6 +47,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                   });
                 },
                 child: const Text("1 y")),
+            const SizedBox(width: 5),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black, // background
@@ -57,6 +59,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                   });
                 },
                 child: const Text("3 y")),
+            const SizedBox(width: 5),
+
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black, // background
@@ -68,6 +72,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                   });
                 },
                 child: const Text("5 y")),
+            const SizedBox(width: 5),
+
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black, // background
@@ -80,6 +86,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               },
               child: const Text("10 y"),
             ),
+            const SizedBox(width: 5),
+
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black, // background
@@ -134,10 +142,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                   spots: getFLData
                       .map((point) => FlSpot(point.x, point.y))
                       .toList(),
-                  //isCurved: false,
-                  color: const Color.fromARGB(255, 76, 175, 147),
+                  color: Colors.white,
                   barWidth: 2,
-                  //isStrokeCapRound: false,
                   dotData: FlDotData(
                     show: false,
                   ),
@@ -146,11 +152,12 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               borderData: FlBorderData(
                   border:
                       const Border(bottom: BorderSide(), left: BorderSide())),
-              backgroundColor: Colors.white,
+              backgroundColor: primaryColor,
               titlesData: FlTitlesData(
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
+                    reservedSize: 25,
                     interval: calculateDateTitlesInterval(buttonIndex),
                     getTitlesWidget: (value, meta) {
                       //anzeige += 1;
@@ -165,7 +172,13 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                           .toString()
                           .substring(0, 7);
 
-                      return Text(date);
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          date,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      );
                       //} else {
                       //return const Text("");
                       //}
@@ -204,14 +217,14 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                   style: BorderStyle.none,
                   width: 2,
                 ),
-                color: const Color.fromARGB(255, 255, 255, 255),
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Column(
                 children: [
                   Text(
                     todayPriceFinal,
-                    style: const TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 30, color: Colors.white),
                   ),
                   const SizedBox(
                     height: 20,

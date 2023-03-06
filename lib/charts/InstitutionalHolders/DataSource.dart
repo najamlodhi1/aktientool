@@ -11,11 +11,16 @@ class DataSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     return DataRow(cells: [
-      DataCell(Text('${_data[index].ownership.toStringAsFixed(2)}%')),
-      DataCell(Text(_data[index].holder)),
-      DataCell(Text(_data[index].shares.toString())),
-      DataCell(Text(_data[index].change.toString())),
-      DataCell(Text(_data[index].dateReported)),
+      DataCell(Text('${_data[index].ownership.toStringAsFixed(2)}%',
+          style: const TextStyle(color: Colors.white))),
+      DataCell(Text(_data[index].holder,
+          style: const TextStyle(color: Colors.white))),
+      DataCell(Text(_data[index].shares.toString(),
+          style: const TextStyle(color: Colors.white))),
+      DataCell(Text(_data[index].change.toString(),
+          style: const TextStyle(color: Colors.white))),
+      DataCell(Text(_data[index].dateReported,
+          style: const TextStyle(color: Colors.white))),
     ]);
   }
 
