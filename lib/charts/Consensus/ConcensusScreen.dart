@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ConcensusModel.dart';
@@ -45,7 +46,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Column(
@@ -53,7 +54,10 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
         children: [
           const Center(
             child: Text('Analyst Rating',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                    color: Colors.white)),
           ),
           const Divider(height: 10, thickness: 1),
           Wrap(
@@ -85,10 +89,15 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  color: Colors.white)),
           Text(value.toString(),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17))
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  color: Colors.white))
         ],
       ),
     );
@@ -161,11 +170,13 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
                     children: const [
                       Text('Current',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white)),
                       Icon(
                         CupertinoIcons.arrowtriangle_down_fill,
                         size: 35,
-                        color: Colors.blue,
+                        color: Colors.white,
                       )
                     ],
                   )

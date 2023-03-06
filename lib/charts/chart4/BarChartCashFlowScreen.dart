@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches, file_names
 
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -71,7 +72,7 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                 style: BorderStyle.none,
                 width: 2,
               ),
-              color: const Color.fromARGB(255, 255, 255, 255),
+              color: primaryColor,
               borderRadius: BorderRadius.circular(30.0),
             ),
             child: ValueListenableBuilder<Map<String, bool>>(
@@ -89,6 +90,7 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.all(12.0),
                           child: BarChart(BarChartData(
+                              backgroundColor: primaryColor,
                               borderData:
                                   FlBorderData(border: Border.all(width: 0)),
                               groupsSpace:
@@ -118,7 +120,8 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                                                           .width <
                                                       1000
                                                   ? 11.5
-                                                  : null),
+                                                  : null,
+                                              color: Colors.white),
                                         );
                                       },
                                     ),
@@ -134,14 +137,19 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                                           showTitles: true,
                                           getTitlesWidget:
                                               (double value, meta) {
-                                            return Text(value > 122000000000
-                                                ? ''
-                                                : MediaQuery.of(context)
-                                                            .size
-                                                            .width <
-                                                        1000
-                                                    ? numberToKFormat(value)
-                                                    : value.toStringAsFixed(0));
+                                            return Text(
+                                              value > 122000000000
+                                                  ? ''
+                                                  : MediaQuery.of(context)
+                                                              .size
+                                                              .width <
+                                                          1000
+                                                      ? numberToKFormat(value)
+                                                      : value
+                                                          .toStringAsFixed(0),
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            );
                                           }))),
                               barGroups: data
                                   .map((e) => BarChartGroupData(
@@ -196,7 +204,7 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
             decoration: BoxDecoration(
                 color: color, borderRadius: BorderRadius.circular(100))),
         const SizedBox(width: 5),
-        Text(title),
+        Text(title, style: const TextStyle(color: Colors.white)),
         const SizedBox(width: 10),
       ],
     );

@@ -38,16 +38,22 @@ class CreateChart0State extends State<CreateChart0> {
                   color: primaryColor,
                   padding: const EdgeInsets.all(30),
                   child: MediaQuery.of(context).size.width > 800
-                      ? Row(
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Expanded(
-                              flex: 4,
-                              child: leftwidget(snapshot.data!),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: leftwidget(snapshot.data!),
+                                ),
+                                Expanded(
+                                    flex: 3,
+                                    child: Center(
+                                        child: rightwidget(snapshot.data!))),
+                              ],
                             ),
-                            Expanded(
-                                flex: 3,
-                                child:
-                                    Center(child: rightwidget(snapshot.data!)))
+                            discriptionWidget(snapshot.data!)
                           ],
                         )
                       : Column(
@@ -55,6 +61,7 @@ class CreateChart0State extends State<CreateChart0> {
                             rightwidget(snapshot.data!),
                             const SizedBox(height: 20),
                             leftwidget(snapshot.data!),
+                            discriptionWidget(snapshot.data!)
                           ],
                         ),
                 ),
@@ -210,10 +217,13 @@ class CreateChart0State extends State<CreateChart0> {
                             fontSize: fontSize,
                             fontWeight: FontWeight.bold)))),
             const SizedBox(height: 10),
-            Text("${data.description}\n",
-                style: const TextStyle(color: Colors.white),
-                textAlign: TextAlign.justify),
           ]));
     });
+  }
+
+  Widget discriptionWidget(CompanyInfo data) {
+    return Text("${data.description}\n",
+        style: const TextStyle(color: Colors.white),
+        textAlign: TextAlign.justify);
   }
 }

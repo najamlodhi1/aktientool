@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/charts/chart2/data.dart';
 import 'package:aktientool/env/env.dart';
@@ -25,96 +26,78 @@ class CreateChart2State extends State<CreateChart2> {
   @override
   Widget build(BuildContext context) {
     if (tableData.isEmpty) {
-      return Column(
-        children: [
-          FutureBuilder<List<IncomeReportModel>>(
-              future: IncomeService().getData(
-                  "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData &&
-                    snapshot.data!.isNotEmpty) {
-                  tableData = snapshot.data!;
-                  if (kDebugMode) {
-                    print("-----");
-                    print(tableData.length.toString());
-                    print("-----");
-                  }
-                  return SingleChildScrollView(
-                    child: Wrap(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.teal,
-                              style: BorderStyle.none,
-                              width: 2,
-                            ),
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text("Income Statement",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 22)),
-                              // const Text(
-                              //    "All numbers are in thousands, Currency in USD"),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildTable(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  //return const Center(child: CircularProgressIndicator());
-                  return const SizedBox();
-                }
-              }),
-        ],
-      );
-    } else {
-      return SingleChildScrollView(
-        child: Wrap(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.teal,
-                  style: BorderStyle.none,
-                  width: 2,
+      return FutureBuilder<List<IncomeReportModel>>(
+          future: IncomeService().getData(
+              "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData &&
+                snapshot.data!.isNotEmpty) {
+              tableData = snapshot.data!;
+              return Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.teal,
+                    style: BorderStyle.none,
+                    width: 2,
+                  ),
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-                color: const Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text("Income Statement",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
-                  //const Text("All numbers are in thousands, Currency in USD"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildTable(),
-                ],
-              ),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text("Income Statement",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                            color: Colors.white)),
+                    // const Text(
+                    //    "All numbers are in thousands, Currency in USD"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildTable(),
+                  ],
+                ),
+              );
+            } else {
+              //return const Center(child: CircularProgressIndicator());
+              return const SizedBox();
+            }
+          });
+    } else {
+      return Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.teal,
+            style: BorderStyle.none,
+            width: 2,
+          ),
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
             ),
+            const Text("Income Statement",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                    color: Colors.white)),
+            //const Text("All numbers are in thousands, Currency in USD"),
+            const SizedBox(
+              height: 10,
+            ),
+            buildTable(),
           ],
         ),
       );
@@ -130,6 +113,8 @@ class CreateChart2State extends State<CreateChart2> {
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
         fixedLeftColumns: 2,
+        dataRowColor: const MaterialStatePropertyAll(primaryColor),
+        headingRowColor: const MaterialStatePropertyAll(primaryColor),
         fixedTopRows: 0,
         border: const TableBorder(
           top: BorderSide(color: Colors.grey, width: 0.5),
@@ -143,16 +128,17 @@ class CreateChart2State extends State<CreateChart2> {
           MediaQuery.of(context).size.width < 1000
               ? const DataColumn2(
                   fixedWidth: 100,
-                  label: Text("Year"),
+                  label: Text("Year", style: TextStyle(color: Colors.white)),
                 )
               : const DataColumn2(
                   fixedWidth: 330,
-                  label: Text("Year"),
+                  label: Text("Year", style: TextStyle(color: Colors.white)),
                 ),
           for (int x = 0; x < tableData.length; x++) ...[
             DataColumn2(
                 label: Text(
-                    tableData[tableData.length - 1 - x].date.year.toString())),
+                    tableData[tableData.length - 1 - x].date.year.toString(),
+                    style: const TextStyle(color: Colors.white))),
           ],
         ],
       ),
@@ -174,7 +160,8 @@ class CreateChart2State extends State<CreateChart2> {
               },
               cells: [
                 DataCell(
-                  Text(tableData[0].reports[index].title),
+                  Text(tableData[0].reports[index].title,
+                      style: const TextStyle(color: Colors.white)),
                 ),
                 for (int x = 0; x < tableData.length; x++) ...[
                   DataCell(
@@ -191,11 +178,11 @@ class CreateChart2State extends State<CreateChart2> {
                           : Colors.white,
                       child: Center(
                         child: Text(
-                          tableData[tableData.length - 1 - x]
-                              .reports[index]
-                              .value
-                              .toString(),
-                        ),
+                            tableData[tableData.length - 1 - x]
+                                .reports[index]
+                                .value
+                                .toString(),
+                            style: const TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),

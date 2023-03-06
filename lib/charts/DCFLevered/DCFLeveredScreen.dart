@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:aktientool/charts/DCFLevered/DCFLeveredModel.dart';
 import 'package:aktientool/charts/DCFLevered/DCFLeveredService.dart';
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,7 +63,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Column(
@@ -71,7 +72,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             height: 10,
           ),
           const Text("Intrinsic Value",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Colors.white)),
           const SizedBox(
             height: 10,
           ),
@@ -91,7 +95,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Column(
@@ -100,7 +104,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             height: 10,
           ),
           const Text("Terminal Value",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Colors.white)),
           const SizedBox(
             height: 10,
           ),
@@ -120,7 +127,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Column(
@@ -129,7 +136,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             height: 10,
           ),
           const Text("Weighted Average Cost Of Capital",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Colors.white)),
           const SizedBox(
             height: 10,
           ),
@@ -149,7 +159,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Column(
@@ -158,9 +168,15 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             height: 10,
           ),
           const Text("Discounted Cash Flow (DCF) Analysis Levered",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Colors.white)),
           const Text("Free Cash Flow",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.white)),
           const SizedBox(
             height: 10,
           ),
@@ -180,7 +196,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           style: BorderStyle.none,
           width: 2,
         ),
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Column(
@@ -189,7 +205,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             height: 10,
           ),
           const Text("Build Up Free Cash Flow",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Colors.white)),
           const SizedBox(
             height: 10,
           ),
@@ -204,6 +223,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
       width: tableData.length * 220,
       height: tableData.length * 52,
       child: DataTable2(
+        dataRowColor: const MaterialStatePropertyAll(primaryColor),
+        headingRowColor: const MaterialStatePropertyAll(primaryColor),
         columnSpacing: 50,
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
@@ -218,11 +239,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildCashFlowTableRows,
         columns: <DataColumn>[
-          const DataColumn(label: Text("Year")),
+          const DataColumn(
+              label: Text("Year", style: TextStyle(color: Colors.white))),
           ...List.generate(
             tableData.length,
-            (index) =>
-                DataColumn(label: Text(tableData[index].year.toString())),
+            (index) => DataColumn(
+                label: Text(tableData[index].year.toString(),
+                    style: const TextStyle(color: Colors.white))),
           )
         ],
       ),
@@ -234,6 +257,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
       width: tableData.length * 220,
       height: tableData.length * 52,
       child: DataTable2(
+        dataRowColor: const MaterialStatePropertyAll(primaryColor),
+        headingRowColor: const MaterialStatePropertyAll(primaryColor),
         columnSpacing: 50,
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
@@ -248,11 +273,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildbuildUpTableRows,
         columns: <DataColumn>[
-          const DataColumn(label: Text("Year")),
+          const DataColumn(
+              label: Text("Year", style: TextStyle(color: Colors.white))),
           ...List.generate(
             tableData.length,
-            (index) =>
-                DataColumn(label: Text(tableData[index].year.toString())),
+            (index) => DataColumn(
+                label: Text(tableData[index].year.toString(),
+                    style: const TextStyle(color: Colors.white))),
           )
         ],
       ),
@@ -272,8 +299,11 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildWeightedAverageTableRows,
         columns: const <DataColumn>[
-          DataColumn(label: Text("Title")),
-          DataColumn(label: Text("Price"), numeric: true)
+          DataColumn(
+              label: Text("Title", style: TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text("Price", style: TextStyle(color: Colors.white)),
+              numeric: true)
         ],
       ),
     );
@@ -292,8 +322,11 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildTerminalValueTableRows,
         columns: const <DataColumn>[
-          DataColumn(label: Text("Title")),
-          DataColumn(label: Text("Price"), numeric: true)
+          DataColumn(
+              label: Text("Title", style: TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text("Price", style: TextStyle(color: Colors.white)),
+              numeric: true)
         ],
       ),
     );
@@ -312,8 +345,11 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildIntrinsicValueTableRows,
         columns: const <DataColumn>[
-          DataColumn(label: Text("Title")),
-          DataColumn(label: Text("Price"), numeric: true)
+          DataColumn(
+              label: Text("Title", style: TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text("Price", style: TextStyle(color: Colors.white)),
+              numeric: true)
         ],
       ),
     );
@@ -405,17 +441,21 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.white)),
         ),
         ...List.generate(
           data.length,
-          (index) => DataCell(Text((title == 'Share price' ? '\$ ' : '') +
-              (data[index] == 0
-                  ? ''
-                  : ((data[index] > 1000000)
-                      ? (data[index] / 1000000).toStringAsFixed(2)
-                      : data[index].toStringAsFixed(2))) +
-              (title == 'After-tax Cost of Debt' ? '%' : ''))),
+          (index) => DataCell(Text(
+              (title == 'Share price' ? '\$ ' : '') +
+                  (data[index] == 0
+                      ? ''
+                      : ((data[index] > 1000000)
+                          ? (data[index] / 1000000).toStringAsFixed(2)
+                          : data[index].toStringAsFixed(2))) +
+                  (title == 'After-tax Cost of Debt' ? '%' : ''),
+              style: const TextStyle(color: Colors.white))),
         )
       ],
     );
@@ -425,7 +465,9 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.white)),
         ),
         ...List.generate(
           data.length,
@@ -433,9 +475,11 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             if (tableData[index].year < DateTime.now().year) {
               return DataCell(Container());
             }
-            return DataCell(Text(data[index] > 1000000
-                ? (data[index] / 1000000).toStringAsFixed(2)
-                : data[index].toStringAsFixed(2)));
+            return DataCell(Text(
+                data[index] > 1000000
+                    ? (data[index] / 1000000).toStringAsFixed(2)
+                    : data[index].toStringAsFixed(2),
+                style: const TextStyle(color: Colors.white)));
           },
         )
       ],
@@ -446,7 +490,9 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.white)),
         ),
         ...List.generate(
           data.length,
@@ -454,9 +500,11 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             if (data[index] == 0) {
               return DataCell(Container());
             }
-            return DataCell(Text(data[index] > 1000000
-                ? (data[index] / 1000000).toStringAsFixed(2)
-                : data[index].toStringAsFixed(2)));
+            return DataCell(Text(
+                data[index] > 1000000
+                    ? (data[index] / 1000000).toStringAsFixed(2)
+                    : data[index].toStringAsFixed(2),
+                style: const TextStyle(color: Colors.white)));
           },
         )
       ],
@@ -467,7 +515,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(title, style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -505,11 +553,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: title == 'Capital Expenditure (%)'
                         ? null
                         : Column(
@@ -534,7 +584,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                                 child: const SizedBox(
                                   height: 17,
                                   width: 25,
-                                  child: Icon(Icons.arrow_drop_up),
+                                  child: Icon(
+                                    Icons.arrow_drop_up,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                               InkWell(
@@ -555,7 +608,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                                 child: const SizedBox(
                                   height: 17,
                                   width: 25,
-                                  child: Icon(Icons.arrow_drop_down),
+                                  child: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               )
                             ],
@@ -597,11 +653,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -616,7 +674,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_up),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -629,7 +690,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_down),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -656,7 +720,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(
+            title,
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -683,11 +750,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -703,7 +772,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_up),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -717,7 +789,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_down),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -732,7 +807,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(
+            title,
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -758,11 +836,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -777,7 +857,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_up),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -790,7 +873,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_down),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -805,7 +891,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(title, style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -832,11 +918,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -851,7 +939,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_up),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -864,7 +955,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_down),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -879,7 +973,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(title, style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -905,11 +999,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -924,7 +1020,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_up),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -937,7 +1036,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_down),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -952,7 +1054,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(title, style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           if (tableData[index].year < DateTime.now().year) {
@@ -981,11 +1083,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     });
                   }
                 },
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white)),
                     suffixIcon: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -1000,7 +1104,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_up),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -1013,7 +1120,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                           child: const SizedBox(
                             height: 17,
                             width: 25,
-                            child: Icon(Icons.arrow_drop_down),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],

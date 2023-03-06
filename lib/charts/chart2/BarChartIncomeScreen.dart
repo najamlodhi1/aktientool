@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches, file_names
 
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart2/IncomeReportModel.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
@@ -70,7 +71,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                 style: BorderStyle.none,
                 width: 2,
               ),
-              color: const Color.fromARGB(255, 255, 255, 255),
+              color: primaryColor,
               borderRadius: BorderRadius.circular(30.0),
             ),
             child: ValueListenableBuilder<Map<String, bool>>(
@@ -114,7 +115,8 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                                         .width <
                                                     1000
                                                 ? 11.5
-                                                : null),
+                                                : null,
+                                            color: Colors.white),
                                       );
                                     },
                                   ),
@@ -128,12 +130,15 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                                 : 100,
                                         showTitles: true,
                                         getTitlesWidget: (double value, meta) {
-                                          return Text(MediaQuery.of(context)
-                                                      .size
-                                                      .width <
-                                                  1000
-                                              ? numberToKFormat(value)
-                                              : value.toStringAsFixed(0));
+                                          return Text(
+                                              MediaQuery.of(context)
+                                                          .size
+                                                          .width <
+                                                      1000
+                                                  ? numberToKFormat(value)
+                                                  : value.toStringAsFixed(0),
+                                              style: const TextStyle(
+                                                  color: Colors.white));
                                         }))),
                             barGroups: data
                                 .map((e) => BarChartGroupData(
@@ -189,7 +194,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
             decoration: BoxDecoration(
                 color: color, borderRadius: BorderRadius.circular(100))),
         const SizedBox(width: 5),
-        Text(title),
+        Text(title, style: const TextStyle(color: Colors.white)),
         const SizedBox(width: 10),
       ],
     );

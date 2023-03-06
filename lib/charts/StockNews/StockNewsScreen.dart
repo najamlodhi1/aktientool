@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'StockNewsModel.dart';
@@ -48,7 +49,7 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
             style: BorderStyle.none,
             width: 2,
           ),
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: primaryColor,
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: ListView.builder(
@@ -66,7 +67,7 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
           _launchUrl(Uri.parse(data.url));
         },
         child: PhysicalModel(
-          color: Colors.white,
+          color: primaryColor,
           elevation: 2,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -75,13 +76,23 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
               children: [
                 Text(data.title,
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16)),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.white)),
                 Text(data.text,
                     style: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 15)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: Colors.white)),
                 const SizedBox(height: 10),
                 Row(
-                  children: [const Spacer(), Text(data.publishedDate)],
+                  children: [
+                    const Spacer(),
+                    Text(
+                      data.publishedDate,
+                      style: const TextStyle(color: Colors.white),
+                    )
+                  ],
                 ),
               ],
             ),

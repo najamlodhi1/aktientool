@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ScoreModel.dart';
@@ -31,18 +32,12 @@ class _ScoreScreenState extends State<ScoreScreen> {
         future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return bodyWidget(snapshot.data!);
+            return progressbar(snapshot.data!);
           } else {
             //return const Center(child: CircularProgressIndicator());
             return const SizedBox();
           }
         });
-  }
-
-  Widget bodyWidget(ScoreModel data) {
-    return Column(
-      children: [progressbar(data)],
-    );
   }
 
   Widget progressbar(ScoreModel data) {
@@ -56,7 +51,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
             style: BorderStyle.none,
             width: 2,
           ),
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: primaryColor,
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: Column(
@@ -65,14 +60,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
             const Text(
               'Risikobewertung',
               style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             const SizedBox(height: 10),
             PhysicalModel(
               elevation: 5,
-              color: const Color.fromARGB(255, 255, 255, 255),
+              color: primaryColor,
               child: Container(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -84,16 +79,16 @@ class _ScoreScreenState extends State<ScoreScreen> {
                             const Text(
                               'Piotroski F-Score',
                               style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                             Text(
                               '${data.piotroskiScore.toStringAsFixed(0)} / 9',
                               style: const TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ]),
                       const SizedBox(height: 10),
@@ -119,8 +114,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 (index) => labels[index].toString() ==
                                         data.piotroskiScore.toStringAsFixed(0)
                                     ? const Icon(CupertinoIcons.arrow_down,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        size: 40)
+                                        size: 40, color: Colors.white)
                                     : Container())),
                       ),
                       Padding(
@@ -132,9 +126,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 (index) => Text(
                                       labels[index].toString(),
                                       style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
                                     ))),
                       ),
                       const SizedBox(height: 10),
@@ -151,7 +145,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
             const SizedBox(height: 10),
             PhysicalModel(
               elevation: 5,
-              color: Colors.white,
+              color: primaryColor,
               child: Container(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -163,16 +157,16 @@ class _ScoreScreenState extends State<ScoreScreen> {
                             const Text(
                               'Altman Z-Score',
                               style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                             Text(
                               data.altmanZScore.toStringAsFixed(2),
                               style: const TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ]),
                       const SizedBox(height: 10),
@@ -188,14 +182,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 Colors.red,
                                 Colors.red,
                                 Colors.red,
-                                Colors.black12,
-                                Colors.black12,
+                                Colors.white12,
+                                Colors.white12,
                                 Colors.green,
                                 Colors.green,
                                 Colors.green,
                                 Colors.green,
                                 Colors.green,
-                                Colors.green,
+                                Colors.green
                               ],
                             ),
                           ),
@@ -211,9 +205,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                           ? 'Caution  '
                                           : 'Distress  ',
                                   style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const Icon(CupertinoIcons.arrow_down,
                                     color: Color.fromARGB(255, 0, 0, 0),
@@ -234,8 +227,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                               ? 'Caution'
                                               : '       ',
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
                                     ))),
                       ),
                       const SizedBox(height: 10),
