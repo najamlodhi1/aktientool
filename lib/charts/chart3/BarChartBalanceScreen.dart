@@ -18,13 +18,6 @@ class BarChartBalanceScreen extends StatefulWidget {
 }
 
 class _BarChartScreenState extends State<BarChartBalanceScreen> {
-  String numberToKFormat(double number) {
-    final formatter = NumberFormat.compact(locale: 'en_US');
-    formatter.significantDigits = 3;
-    formatter.maximumFractionDigits = 3;
-    return formatter.format(number);
-  }
-
   late Future<List<BalanceReportModel>> getDataFuture;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
@@ -217,4 +210,11 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
         color: color,
         borderRadius: BorderRadius.circular(5));
   }
+}
+
+String numberToKFormat(double number) {
+  final formatter = NumberFormat.compact(locale: 'en_US');
+  formatter.significantDigits = 3;
+  formatter.maximumFractionDigits = 3;
+  return formatter.format(number);
 }

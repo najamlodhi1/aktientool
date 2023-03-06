@@ -8,6 +8,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../chart3/BarChartBalanceScreen.dart';
 import 'IncomeReportModel.dart';
 
 class CreateChart2 extends StatefulWidget {
@@ -178,10 +179,9 @@ class CreateChart2State extends State<CreateChart2> {
                           : Colors.white,
                       child: Center(
                         child: Text(
-                            tableData[tableData.length - 1 - x]
+                            numberToKFormat(tableData[tableData.length - 1 - x]
                                 .reports[index]
-                                .value
-                                .toString(),
+                                .value),
                             style: const TextStyle(color: Colors.white)),
                       ),
                     ),

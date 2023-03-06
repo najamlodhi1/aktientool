@@ -626,7 +626,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title),
+          Text(title, style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
