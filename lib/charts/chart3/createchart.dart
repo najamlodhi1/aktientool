@@ -179,7 +179,7 @@ class CreateChart3State extends State<CreateChart3> {
                                       .value
                               ? Colors.green
                               : Colors.red
-                          : Colors.white,
+                          : Colors.green,
                       child: Center(
                           child: Text(
                               numberToKFormat(

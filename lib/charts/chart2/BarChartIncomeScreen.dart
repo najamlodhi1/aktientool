@@ -86,7 +86,6 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                     ),
                     Container(
                         height: 600,
-                        width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.all(12.0),
                         child: BarChart(BarChartData(
                             borderData:
@@ -123,20 +122,10 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                 ),
                                 leftTitles: AxisTitles(
                                     sideTitles: SideTitles(
-                                        reservedSize:
-                                            MediaQuery.of(context).size.width <
-                                                    1000
-                                                ? 50
-                                                : 100,
+                                        reservedSize: 70,
                                         showTitles: true,
                                         getTitlesWidget: (double value, meta) {
-                                          return Text(
-                                              MediaQuery.of(context)
-                                                          .size
-                                                          .width <
-                                                      1000
-                                                  ? numberToKFormat(value)
-                                                  : value.toStringAsFixed(0),
+                                          return Text(numberToKFormat(value),
                                               style: const TextStyle(
                                                   color: Colors.white));
                                         }))),

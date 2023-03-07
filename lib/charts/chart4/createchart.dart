@@ -187,7 +187,7 @@ class CreateChart4State extends State<CreateChart4> {
                                       .value
                               ? Colors.green
                               : Colors.red
-                          : Colors.white,
+                          : Colors.green,
                       child: Center(
                         child: Text(
                           numberToKFormat(tableData[tableData.length - 1 - x]

@@ -176,14 +176,14 @@ class CreateChart2State extends State<CreateChart2> {
                                       .value
                               ? Colors.green
                               : Colors.red
-                          : Colors.white,
+                          : Colors.green,
                       child: Center(
-                        child: Text(
-                            numberToKFormat(tableData[tableData.length - 1 - x]
-                                .reports[index]
-                                .value),
-                            style: const TextStyle(color: Colors.white)),
-                      ),
+                          child: Text(
+                              numberToKFormat(
+                                  tableData[tableData.length - 1 - x]
+                                      .reports[index]
+                                      .value),
+                              style: const TextStyle(color: Colors.white))),
                     ),
                   ),
                 ],

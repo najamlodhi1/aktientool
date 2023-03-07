@@ -128,25 +128,14 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                                   ),
                                   leftTitles: AxisTitles(
                                       sideTitles: SideTitles(
-                                          reservedSize: MediaQuery.of(context)
-                                                      .size
-                                                      .width <
-                                                  1000
-                                              ? 50
-                                              : 100,
+                                          reservedSize: 70,
                                           showTitles: true,
                                           getTitlesWidget:
                                               (double value, meta) {
                                             return Text(
                                               value > 122000000000
                                                   ? ''
-                                                  : MediaQuery.of(context)
-                                                              .size
-                                                              .width <
-                                                          1000
-                                                      ? numberToKFormat(value)
-                                                      : value
-                                                          .toStringAsFixed(0),
+                                                  : numberToKFormat(value),
                                               style: const TextStyle(
                                                   color: Colors.white),
                                             );
