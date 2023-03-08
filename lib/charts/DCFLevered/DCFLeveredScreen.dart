@@ -44,6 +44,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 buildUp(),
                 terminalValue(),
                 intrinsicValue(),
+                overValue()
               ],
             );
           } else {
@@ -80,6 +81,131 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             height: 10,
           ),
           buildIntrinsicValueTable(),
+        ],
+      ),
+    );
+  }
+
+  Widget overValue() {
+    double width = MediaQuery.of(context).size.width - 20;
+    double overvalue =
+        (tableData.last.price - tableData.last.equityValuePerShare);
+    double overvaluepercent =
+        (overvalue / tableData.last.equityValuePerShare) * 100;
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Stack(
+        children: [
+          Container(color: Colors.red, height: 330, width: width),
+          Container(
+              color: Colors.yellow,
+              height: 330,
+              width: ((tableData.last.price / (tableData.last.price * 1.3)) *
+                  width)),
+          Container(
+              color: Colors.green,
+              height: 330,
+              width: ((tableData.last.equityValuePerShare /
+                          (tableData.last.price * 1.3)) *
+                      width) -
+                  ((overvalue / (tableData.last.price * 1.3)) * width)),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (tableData.last.price > tableData.last.equityValuePerShare)
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: (tableData.last.equityValuePerShare /
+                              (tableData.last.price * 1.3)) *
+                          width),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('${overvaluepercent.toStringAsFixed(1)}%',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.brown)),
+                        const SizedBox(height: 5),
+                        const Text('Overvalued',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.brown)),
+                        const SizedBox(height: 5),
+                        Container(
+                          height: 5,
+                          color: Colors.brown,
+                          width: (overvalue / (tableData.last.price * 1.3)) *
+                              width,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              Container(
+                height: 100,
+                width: (tableData.last.price / (tableData.last.price * 1.3)) *
+                    width,
+                color: const Color(0xff1C222D),
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Current Price',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                        const SizedBox(height: 5),
+                        Text('US\$ ${tableData.last.price.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white))
+                      ],
+                    ),
+                  )
+                ]),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                height: 100,
+                color: Colors.black54,
+                width: (tableData.last.equityValuePerShare /
+                        (tableData.last.price * 1.3)) *
+                    width,
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Fair Value',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                        const SizedBox(height: 5),
+                        Text(
+                            'US\$ ${tableData.last.equityValuePerShare.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white))
+                      ],
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -362,8 +488,6 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
       simpleCashFlowRow('Equity Value', [tableData.last.equityValue]),
       simpleCashFlowRow(
           'Shares Outstanding', [tableData.last.dilutedSharesOutstanding]),
-      simpleCashFlowRow(
-          'Equity Value Per Share', [tableData.last.equityValuePerShare])
     ];
   }
 
