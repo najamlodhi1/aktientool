@@ -180,17 +180,17 @@ class CreateChart0State extends State<CreateChart0> {
   }
 
   Widget rightwidget(CompanyInfo data) {
-    return Image.network(data.image.toString(), width: 300);
+    return Image.network(data.image.toString(), width: 500);
   }
 
   Widget leftwidget(CompanyInfo data) {
     return LayoutBuilder(builder: (_, c) {
       final width = c.maxWidth;
-      var fontSize = 16.0;
+      var fontSize = 60.0;
       if (width <= 480) {
-        fontSize = 16.0;
-      } else if (width > 480 && width <= 960) {
         fontSize = 30.0;
+      } else if (width > 480 && width <= 960) {
+        fontSize = 60.0; // Apple Inc. Aktie Analyse gröse auf Laptop
       } else {
         fontSize = 50.0;
       }

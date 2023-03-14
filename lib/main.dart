@@ -149,7 +149,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                             backgroundColor: Colors.black,
                             title: Image.asset(
                               'assets/images/logo.png',
-                              height: 50,
+                              height: 25,
                             ),
                             centerTitle: true,
                             pinned: true,
