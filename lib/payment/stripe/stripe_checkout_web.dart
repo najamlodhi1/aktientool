@@ -23,7 +23,6 @@ void redirectToCheckout(BuildContext context, int type) async {
           if (type == 3) LineItem(price: Env.priceId100, quantity: 1)
         ],
         mode: 'payment',
-        payment_method_types: ['card', 'sepa_debit'],
         successUrl:
             'https://aktientool.net/?ret=success&q=${type == 1 ? 30 : type == 2 ? 100 : 200}',
         cancelUrl: 'https://aktientool.net/?ret=cancel',
