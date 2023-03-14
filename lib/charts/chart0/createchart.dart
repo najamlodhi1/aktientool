@@ -129,7 +129,7 @@ class CreateChart0State extends State<CreateChart0> {
         decoration: BoxDecoration(
             color: secondaryColor, borderRadius: BorderRadius.circular(20)),
         alignment: Alignment.center,
-        child: Image.network(image, width: 300));
+        child: Image.network(image, width: 800));
   }
 
   Widget _buildGridViewItemName(String title) {
