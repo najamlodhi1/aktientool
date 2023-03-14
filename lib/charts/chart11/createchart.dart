@@ -5,7 +5,6 @@ import 'package:aktientool/charts/chart11/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
-import '../../webpage/constants.dart';
 import 'DataSource.dart';
 
 class CreateChart11 extends StatefulWidget {

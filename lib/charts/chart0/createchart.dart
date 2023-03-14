@@ -14,7 +14,7 @@ class CreateChart0 extends StatefulWidget {
 }
 
 class CreateChart0State extends State<CreateChart0> {
-  double? apppadding = 50;
+  double? apppadding = 20;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
@@ -34,9 +34,16 @@ class CreateChart0State extends State<CreateChart0> {
             return SingleChildScrollView(
                 child: Column(
               children: [
+                const Padding(
+                  padding: EdgeInsets.all(3.0),
+                  child: Text(
+                    "Die Inhalte stellen keine Anlageberatung oder Kaufempfehlung dar. Alle Angaben könnten komplett falsch sein!",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 Container(
                   color: primaryColor,
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(10),
                   child: MediaQuery.of(context).size.width > 800
                       ? Column(
                           mainAxisSize: MainAxisSize.min,
@@ -44,16 +51,18 @@ class CreateChart0State extends State<CreateChart0> {
                             Row(
                               children: [
                                 Expanded(
-                                  flex: 4,
+                                  flex: 1,
                                   child: leftwidget(snapshot.data!),
                                 ),
                                 Expanded(
-                                    flex: 3,
+                                    flex: 1,
                                     child: Center(
                                         child: rightwidget(snapshot.data!))),
                               ],
                             ),
-                            discriptionWidget(snapshot.data!)
+                            const SizedBox(
+                              height: 550,
+                            ),
                           ],
                         )
                       : Column(
@@ -61,10 +70,14 @@ class CreateChart0State extends State<CreateChart0> {
                             rightwidget(snapshot.data!),
                             const SizedBox(height: 20),
                             leftwidget(snapshot.data!),
-                            discriptionWidget(snapshot.data!)
+                            //discriptionWidget(snapshot.data!)
                           ],
                         ),
                 ),
+                Container(
+                    color: primaryColor,
+                    padding: const EdgeInsets.all(30),
+                    child: discriptionWidget(snapshot.data!)),
                 const SizedBox(height: 30),
                 Container(
                     color: Colors.black,
@@ -97,7 +110,7 @@ class CreateChart0State extends State<CreateChart0> {
                               _buildGridViewItem(
                                   "Börsengang", snapshot.data!.ipoDate),
                               _buildGridViewItem("Sitz",
-                                  snapshot.data!.city + snapshot.data!.state),
+                                  "${snapshot.data!.city} / ${snapshot.data!.state}"),
                             ],
                           ),
                         ),
@@ -180,20 +193,21 @@ class CreateChart0State extends State<CreateChart0> {
   }
 
   Widget rightwidget(CompanyInfo data) {
-    return Image.network(data.image.toString(), width: 500);
+    return Image.network(data.image.toString(), width: 800);
   }
 
   Widget leftwidget(CompanyInfo data) {
     return LayoutBuilder(builder: (_, c) {
       final width = c.maxWidth;
-      var fontSize = 60.0;
+      var fontSize = 100.0;
       if (width <= 480) {
         fontSize = 30.0;
       } else if (width > 480 && width <= 960) {
-        fontSize = 60.0; // Apple Inc. Aktie Analyse gröse auf Laptop
+        fontSize = 100.0; // Apple Inc. Aktie Analyse gröse auf Laptop
       } else {
         fontSize = 50.0;
       }
+
       return Padding(
           padding: const EdgeInsets.all(30),
           child: Column(children: [
@@ -206,17 +220,16 @@ class CreateChart0State extends State<CreateChart0> {
                             color: Colors.white,
                             fontSize: fontSize,
                             fontWeight: FontWeight.bold)))),
-            const SizedBox(height: 10),
+            //const SizedBox(height: 10),
             Container(
                 color: Colors.white,
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("Aktien Analyse",
+                    child: Text("Aktie Analyse",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: fontSize,
                             fontWeight: FontWeight.bold)))),
-            const SizedBox(height: 10),
           ]));
     });
   }
