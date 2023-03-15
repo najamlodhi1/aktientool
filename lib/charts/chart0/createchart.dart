@@ -76,7 +76,7 @@ class CreateChart0State extends State<CreateChart0> {
                 ),
                 Container(
                     color: primaryColor,
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(50),
                     child: discriptionWidget(snapshot.data!)),
                 const SizedBox(height: 30),
                 Container(
@@ -128,7 +128,7 @@ class CreateChart0State extends State<CreateChart0> {
     return Container(
         decoration: BoxDecoration(
             color: secondaryColor, borderRadius: BorderRadius.circular(20)),
-        alignment: Alignment.center,
+        alignment: Alignment.centerRight,
         child: Image.network(image, width: 800));
   }
 
@@ -146,7 +146,7 @@ class CreateChart0State extends State<CreateChart0> {
       return Container(
         decoration: BoxDecoration(
             color: secondaryColor, borderRadius: BorderRadius.circular(20)),
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         child: Text(title,
             style: TextStyle(
                 color: Colors.white,
@@ -235,8 +235,10 @@ class CreateChart0State extends State<CreateChart0> {
   }
 
   Widget discriptionWidget(CompanyInfo data) {
-    return Text("${data.description}\n",
-        style: const TextStyle(color: Colors.white),
-        textAlign: TextAlign.justify);
+    return Text(
+      "${data.description}\n",
+      style: const TextStyle(color: Colors.white, fontSize: 16),
+      textAlign: TextAlign.justify,
+    );
   }
 }
