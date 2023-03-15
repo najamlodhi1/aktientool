@@ -232,8 +232,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
                           const SizedBox(height: 5),
-                          Text(
-                              'US\$ ${tableData.last.price.toStringAsFixed(2)}',
+                          Text(' ${tableData.last.price.toStringAsFixed(2)}',
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
