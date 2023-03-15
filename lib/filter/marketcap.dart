@@ -47,10 +47,10 @@ class Marketcap extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ExpansionTile(
-              title: const Text("Marketcap in Billion \$:",
+              title: const Text("Marketcap in Billion:",
                   style: TextStyle(color: Colors.white)),
               subtitle: Text(
-                "${(intMarketcapStart / 1).toStringAsFixed(0)}B \$   to ${(intMarketcapEnd / 1).toStringAsFixed(0)}B \$",
+                "${(intMarketcapStart / 1).toStringAsFixed(0)}B   to ${(intMarketcapEnd / 1).toStringAsFixed(0)}B",
                 style: const TextStyle(color: Colors.blue),
               ),
               childrenPadding: const EdgeInsets.only(left: 16, right: 16),

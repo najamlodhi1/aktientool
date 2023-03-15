@@ -146,7 +146,7 @@ class CreateChart0State extends State<CreateChart0> {
       return Container(
         decoration: BoxDecoration(
             color: secondaryColor, borderRadius: BorderRadius.circular(20)),
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         child: Text(title,
             style: TextStyle(
                 color: Colors.white,

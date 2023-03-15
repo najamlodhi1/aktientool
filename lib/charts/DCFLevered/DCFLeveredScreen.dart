@@ -266,7 +266,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                                   color: Colors.white)),
                           const SizedBox(height: 5),
                           Text(
-                              'US\$ ${tableData.last.equityValuePerShare.toStringAsFixed(2)}',
+                              tableData.last.equityValuePerShare
+                                  .toStringAsFixed(2),
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -645,7 +646,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ...List.generate(
           data.length,
           (index) => DataCell(Text(
-              (title == 'Share price' ? '\$ ' : '') +
+              (title == 'Share price' ? '' : '') +
                   (data[index] == 0
                       ? ''
                       : ((data[index] > 1000000)
