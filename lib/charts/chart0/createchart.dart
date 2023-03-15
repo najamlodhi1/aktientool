@@ -3,7 +3,7 @@ import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
-const primaryColor = Color(0xff442881);
+const primaryColor = Color.fromARGB(255, 0, 0, 0);
 const secondaryColor = Color(0xff5B2D90);
 
 class CreateChart0 extends StatefulWidget {
@@ -35,12 +35,13 @@ class CreateChart0State extends State<CreateChart0> {
                 child: Column(
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(3.0),
+                  padding: EdgeInsets.all(10.0),
                   child: Text(
                     "Die Inhalte stellen keine Anlageberatung oder Kaufempfehlung dar. Alle Angaben könnten komplett falsch sein!",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+                /*
                 Container(
                   color: primaryColor,
                   padding: const EdgeInsets.all(10),
@@ -74,17 +75,18 @@ class CreateChart0State extends State<CreateChart0> {
                           ],
                         ),
                 ),
+                */
                 Container(
                     color: primaryColor,
-                    padding: const EdgeInsets.all(50),
+                    padding: const EdgeInsets.all(20),
                     child: discriptionWidget(snapshot.data!)),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
                 Container(
                     color: Colors.black,
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(30),
+                          padding: const EdgeInsets.all(10),
                           child: GridView.count(
                             childAspectRatio: 20 / 9,
                             clipBehavior: Clip.antiAlias,
@@ -127,7 +129,7 @@ class CreateChart0State extends State<CreateChart0> {
   Widget _buildGridViewItemImage(String image) {
     return Container(
         decoration: BoxDecoration(
-            color: secondaryColor, borderRadius: BorderRadius.circular(20)),
+            color: primaryColor, borderRadius: BorderRadius.circular(20)),
         alignment: Alignment.center,
         child: Image.network(image, width: 800));
   }
@@ -145,7 +147,7 @@ class CreateChart0State extends State<CreateChart0> {
       }
       return Container(
         decoration: BoxDecoration(
-            color: secondaryColor, borderRadius: BorderRadius.circular(20)),
+            color: primaryColor, borderRadius: BorderRadius.circular(20)),
         alignment: Alignment.center,
         child: Text(title,
             style: TextStyle(
@@ -169,7 +171,7 @@ class CreateChart0State extends State<CreateChart0> {
       }
       return Container(
         decoration: BoxDecoration(
-            color: secondaryColor, borderRadius: BorderRadius.circular(20)),
+            color: primaryColor, borderRadius: BorderRadius.circular(20)),
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
