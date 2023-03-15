@@ -193,7 +193,11 @@ class CreateChart0State extends State<CreateChart0> {
   }
 
   Widget rightwidget(CompanyInfo data) {
-    return Image.network(data.image.toString(), width: 800);
+    return Image.network(
+      data.image.toString(),
+      width: 1500,
+      height: 1500,
+    );
   }
 
   Widget leftwidget(CompanyInfo data) {
@@ -215,7 +219,7 @@ class CreateChart0State extends State<CreateChart0> {
                 color: Colors.black,
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(data.companyName.toString(),
+                    child: Text("${data.companyName}\nAktie Analyse",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: fontSize,
