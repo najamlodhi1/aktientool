@@ -34,7 +34,7 @@ Steuer-ID. 86343/21762
                   style: TextStyle(fontSize: 25),
                 ),
                 const Text('''\nTelefon: +4915251509689
-E-Mail: geldfluss[at]outlook.de\n'''),
+E-Mail: aktientool[at]outlook.de\n'''),
                 const Text(
                   'Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:',
                   style: TextStyle(fontSize: 25),
