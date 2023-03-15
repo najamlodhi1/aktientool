@@ -3,8 +3,8 @@ import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
-const primaryColor = Color.fromARGB(255, 0, 0, 0);
-const secondaryColor = Color(0xff5B2D90);
+const primaryColor = Color(0xff5B2D90);
+const secondaryColor = Color(0xff442881);
 
 class CreateChart0 extends StatefulWidget {
   const CreateChart0({super.key});
