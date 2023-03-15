@@ -137,6 +137,27 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           aspectRatio: 2,
           child: LineChart(
             LineChartData(
+              lineTouchData:
+                  LineTouchData(touchTooltipData: LineTouchTooltipData(
+                getTooltipItems: (touchedSpots) {
+                  return touchedSpots.map((LineBarSpot touchedSpot) {
+                    final textStyle = TextStyle(
+                      color: touchedSpot.bar.gradient?.colors[0] ??
+                          touchedSpot.bar.color,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    );
+
+                    String stockDate = chartDataMax[touchedSpot.x.toInt()]
+                        .year
+                        .toString()
+                        .substring(0, 10);
+
+                    return LineTooltipItem(
+                        '${touchedSpot.y}\n$stockDate', textStyle);
+                  }).toList();
+                },
+              )),
               lineBarsData: [
                 LineChartBarData(
                   spots: getFLData

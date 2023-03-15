@@ -71,54 +71,38 @@ class RemoteService {
         double stockValue =
             double.parse(posts.historical[lengthJson].close.toStringAsFixed(2));
 
-        dataMax.add(ChartData(
-            DateTime(
-                int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-            stockValue));
+        DateTime dtStockDate = DateTime(
+            int.parse(years), int.parse(yearsMonth), int.parse(yearsDay));
+
+        dataMax.add(ChartData(dtStockDate, stockValue));
 
         flchartDataMax.add(FlSpot(count as double, stockValue));
         //points.add(FlSpot(count as double, stockValue));
 
-        if (int.parse(years) >= date_1year.year &&
-            int.parse(yearsMonth) >= date_1year.month) {
+        if (dtStockDate.compareTo(date_1year) >= 0) {
           //print("$years-$yearsMonth-$yearsDay");
-          data1.add(ChartData(
-              DateTime(
-                  int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-              stockValue));
+          data1.add(ChartData(dtStockDate, stockValue));
           fldata1.add(FlSpot(count as double, stockValue));
           //points.add(FlSpot(count as double, stockValue));
           print("val1");
         }
 
-        if (int.parse(years) >= date_3year.year &&
-            int.parse(yearsMonth) >= date_3year.month) {
+        if (dtStockDate.compareTo(date_3year) >= 0) {
           //print("$years-$yearsMonth-$yearsDay");
-          data3.add(ChartData(
-              DateTime(
-                  int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-              stockValue));
+          data3.add(ChartData(dtStockDate, stockValue));
           //points.add(FlSpot(count as double, stockValue));
           fldata3.add(FlSpot(count as double, stockValue));
           print("val3");
         }
-        if (int.parse(years) >= date_5year.year &&
-            int.parse(yearsMonth) >= date_5year.month) {
+        if (dtStockDate.compareTo(date_5year) >= 0) {
           //print("$years-$yearsMonth-$yearsDay");
-          data5.add(ChartData(
-              DateTime(
-                  int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-              stockValue));
+          data5.add(ChartData(dtStockDate, stockValue));
           //points.add(FlSpot(count as double, stockValue));
           fldata5.add(FlSpot(count as double, stockValue));
         }
-        if (int.parse(years) >= date_10year.year &&
-            int.parse(yearsMonth) >= date_10year.month) {
+        if (dtStockDate.compareTo(date_10year) >= 0) {
           //print("$years-$yearsMonth-$yearsDay");
-          data10.add(ChartData(
-              DateTime(
-                  int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-              stockValue));
+          data10.add(ChartData(dtStockDate, stockValue));
           //points.add(FlSpot(count as double, stockValue));
           fldata10.add(FlSpot(count as double, stockValue));
         }
