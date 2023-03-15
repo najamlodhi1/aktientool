@@ -7,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../webpage/components/footer.dart';
 import '../../webpage/constants.dart';
-import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 
 class CreateAccount extends StatelessWidget {
@@ -183,6 +183,7 @@ class CreateAccount extends StatelessWidget {
                   child: const Text('MITGLIED WERDEN'),
                 ),
               ),
+              Footer()
             ],
           ),
         ),

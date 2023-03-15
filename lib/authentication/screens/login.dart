@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../webpage/components/footer.dart';
 
 import '../../webpage/constants.dart';
 import '../../stockscreener/home.dart';
@@ -171,6 +172,7 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 30.0,
           ),
+          Footer()
         ]),
       )),
     );

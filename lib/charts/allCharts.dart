@@ -4,6 +4,8 @@ import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:aktientool/webpage/components/footer.dart';
+
 import 'package:flutter/material.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
@@ -49,23 +51,25 @@ class _AllChartsState extends State<AllCharts> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            CreateChart0(), // Info
-            CreateChart1Test(), // Chart
-            CreateChart11(), // Performance
-            Institutionalholders(),
+          children: [
+            const CreateChart0(), // Info
+            const CreateChart1Test(), // Chart
+            const CreateChart11(), // Performance
+            const Institutionalholders(),
 
-            CompanyScreen(), // Dividend History
-            ScoreScreen(),
-            BarChartIncomeScreen(), // Bar Chart income
-            CreateChart2(),
-            BarChartBalanceScreen(), // Bar Chart Balance
-            CreateChart3(),
-            BarChartCashFlowScreen(), // Bar Chart CashFlow
-            CreateChart4(),
-            DCFLeveredScreen(),
-            ConcensusScreen(),
-            StockNewsScreen(),
+            const CompanyScreen(), // Dividend History
+            const ScoreScreen(),
+            const BarChartIncomeScreen(), // Bar Chart income
+            const CreateChart2(),
+            const BarChartBalanceScreen(), // Bar Chart Balance
+            const CreateChart3(),
+            const BarChartCashFlowScreen(), // Bar Chart CashFlow
+            const CreateChart4(),
+            const DCFLeveredScreen(),
+            const ConcensusScreen(),
+            const StockNewsScreen(),
+
+            Footer()
             // const CreateChart13()
 
 /**/
