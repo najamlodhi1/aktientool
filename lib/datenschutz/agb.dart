@@ -77,9 +77,10 @@ Die Bezahlung geht in folgenden Schritten vonstatten:
 §2.2.2 Preise
 Die Preise sind abhängig von Ihrem ausgewählten Anfragepaket.
 
-Es existieren 2 Produkte:
-20 Anfragen: 10 Euro einmalig
-100 Anfragen: 30 Euro einmalig
+Es existieren 3 Pakete:
+30  Anfragen: 10 Euro 
+100 Anfragen: 20 Euro 
+200 Anfragen: 30 Euro
 
 §2.3 Ende des Anfragepakets
 
@@ -88,7 +89,7 @@ Die Benutzung wird automatisch mit dem Aufbrauchen des Anfragepakets beendet.
 
 §2.4 Löschung des Benutzerkontos
 Sie können Ihr Benutzerkonto jederzeit selbständig löschen. Dabei entstehen Ihnen keine Kosten.
-
+Wenn Sie eingeloggt sind klicken Sie oben rechts auf das Zahnrad Symbol und anschliesend auf Delete Account.
 
 §3 Datennutzung und Urheberrecht
 §3.1 Einschränkung der Nutzung
@@ -138,15 +139,15 @@ Die Seite enthält Links zu externen Webseiten Dritter, auf deren Inhalte kein E
 Nutzer haben das Recht, nach erfolgter Bezahlung binnen vierzehn Tagen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie
 
 Aktientool.Net
+Betül Öztürk
 Donauschwabenweg 10
 72108 Ergenzingen
-E-Mail aktientool@outlook.de
-Telefon 0152-51509689
 
-mittels einer formlosen Erklärung (z.B. per Brief oder E-Mail) über Ihren Entschluss benachrichtigen, den Vertrag zu widerrufen. Ihr Widerruf muss zwingend folgende Angaben enthalten:
+mittels einer formlosen Erklärung (z.B. per Brief) über Ihren Entschluss benachrichtigen, den Vertrag zu widerrufen. Ihr Widerruf muss zwingend folgende Angaben enthalten:
 
-Ihre Emailadresse auf Aktientool.Net
-Den Tag der Bezahlung
+- Ihre Emailadresse auf Aktientool.Net
+- Den Tag der Bezahlung
+
 §6.2 Widerrufsfolgen
 Wenn Sie diesen Vertrag widerrufen, werden Ihnen alle in den letzten vierzehn Tagen geleisteten Zahlungen unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückerstattet, an dem die Mitteilung Ihres Widerrufs eingegangen ist.
 
