@@ -128,7 +128,7 @@ class CreateChart0State extends State<CreateChart0> {
     return Container(
         decoration: BoxDecoration(
             color: secondaryColor, borderRadius: BorderRadius.circular(20)),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.center,
         child: Image.network(image, width: 800));
   }
 
