@@ -195,8 +195,7 @@ class CreateChart0State extends State<CreateChart0> {
   Widget rightwidget(CompanyInfo data) {
     return Image.network(
       data.image.toString(),
-      width: 1500,
-      height: 1500,
+      fit: BoxFit.fill,
     );
   }
 
