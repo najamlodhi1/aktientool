@@ -92,6 +92,38 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                 FlBorderData(border: Border.all(width: 0)),
                             groupsSpace:
                                 calculateChartWidth(showBarsNotifier, data),
+                            barTouchData: BarTouchData(
+                              touchTooltipData: BarTouchTooltipData(
+                                fitInsideVertically: true,
+                                fitInsideHorizontally: true,
+                                tooltipBgColor: Colors.black,
+                                getTooltipItem:
+                                    (group, groupIndex, rod, rodIndex) {
+                                  Color? rodColor =
+                                      rod.gradient?.colors[0] ?? rod.color;
+
+                                  int currentIndex = 0;
+                                  for (int colorIndex = 0;
+                                      colorIndex < data.length;
+                                      colorIndex++) {
+                                    if (IncomeService.colors[colorIndex] ==
+                                        rodColor) {
+                                      currentIndex = colorIndex;
+                                      break;
+                                    }
+                                  }
+
+                                  return BarTooltipItem(
+                                    '${data[0].reports[currentIndex].title}\n${numberToKFormat(rod.toY)}',
+                                    TextStyle(
+                                      color: rodColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                             titlesData: FlTitlesData(
                                 show: true,
                                 rightTitles: AxisTitles(
@@ -125,9 +157,14 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                         reservedSize: 70,
                                         showTitles: true,
                                         getTitlesWidget: (double value, meta) {
-                                          return Text(numberToKFormat(value),
-                                              style: const TextStyle(
-                                                  color: Colors.white));
+                                          if (value == meta.max ||
+                                              value == meta.min) {
+                                            return const Text("");
+                                          } else {
+                                            return Text(numberToKFormat(value),
+                                                style: const TextStyle(
+                                                    color: Colors.white));
+                                          }
                                         }))),
                             barGroups: data
                                 .map((e) => BarChartGroupData(
