@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:http/http.dart' as http;
 import 'CompanyModel.dart';
 
 class CompanyService {
@@ -12,8 +12,9 @@ class CompanyService {
       : "AAPL";
 
   Future<List<DividendModel>> getData() async {
-    var response = await http.Client().get(Uri.parse(
-        'https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/$stock?apikey=${Env.fmpKey}'));
+    var response = await httpgethelper(
+        path:
+            'api/v3/historical-price-full/stock_dividend/$stock/?apikey=FMPKEY');
 
     if (response.statusCode == 200) {
       List<DividendModel> temp = parseData(response.body);

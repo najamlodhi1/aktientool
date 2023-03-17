@@ -1,3 +1,4 @@
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/chart0/data.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
@@ -15,20 +16,26 @@ class CreateChart0 extends StatefulWidget {
 
 class CreateChart0State extends State<CreateChart0> {
   double? apppadding = 20;
+  late Future<CompanyInfo> getFuture;
 
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
 
   Future<CompanyInfo> loadData() {
-    return RemoteService().getData(
-        "https://financialmodelingprep.com/api/v3/profile/$stock?apikey=${Env.fmpKey}");
+    return RemoteService().getData(path: 'api/v3/profile/$stock');
+  }
+
+  @override
+  void initState() {
+    getFuture = loadData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<CompanyInfo>(
-        future: loadData(),
+        future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return SingleChildScrollView(

@@ -18,16 +18,22 @@ class CreateChart11State extends State<CreateChart11> {
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
+  late Future getFuture;
 
   loadData() {
-    return RemoteService().getData(
-        "https://financialmodelingprep.com/api/v3/stock-price-change/$stock?apikey=${Env.fmpKey}");
+    return RemoteService().getData(path: 'api/v3/stock-price-change/$stock');
+  }
+
+  @override
+  void initState() {
+    getFuture = loadData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-        future: loadData(),
+        future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final DataTableSource tempdata = DataSource(context, snapshot.data);

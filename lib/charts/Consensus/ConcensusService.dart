@@ -1,10 +1,9 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:http/http.dart' as http;
-
 import 'ConcensusModel.dart';
 
 class ConcensusService {
@@ -13,8 +12,9 @@ class ConcensusService {
       : "AAPL";
 
   Future<ConcensusModel?> getData() async {
-    var response = await http.Client().get(Uri.parse(
-        'https://financialmodelingprep.com/api/v4/upgrades-downgrades-consensus?symbol=$stock&apikey=${Env.fmpKey}'));
+    var response = await httpgethelper(
+        path:
+            'api/v4/upgrades-downgrades-consensus/?apikey=FMPKEY&symbol=$stock');
 
     if (response.statusCode == 200) {
       List<ConcensusModel> temp = parseData(response.body);

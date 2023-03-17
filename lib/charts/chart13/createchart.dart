@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:aktientool/charts/chart13/data.dart';
 import 'package:aktientool/charts/chart13/datagridwidget.dart';
-import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +16,14 @@ class CreateChart13State extends State<CreateChart13> {
       : "AAPL";
 
   loadData() {
-    log('api key : ${Env.fmpKey}');
-    return RemoteService().getData(
-        "https://financialmodelingprep.com/api/v3/ipo_calendar?&apikey=${Env.fmpKey}");
+    return RemoteService().getData(path: 'api/v3/ipo_calendar');
+  }
+
+  late Future getFuture;
+  @override
+  void initState() {
+    getFuture = loadData();
+    super.initState();
   }
 
   @override
@@ -36,7 +38,7 @@ class CreateChart13State extends State<CreateChart13> {
         child: Column(
           children: [
             FutureBuilder<dynamic>(
-                future: loadData(),
+                future: getFuture,
                 builder: (
                   context,
                   snapshot,

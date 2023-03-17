@@ -2,17 +2,17 @@
 
 import 'package:aktientool/charts/chart11/post.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart' as http;
+
+import '../../authentication/services/HttpHelper.dart';
+import '../../env/env.dart';
 
 var companyInfo = <CompanyInfo>[];
 
 class RemoteService {
-  getData(String url) async {
-    //print("rein: $url");
+  getData({required String path}) async {
+    var response = await httpgethelper(path: '$path/?apikey=FMPKEY');
 
-    var response = await http.Client().get(Uri.parse(url));
     if (response.statusCode == 200) {
-      //print(response.body);
       var posts = postFromJson(response.body);
 
       companyInfo.clear();

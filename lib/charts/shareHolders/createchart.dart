@@ -13,6 +13,8 @@ class ShareHolders extends StatefulWidget {
 }
 
 class ShareHoldersState extends State<ShareHolders> {
+  late Future getDataFuture;
+
   bool? isRowSelected;
   int selectedIndex1 = -1;
   int selectedIndex2 = -1;
@@ -26,6 +28,7 @@ class ShareHoldersState extends State<ShareHolders> {
 
   @override
   void initState() {
+    getDataFuture = RemoteService().getData("api/v3/income-statement/$stock");
     showingTooltip = -1;
     super.initState();
   }
@@ -38,8 +41,7 @@ class ShareHoldersState extends State<ShareHolders> {
       return Column(
         children: [
           FutureBuilder<dynamic>(
-              future: RemoteService().getData(
-                  "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+              future: getDataFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   tableData = snapshot.data;

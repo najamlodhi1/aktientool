@@ -19,10 +19,18 @@ class CreateChart4 extends StatefulWidget {
 }
 
 class CreateChart4State extends State<CreateChart4> {
+  late Future<List<CashFlowReportModel>> getDataFuture;
   List<CashFlowReportModel> tableData = [];
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
+
+  @override
+  void initState() {
+    getDataFuture =
+        CashFlowService().getData("api/v3/cash-flow-statement/$stock");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +38,7 @@ class CreateChart4State extends State<CreateChart4> {
       return Column(
         children: [
           FutureBuilder<List<CashFlowReportModel>>(
-              future: CashFlowService().getData(
-                  "https://financialmodelingprep.com/api/v3/cash-flow-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+              future: getDataFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData &&

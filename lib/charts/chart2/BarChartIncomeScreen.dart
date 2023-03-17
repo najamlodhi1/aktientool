@@ -32,8 +32,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
 
   @override
   void initState() {
-    getDataFuture = IncomeService().getData(
-        "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}");
+    getDataFuture = IncomeService().getData("api/v3/income-statement/$stock");
     super.initState();
   }
 

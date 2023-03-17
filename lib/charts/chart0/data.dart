@@ -1,9 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/chart0/post.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart' as http;
 import 'package:translator/translator.dart';
+
+import '../../env/env.dart';
 
 var companyInfo = <CompanyInfo>[];
 
@@ -13,12 +15,11 @@ class RemoteService {
     return await translator.translate(input, to: 'en');
   }
 
-  Future<CompanyInfo> getData(String url) async {
+  Future<CompanyInfo> getData({required String path}) async {
     var translator = GoogleTranslator();
 
-    //print("rein: $url");
+    var response = await httpgethelper(path: '$path/?apikey=FMPKEY');
 
-    var response = await http.Client().get(Uri.parse(url));
     if (response.statusCode == 200) {
       var posts = postFromJson(response.body);
 

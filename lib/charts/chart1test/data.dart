@@ -1,9 +1,10 @@
 // ignore_for_file: unused_local_variable, avoid_print, depend_on_referenced_packages
 
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/chart1test/post.dart';
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:http/http.dart' as http;
+import '../../env/env.dart';
 
 var data = <ChartData>[];
 var data1 = <ChartData>[];
@@ -20,15 +21,16 @@ var fldata10 = <FlSpot>[];
 var fldataMax = <FlSpot>[];
 
 class RemoteService {
-  getData(String url) async {
+  getData(String path) async {
     DateTime now = DateTime.now();
     DateTime currentDate = DateTime(now.year, now.month, now.day);
     DateTime date_1year = DateTime(now.year - 1, now.month, now.day);
     DateTime date_3year = DateTime(now.year - 3, now.month, now.day);
     DateTime date_5year = DateTime(now.year - 5, now.month, now.day);
     DateTime date_10year = DateTime(now.year - 10, now.month, now.day);
+    var response =
+        await httpgethelper(path: '$path/?apikey=FMPKEY&serietype=line');
 
-    var response = await http.Client().get(Uri.parse(url));
     //print("date $currentDate");
     //print("newDate $newDate");
 

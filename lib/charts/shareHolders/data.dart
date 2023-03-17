@@ -1,13 +1,15 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:aktientool/charts/shareHolders/post.dart';
-import 'package:http/http.dart' as http;
+import '../../authentication/services/HttpHelper.dart';
+import '../../env/env.dart';
 
 var data, costOfRevenue = <Data>[];
 
 class RemoteService {
-  getData(String url) async {
-    var response = await http.Client().get(Uri.parse(url));
+  getData(String path) async {
+    var response = await httpgethelper(path: '$path/?apikey=FMPKEY&limit=20');
+
     if (response.statusCode == 200) {
       final List l = response.body.split('date');
       int lengthJson = l.length - 2;

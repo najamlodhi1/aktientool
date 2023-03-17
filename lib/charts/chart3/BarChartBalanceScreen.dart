@@ -26,8 +26,8 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
 
   @override
   void initState() {
-    getDataFuture = BalanceService().getData(
-        "https://financialmodelingprep.com/api/v3/balance-sheet-statement/$stock?limit=20&apikey=${Env.fmpKey}");
+    getDataFuture =
+        BalanceService().getData("api/v3/balance-sheet-statement/$stock");
     super.initState();
   }
 

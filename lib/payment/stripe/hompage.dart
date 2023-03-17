@@ -19,12 +19,19 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   bool loadingPayment = false;
+  late Future<List<ProductDetials>> getFuture;
+  @override
+  void initState() {
+    getFuture = featchProductDetails();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loadingPayment) return loading("Processing payment...");
 
     return FutureBuilder<List<ProductDetials>>(
-        future: featchProductDetails(),
+        future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ProductDetials> productDetails = snapshot.data!;

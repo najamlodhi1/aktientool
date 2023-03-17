@@ -15,9 +15,8 @@ class CreateChart1Test extends StatefulWidget {
 class CreateChart1TestState extends State<CreateChart1Test> {
   List<FlSpot> getFLData = [];
   int buttonIndex = 3;
-
+  late Future getfuture;
   var selectedDate = DateTime.now();
-  var fromURL = "";
   int anzeige = 2;
 
   final List<Color> color = [
@@ -29,6 +28,11 @@ class CreateChart1TestState extends State<CreateChart1Test> {
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
+  @override
+  void initState() {
+    getfuture = RemoteService().getData("api/v3/historical-price-full/$stock");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -217,9 +221,6 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           ));
     }
 
-    fromURL =
-        "https://financialmodelingprep.com/api/v3/historical-price-full/$stock?serietype=line&apikey=${Env.fmpKey}";
-
     showChart() {
       String todayPrice =
           flchartData1[flchartData1.length - 1].toString().replaceAll(")", "");
@@ -266,24 +267,21 @@ class CreateChart1TestState extends State<CreateChart1Test> {
       );
     }
 
-    if (getFLData.isNotEmpty) {
-      return showChart();
-    } else {
-      return Column(
-        children: [
-          FutureBuilder(
-            future: RemoteService().getData(fromURL),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return showChart();
-              } else {
-                //return const Center(child: CircularProgressIndicator());
-                return const SizedBox();
-              }
-            },
-          ),
-        ],
-      );
-    }
+    return Column(
+      children: [
+        FutureBuilder(
+          initialData: getFLData.isNotEmpty ? [] : null,
+          future: getfuture,
+          builder: (ctx, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return showChart();
+            } else {
+              //return const Center(child: CircularProgressIndicator());
+              return const SizedBox();
+            }
+          },
+        ),
+      ],
+    );
   }
 }

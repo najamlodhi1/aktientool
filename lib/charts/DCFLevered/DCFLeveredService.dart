@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/DCFLevered/DCFLeveredModel.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:http/http.dart' as http;
 
 class DCFLeveredService {
   String stock = ShowCompanies.companysymbol.isNotEmpty
@@ -12,8 +12,9 @@ class DCFLeveredService {
       : "AAPL";
 
   Future<List<DCFLeveredModel>> getData() async {
-    var response = await http.Client().get(Uri.parse(
-        'https://financialmodelingprep.com/api/v4/advanced_levered_discounted_cash_flow?symbol=$stock&apikey=${Env.fmpKey}'));
+    var response = await httpgethelper(
+        path:
+            'api/v4/upgrades-downgrades-consensus/?apikey=FMPKEY&symbol=$stock');
 
     if (response.statusCode == 200) {
       List<DCFLeveredModel> temp = parseData(response.body);

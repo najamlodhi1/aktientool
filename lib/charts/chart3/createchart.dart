@@ -23,6 +23,13 @@ class CreateChart3State extends State<CreateChart3> {
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
+  late Future<List<BalanceReportModel>> getFuture;
+  @override
+  void initState() {
+    getFuture =
+        BalanceService().getData("api/v3/balance-sheet-statement/$stock");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +37,7 @@ class CreateChart3State extends State<CreateChart3> {
       return Column(
         children: [
           FutureBuilder<List<BalanceReportModel>>(
-              future: BalanceService().getData(
-                  "https://financialmodelingprep.com/api/v3/balance-sheet-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+              future: getFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData &&

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:aktientool/charts/Scores/ScoreModel.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:http/http.dart' as http;
+import '../../authentication/services/HttpHelper.dart';
 
 class ScoreService {
   String stock = ShowCompanies.companysymbol.isNotEmpty
@@ -12,8 +12,8 @@ class ScoreService {
       : "AAPL";
 
   Future<ScoreModel> getData() async {
-    var response = await http.Client().get(Uri.parse(
-        'https://financialmodelingprep.com/api/v4/score?symbol=$stock&apikey=${Env.fmpKey}'));
+    var response =
+        await httpgethelper(path: 'api/v4/score/?apikey=FMPKEY&symbol=$stock');
 
     if (response.statusCode == 200) {
       List<ScoreModel> temp = parseData(response.body);

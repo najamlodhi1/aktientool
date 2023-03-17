@@ -19,17 +19,22 @@ class CreateChart2 extends StatefulWidget {
 }
 
 class CreateChart2State extends State<CreateChart2> {
+  late Future<List<IncomeReportModel>> getDataFuture;
   List<IncomeReportModel> tableData = [];
   String stock = ShowCompanies.companysymbol.isNotEmpty
       ? ShowCompanies.companysymbol
       : "AAPL";
+  @override
+  void initState() {
+    getDataFuture = IncomeService().getData("api/v3/income-statement/$stock");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     if (tableData.isEmpty) {
       return FutureBuilder<List<IncomeReportModel>>(
-          future: IncomeService().getData(
-              "https://financialmodelingprep.com/api/v3/income-statement/$stock?limit=20&apikey=${Env.fmpKey}"),
+          future: getDataFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.hasData &&

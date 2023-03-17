@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:http/http.dart' as http;
 import 'StockNewsModel.dart';
 
 class StockNewsService {
@@ -12,8 +12,8 @@ class StockNewsService {
       : "AAPL";
 
   Future<List<StockNewsModel>> getData() async {
-    var response = await http.Client().get(Uri.parse(
-        'https://financialmodelingprep.com/api/v3/stock_news?tickers=$stock&limit=20&apikey=${Env.fmpKey}'));
+    var response = await httpgethelper(
+        path: 'api/v3/stock_news/?apikey=FMPKEY&limit=20&tickers=$stock');
 
     if (response.statusCode == 200) {
       List<StockNewsModel> temp = parseData(response.body);

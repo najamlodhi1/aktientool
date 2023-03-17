@@ -33,8 +33,8 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
 
   @override
   void initState() {
-    getDataFuture = CashFlowService().getData(
-        "https://financialmodelingprep.com/api/v3/cash-flow-statement/$stock?limit=20&apikey=${Env.fmpKey}");
+    getDataFuture =
+        CashFlowService().getData("api/v3/cash-flow-statement/$stock");
     super.initState();
   }
 

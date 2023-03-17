@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import '../../authentication/services/HttpHelper.dart';
+import '../../env/env.dart';
 import '../chart2/IncomeReportModel.dart';
 import 'CashFlowReportModel.dart';
 
@@ -9,8 +10,8 @@ class CashFlowService {
   static final ValueNotifier<Map<String, bool>> isSelected =
       ValueNotifier<Map<String, bool>>({});
   static List<Color> colors = [Colors.green, Colors.red];
-  Future<List<CashFlowReportModel>> getData(String url) async {
-    var response = await http.Client().get(Uri.parse(url));
+  Future<List<CashFlowReportModel>> getData(String path) async {
+    var response = await httpgethelper(path: '$path/?apikey=FMPKEY&limit=20');
 
     if (response.statusCode == 200) {
       var temp = parseData(response.body);
