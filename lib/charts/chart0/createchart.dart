@@ -28,8 +28,7 @@ class CreateChart0State extends State<CreateChart0> {
         future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return SingleChildScrollView(
-                child: Column(
+            return Column(
               children: [
                 const Padding(
                   padding: EdgeInsets.all(10.0),
@@ -39,40 +38,40 @@ class CreateChart0State extends State<CreateChart0> {
                   ),
                 ),
                 /*
-                Container(
-                  color: primaryColor,
-                  padding: const EdgeInsets.all(10),
-                  child: MediaQuery.of(context).size.width > 800
-                      ? Column(
-                          mainAxisSize: MainAxisSize.min,
+            Container(
+              color: primaryColor,
+              padding: const EdgeInsets.all(10),
+              child: MediaQuery.of(context).size.width > 800
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: leftwidget(snapshot.data!),
-                                ),
-                                Expanded(
-                                    flex: 1,
-                                    child: Center(
-                                        child: rightwidget(snapshot.data!))),
-                              ],
+                            Expanded(
+                              flex: 1,
+                              child: leftwidget(snapshot.data!),
                             ),
-                            const SizedBox(
-                              height: 550,
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            rightwidget(snapshot.data!),
-                            const SizedBox(height: 20),
-                            leftwidget(snapshot.data!),
-                            //discriptionWidget(snapshot.data!)
+                            Expanded(
+                                flex: 1,
+                                child: Center(
+                                    child: rightwidget(snapshot.data!))),
                           ],
                         ),
-                ),
-                */
+                        const SizedBox(
+                          height: 550,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        rightwidget(snapshot.data!),
+                        const SizedBox(height: 20),
+                        leftwidget(snapshot.data!),
+                        //discriptionWidget(snapshot.data!)
+                      ],
+                    ),
+            ),
+            */
                 Container(
                     color: primaryColor,
                     padding: const EdgeInsets.all(20),
@@ -116,7 +115,7 @@ class CreateChart0State extends State<CreateChart0> {
                       ],
                     ))
               ],
-            ));
+            );
           } else {
             return Container();
           }
