@@ -18,6 +18,8 @@ import 'chart2/createchart.dart';
 import 'chart3/BarChartBalanceScreen.dart';
 import 'chart3/createchart.dart';
 
+dynamic parentData;
+
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
   checkPopup(context) {
@@ -60,25 +62,25 @@ class _AllChartsState extends State<AllCharts> {
           future: getFuture,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              dynamic data = jsonDecode(snapshot.data.body);
+              parentData = jsonDecode(snapshot.data.body);
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    CreateChart0(data[0]), // Info
-                    CreateChart1Test(data[4]), // Chart
-                    CreateChart11(data[1]), // Performance
-                    Institutionalholders(data[9]),
-                    CompanyScreen(data[2]), // Dividend History
-                    ScoreScreen(data[10]),
-                    BarChartIncomeScreen(data[5]), // Bar Chart income
-                    CreateChart2(data[5]),
-                    BarChartBalanceScreen(data[6]), // Bar Chart Balance
-                    CreateChart3(data[6]),
-                    DCFLeveredScreen(data[6]),
-                    ConcensusScreen(data[8]),
-                    StockNewsScreen(data[11]),
+                    CreateChart0(parentData[0]), // Info
+                    CreateChart1Test(parentData[4]), // Chart
+                    CreateChart11(parentData[1]), // Performance
+                    Institutionalholders(parentData[9]),
+                    CompanyScreen(parentData[2]), // Dividend History
+                    ScoreScreen(parentData[10]),
+                    BarChartIncomeScreen(parentData[5]), // Bar Chart income
+                    CreateChart2(parentData[5]),
+                    BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
+                    CreateChart3(parentData[6]),
+                    DCFLeveredScreen(parentData[6]),
+                    ConcensusScreen(parentData[8]),
+                    StockNewsScreen(parentData[11]),
                     Footer()
-                    // CreateChart13(data[3])
+                    // CreateChart13(parentData[3])
                   ],
                 ),
               );
