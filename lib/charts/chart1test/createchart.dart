@@ -136,8 +136,10 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           aspectRatio: 2,
           child: LineChart(
             LineChartData(
-              lineTouchData:
-                  LineTouchData(touchTooltipData: LineTouchTooltipData(
+              lineTouchData: LineTouchData(
+                  touchTooltipData: LineTouchTooltipData(
+                fitInsideHorizontally: true,
+                fitInsideVertically: true,
                 getTooltipItems: (touchedSpots) {
                   return touchedSpots.map((LineBarSpot touchedSpot) {
                     final textStyle = TextStyle(
@@ -246,7 +248,10 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                   const SizedBox(
                     height: 20,
                   ),
-                  flc(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: flc(),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
