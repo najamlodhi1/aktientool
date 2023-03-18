@@ -7,8 +7,8 @@ import 'StockNewsModel.dart';
 import 'StockNewsService.dart';
 
 class StockNewsScreen extends StatefulWidget {
-  const StockNewsScreen({super.key});
-
+  const StockNewsScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<StockNewsScreen> createState() => _StockNewsScreenState();
 }
@@ -20,7 +20,7 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
   @override
   void initState() {
     super.initState();
-    getFuture = StockNewsService().getData();
+    getFuture = StockNewsService().getData(widget.data);
   }
 
   @override
@@ -31,7 +31,6 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             return bodyWidget(snapshot.data!);
           } else {
-            //return const Center(child: CircularProgressIndicator());
             return const SizedBox();
           }
         });

@@ -1,19 +1,18 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 
 import 'package:aktientool/charts/chart0/createchart.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/charts/chart2/data.dart';
-import 'package:aktientool/env/env.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../chart3/BarChartBalanceScreen.dart';
 import 'IncomeReportModel.dart';
 
 class CreateChart2 extends StatefulWidget {
-  const CreateChart2({super.key});
-
+  const CreateChart2(
+    this.data, {
+    super.key,
+  });
+  final dynamic data;
   @override
   State<CreateChart2> createState() => CreateChart2State();
 }
@@ -21,12 +20,10 @@ class CreateChart2 extends StatefulWidget {
 class CreateChart2State extends State<CreateChart2> {
   late Future<List<IncomeReportModel>> getDataFuture;
   List<IncomeReportModel> tableData = [];
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
+
   @override
   void initState() {
-    getDataFuture = IncomeService().getData("api/v3/income-statement/$stock");
+    getDataFuture = IncomeService().getData(widget.data);
     super.initState();
   }
 

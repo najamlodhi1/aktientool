@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-Post postFromJson(String str) => Post.fromJson(json.decode(str));
+Post postFromJson(dynamic str) => Post.fromJson(str);
 
 String postToJson(Post data) => json.encode(data.toJson());
 

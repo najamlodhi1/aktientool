@@ -3,36 +3,27 @@
 import 'package:aktientool/charts/chart11/post.dart';
 import 'package:collection/collection.dart';
 
-import '../../authentication/services/HttpHelper.dart';
-import '../../env/env.dart';
-
 var companyInfo = <CompanyInfo>[];
 
 class RemoteService {
-  getData({required String path}) async {
-    var response = await httpgethelper(path: '$path/?apikey=FMPKEY');
+  getData(dynamic data) async {
+    var posts = postFromJson(data);
 
-    if (response.statusCode == 200) {
-      var posts = postFromJson(response.body);
+    companyInfo.clear();
+    companyInfo.add(CompanyInfo(
+      posts[0].the1D.toStringAsFixed(2),
+      posts[0].the5D.toStringAsFixed(2),
+      posts[0].the1M.toStringAsFixed(2),
+      posts[0].the3M.toStringAsFixed(2),
+      posts[0].the6M.toStringAsFixed(2),
+      posts[0].the1Y.toStringAsFixed(2),
+      posts[0].the3Y.toStringAsFixed(2),
+      posts[0].the5Y.toStringAsFixed(2),
+      posts[0].the10Y.toStringAsFixed(2),
+      posts[0].max.toStringAsFixed(2),
+    ));
 
-      companyInfo.clear();
-      companyInfo.add(CompanyInfo(
-        posts[0].the1D.toStringAsFixed(2),
-        posts[0].the5D.toStringAsFixed(2),
-        posts[0].the1M.toStringAsFixed(2),
-        posts[0].the3M.toStringAsFixed(2),
-        posts[0].the6M.toStringAsFixed(2),
-        posts[0].the1Y.toStringAsFixed(2),
-        posts[0].the3Y.toStringAsFixed(2),
-        posts[0].the5Y.toStringAsFixed(2),
-        posts[0].the10Y.toStringAsFixed(2),
-        posts[0].max.toStringAsFixed(2),
-      ));
-
-      return companyInfo;
-    } else {
-      throw Exception('Failed to load data');
-    }
+    return companyInfo;
   }
 }
 

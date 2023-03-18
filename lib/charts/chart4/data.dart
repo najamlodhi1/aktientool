@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../authentication/services/HttpHelper.dart';
-import '../../env/env.dart';
 import '../chart2/IncomeReportModel.dart';
 import 'CashFlowReportModel.dart';
 
@@ -10,24 +8,18 @@ class CashFlowService {
   static final ValueNotifier<Map<String, bool>> isSelected =
       ValueNotifier<Map<String, bool>>({});
   static List<Color> colors = [Colors.green, Colors.red];
-  Future<List<CashFlowReportModel>> getData(String path) async {
-    var response = await httpgethelper(path: '$path/?apikey=FMPKEY&limit=20');
+  Future<List<CashFlowReportModel>> getData(dynamic data) async {
+    var temp = parseData(data);
+    isSelected.value = {};
 
-    if (response.statusCode == 200) {
-      var temp = parseData(response.body);
-      isSelected.value = {};
-
-      for (ReportItemModel element in temp[0].reports) {
-        isSelected.value[element.title] =
-            element.title == 'Operating Cash Flow' ? true : false;
-      }
-
-      temp.sort((a, b) => a.date.year.compareTo(b.date.year));
-      colors.addAll(generateRandomColors(count: temp[0].reports.length - 2));
-      return temp;
-    } else {
-      throw Exception('Failed to load data');
+    for (ReportItemModel element in temp[0].reports) {
+      isSelected.value[element.title] =
+          element.title == 'Operating Cash Flow' ? true : false;
     }
+
+    temp.sort((a, b) => a.date.year.compareTo(b.date.year));
+    colors.addAll(generateRandomColors(count: temp[0].reports.length - 2));
+    return temp;
   }
 
   List<CashFlowReportModel> parseData(String res) {

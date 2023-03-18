@@ -7,8 +7,8 @@ import 'InstitutionalholdersModel.dart';
 import 'InstitutionalholdersService.dart';
 
 class Institutionalholders extends StatefulWidget {
-  const Institutionalholders({super.key});
-
+  const Institutionalholders(this.data, {super.key});
+  final dynamic data;
   @override
   State<Institutionalholders> createState() => _InstitutionalholdersState();
 }
@@ -20,7 +20,7 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
   @override
   void initState() {
     super.initState();
-    getFuture = InstitutionalholdersService().getData();
+    getFuture = InstitutionalholdersService().getData(widget.data);
   }
 
   @override

@@ -72,7 +72,7 @@ class DCFLeveredModel {
 
   factory DCFLeveredModel.fromJson(Map<String, dynamic> json) =>
       DCFLeveredModel(
-          year: int.parse(json['year']),
+          year: int.parse(json['year'].split('=')[0]),
           revenue: json['revenue'],
           revenuePercentage: json['revenuePercentage'],
           capitalExpenditure: json['capitalExpenditure'],

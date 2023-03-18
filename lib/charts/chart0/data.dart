@@ -1,11 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/chart0/post.dart';
 import 'package:collection/collection.dart';
 import 'package:translator/translator.dart';
-
-import '../../env/env.dart';
 
 var companyInfo = <CompanyInfo>[];
 
@@ -15,42 +12,36 @@ class RemoteService {
     return await translator.translate(input, to: 'en');
   }
 
-  Future<CompanyInfo> getData({required String path}) async {
+  Future<CompanyInfo> getData({required dynamic data}) async {
     var translator = GoogleTranslator();
 
-    var response = await httpgethelper(path: '$path/?apikey=FMPKEY');
+    var posts = postFromJson(data);
 
-    if (response.statusCode == 200) {
-      var posts = postFromJson(response.body);
+    String x = posts[0].description ?? "";
 
-      String x = posts[0].description ?? "";
-
-      Translation? translatedDescription;
-      if (x.isNotEmpty) {
-        translatedDescription = await translator.translate(x, to: 'de');
-      }
-
-      companyInfo.clear();
-      companyInfo.add(CompanyInfo(
-          posts[0].image,
-          posts[0].companyName,
-          posts[0].symbol,
-          "${(posts[0].mktCap / 1000000000).toStringAsFixed(2)} Billion ",
-          posts[0].exchangeShortName,
-          posts[0].sector,
-          posts[0].industry ?? "",
-          posts[0].website ?? "",
-          translatedDescription?.toString() ?? "",
-          posts[0].fullTimeEmployees ?? "",
-          posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
-          posts[0].ceo,
-          posts[0].city ?? "",
-          posts[0].state ?? ""));
-
-      return companyInfo[0];
-    } else {
-      throw Exception('Failed to load data');
+    Translation? translatedDescription;
+    if (x.isNotEmpty) {
+      translatedDescription = await translator.translate(x, to: 'de');
     }
+
+    companyInfo.clear();
+    companyInfo.add(CompanyInfo(
+        posts[0].image,
+        posts[0].companyName,
+        posts[0].symbol,
+        "${(posts[0].mktCap / 1000000000).toStringAsFixed(2)} Billion ",
+        posts[0].exchangeShortName,
+        posts[0].sector,
+        posts[0].industry ?? "",
+        posts[0].website ?? "",
+        translatedDescription?.toString() ?? "",
+        posts[0].fullTimeEmployees ?? "",
+        posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
+        posts[0].ceo,
+        posts[0].city ?? "",
+        posts[0].state ?? ""));
+
+    return companyInfo[0];
   }
 }
 

@@ -1,17 +1,13 @@
-// ignore_for_file: empty_catches, file_names
-
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart2/IncomeReportModel.dart';
-import 'package:aktientool/env/env.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'data.dart';
 import 'package:intl/intl.dart';
 
 class BarChartIncomeScreen extends StatefulWidget {
-  const BarChartIncomeScreen({super.key});
-
+  const BarChartIncomeScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<BarChartIncomeScreen> createState() => _BarChartIncomeScreenState();
 }
@@ -26,13 +22,9 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
 
   late Future<List<IncomeReportModel>> getDataFuture;
 
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
-
   @override
   void initState() {
-    getDataFuture = IncomeService().getData("api/v3/income-statement/$stock");
+    getDataFuture = IncomeService().getData(widget.data);
     super.initState();
   }
 
@@ -49,7 +41,9 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
           chartWidth += interval;
         }
       }
-    } catch (err) {}
+    } catch (err) {
+      rethrow;
+    }
 
     return chartWidth;
   }

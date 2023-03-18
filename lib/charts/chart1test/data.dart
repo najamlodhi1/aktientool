@@ -1,10 +1,5 @@
-// ignore_for_file: unused_local_variable, avoid_print, depend_on_referenced_packages
-
-import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/chart1test/post.dart';
-import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../env/env.dart';
 
 var data = <ChartData>[];
 var data1 = <ChartData>[];
@@ -21,100 +16,86 @@ var fldata10 = <FlSpot>[];
 var fldataMax = <FlSpot>[];
 
 class RemoteService {
-  getData(String path) async {
+  getData(dynamic results) async {
     DateTime now = DateTime.now();
-    DateTime currentDate = DateTime(now.year, now.month, now.day);
     DateTime date_1year = DateTime(now.year - 1, now.month, now.day);
     DateTime date_3year = DateTime(now.year - 3, now.month, now.day);
     DateTime date_5year = DateTime(now.year - 5, now.month, now.day);
     DateTime date_10year = DateTime(now.year - 10, now.month, now.day);
-    var response =
-        await httpgethelper(path: '$path/?apikey=FMPKEY&serietype=line');
+    int lengthJson = results["historical"].length - 1;
 
-    //print("date $currentDate");
-    //print("newDate $newDate");
+    int count = 0;
 
-    if (response.statusCode == 200) {
-      //print(response.body);
-      final List l = response.body.split('date');
-      int lengthJson = l.length - 2;
-      //print("lengthJson: $lengthJson");
+    dataMax = [];
+    data10 = [];
+    data1 = [];
+    data3 = [];
+    data5 = [];
+    points = [];
 
-      int count = 0;
+    fldataMax = [];
+    fldata10 = [];
+    fldata1 = [];
+    fldata3 = [];
+    fldata5 = [];
 
-      dataMax = [];
-      data10 = [];
-      data1 = [];
-      data3 = [];
-      data5 = [];
-      points = [];
+    Post posts = postFromJson(results);
+    while (lengthJson >= 0) {
+      //print(posts.historical[lengthJson].date.toString());
 
-      fldataMax = [];
-      fldata10 = [];
-      fldata1 = [];
-      fldata3 = [];
-      fldata5 = [];
+      String years =
+          posts.historical[lengthJson].date.toString().substring(0, 4);
+      //print("years $years");
 
-      dynamic posts = postFromJson(response.body);
-      while (lengthJson >= 0) {
-        //print(posts.historical[lengthJson].date.toString());
+      String yearsMonth =
+          posts.historical[lengthJson].date.toString().substring(5, 7);
+      //print("yearsMonth $yearsMonth");
+      String yearsDay =
+          posts.historical[lengthJson].date.toString().substring(8, 11);
+      //print("yearsDay $yearsDay");
 
-        String years =
-            posts.historical[lengthJson].date.toString().substring(0, 4);
-        //print("years $years");
+      double stockValue =
+          double.parse(posts.historical[lengthJson].close.toStringAsFixed(2));
 
-        String yearsMonth =
-            posts.historical[lengthJson].date.toString().substring(5, 7);
-        //print("yearsMonth $yearsMonth");
-        String yearsDay =
-            posts.historical[lengthJson].date.toString().substring(8, 11);
-        //print("yearsDay $yearsDay");
+      DateTime dtStockDate = DateTime(
+          int.parse(years), int.parse(yearsMonth), int.parse(yearsDay));
 
-        double stockValue =
-            double.parse(posts.historical[lengthJson].close.toStringAsFixed(2));
+      dataMax.add(ChartData(dtStockDate, stockValue));
 
-        DateTime dtStockDate = DateTime(
-            int.parse(years), int.parse(yearsMonth), int.parse(yearsDay));
+      flchartDataMax.add(FlSpot(count as double, stockValue));
+      //points.add(FlSpot(count as double, stockValue));
 
-        dataMax.add(ChartData(dtStockDate, stockValue));
-
-        flchartDataMax.add(FlSpot(count as double, stockValue));
+      if (dtStockDate.compareTo(date_1year) >= 0) {
+        //print("$years-$yearsMonth-$yearsDay");
+        data1.add(ChartData(dtStockDate, stockValue));
+        fldata1.add(FlSpot(count as double, stockValue));
         //points.add(FlSpot(count as double, stockValue));
-
-        if (dtStockDate.compareTo(date_1year) >= 0) {
-          //print("$years-$yearsMonth-$yearsDay");
-          data1.add(ChartData(dtStockDate, stockValue));
-          fldata1.add(FlSpot(count as double, stockValue));
-          //points.add(FlSpot(count as double, stockValue));
-          print("val1");
-        }
-
-        if (dtStockDate.compareTo(date_3year) >= 0) {
-          //print("$years-$yearsMonth-$yearsDay");
-          data3.add(ChartData(dtStockDate, stockValue));
-          //points.add(FlSpot(count as double, stockValue));
-          fldata3.add(FlSpot(count as double, stockValue));
-          print("val3");
-        }
-        if (dtStockDate.compareTo(date_5year) >= 0) {
-          //print("$years-$yearsMonth-$yearsDay");
-          data5.add(ChartData(dtStockDate, stockValue));
-          //points.add(FlSpot(count as double, stockValue));
-          fldata5.add(FlSpot(count as double, stockValue));
-        }
-        if (dtStockDate.compareTo(date_10year) >= 0) {
-          //print("$years-$yearsMonth-$yearsDay");
-          data10.add(ChartData(dtStockDate, stockValue));
-          //points.add(FlSpot(count as double, stockValue));
-          fldata10.add(FlSpot(count as double, stockValue));
-        }
-        count++;
-        lengthJson--;
+        print("val1");
       }
-      return points;
-    } else {
-      throw Exception('Failed to load data');
+
+      if (dtStockDate.compareTo(date_3year) >= 0) {
+        //print("$years-$yearsMonth-$yearsDay");
+        data3.add(ChartData(dtStockDate, stockValue));
+        //points.add(FlSpot(count as double, stockValue));
+        fldata3.add(FlSpot(count as double, stockValue));
+        print("val3");
+      }
+      if (dtStockDate.compareTo(date_5year) >= 0) {
+        //print("$years-$yearsMonth-$yearsDay");
+        data5.add(ChartData(dtStockDate, stockValue));
+        //points.add(FlSpot(count as double, stockValue));
+        fldata5.add(FlSpot(count as double, stockValue));
+      }
+      if (dtStockDate.compareTo(date_10year) >= 0) {
+        //print("$years-$yearsMonth-$yearsDay");
+        data10.add(ChartData(dtStockDate, stockValue));
+        //points.add(FlSpot(count as double, stockValue));
+        fldata10.add(FlSpot(count as double, stockValue));
+      }
+      count++;
+      lengthJson--;
     }
+    return points;
   }
 }
 
@@ -176,7 +157,7 @@ class ChartData1 {
 
 List<ChartData> get chartData1 {
   return data1
-      .mapIndexed(((index, element) => ChartData(element.year, element.data)))
+      .map(((element) => ChartData(element.year, element.data)))
       .toList();
 }
 
@@ -188,7 +169,7 @@ class ChartData3 {
 
 List<ChartData> get chartData3 {
   return data3
-      .mapIndexed(((index, element) => ChartData(element.year, element.data)))
+      .map(((element) => ChartData(element.year, element.data)))
       .toList();
 }
 
@@ -200,7 +181,7 @@ class ChartData5 {
 
 List<ChartData> get chartData5 {
   return data5
-      .mapIndexed(((index, element) => ChartData(element.year, element.data)))
+      .map(((element) => ChartData(element.year, element.data)))
       .toList();
 }
 
@@ -212,7 +193,7 @@ class ChartData10 {
 
 List<ChartData> get chartData10 {
   return data10
-      .mapIndexed(((index, element) => ChartData(element.year, element.data)))
+      .map(((element) => ChartData(element.year, element.data)))
       .toList();
 }
 
@@ -224,7 +205,7 @@ class ChartDataMax {
 
 List<ChartData> get chartDataMax {
   return dataMax
-      .mapIndexed(((index, element) => ChartData(element.year, element.data)))
+      .map(((element) => ChartData(element.year, element.data)))
       .toList();
 }
 
@@ -236,6 +217,6 @@ class ChartData {
 
 List<ChartData> get chartData {
   return data
-      .mapIndexed(((index, element) => ChartData(element.year, element.data)))
+      .map(((element) => ChartData(element.year, element.data)))
       .toList();
 }

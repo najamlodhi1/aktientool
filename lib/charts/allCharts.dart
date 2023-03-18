@@ -1,11 +1,12 @@
 // ignore_for_file: file_names
+import 'dart:convert';
+import 'package:aktientool/authentication/services/http_service.dart';
 import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/webpage/components/footer.dart';
-
 import 'package:flutter/material.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
@@ -16,8 +17,6 @@ import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
 import 'chart3/BarChartBalanceScreen.dart';
 import 'chart3/createchart.dart';
-import 'chart4/BarChartCashFlowScreen.dart';
-import 'chart4/createchart.dart';
 
 class AllCharts extends StatefulWidget {
   const AllCharts({super.key});
@@ -39,6 +38,14 @@ class AllCharts extends StatefulWidget {
 }
 
 class _AllChartsState extends State<AllCharts> {
+  late Future getFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    getFuture = getalldata();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,33 +56,36 @@ class _AllChartsState extends State<AllCharts> {
         title: Text(ShowCompanies.companyname),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const CreateChart0(), // Info
-            const CreateChart1Test(), // Chart
-            const CreateChart11(), // Performance
-            const Institutionalholders(),
-
-            const CompanyScreen(), // Dividend History
-            const ScoreScreen(),
-            const BarChartIncomeScreen(), // Bar Chart income
-            const CreateChart2(),
-            const BarChartBalanceScreen(), // Bar Chart Balance
-            const CreateChart3(),
-            const BarChartCashFlowScreen(), // Bar Chart CashFlow
-            const CreateChart4(),
-            const DCFLeveredScreen(),
-            const ConcensusScreen(),
-            const StockNewsScreen(),
-
-            Footer()
-            // const CreateChart13()
-
-/**/
-          ],
-        ),
-      ),
+      body: FutureBuilder(
+          future: getFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              dynamic data = jsonDecode(snapshot.data.body);
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CreateChart0(data[0]), // Info
+                    CreateChart1Test(data[4]), // Chart
+                    CreateChart11(data[1]), // Performance
+                    Institutionalholders(data[9]),
+                    CompanyScreen(data[2]), // Dividend History
+                    ScoreScreen(data[10]),
+                    BarChartIncomeScreen(data[5]), // Bar Chart income
+                    CreateChart2(data[5]),
+                    BarChartBalanceScreen(data[6]), // Bar Chart Balance
+                    CreateChart3(data[6]),
+                    DCFLeveredScreen(data[6]),
+                    ConcensusScreen(data[8]),
+                    StockNewsScreen(data[11]),
+                    Footer()
+                    // CreateChart13(data[3])
+                  ],
+                ),
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 }

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +5,8 @@ import 'ConcensusModel.dart';
 import 'ConcensusService.dart';
 
 class ConcensusScreen extends StatefulWidget {
-  const ConcensusScreen({super.key});
-
+  const ConcensusScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<ConcensusScreen> createState() => _ConcensusScreenState();
 }
@@ -19,7 +17,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
   @override
   void initState() {
     super.initState();
-    getFuture = ConcensusService().getData();
+    getFuture = ConcensusService().getData(widget.data);
   }
 
   @override

@@ -1,25 +1,21 @@
 import 'package:aktientool/charts/chart13/data.dart';
 import 'package:aktientool/charts/chart13/datagridwidget.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
 class CreateChart13 extends StatefulWidget {
-  const CreateChart13({super.key});
-
+  const CreateChart13(this.data, {super.key});
+  final dynamic data;
   @override
   State<CreateChart13> createState() => CreateChart13State();
 }
 
 class CreateChart13State extends State<CreateChart13> {
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
+  late Future getFuture;
 
   loadData() {
-    return RemoteService().getData(path: 'api/v3/ipo_calendar');
+    return RemoteService().getData(widget.data);
   }
 
-  late Future getFuture;
   @override
   void initState() {
     getFuture = loadData();
@@ -39,10 +35,7 @@ class CreateChart13State extends State<CreateChart13> {
           children: [
             FutureBuilder<dynamic>(
                 future: getFuture,
-                builder: (
-                  context,
-                  snapshot,
-                ) {
+                builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data != null) {
                       return SizedBox(

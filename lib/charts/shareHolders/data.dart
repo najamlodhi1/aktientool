@@ -1,61 +1,52 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// import 'package:aktientool/charts/shareHolders/post.dart';
 
-import 'package:aktientool/charts/shareHolders/post.dart';
-import '../../authentication/services/HttpHelper.dart';
-import '../../env/env.dart';
 
-var data, costOfRevenue = <Data>[];
+// var data, costOfRevenue = <Data>[];
+// class RemoteService {
+//   getData(dynamic result) async {
 
-class RemoteService {
-  getData(String path) async {
-    var response = await httpgethelper(path: '$path/?apikey=FMPKEY&limit=20');
+//           final List l = result.split('date');
+//       int lengthJson = l.length - 2;
 
-    if (response.statusCode == 200) {
-      final List l = response.body.split('date');
-      int lengthJson = l.length - 2;
+//       data = [];
+//       costOfRevenue = [];
 
-      data = [];
-      costOfRevenue = [];
+//       dynamic posts = postFromJson(result);
 
-      dynamic posts = postFromJson(response.body);
+//       while (lengthJson >= 0) {
+//         String years = posts[lengthJson].date.toString().substring(0, 4);
+//         String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
+//         String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
 
-      while (lengthJson >= 0) {
-        String years = posts[lengthJson].date.toString().substring(0, 4);
-        String yearsMonth = posts[lengthJson].date.toString().substring(5, 7);
-        String yearsDay = posts[lengthJson].date.toString().substring(8, 11);
+//         double revenueData =
+//             double.parse((posts[lengthJson]).revenue.toStringAsFixed(2)) / 1000;
 
-        double revenueData =
-            double.parse((posts[lengthJson]).revenue.toStringAsFixed(2)) / 1000;
+//         double costOfRevenueData =
+//             double.parse((posts[lengthJson]).costOfRevenue.toStringAsFixed(2)) /
+//                 1000;
 
-        double costOfRevenueData =
-            double.parse((posts[lengthJson]).costOfRevenue.toStringAsFixed(2)) /
-                1000;
+//         data.add(Data(
+//           DateTime(
+//               int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
+//           revenueData,
+//           costOfRevenueData,
+//         ));
+//         lengthJson--;
+//       }
+//       return data;
+//   }
+// }
 
-        data.add(Data(
-          DateTime(
-              int.parse(years), int.parse(yearsMonth), int.parse(yearsDay)),
-          revenueData,
-          costOfRevenueData,
-        ));
-        lengthJson--;
-      }
-      return data;
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
-}
+// class Data {
+//   Data(this.year, this.revenue, this.costOfRevenueData);
+//   final DateTime year;
+//   final double revenue;
+//   final double costOfRevenueData;
+// }
 
-class Data {
-  Data(this.year, this.revenue, this.costOfRevenueData);
-  final DateTime year;
-  final double revenue;
-  final double costOfRevenueData;
-}
-
-List get allData {
-  return data
-      .mapIndexed(((index, element) =>
-          Data(element.year, element.revenue, element.costOfRevenueData)))
-      .toList();
-}
+// List get allData {
+//   return data
+//       .mapIndexed(((index, element) =>
+//           Data(element.year, element.revenue, element.costOfRevenueData)))
+//       .toList();
+// }

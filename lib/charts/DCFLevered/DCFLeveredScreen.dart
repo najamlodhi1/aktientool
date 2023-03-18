@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DCFLeveredScreen extends StatefulWidget {
-  const DCFLeveredScreen({super.key});
-
+  const DCFLeveredScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<DCFLeveredScreen> createState() => _DCFLeveredScreenState();
 }
@@ -23,7 +23,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
   @override
   void initState() {
     super.initState();
-    getFuture = DCFLeveredService().getData();
+    getFuture = DCFLeveredService().getData(widget.data);
   }
 
   @override

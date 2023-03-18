@@ -1,13 +1,11 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart1test/data.dart';
-import 'package:aktientool/env/env.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class CreateChart1Test extends StatefulWidget {
-  const CreateChart1Test({super.key});
-
+  const CreateChart1Test(this.data, {super.key});
+  final dynamic data;
   @override
   State<CreateChart1Test> createState() => CreateChart1TestState();
 }
@@ -25,12 +23,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
     const Color(0xFF5620FF),
   ];
 
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
   @override
   void initState() {
-    getfuture = RemoteService().getData("api/v3/historical-price-full/$stock");
+    getfuture = RemoteService().getData(widget.data);
     super.initState();
   }
 

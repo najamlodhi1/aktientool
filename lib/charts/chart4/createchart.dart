@@ -3,17 +3,13 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart4/CashFlowReportModel.dart';
 import 'package:aktientool/charts/chart4/data.dart';
-import 'package:aktientool/env/env.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../chart3/BarChartBalanceScreen.dart';
 
 class CreateChart4 extends StatefulWidget {
-  const CreateChart4({super.key});
-
+  const CreateChart4(this.data, {super.key});
+  final dynamic data;
   @override
   State<CreateChart4> createState() => CreateChart4State();
 }
@@ -21,14 +17,10 @@ class CreateChart4 extends StatefulWidget {
 class CreateChart4State extends State<CreateChart4> {
   late Future<List<CashFlowReportModel>> getDataFuture;
   List<CashFlowReportModel> tableData = [];
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
 
   @override
   void initState() {
-    getDataFuture =
-        CashFlowService().getData("api/v3/cash-flow-statement/$stock");
+    getDataFuture = CashFlowService().getData(widget.data);
     super.initState();
   }
 

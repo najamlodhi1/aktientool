@@ -1,7 +1,6 @@
 // ignore_for_file: empty_catches, file_names
 
 import 'package:aktientool/charts/chart0/createchart.dart';
-import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

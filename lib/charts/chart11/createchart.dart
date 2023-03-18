@@ -2,26 +2,22 @@
 
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart11/data.dart';
-import 'package:aktientool/env/env.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'DataSource.dart';
 
 class CreateChart11 extends StatefulWidget {
-  const CreateChart11({super.key});
-
+  const CreateChart11(this.data, {super.key});
+  final dynamic data;
   @override
   State<CreateChart11> createState() => CreateChart11State();
 }
 
 class CreateChart11State extends State<CreateChart11> {
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
   late Future getFuture;
 
   loadData() {
-    return RemoteService().getData(path: 'api/v3/stock-price-change/$stock');
+    return RemoteService().getData(widget.data);
   }
 
   @override

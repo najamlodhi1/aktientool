@@ -2,8 +2,6 @@
 
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart3/BalanceReportModel.dart';
-import 'package:aktientool/env/env.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +9,8 @@ import '../chart2/IncomeReportModel.dart';
 import 'data.dart';
 
 class BarChartBalanceScreen extends StatefulWidget {
-  const BarChartBalanceScreen({super.key});
+  const BarChartBalanceScreen(this.data, {super.key});
+  final dynamic data;
 
   @override
   State<BarChartBalanceScreen> createState() => _BarChartScreenState();
@@ -20,14 +19,9 @@ class BarChartBalanceScreen extends StatefulWidget {
 class _BarChartScreenState extends State<BarChartBalanceScreen> {
   late Future<List<BalanceReportModel>> getDataFuture;
 
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
-
   @override
   void initState() {
-    getDataFuture =
-        BalanceService().getData("api/v3/balance-sheet-statement/$stock");
+    getDataFuture = BalanceService().getData(widget.data);
     super.initState();
   }
 

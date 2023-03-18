@@ -7,8 +7,8 @@ import 'CompanyService.dart';
 import 'DataSource.dart';
 
 class CompanyScreen extends StatefulWidget {
-  const CompanyScreen({super.key});
-
+  const CompanyScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<CompanyScreen> createState() => _CompanyScreenState();
 }
@@ -19,7 +19,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
   @override
   void initState() {
     super.initState();
-    getFuture = CompanyService().getData();
+    getFuture = CompanyService().getData(widget.data);
   }
 
   @override

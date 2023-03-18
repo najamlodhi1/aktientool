@@ -7,8 +7,8 @@ import 'ScoreModel.dart';
 import 'ScoreService.dart';
 
 class ScoreScreen extends StatefulWidget {
-  const ScoreScreen({super.key});
-
+  const ScoreScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<ScoreScreen> createState() => _ScoreScreenState();
 }
@@ -17,13 +17,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
   late Future<ScoreModel> getFuture;
   int touchedIndex = -1;
   List labels = [];
+
   @override
   void initState() {
     super.initState();
     for (var i = 0; i <= 9; i++) {
       labels.add(i);
     }
-    getFuture = ScoreService().getData();
+    getFuture = ScoreService().getData(widget.data);
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DataSource extends DataTableSource {
   final BuildContext context;
-  var data;
+  final dynamic data;
   DataSource(this.context, this.data);
 
   @override
@@ -107,6 +107,7 @@ class DataSource extends DataTableSource {
             style: const TextStyle(color: Colors.white)))
       ]);
     }
+    return null;
   }
 
   @override

@@ -1,15 +1,12 @@
-import 'package:aktientool/authentication/services/HttpHelper.dart';
 import 'package:aktientool/charts/chart0/data.dart';
-import 'package:aktientool/env/env.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 
 const primaryColor = Color(0xff5B2D90);
 const secondaryColor = Color(0xff442881);
 
 class CreateChart0 extends StatefulWidget {
-  const CreateChart0({super.key});
-
+  const CreateChart0(this.data, {super.key});
+  final dynamic data;
   @override
   State<CreateChart0> createState() => CreateChart0State();
 }
@@ -18,17 +15,9 @@ class CreateChart0State extends State<CreateChart0> {
   double? apppadding = 20;
   late Future<CompanyInfo> getFuture;
 
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
-
-  Future<CompanyInfo> loadData() {
-    return RemoteService().getData(path: 'api/v3/profile/$stock');
-  }
-
   @override
   void initState() {
-    getFuture = loadData();
+    getFuture = RemoteService().getData(data: widget.data);
     super.initState();
   }
 
@@ -128,7 +117,7 @@ class CreateChart0State extends State<CreateChart0> {
               ],
             ));
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return Container();
           }
         });
   }
