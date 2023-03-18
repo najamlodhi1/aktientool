@@ -45,30 +45,42 @@ class CreateChart11State extends State<CreateChart11> {
               ),
               child: Theme(
                 data: Theme.of(context).copyWith(
-                    cardColor: primaryColor,
-                    textTheme: const TextTheme(
-                        bodySmall: TextStyle(color: Colors.white))),
-                child: PaginatedDataTable(
-                  arrowHeadColor: Colors.white,
-                  header: const Center(
-                    child: Text("Performance with 1000\$",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 22,
-                            color: Colors.white)),
+                  cardColor: primaryColor,
+                  textTheme: const TextTheme(
+                      bodySmall: TextStyle(color: primaryColor)),
+                ),
+                child: DataTableTheme(
+                  data: DataTableThemeData(
+                    dataRowHeight: 48,
+                    headingRowHeight: 48,
+                    horizontalMargin: 0,
+                    columnSpacing: 0,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.transparent),
+                    ),
                   ),
-                  source: tempdata,
-                  columns: const [
-                    DataColumn(
-                        label: Text("Time",
-                            style: TextStyle(color: Colors.white))),
-                    DataColumn(
-                        label: Text("Performance",
-                            style: TextStyle(color: Colors.white))),
-                    DataColumn(
-                        label: Text("Price",
-                            style: TextStyle(color: Colors.white)))
-                  ],
+                  child: PaginatedDataTable(
+                    arrowHeadColor: primaryColor,
+                    header: const Center(
+                      child: Text("Performance with 1000\$",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22,
+                              color: Colors.white)),
+                    ),
+                    source: tempdata,
+                    columns: const [
+                      DataColumn(
+                          label: Text("Time",
+                              style: TextStyle(color: Colors.white))),
+                      DataColumn(
+                          label: Text("Performance",
+                              style: TextStyle(color: Colors.white))),
+                      DataColumn(
+                          label: Text("Price",
+                              style: TextStyle(color: Colors.white)))
+                    ],
+                  ),
                 ),
               ),
             );

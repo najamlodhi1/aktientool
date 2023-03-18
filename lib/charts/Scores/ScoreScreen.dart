@@ -195,7 +195,11 @@ class _ScoreScreenState extends State<ScoreScreen> {
                             ),
                           ),
                           child: Align(
-                            alignment: Alignment(data.altmanZScore / 12, 0),
+                            alignment: Alignment(
+                                ((((data.altmanZScore / 12) * 2) - 1) > 1)
+                                    ? 0.98
+                                    : (((data.altmanZScore / 12) * 2) - 1),
+                                0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

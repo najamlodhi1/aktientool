@@ -1,5 +1,6 @@
 import 'package:aktientool/charts/chart0/data.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const primaryColor = Color(0xff5B2D90);
 const secondaryColor = Color(0xff442881);
@@ -165,26 +166,37 @@ class CreateChart0State extends State<CreateChart0> {
       } else {
         fontSize = 50.0;
       }
-      return Container(
-        decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(20)),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(title,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: fontSize,
-                    fontWeight: FontWeight.bold)),
-            const SizedBox(height: 5),
-            Text(value,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: fontSize,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center)
-          ],
+      return InkWell(
+        onTap: title == 'Ceo'
+            ? () {
+                launchUrl(Uri(
+                    scheme: 'https',
+                    host: 'google.com',
+                    path: 'search',
+                    queryParameters: {'q': value}));
+              }
+            : null,
+        child: Container(
+          decoration: BoxDecoration(
+              color: primaryColor, borderRadius: BorderRadius.circular(20)),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(title,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(height: 5),
+              Text(value,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center)
+            ],
+          ),
         ),
       );
     });

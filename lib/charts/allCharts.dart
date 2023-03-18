@@ -76,7 +76,7 @@ class _AllChartsState extends State<AllCharts> {
                     CreateChart2(parentData[5]),
                     BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
                     CreateChart3(parentData[6]),
-                    DCFLeveredScreen(parentData[6]),
+                    DCFLeveredScreen(parentData[12]),
                     ConcensusScreen(parentData[8]),
                     StockNewsScreen(parentData[11]),
                     Footer()

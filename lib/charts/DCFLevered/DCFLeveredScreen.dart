@@ -48,7 +48,6 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
               ],
             );
           } else {
-            //return const Center(child: CircularProgressIndicator());
             return const SizedBox();
           }
         });

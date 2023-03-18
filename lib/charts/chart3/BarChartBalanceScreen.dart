@@ -102,7 +102,6 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                                         break;
                                       }
                                     }
-
                                     return BarTooltipItem(
                                       '${data[0].reports[currentIndex].title}\n${numberToKFormat(rod.toY)}',
                                       TextStyle(
@@ -197,7 +196,6 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                 }),
           );
         }
-        //return const Center(child: CircularProgressIndicator());
         return const SizedBox();
       },
     );
