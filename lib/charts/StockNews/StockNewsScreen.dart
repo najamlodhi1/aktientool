@@ -51,11 +51,11 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
           color: primaryColor,
           borderRadius: BorderRadius.circular(30.0),
         ),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: data.length,
-          itemBuilder: (context, index) => buildCard(data[index]),
-        ));
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:
+                List.generate(data.length, (index) => buildCard(data[index]))));
   }
 
   buildCard(StockNewsModel data) {
