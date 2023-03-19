@@ -117,7 +117,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           return maxScreenWidth / MediaQuery.of(context).size.width * 45;
         // 5 y
         case 2:
-          return maxScreenWidth / MediaQuery.of(context).size.width * 70;
+          return maxScreenWidth / MediaQuery.of(context).size.width * 80;
         // Max
         case 4:
           return maxScreenWidth / MediaQuery.of(context).size.width * 600;
