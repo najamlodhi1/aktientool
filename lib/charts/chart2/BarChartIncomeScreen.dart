@@ -55,6 +55,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<IncomeReportModel> data = snapshot.data!;
+          data.sort((a, b) => b.date.compareTo(a.date));
           return Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),

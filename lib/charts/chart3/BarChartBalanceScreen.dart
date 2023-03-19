@@ -50,6 +50,7 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<BalanceReportModel> data = snapshot.data!;
+          data.sort((a, b) => b.date.compareTo(a.date));
           return Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
