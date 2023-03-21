@@ -61,8 +61,6 @@ class _HomepageState extends State<Homepage> {
       'price': pd.priceId,
       'quantity': pd.quatity,
       'mode': 'payment',
-      "payment_method_types": ["card", "sepa_debit"],
-      'currency': 'eur',
       'success_url': 'https://aktientool.net/?ret=success&q=$clicks',
       'cancel_url': 'https://aktientool.net/?ret=cancel'
     });
