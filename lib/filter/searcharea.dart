@@ -194,7 +194,7 @@ void upgradepopup(BuildContext context) {
                       builder: (context) => const Homepage(paymenttype: 1),
                     ),
                   );
-                  redirectToCheckout(context, 1);
+                  // redirectToCheckout(context, 1);
                 },
               ),
               IconButton(
@@ -207,7 +207,7 @@ void upgradepopup(BuildContext context) {
                       builder: (context) => const Homepage(paymenttype: 2),
                     ),
                   );
-                  redirectToCheckout(context, 2);
+                  // redirectToCheckout(context, 2);
                 },
               ),
               IconButton(
@@ -220,7 +220,7 @@ void upgradepopup(BuildContext context) {
                       builder: (context) => const Homepage(paymenttype: 3),
                     ),
                   );
-                  redirectToCheckout(context, 3);
+                  // redirectToCheckout(context, 3);
                 },
               ),
               IconButton(

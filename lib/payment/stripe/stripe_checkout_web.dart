@@ -1,79 +1,31 @@
-// ignore_for_file: depend_on_referenced_packages, unused_import, unused_local_variable, avoid_print
-
-@JS()
-library stripe;
-
+import 'dart:convert';
 import 'package:aktientool/env/env.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:js/js.dart';
+import 'package:http/http.dart' as http;
+import '../../authentication/services/http_service.dart';
 
-import '../../constants/constants.dart';
-import '../../authentication/screens/forgot_password.dart';
-
-void redirectToCheckout(BuildContext context, int type) async {
-  final stripe = Stripe(Env.apiKey);
-
-  try {
-    final checkoutSession = await stripe.redirectToCheckout(
-      CheckoutOptions(
-        lineItems: [
-          if (type == 1) LineItem(price: Env.priceId20, quantity: 1),
-          if (type == 2) LineItem(price: Env.priceId50, quantity: 1),
-          if (type == 3) LineItem(price: Env.priceId100, quantity: 1)
-        ],
-        mode: 'payment',
-        successUrl:
-            'https://aktientool.net/?ret=success&q=${type == 1 ? 30 : type == 2 ? 100 : 200}',
-        cancelUrl: 'https://aktientool.net/?ret=cancel',
+Future<dynamic> checkoutPackage(int type) async {
+  return await http.post(
+      Uri(
+        scheme: scheme,
+        host: baseurl,
+        path: 'StripePayment/payment',
       ),
-    );
-
-    // Der Checkout-Vorgang war erfolgreich und Sie können die checkoutSession verwenden
-  } on PlatformException catch (e) {
-    // Eine Exception wurde ausgelöst, der Checkout-Vorgang ist fehlgeschlagen
-    print(e);
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ForgotPassword(),
-      ),
-    );
-  }
-}
-
-@JS()
-class Stripe {
-  external Stripe(String key);
-
-  external redirectToCheckout(CheckoutOptions options);
-}
-
-@JS()
-@anonymous
-class CheckoutOptions {
-  external List<LineItem> get lineItems;
-
-  external String get mode;
-
-  external String get successUrl;
-
-  external String get cancelUrl;
-
-  external factory CheckoutOptions({
-    List<LineItem> lineItems,
-    String mode,
-    String successUrl,
-    String cancelUrl,
-    String sessionId,
+      body: jsonEncode({
+        'priceString': type == 1
+            ? Env.priceId20
+            : type == 2
+                ? Env.priceId50
+                : Env.priceId100,
+        'price': type == 1
+            ? 30
+            : type == 2
+                ? 100
+                : 200
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': '*/*'
+      }).then((value) {
+    return jsonDecode(value.body);
   });
-}
-
-@JS()
-@anonymous
-class LineItem {
-  external String get price;
-
-  external int get quantity;
-
-  external factory LineItem({String price, int quantity});
 }

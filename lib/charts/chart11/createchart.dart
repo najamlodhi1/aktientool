@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
-
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart11/data.dart';
-import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:flutter/material.dart';
 import 'DataSource.dart';
 
