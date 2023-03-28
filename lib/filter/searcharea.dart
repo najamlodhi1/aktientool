@@ -7,12 +7,15 @@ import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../settings/app_localizations.dart';
 import 'filter.dart';
 
 final sp_search = StateProvider((ref) => "");
 int requestsLeft = 0;
 
 class SearchArea extends ConsumerWidget {
+  late AppLocalizations trans;
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController searchController = TextEditingController();
   Icon customIcon = const Icon(Icons.cancel);
@@ -26,6 +29,8 @@ class SearchArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    trans = AppLocalizations.of(context);
+
     String text = ref.watch(sp_search);
     searchController.text = text;
     searchController.selection = TextSelection.fromPosition(
@@ -49,9 +54,9 @@ class SearchArea extends ConsumerWidget {
           title: TextField(
             textAlign: TextAlign.center,
             controller: searchController,
-            decoration: const InputDecoration(
-              hintText: 'Aktie eingeben',
-              hintStyle: TextStyle(
+            decoration: InputDecoration(
+              hintText: trans.translate('Enter stock'),
+              hintStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontStyle: FontStyle.italic,
@@ -155,7 +160,7 @@ class SearchArea extends ConsumerWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Settings(),
+                    builder: (context) => Settings(),
                   ),
                 );
               },

@@ -2,6 +2,8 @@ import 'package:aktientool/charts/chart0/data.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../settings/app_localizations.dart';
+
 const primaryColor = Color(0xff5B2D90);
 const secondaryColor = Color(0xff442881);
 
@@ -13,6 +15,7 @@ class CreateChart0 extends StatefulWidget {
 }
 
 class CreateChart0State extends State<CreateChart0> {
+  late AppLocalizations trans;
   double? apppadding = 20;
   late Future<CompanyInfo> getFuture;
 
@@ -24,17 +27,18 @@ class CreateChart0State extends State<CreateChart0> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<CompanyInfo>(
         future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Die Inhalte stellen keine Anlageberatung oder Kaufempfehlung dar. Alle Angaben könnten komplett falsch sein!",
-                    style: TextStyle(color: Colors.white),
+                    trans.translate('disclaimer'),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
                 /*
@@ -96,18 +100,18 @@ class CreateChart0State extends State<CreateChart0> {
                                   snapshot.data!.companyName),
                               _buildGridViewItemImage(
                                   snapshot.data!.image.toString()),
-                              _buildGridViewItem("Ceo", snapshot.data!.ceo),
-                              _buildGridViewItem(
-                                  "Exchange", snapshot.data!.exchangeShortName),
-                              _buildGridViewItem("Sektor",
+                              _buildGridViewItem("CEO", snapshot.data!.ceo),
+                              _buildGridViewItem(trans.translate("Exchange"),
+                                  snapshot.data!.exchangeShortName),
+                              _buildGridViewItem(trans.translate("Sektor"),
                                   "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
-                              _buildGridViewItem(
-                                  "Börsenwert", snapshot.data!.mktCap),
-                              _buildGridViewItem("Mitarbeiter",
+                              _buildGridViewItem(trans.translate("Börsenwert"),
+                                  snapshot.data!.mktCap),
+                              _buildGridViewItem(trans.translate("Mitarbeiter"),
                                   snapshot.data!.fullTimeEmployees),
-                              _buildGridViewItem(
-                                  "Börsengang", snapshot.data!.ipoDate),
-                              _buildGridViewItem("Sitz",
+                              _buildGridViewItem(trans.translate("Börsengang"),
+                                  snapshot.data!.ipoDate),
+                              _buildGridViewItem(trans.translate("Sitz"),
                                   "${snapshot.data!.city} / ${snapshot.data!.state}"),
                             ],
                           ),

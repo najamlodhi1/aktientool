@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../settings/app_localizations.dart';
+
 var sp_marketcap_start = StateProvider((ref) {
   return 0;
 });
@@ -23,6 +25,8 @@ var chk_marketcap = StateProvider((ref) {
 
 // ignore: must_be_immutable
 class Marketcap extends ConsumerWidget {
+  late AppLocalizations trans;
+
   List<Map> generatedCountrieFromList = [];
   var icon = Icons.search;
   Timer? timerMarketCap;
@@ -31,6 +35,8 @@ class Marketcap extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    trans = AppLocalizations.of(context);
+
     var intMarketcapStart = ref.watch(sp_marketcap_start);
     var intMarketcapEnd = ref.watch(sp_marketcap_end);
     var intMarketcapStartTemp = ref.watch(sp_marketcap_start_temp);
@@ -47,8 +53,8 @@ class Marketcap extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ExpansionTile(
-              title: const Text("Marketcap in Billion:",
-                  style: TextStyle(color: Colors.white)),
+              title: Text(trans.translate("Marketcap in Billion"),
+                  style: const TextStyle(color: Colors.white)),
               subtitle: Text(
                 "${(intMarketcapStart / 1).toStringAsFixed(0)}B   to ${(intMarketcapEnd / 1).toStringAsFixed(0)}B",
                 style: const TextStyle(color: Colors.blue),
@@ -74,9 +80,9 @@ class Marketcap extends ConsumerWidget {
                         }
                       },
                     ),
-                    const Text(
-                      "Market Cap",
-                      style: TextStyle(
+                    Text(
+                      trans.translate("Market Cap"),
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../settings/app_localizations.dart';
 import '../../webpage/components/footer.dart';
 
 import '../../webpage/constants.dart';
@@ -12,6 +13,8 @@ import '../services/auth_service.dart';
 import 'forgot_password.dart';
 
 class LoginScreen extends StatelessWidget {
+  late AppLocalizations trans;
+
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
@@ -21,6 +24,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
@@ -58,7 +63,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
             children: [
               Text(
-                "WILLKOMMEN ZURÜCK :)",
+                "${trans.translate("WELCOME BACK")} :)",
                 style: GoogleFonts.oswald(
                   color: Colors.black,
                   fontWeight: FontWeight.w900,
@@ -86,9 +91,9 @@ class LoginScreen extends StatelessWidget {
             child: TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Passwort',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: trans.translate('Password'),
               ),
             ),
           ),
@@ -103,9 +108,9 @@ class LoginScreen extends StatelessWidget {
                 ),
               );
             },
-            child: const Text(
-              'Passwort vergessen?',
-              style: TextStyle(fontSize: 17, color: kPrimaryColor),
+            child: Text(
+              trans.translate('Forgot Password?'),
+              style: const TextStyle(fontSize: 17, color: kPrimaryColor),
             ),
           ),
           const SizedBox(
@@ -125,19 +130,18 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => const Home()));
                 } else {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(message)));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(trans.translate(message))));
                 }
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.black),
               ),
-              child: const Text('LOGIN', style: TextStyle(fontSize: 15)),
+              child: Text(trans.translate('Login').toUpperCase(),
+                  style: const TextStyle(fontSize: 15)),
             ),
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          const SizedBox(height: 15),
           /*
           SizedBox(
             width: 200,

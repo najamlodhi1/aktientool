@@ -2,41 +2,41 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../settings/app_localizations.dart';
 import 'constants.dart';
 import 'design_process.dart';
 
 final List<DesignProcess> designProcesses = [
   DesignProcess(
-    title: "BENUTZERFREUNDLICH",
+    title: "USER FRIENDLY",
     imagePath: "assets/images/1.png",
-    subtitle:
-        "Wir haben uns bei der Gestaltung unserer Software bemüht, sie so intuitiv und benutzerfreundlich wie möglich zu gestalten, damit du dich nicht durch verwirrende Menüs oder unübersichtliche Daten kämpfen zu musst.",
+    subtitle: "homesubtitle1",
   ),
   DesignProcess(
-    title: "QUALITATIVE ANALYSE",
+    title: "QUALITATIVE ANALYSIS",
     imagePath: "assets/images/2.png",
-    subtitle:
-        "Unser Tool unterstützt dich dabei, die wirtschaftliche Stärke und das zukünftige Wachstumspotential einer Aktie gründlich zu beurteilen und informierte Investitionsentscheidungen zu treffen.",
+    subtitle: "homesubtitle2",
   ),
   DesignProcess(
-    title: "UMFANGREICHE FILTER",
+    title: "EXTENSIVE FILTERS",
     imagePath: "assets/images/3.png",
-    subtitle:
-        "Die Filterfunktionen ermöglichen es, die Aktien anzuzeigen, die deinen Anforderungen entsprechen. Du kannst beispielsweise Aktien mit einer Dividendenrendite von mindestens 3% oder einem KGV von weniger als 15 anzeigen lassen.",
+    subtitle: "homesubtitle3",
   ),
   DesignProcess(
-    title: "AKTUELLE FINANZDATEN",
+    title: "CURRENT FINANCIAL DATA",
     imagePath: "assets/images/4.png",
-    subtitle:
-        "Wir bieten eine breite Palette an Daten zur Verfügung, einschließlich aktueller und historischer Informationen. Dies kann dir dabei helfen, fundierte Entscheidungen über deine Investitionen zu treffen und mögliche Trends oder Muster in den Aktienmärkten zu erkennen.",
+    subtitle: "homesubtitle4",
   ),
 ];
 
 class Body extends StatelessWidget {
-  const Body({super.key});
+  Body({super.key});
+  late AppLocalizations trans;
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     return SingleChildScrollView(
       child: Wrap(
         children: <Widget>[
@@ -70,7 +70,7 @@ class Body extends StatelessWidget {
                                     width: 15.0,
                                   ),
                                   Text(
-                                    designProcesses[i].title,
+                                    trans.translate(designProcesses[i].title),
                                     style: GoogleFonts.oswald(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.w700,
@@ -83,7 +83,7 @@ class Body extends StatelessWidget {
                                 height: 15.0,
                               ),
                               Text(
-                                designProcesses[i].subtitle,
+                                trans.translate(designProcesses[i].subtitle),
                                 style: const TextStyle(
                                   color: kCaptionColor,
                                   height: 1.5,

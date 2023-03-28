@@ -13,6 +13,7 @@ import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart11/createchart.dart';
 import 'chart12/CompanyScreen.dart';
+import 'chart13/createchart.dart';
 import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
 import 'chart3/BarChartBalanceScreen.dart';
@@ -67,6 +68,7 @@ class _AllChartsState extends State<AllCharts> {
                 child: Column(
                   children: [
                     CreateChart0(parentData[0]), // Info
+                    // CreateChart13(parentData[3]),
                     CreateChart1Test(parentData[4]), // Chart
                     CreateChart11(parentData[1]), // Performance
                     Institutionalholders(parentData[9]),
@@ -80,7 +82,6 @@ class _AllChartsState extends State<AllCharts> {
                     ConcensusScreen(parentData[8]),
                     StockNewsScreen(parentData[11]),
                     Footer()
-                    // CreateChart13(parentData[3])
                   ],
                 ),
               );

@@ -1,16 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../authentication/services/auth_service.dart';
 import '../main.dart';
+import 'app_localizations.dart';
 
-class Settings extends ConsumerWidget {
-  const Settings({super.key});
+class Settings extends StatefulWidget {
+  Settings({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  late AppLocalizations trans;
+
+  @override
+  Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar:
@@ -27,10 +35,43 @@ class Settings extends ConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: PopupMenuButton(
+                        padding: const EdgeInsets.all(17),
+                        onSelected: (value) {
+                          MyApp.of(context)!.setLocale(value);
+                          setState(() {});
+                        },
+                        itemBuilder: (context) => const [
+                          PopupMenuItem(
+                            value: 'en',
+                            child: Text('English'),
+                          ),
+                          PopupMenuItem(
+                            value: 'de',
+                            child: Text('Deutsch'),
+                          )
+                        ],
+                        child: Row(
+                          children: [
+                            Text(
+                                selectedLocale.countryCode == 'en'
+                                    ? "English"
+                                    : "Deutsch",
+                                style: const TextStyle(color: Colors.white)),
+                            const SizedBox(width: 7),
+                            const Icon(Icons.arrow_drop_down_sharp,
+                                color: Colors.white)
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
                     ListTile(
-                      title: const Text(
-                        'Logout',
-                        style: TextStyle(color: Colors.white),
+                      title: Text(
+                        trans.translate('Logout'),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       onTap: () {
                         AuthService().signOut().then((result) {
@@ -54,9 +95,9 @@ class Settings extends ConsumerWidget {
                       height: 10,
                     ),
                     ListTile(
-                      title: const Text(
-                        'Delete Account',
-                        style: TextStyle(color: Colors.white),
+                      title: Text(
+                        trans.translate('Delete Account'),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       onTap: () {
                         FirebaseAuth.instance.currentUser!.delete();

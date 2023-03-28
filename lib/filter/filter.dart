@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../charts/allCharts.dart';
 import '../charts/chart13/createchart.dart';
+import '../settings/app_localizations.dart';
 import 'country.dart';
 
 class Filter extends ConsumerWidget {
   Filter({super.key});
   bool isShowCalender = false;
+  late AppLocalizations trans;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    trans = AppLocalizations.of(context);
+
     return Scaffold(
         backgroundColor: Colors.black,
         appBar:
@@ -28,9 +33,9 @@ class Filter extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    title: const Text(
-                      'Countries',
-                      style: TextStyle(color: Colors.white),
+                    title: Text(
+                      trans.translate('Countries'),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     subtitle: const Text(
                       "Alle",
@@ -57,9 +62,9 @@ class Filter extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    title: const Text(
-                      'Industry',
-                      style: TextStyle(color: Colors.white),
+                    title: Text(
+                      trans.translate('Industry'),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     subtitle: const Text(
                       "Alle",
@@ -87,20 +92,19 @@ class Filter extends ConsumerWidget {
                   child:
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
-                        title: const Text(
-                          'IPO',
-                          style: TextStyle(color: Colors.white),
+                        title: Text(
+                          trans.translate('IPO'),
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        subtitle: const Text(
-                          "Calendar",
-                          style: TextStyle(color: Colors.blue),
+                        subtitle: Text(
+                          trans.translate("Calender"),
+                          style: const TextStyle(color: Colors.blue),
                         ),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      CreateChart13(parentData[6])));
+                                  builder: (ctx) => const CreateChart13(null)));
                         })
                   ])))
         ])));

@@ -9,6 +9,8 @@ import 'package:aktientool/webpage/screen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import '../../settings/app_localizations.dart';
+
 final List<FooterItem> footerItems = [
   FooterItem(
     iconPath: "assets/mappin.png",
@@ -50,6 +52,8 @@ class Footer extends StatelessWidget {
 }
 
 Widget _buildUi(double width, BuildContext context) {
+  AppLocalizations trans = AppLocalizations.of(context);
+
   return Center(
     child: ResponsiveWrapper(
       maxWidth: width,
@@ -140,11 +144,11 @@ Widget _buildUi(double width, BuildContext context) {
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      "© Rohdaten von Financial Modeling Prep. Kennzahlen von Aktientool.Net.",
-                      style: TextStyle(
+                      trans.translate("rawdata"),
+                      style: const TextStyle(
                         color: kCaptionColor,
                       ),
                     ),
@@ -162,11 +166,11 @@ Widget _buildUi(double width, BuildContext context) {
                             ),
                           );
                         },
-                        child: const MouseRegion(
+                        child: MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: Text(
-                            "Datenschutz",
-                            style: TextStyle(
+                            trans.translate("Data Protection"),
+                            style: const TextStyle(
                               color: kCaptionColor,
                             ),
                           ),
@@ -190,13 +194,11 @@ Widget _buildUi(double width, BuildContext context) {
                             ),
                           );
                         },
-                        child: const MouseRegion(
+                        child: MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: Text(
-                            "Impressum",
-                            style: TextStyle(
-                              color: kCaptionColor,
-                            ),
+                            trans.translate("Imprint"),
+                            style: const TextStyle(color: kCaptionColor),
                           ),
                         ),
                       ),
@@ -218,15 +220,10 @@ Widget _buildUi(double width, BuildContext context) {
                             ),
                           );
                         },
-                        child: const MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text(
-                            "AGB",
-                            style: TextStyle(
-                              color: kCaptionColor,
-                            ),
-                          ),
-                        ),
+                        child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Text(trans.translate("Conditions"),
+                                style: const TextStyle(color: kCaptionColor))),
                       )
                     ],
                   )

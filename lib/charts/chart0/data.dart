@@ -4,6 +4,8 @@ import 'package:aktientool/charts/chart0/post.dart';
 import 'package:collection/collection.dart';
 import 'package:translator/translator.dart';
 
+import '../../main.dart';
+
 var companyInfo = <CompanyInfo>[];
 
 class RemoteService {
@@ -19,9 +21,11 @@ class RemoteService {
 
     String x = posts[0].description ?? "";
 
-    Translation? translatedDescription;
-    if (x.isNotEmpty) {
-      translatedDescription = await translator.translate(x, to: 'de');
+    String translatedDescription = x;
+
+    if (x.isNotEmpty && selectedLocale.countryCode == 'de') {
+      translatedDescription =
+          await translator.translate(x, to: 'de').then((value) => value.text);
     }
 
     companyInfo.clear();
@@ -34,7 +38,7 @@ class RemoteService {
         posts[0].sector,
         posts[0].industry ?? "",
         posts[0].website ?? "",
-        translatedDescription?.toString() ?? "",
+        translatedDescription,
         posts[0].fullTimeEmployees ?? "",
         posts[0].ipoDate.toString().replaceAll("00:00:00.000", ""),
         posts[0].ceo,

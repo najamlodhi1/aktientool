@@ -2,6 +2,7 @@
 
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
+import 'package:aktientool/settings/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -12,6 +13,8 @@ import '../../webpage/constants.dart';
 import '../services/auth_service.dart';
 
 class CreateAccount extends StatelessWidget {
+  late AppLocalizations trans;
+
   CreateAccount({super.key});
 
   final TextEditingController _emailController = TextEditingController();
@@ -30,6 +33,7 @@ class CreateAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
@@ -67,7 +71,7 @@ class CreateAccount extends StatelessWidget {
                   child: Column(
                 children: [
                   Text(
-                    "WERDE JETZT KOSTENLOS MITGLIED",
+                    trans.translate("JOIN NOW FOR FREE"),
                     style: GoogleFonts.oswald(
                       color: Colors.black,
                       fontWeight: FontWeight.w900,
@@ -95,9 +99,9 @@ class CreateAccount extends StatelessWidget {
                 child: TextField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Passwort',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: trans.translate('Password'),
                   ),
                 ),
               ),
@@ -110,13 +114,13 @@ class CreateAccount extends StatelessWidget {
                     child: Wrap(
                       children: <Widget>[
                         RichText(
+                          textAlign: TextAlign.center,
                           text: TextSpan(
-                            text:
-                                'Durch das Klicken auf MITGLIED WERDEN stimmst Du\nden ',
+                            text: trans.translate('create1'),
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
                               TextSpan(
-                                text: 'AGB',
+                                text: trans.translate('create2'),
                                 style: const TextStyle(color: kPrimaryColor),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
@@ -127,9 +131,9 @@ class CreateAccount extends StatelessWidget {
                                     );
                                   },
                               ),
-                              const TextSpan(text: ' und '),
+                              TextSpan(text: trans.translate('create3')),
                               TextSpan(
-                                text: 'Datenschutzrichtlinien',
+                                text: trans.translate('create4'),
                                 style: const TextStyle(color: kPrimaryColor),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
@@ -141,7 +145,7 @@ class CreateAccount extends StatelessWidget {
                                     );
                                   },
                               ),
-                              const TextSpan(text: ' von Aktientool zu.'),
+                              TextSpan(text: trans.translate('create5')),
                             ],
                           ),
                         ),
@@ -166,21 +170,21 @@ class CreateAccount extends StatelessWidget {
                     if (message is UserCredential) {
                       addRequests(_emailController.text, message.user!.uid);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text(
-                                'Verification Email is sent. Please verify to continue')),
+                        SnackBar(
+                            content: Text(trans.translate(
+                                'Verification Email is sent. Please verify to continue'))),
                       );
                       AuthService().signOut();
                     } else if (message is String) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(message)),
+                        SnackBar(content: Text(trans.translate(message))),
                       );
                     }
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.black),
                   ),
-                  child: const Text('MITGLIED WERDEN'),
+                  child: Text(trans.translate('BECOME A MEMBER')),
                 ),
               ),
               Footer()
