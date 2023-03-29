@@ -96,6 +96,21 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                   color: Colors.white),
                             ),
                           ]),
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(
+                                labels.length,
+                                (index) => Text(
+                                      labels[index].toString(),
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ))),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -118,23 +133,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 labels.length,
                                 (index) => labels[index].toString() ==
                                         data.piotroskiScore.toStringAsFixed(0)
-                                    ? const Icon(CupertinoIcons.arrow_down,
-                                        size: 40, color: Colors.white)
+                                    ? const Icon(CupertinoIcons.arrow_up,
+                                        size: 40, color: Colors.black)
                                     : Container())),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List.generate(
-                                labels.length,
-                                (index) => Text(
-                                      labels[index].toString(),
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ))),
                       ),
                       const SizedBox(height: 10),
                       const Text(
@@ -214,7 +215,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                           ? trans.translate('Caution')
                                           : trans.translate('Distress'),
                                   style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const Icon(CupertinoIcons.arrow_down,

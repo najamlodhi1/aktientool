@@ -58,7 +58,7 @@
     "Company": "Unternehmen",
     "Symbol": "Symbol",
     "PriceRange": "Preisklasse",
-    "IPO Calender": "Börsengang Kalender",
+    "IPO Calendar": "Börsengang Kalender",
     "Payment Successful": "Bezahlung erfolgreich",
     "Performance with": "Performance with ",
     "Payment Cancelled": "Zahlung storniert",
@@ -174,5 +174,6 @@
     "SUM PV LFCF": "SUM PV LFCF",
     "Top Shareholders": "Top-Aktionäre",
     "EBIT Margin": "EBIT-Marge",
-    "Net Income": "Nettoergebnis"
+    "Net Income": "Nettoergebnis",
+    "Balance Sheet": "Balance Sheet"
 }

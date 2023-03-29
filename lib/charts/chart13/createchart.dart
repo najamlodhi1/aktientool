@@ -33,7 +33,6 @@ class CreateChart13State extends State<CreateChart13> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          // title: Text(trans.translate('IPO Calender')),
         ),
         body: FutureBuilder<List<Post>>(
             future: getFuture,
@@ -70,7 +69,7 @@ class CreateChart13State extends State<CreateChart13> {
           child: PaginatedDataTable(
             arrowHeadColor: Colors.white,
             header: Center(
-              child: Text(trans.translate('IPO Calender'),
+              child: Text(trans.translate('IPO Calendar'),
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 22,
