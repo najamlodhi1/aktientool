@@ -171,7 +171,7 @@ class CreateChart0State extends State<CreateChart0> {
         fontSize = 50.0;
       }
       return InkWell(
-        onTap: title == 'Ceo'
+        onTap: title == 'CEO'
             ? () {
                 launchUrl(Uri(
                     scheme: 'https',
