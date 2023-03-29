@@ -55,8 +55,8 @@ class CreateChart3State extends State<CreateChart3> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text("Balance Sheet",
-                            style: TextStyle(
+                        Text(trans.translate("Balance Sheet"),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 22,
                                 color: Colors.white)),

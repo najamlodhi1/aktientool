@@ -198,8 +198,8 @@ class HomePageState extends State<HomePage>
                             TextButton(
                               child: Text(
                                 selectedLocale.languageCode == 'en'
-                                    ? "Deutsch"
-                                    : "English",
+                                    ? "English"
+                                    : "Deutsch",
                                 style: const TextStyle(color: Colors.white),
                               ),
                               onPressed: () {

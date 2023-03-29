@@ -28,7 +28,7 @@ class _SettingsState extends State<Settings> {
           children: [
             ListTile(
               title: Text(
-                selectedLocale.languageCode == 'en' ? "Deutsch" : "English",
+                selectedLocale.languageCode == 'en' ? "English" : "Deutsch",
                 style: const TextStyle(color: Colors.white),
               ),
               onTap: () {
