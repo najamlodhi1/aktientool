@@ -5,13 +5,14 @@ import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../settings/app_localizations.dart';
 import '../chart2/IncomeReportModel.dart';
 import 'CashFlowReportModel.dart';
 import 'data.dart';
 
 class BarChartCashFlowScreen extends StatefulWidget {
-  const BarChartCashFlowScreen({super.key});
-
+  const BarChartCashFlowScreen(this.data, {super.key});
+  final dynamic data;
   @override
   State<BarChartCashFlowScreen> createState() => _BarChartScreenState();
 }
@@ -24,16 +25,13 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
     return formatter.format(number);
   }
 
-  late Future<List<CashFlowReportModel>> getDataFuture;
+  late AppLocalizations trans;
 
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
+  late Future<List<CashFlowReportModel>> getDataFuture;
 
   @override
   void initState() {
-    getDataFuture =
-        CashFlowService().getData("api/v3/cash-flow-statement/$stock");
+    getDataFuture = CashFlowService().getData(widget.data);
     super.initState();
   }
 
@@ -57,6 +55,7 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<List<CashFlowReportModel>>(
       future: getDataFuture,
       builder: (context, snapshot) {
@@ -81,6 +80,14 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text("Cashflow",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22,
+                              color: Colors.white)),
                       const SizedBox(
                         height: 10,
                       ),

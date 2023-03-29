@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../chart2/IncomeReportModel.dart';
@@ -22,8 +21,8 @@ class CashFlowService {
     return temp;
   }
 
-  List<CashFlowReportModel> parseData(String res) {
-    final parsed = jsonDecode(res).cast<Map<String, dynamic>>();
+  List<CashFlowReportModel> parseData(dynamic res) {
+    final parsed = res.cast<Map<String, dynamic>>();
     return parsed
         .map<CashFlowReportModel>((e) => CashFlowReportModel.fromJson(e))
         .toList();
