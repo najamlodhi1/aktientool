@@ -1,8 +1,22 @@
+import 'package:translator/translator.dart';
+import '../../main.dart';
 import 'StockNewsModel.dart';
 
 class StockNewsService {
+  var translator = GoogleTranslator();
+
   Future<List<StockNewsModel>> getData(dynamic data) async {
     List<StockNewsModel> temp = parseData(data);
+    for (var i = 0; i < temp.length; i++) {
+      if (selectedLocale.languageCode == 'de') {
+        temp[i].title = await translator
+            .translate(temp[i].title, to: 'de')
+            .then((value) => value.text);
+        temp[i].text = await translator
+            .translate(temp[i].text, to: 'de')
+            .then((value) => value.text);
+      }
+    }
     return temp;
   }
 

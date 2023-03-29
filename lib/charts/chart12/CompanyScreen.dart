@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import '../chart0/createchart.dart';
 import 'CompanyModel.dart';
 import 'CompanyService.dart';
@@ -15,6 +16,7 @@ class CompanyScreen extends StatefulWidget {
 
 class _CompanyScreenState extends State<CompanyScreen> {
   late Future<List<DividendModel>> getFuture;
+  late AppLocalizations trans;
 
   @override
   void initState() {
@@ -24,6 +26,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<List<DividendModel>>(
         future: getFuture,
         builder: (context, snapshot) {
@@ -58,23 +61,27 @@ class _CompanyScreenState extends State<CompanyScreen> {
                 const TextTheme(bodySmall: TextStyle(color: Colors.white))),
         child: PaginatedDataTable(
           arrowHeadColor: Colors.white,
-          header: const Center(
-            child: Text("Dividend History",
-                style: TextStyle(
+          header: Center(
+            child: Text(trans.translate("Dividend History"),
+                style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
                     color: Colors.white)),
           ),
           source: tempdata,
-          columns: const [
+          columns: [
             DataColumn(
-                label: Text("Declared", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Declared"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Record", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Record"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Payable", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Payable"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Amount", style: TextStyle(color: Colors.white)))
+                label: Text(trans.translate("Amount"),
+                    style: const TextStyle(color: Colors.white)))
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import '../chart0/createchart.dart';
 import 'DataSource.dart';
 import 'InstitutionalholdersModel.dart';
@@ -16,6 +17,7 @@ class Institutionalholders extends StatefulWidget {
 class _InstitutionalholdersState extends State<Institutionalholders> {
   late Future<List<InstitutionalholdersModel>> getFuture;
   bool iseditable = true;
+  late AppLocalizations trans;
 
   @override
   void initState() {
@@ -25,6 +27,7 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<List<InstitutionalholdersModel>>(
         future: getFuture,
         builder: (context, snapshot) {
@@ -68,27 +71,30 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
                 const TextTheme(bodySmall: TextStyle(color: Colors.white))),
         child: PaginatedDataTable(
           arrowHeadColor: Colors.white,
-          header: const Center(
-            child: Text("Top Shareholders",
-                style: TextStyle(
+          header: Center(
+            child: Text(trans.translate("Top Shareholders"),
+                style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
                     color: Colors.white)),
           ),
           source: tempdata,
-          columns: const [
+          columns: [
             DataColumn(
-                label:
-                    Text("Ownership", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Ownership"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Name", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Name"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Shares", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Shares"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Change", style: TextStyle(color: Colors.white))),
+                label: Text(trans.translate("Change"),
+                    style: const TextStyle(color: Colors.white))),
             DataColumn(
-                label: Text("Reported Date",
-                    style: TextStyle(color: Colors.white)))
+                label: Text(trans.translate("Reported Date"),
+                    style: const TextStyle(color: Colors.white)))
           ],
         ),
       ),

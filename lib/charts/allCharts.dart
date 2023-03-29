@@ -8,12 +8,12 @@ import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/webpage/components/footer.dart';
 import 'package:flutter/material.dart';
+import '../settings/app_localizations.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart11/createchart.dart';
 import 'chart12/CompanyScreen.dart';
-import 'chart13/createchart.dart';
 import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
 import 'chart3/BarChartBalanceScreen.dart';
@@ -22,10 +22,13 @@ import 'chart3/createchart.dart';
 dynamic parentData;
 
 class AllCharts extends StatefulWidget {
-  const AllCharts({super.key});
+  late AppLocalizations trans;
+  AllCharts({super.key});
   checkPopup(context) {
+    trans = AppLocalizations.of(context);
+
     return AlertDialog(
-      title: const Text('Payment Cancelled'),
+      title: Text(trans.translate('Payment Cancelled')),
       actions: [
         TextButton(
             child: const Text('OK'),

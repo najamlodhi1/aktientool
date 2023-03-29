@@ -2,6 +2,7 @@ import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart2/IncomeReportModel.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import 'data.dart';
 import 'package:intl/intl.dart';
 
@@ -19,6 +20,8 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
     formatter.maximumFractionDigits = 3;
     return formatter.format(number);
   }
+
+  late AppLocalizations trans;
 
   late Future<List<IncomeReportModel>> getDataFuture;
 
@@ -50,6 +53,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<List<IncomeReportModel>>(
       future: getDataFuture,
       builder: (context, snapshot) {
@@ -108,7 +112,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                   }
 
                                   return BarTooltipItem(
-                                    '${data[0].reports[currentIndex].title}\n${numberToKFormat(rod.toY)}',
+                                    '${trans.translate(data[0].reports[currentIndex].title)}\n${numberToKFormat(rod.toY)}',
                                     TextStyle(
                                       color: rodColor,
                                       fontWeight: FontWeight.bold,
@@ -186,7 +190,9 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                             data.length,
                             (index) =>
                                 showBarsNotifier[data[0].reports[index].title]!
-                                    ? createLegend(data[0].reports[index].title,
+                                    ? createLegend(
+                                        trans.translate(
+                                            data[0].reports[index].title),
                                         IncomeService.colors[index])
                                     : Container())),
                     const SizedBox(width: 15),

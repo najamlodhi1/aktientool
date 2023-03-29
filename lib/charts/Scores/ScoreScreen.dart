@@ -3,6 +3,7 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import 'ScoreModel.dart';
 import 'ScoreService.dart';
 
@@ -14,8 +15,10 @@ class ScoreScreen extends StatefulWidget {
 }
 
 class _ScoreScreenState extends State<ScoreScreen> {
+  late AppLocalizations trans;
   late Future<ScoreModel> getFuture;
   int touchedIndex = -1;
+
   List labels = [];
 
   @override
@@ -29,6 +32,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<ScoreModel>(
         future: getFuture,
         builder: (context, snapshot) {
@@ -58,9 +62,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Risikobewertung',
-              style: TextStyle(
+            Text(
+              trans.translate('Risk Assessment'),
+              style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
@@ -205,10 +209,10 @@ class _ScoreScreenState extends State<ScoreScreen> {
                               children: [
                                 Text(
                                   data.altmanZScore >= 4
-                                      ? 'Safe  '
+                                      ? trans.translate('Safe')
                                       : data.altmanZScore >= 2
-                                          ? 'Caution  '
-                                          : 'Distress  ',
+                                          ? trans.translate('Caution')
+                                          : trans.translate('Distress'),
                                   style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
@@ -227,9 +231,11 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 labels.length,
                                 (index) => Text(
                                       labels[index] == 1
-                                          ? 'Distress'
+                                          ? trans.translate('Distress').trim()
                                           : labels[index] == 3
-                                              ? 'Caution'
+                                              ? trans
+                                                  .translate('Caution')
+                                                  .trim()
                                               : '       ',
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,

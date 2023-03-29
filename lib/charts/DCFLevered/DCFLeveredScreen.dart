@@ -9,6 +9,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../settings/app_localizations.dart';
+
 class DCFLeveredScreen extends StatefulWidget {
   const DCFLeveredScreen(this.data, {super.key});
   final dynamic data;
@@ -18,6 +20,8 @@ class DCFLeveredScreen extends StatefulWidget {
 
 class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
   List<DCFLeveredModel> tableData = [];
+  late AppLocalizations trans;
+
   late Future<List<DCFLeveredModel>> getFuture;
   bool iseditable = true;
   @override
@@ -28,6 +32,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     return FutureBuilder<List<DCFLeveredModel>>(
         future: getFuture,
         builder: (context, snapshot) {
@@ -71,8 +77,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Intrinsic Value",
-              style: TextStyle(
+          Text(trans.translate("Intrinsic Value"),
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                   color: Colors.white)),
@@ -160,8 +166,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                                   fontSize: 20,
                                   color: Colors.brown)),
                           const SizedBox(height: 5),
-                          const Text('Overvalued',
-                              style: TextStyle(
+                          Text(trans.translate('Overvalued'),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.brown)),
                           const SizedBox(height: 5),
@@ -192,8 +198,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                                   fontSize: 20,
                                   color: Colors.brown)),
                           const SizedBox(height: 5),
-                          const Text('Undervalued',
-                              style: TextStyle(
+                          Text(trans.translate('Undervalued'),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.brown)),
                           const SizedBox(height: 5),
@@ -226,8 +232,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Current Price',
-                              style: TextStyle(
+                          Text(trans.translate('Current Price'),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
                           const SizedBox(height: 5),
@@ -259,8 +265,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Fair Value',
-                              style: TextStyle(
+                          Text(trans.translate('Fair Value'),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
                           const SizedBox(height: 5),
@@ -302,8 +308,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Terminal Value",
-              style: TextStyle(
+          Text(trans.translate("Terminal Value"),
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                   color: Colors.white)),
@@ -334,8 +340,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Weighted Average Cost Of Capital",
-              style: TextStyle(
+          Text(trans.translate("Weighted Average Cost Of Capital"),
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                   color: Colors.white)),
@@ -366,13 +372,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Discounted Cash Flow (DCF) Analysis Levered",
-              style: TextStyle(
+          Text(trans.translate("Discounted Cash Flow (DCF) Analysis Levered"),
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                   color: Colors.white)),
-          const Text("Free Cash Flow",
-              style: TextStyle(
+          Text(trans.translate("Free Cash Flow"),
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                   color: Colors.white)),
@@ -403,8 +409,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text("Build Up Free Cash Flow",
-              style: TextStyle(
+          Text(trans.translate("Build Up Free Cash Flow"),
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                   color: Colors.white)),
@@ -438,8 +444,9 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildCashFlowTableRows,
         columns: <DataColumn>[
-          const DataColumn(
-              label: Text("Year", style: TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text(trans.translate("Year"),
+                  style: const TextStyle(color: Colors.white))),
           ...List.generate(
             tableData.length,
             (index) => DataColumn(
@@ -472,8 +479,9 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         ),
         rows: buildbuildUpTableRows,
         columns: <DataColumn>[
-          const DataColumn(
-              label: Text("Year", style: TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text(trans.translate("Year"),
+                  style: const TextStyle(color: Colors.white))),
           ...List.generate(
             tableData.length,
             (index) => DataColumn(
@@ -497,11 +505,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           verticalInside: BorderSide(color: Colors.grey, width: 0.5),
         ),
         rows: buildWeightedAverageTableRows,
-        columns: const <DataColumn>[
+        columns: <DataColumn>[
           DataColumn(
-              label: Text("Title", style: TextStyle(color: Colors.white))),
+              label: Text(trans.translate("Title"),
+                  style: const TextStyle(color: Colors.white))),
           DataColumn(
-              label: Text("Price", style: TextStyle(color: Colors.white)),
+              label: Text(trans.translate("Price"),
+                  style: const TextStyle(color: Colors.white)),
               numeric: true)
         ],
       ),
@@ -520,11 +530,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           verticalInside: BorderSide(color: Colors.grey, width: 0.5),
         ),
         rows: buildTerminalValueTableRows,
-        columns: const <DataColumn>[
+        columns: <DataColumn>[
           DataColumn(
-              label: Text("Title", style: TextStyle(color: Colors.white))),
+              label: Text(trans.translate("Title"),
+                  style: const TextStyle(color: Colors.white))),
           DataColumn(
-              label: Text("Price", style: TextStyle(color: Colors.white)),
+              label: Text(trans.translate("Price"),
+                  style: const TextStyle(color: Colors.white)),
               numeric: true)
         ],
       ),
@@ -543,11 +555,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           verticalInside: BorderSide(color: Colors.grey, width: 0.5),
         ),
         rows: buildIntrinsicValueTableRows,
-        columns: const <DataColumn>[
+        columns: <DataColumn>[
           DataColumn(
-              label: Text("Title", style: TextStyle(color: Colors.white))),
+              label: Text(trans.translate("Title"),
+                  style: const TextStyle(color: Colors.white))),
           DataColumn(
-              label: Text("Price", style: TextStyle(color: Colors.white)),
+              label: Text(trans.translate("Price"),
+                  style: const TextStyle(color: Colors.white)),
               numeric: true)
         ],
       ),
@@ -638,7 +652,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title,
+          Text(trans.translate(title),
               style: const TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.white)),
         ),
@@ -662,7 +676,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title,
+          Text(trans.translate(title),
               style: const TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.white)),
         ),
@@ -687,7 +701,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title,
+          Text(trans.translate(title),
               style: const TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.white)),
         ),
@@ -712,7 +726,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(color: Colors.white)),
+          Text(trans.translate(title),
+              style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -823,7 +838,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(color: Colors.white)),
+          Text(trans.translate(title),
+              style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -1088,7 +1104,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(color: Colors.white)),
+          Text(trans.translate(title),
+              style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -1170,7 +1187,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(color: Colors.white)),
+          Text(trans.translate(title),
+              style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           return DataCell(Container(
@@ -1251,7 +1269,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     return DataRow(
       cells: [
         DataCell(
-          Text(title, style: const TextStyle(color: Colors.white)),
+          Text(trans.translate(title),
+              style: const TextStyle(color: Colors.white)),
         ),
         ...List.generate(data.length, (index) {
           if (tableData[index].year < DateTime.now().year) {

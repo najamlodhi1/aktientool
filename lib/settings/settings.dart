@@ -56,7 +56,7 @@ class _SettingsState extends State<Settings> {
                         child: Row(
                           children: [
                             Text(
-                                selectedLocale.countryCode == 'en'
+                                selectedLocale.languageCode == 'en'
                                     ? "English"
                                     : "Deutsch",
                                 style: const TextStyle(color: Colors.white)),

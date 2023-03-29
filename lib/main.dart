@@ -104,6 +104,7 @@ class HomePageState extends State<HomePage>
 
   late final tabController = TabController(length: 4, vsync: this);
   bool? isLoggedIn = false;
+
   @override
   void initState() {
     String currentUrl = html.window.location.href;
@@ -146,7 +147,7 @@ class HomePageState extends State<HomePage>
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text('Payment Cancelled'),
+                          title: Text(trans.translate('Payment Cancelled')),
                           actions: [
                             TextButton(
                                 child: const Text('OK'),
@@ -164,7 +165,7 @@ class HomePageState extends State<HomePage>
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: const Text('Payment Successful'),
+                        title: Text(trans.translate('Payment Successful')),
                         actions: [
                           TextButton(
                               child: const Text('OK'),
@@ -181,7 +182,6 @@ class HomePageState extends State<HomePage>
                 }
               },
             );
-
             return const Home();
           } else {
             return DefaultTabController(
@@ -194,33 +194,34 @@ class HomePageState extends State<HomePage>
                     return <Widget>[
                       SliverAppBar(
                         actions: [
-                          PopupMenuButton(
-                            padding: const EdgeInsets.all(20),
-                            onSelected: (value) {
-                              MyApp.of(context)!.setLocale(value);
-                              setState(() {});
-                            },
-                            itemBuilder: (context) => const [
-                              PopupMenuItem(
-                                value: 'en',
-                                child: Text('English'),
-                              ),
-                              PopupMenuItem(
-                                value: 'de',
-                                child: Text('Deutsch'),
-                              )
-                            ],
-                            child: Row(
-                              children: [
-                                Text(selectedLocale.countryCode == 'en'
-                                    ? "English"
-                                    : "Deutsch"),
-                                const SizedBox(width: 7),
-                                const Icon(Icons.arrow_drop_down_sharp,
-                                    color: Colors.white)
+                          if (tabController.index != 3)
+                            PopupMenuButton(
+                              padding: const EdgeInsets.all(20),
+                              onSelected: (value) {
+                                MyApp.of(context)!.setLocale(value);
+                                setState(() {});
+                              },
+                              itemBuilder: (context) => const [
+                                PopupMenuItem(
+                                  value: 'en',
+                                  child: Text('English'),
+                                ),
+                                PopupMenuItem(
+                                  value: 'de',
+                                  child: Text('Deutsch'),
+                                )
                               ],
-                            ),
-                          )
+                              child: Row(
+                                children: [
+                                  Text(selectedLocale.languageCode == 'en'
+                                      ? "English"
+                                      : "Deutsch"),
+                                  const SizedBox(width: 7),
+                                  const Icon(Icons.arrow_drop_down_sharp,
+                                      color: Colors.white)
+                                ],
+                              ),
+                            )
                         ],
                         backgroundColor: Colors.black,
                         title:
@@ -387,15 +388,10 @@ class HomePageState extends State<HomePage>
                                 width: 100,
                               ),
                               SizedBox(
-                                height: 400,
-                                child: Image.asset(
-                                  "assets/images/image1.png",
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 0.0,
-                              ),
+                                  height: 400,
+                                  child: Image.asset("assets/images/image1.png",
+                                      fit: BoxFit.contain)),
+                              const SizedBox(height: 0.0),
 
                               //CvSection(),
 
@@ -437,7 +433,7 @@ class HomePageState extends State<HomePage>
                       ),
                       LoginScreen(),
                       CreateAccount(),
-                      const AllCharts(),
+                      AllCharts(),
                     ],
                   ),
                 ),

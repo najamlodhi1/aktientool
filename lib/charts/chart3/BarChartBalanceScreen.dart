@@ -5,6 +5,7 @@ import 'package:aktientool/charts/chart3/BalanceReportModel.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../settings/app_localizations.dart';
 import '../chart2/IncomeReportModel.dart';
 import 'data.dart';
 
@@ -18,6 +19,7 @@ class BarChartBalanceScreen extends StatefulWidget {
 
 class _BarChartScreenState extends State<BarChartBalanceScreen> {
   late Future<List<BalanceReportModel>> getDataFuture;
+  late AppLocalizations trans;
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<List<BalanceReportModel>>(
       future: getDataFuture,
       builder: (context, snapshot) {
@@ -104,7 +107,7 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                                       }
                                     }
                                     return BarTooltipItem(
-                                      '${data[0].reports[currentIndex].title}\n${numberToKFormat(rod.toY)}',
+                                      '${trans.translate(data[0].reports[currentIndex].title)}\n${numberToKFormat(rod.toY)}',
                                       TextStyle(
                                         color: rodColor,
                                         fontWeight: FontWeight.bold,
@@ -188,7 +191,9 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                               data.length,
                               (index) => showBarsNotifier[
                                       data[0].reports[index].title]!
-                                  ? createLegend(data[0].reports[index].title,
+                                  ? createLegend(
+                                      trans.translate(
+                                          data[0].reports[index].title),
                                       BalanceService.colors[index])
                                   : Container())),
                       const SizedBox(width: 15),

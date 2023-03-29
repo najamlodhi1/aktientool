@@ -40,10 +40,10 @@ class IncomeReportModel {
             ReportItemModel(
                 title: 'Earnings Per Share Diluted', value: json['epsdiluted']),
             ReportItemModel(
-                title: 'Weighted Average Shares Outstanding	',
+                title: 'Weighted Average Shares Outstanding',
                 value: json['weightedAverageShsOut']),
             ReportItemModel(
-                title: 'Weighted Average Shares Outstanding (Diluted)	',
+                title: 'Weighted Average Shares Outstanding (Diluted)',
                 value: json['weightedAverageShsOutDil']),
             ReportItemModel(
                 title: 'Gross Margin', value: json['grossProfitRatio']),

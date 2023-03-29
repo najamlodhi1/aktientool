@@ -1,6 +1,7 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import 'ConcensusModel.dart';
 import 'ConcensusService.dart';
 
@@ -14,6 +15,8 @@ class ConcensusScreen extends StatefulWidget {
 class _ConcensusScreenState extends State<ConcensusScreen> {
   late Future<ConcensusModel?> getFuture;
   bool iseditable = true;
+  late AppLocalizations trans;
+
   @override
   void initState() {
     super.initState();
@@ -22,6 +25,8 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     return FutureBuilder<ConcensusModel?>(
         future: getFuture,
         builder: (context, snapshot) {
@@ -50,9 +55,9 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Center(
-            child: Text('Analyst Rating',
-                style: TextStyle(
+          Center(
+            child: Text(trans.translate('Analyst Rating'),
+                style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
                     color: Colors.white)),
@@ -86,7 +91,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title,
+          Text(trans.translate(title),
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 17,
@@ -165,13 +170,13 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
             child: title == concensus
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text('Current',
-                          style: TextStyle(
+                    children: [
+                      Text(trans.translate('Current'),
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                               color: Colors.white)),
-                      Icon(
+                      const Icon(
                         CupertinoIcons.arrowtriangle_down_fill,
                         size: 35,
                         color: Colors.white,
@@ -194,7 +199,7 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
                                 : Colors.green,
             child: Center(
                 child: Text(
-                    title == 'strongSell'
+                    trans.translate(title == 'strongSell'
                         ? 'Strong Sell'
                         : title == 'sell'
                             ? 'Moderate Sell'
@@ -203,8 +208,8 @@ class _ConcensusScreenState extends State<ConcensusScreen> {
                                 : title == 'buy'
                                     ? 'Moderate Buy'
                                     : title == 'strongBuy'
-                                        ? 'Strong buy'
-                                        : '',
+                                        ? 'Strong Buy'
+                                        : ''),
                     style: const TextStyle(
                         fontWeight: FontWeight.w500, fontSize: 16))),
           ),

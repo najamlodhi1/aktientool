@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
 class StockNewsModel {
-  final String title;
+  String title;
   final String image;
   final String site;
-  final String text;
+  String text;
   final String url;
   final String publishedDate;
 

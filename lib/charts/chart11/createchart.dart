@@ -1,6 +1,7 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart11/data.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import 'DataSource.dart';
 
 class CreateChart11 extends StatefulWidget {
@@ -11,6 +12,7 @@ class CreateChart11 extends StatefulWidget {
 }
 
 class CreateChart11State extends State<CreateChart11> {
+  late AppLocalizations trans;
   late Future getFuture;
 
   loadData() {
@@ -25,6 +27,7 @@ class CreateChart11State extends State<CreateChart11> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return FutureBuilder<dynamic>(
         future: getFuture,
         builder: (context, snapshot) {
@@ -58,24 +61,25 @@ class CreateChart11State extends State<CreateChart11> {
                   ),
                   child: PaginatedDataTable(
                     arrowHeadColor: primaryColor,
-                    header: const Center(
-                      child: Text("Performance with 1000\$",
-                          style: TextStyle(
+                    header: Center(
+                      child: Text(
+                          "${trans.translate('Performance with')} 1000\$",
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 22,
                               color: Colors.white)),
                     ),
                     source: tempdata,
-                    columns: const [
+                    columns: [
                       DataColumn(
-                          label: Text("Time",
-                              style: TextStyle(color: Colors.white))),
+                          label: Text(trans.translate("Time"),
+                              style: const TextStyle(color: Colors.white))),
                       DataColumn(
-                          label: Text("Performance",
-                              style: TextStyle(color: Colors.white))),
+                          label: Text(trans.translate("Performance"),
+                              style: const TextStyle(color: Colors.white))),
                       DataColumn(
-                          label: Text("Price",
-                              style: TextStyle(color: Colors.white)))
+                          label: Text(trans.translate("Price"),
+                              style: const TextStyle(color: Colors.white)))
                     ],
                   ),
                 ),

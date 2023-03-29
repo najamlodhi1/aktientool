@@ -9,11 +9,6 @@ import '../../main.dart';
 var companyInfo = <CompanyInfo>[];
 
 class RemoteService {
-  translate(String input) async {
-    final translator = GoogleTranslator();
-    return await translator.translate(input, to: 'en');
-  }
-
   Future<CompanyInfo> getData({required dynamic data}) async {
     var translator = GoogleTranslator();
 
@@ -23,7 +18,7 @@ class RemoteService {
 
     String translatedDescription = x;
 
-    if (x.isNotEmpty && selectedLocale.countryCode == 'de') {
+    if (x.isNotEmpty && selectedLocale.languageCode == 'de') {
       translatedDescription =
           await translator.translate(x, to: 'de').then((value) => value.text);
     }
