@@ -195,33 +195,21 @@ class HomePageState extends State<HomePage>
                       SliverAppBar(
                         actions: [
                           if (tabController.index != 3)
-                            PopupMenuButton(
-                              padding: const EdgeInsets.all(20),
-                              onSelected: (value) {
-                                MyApp.of(context)!.setLocale(value);
+                            TextButton(
+                              child: Text(
+                                selectedLocale.languageCode == 'en'
+                                    ? "Deutsch"
+                                    : "English",
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                MyApp.of(context)!.setLocale(
+                                    selectedLocale.languageCode == 'en'
+                                        ? 'de'
+                                        : 'en');
                                 setState(() {});
                               },
-                              itemBuilder: (context) => const [
-                                PopupMenuItem(
-                                  value: 'en',
-                                  child: Text('English'),
-                                ),
-                                PopupMenuItem(
-                                  value: 'de',
-                                  child: Text('Deutsch'),
-                                )
-                              ],
-                              child: Row(
-                                children: [
-                                  Text(selectedLocale.languageCode == 'en'
-                                      ? "English"
-                                      : "Deutsch"),
-                                  const SizedBox(width: 7),
-                                  const Icon(Icons.arrow_drop_down_sharp,
-                                      color: Colors.white)
-                                ],
-                              ),
-                            )
+                            ),
                         ],
                         backgroundColor: Colors.black,
                         title:
