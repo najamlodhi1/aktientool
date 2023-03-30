@@ -252,10 +252,8 @@ class CreateChart0State extends State<CreateChart0> {
   }
 
   Widget discriptionWidget(CompanyInfo data) {
-    return Text(
-      "${data.description}\n",
-      style: const TextStyle(color: Colors.white, fontSize: 16),
-      textAlign: TextAlign.justify,
-    );
+    return Text("${data.description}\n",
+        style: const TextStyle(color: Colors.white, fontSize: 16),
+        textAlign: TextAlign.left);
   }
 }

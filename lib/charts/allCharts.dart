@@ -5,6 +5,7 @@ import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
+import 'package:aktientool/charts/chart4/createchart.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:aktientool/webpage/components/footer.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,7 @@ class _AllChartsState extends State<AllCharts> {
                     BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
                     CreateChart3(parentData[6]),
                     BarChartCashFlowScreen(parentData[7]),
+                    CreateChart4(parentData[7]),
                     DCFLeveredScreen(parentData[12]),
                     ConcensusScreen(parentData[8]),
                     StockNewsScreen(parentData[11]),

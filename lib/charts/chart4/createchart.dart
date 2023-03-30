@@ -5,6 +5,7 @@ import 'package:aktientool/charts/chart4/CashFlowReportModel.dart';
 import 'package:aktientool/charts/chart4/data.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import '../chart3/BarChartBalanceScreen.dart';
 
 class CreateChart4 extends StatefulWidget {
@@ -17,6 +18,7 @@ class CreateChart4 extends StatefulWidget {
 class CreateChart4State extends State<CreateChart4> {
   late Future<List<CashFlowReportModel>> getDataFuture;
   List<CashFlowReportModel> tableData = [];
+  late AppLocalizations trans;
 
   @override
   void initState() {
@@ -26,6 +28,8 @@ class CreateChart4State extends State<CreateChart4> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     if (tableData.isEmpty) {
       return Column(
         children: [
@@ -52,8 +56,8 @@ class CreateChart4State extends State<CreateChart4> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text("Cashflow Statement",
-                            style: TextStyle(
+                        Text(trans.translate("Cashflow Statement"),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 22,
                                 color: Colors.white)),
@@ -91,8 +95,8 @@ class CreateChart4State extends State<CreateChart4> {
             const SizedBox(
               height: 10,
             ),
-            const Text("Cashflow Statement",
-                style: TextStyle(
+            Text(trans.translate("Cashflow Statement"),
+                style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
                     color: Colors.white)),
@@ -129,18 +133,18 @@ class CreateChart4State extends State<CreateChart4> {
         rows: buildTableRows,
         columns: <DataColumn2>[
           MediaQuery.of(context).size.width < 1000
-              ? const DataColumn2(
+              ? DataColumn2(
                   fixedWidth: 100,
                   label: Text(
-                    "Year",
-                    style: TextStyle(color: Colors.white),
+                    trans.translate("Year"),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 )
-              : const DataColumn2(
+              : DataColumn2(
                   fixedWidth: 220,
                   label: Text(
-                    "Year",
-                    style: TextStyle(color: Colors.white),
+                    trans.translate("Year"),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
           for (int x = 0; x < tableData.length; x++) ...[
@@ -170,7 +174,7 @@ class CreateChart4State extends State<CreateChart4> {
               cells: [
                 DataCell(
                   Text(
-                    tableData[0].reports[index].title,
+                    trans.translate(tableData[0].reports[index].title),
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
