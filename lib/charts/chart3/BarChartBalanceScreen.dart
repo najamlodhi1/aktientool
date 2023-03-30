@@ -76,6 +76,14 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                       const SizedBox(
                         height: 10,
                       ),
+                      Text(trans.translate("Balance Sheet"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22,
+                              color: Colors.white)),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Container(
                           height: 600,
                           width: MediaQuery.of(context).size.width,

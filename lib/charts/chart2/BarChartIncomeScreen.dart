@@ -82,6 +82,16 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    Text(trans.translate("Income Statement"),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                            color: Colors.white)),
+                    // const Text(
+                    //    "All numbers are in thousands, Currency in USD"),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Container(
                         height: 600,
                         padding: const EdgeInsets.all(12.0),

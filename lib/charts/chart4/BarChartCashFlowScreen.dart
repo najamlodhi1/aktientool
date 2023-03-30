@@ -61,6 +61,7 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<CashFlowReportModel> data = snapshot.data!;
+          data.sort((a, b) => b.date.compareTo(a.date));
           return Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
@@ -83,8 +84,8 @@ class _BarChartScreenState extends State<BarChartCashFlowScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text("Cashflow",
-                          style: TextStyle(
+                      Text(trans.translate("Cashflow Statement"),
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 22,
                               color: Colors.white)),

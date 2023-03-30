@@ -1,7 +1,9 @@
 import 'package:aktientool/filter/industry.dart';
 import 'package:aktientool/filter/marketcap.dart';
+import 'package:aktientool/filter/searcharea.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../authentication/services/request_service.dart';
 import '../charts/allCharts.dart';
 import '../charts/chart13/createchart.dart';
 import '../settings/app_localizations.dart';
@@ -101,10 +103,21 @@ class Filter extends ConsumerWidget {
                           style: const TextStyle(color: Colors.blue),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => const CreateChart13(null)));
+                          if (requestsLeft > 0) {
+                            RequestService().updateRequests();
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) =>
+                                            const CreateChart13(null)))
+                                .then((value) {
+                              if (requestsLeft == 0) {
+                                upgradepopup(context);
+                              }
+                            });
+                          } else {
+                            upgradepopup(context);
+                          }
                         })
                   ])))
         ])));
