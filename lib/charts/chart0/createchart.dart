@@ -102,11 +102,12 @@ class CreateChart0State extends State<CreateChart0> {
                               _buildGridViewItemImage(
                                   snapshot.data!.image.toString()),
                               _buildGridViewItem("CEO", snapshot.data!.ceo),
-                              _buildGridViewItem(trans.translate("Exchange"),
+                              _buildGridViewItem(trans.translate("Börse"),
                                   snapshot.data!.exchangeShortName),
                               _buildGridViewItem(trans.translate("Sektor"),
                                   "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
-                              _buildGridViewItem(trans.translate("Börsenwert"),
+                              _buildGridViewItem(
+                                  trans.translate("Marktkapitalisierung"),
                                   snapshot.data!.mktCap),
                               _buildGridViewItem(trans.translate("Mitarbeiter"),
                                   snapshot.data!.fullTimeEmployees),
