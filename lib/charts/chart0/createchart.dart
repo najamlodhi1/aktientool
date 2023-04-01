@@ -41,6 +41,41 @@ class CreateChart0State extends State<CreateChart0> {
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
+                /*
+            Container(
+              color: primaryColor,
+              padding: const EdgeInsets.all(10),
+              child: MediaQuery.of(context).size.width > 800
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: leftwidget(snapshot.data!),
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Center(
+                                    child: rightwidget(snapshot.data!))),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 550,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        rightwidget(snapshot.data!),
+                        const SizedBox(height: 20),
+                        leftwidget(snapshot.data!),
+                        //discriptionWidget(snapshot.data!)
+                      ],
+                    ),
+            ),
+            */
                 Container(
                     color: primaryColor,
                     padding: const EdgeInsets.all(20),
@@ -67,12 +102,11 @@ class CreateChart0State extends State<CreateChart0> {
                               _buildGridViewItemImage(
                                   snapshot.data!.image.toString()),
                               _buildGridViewItem("CEO", snapshot.data!.ceo),
-                              _buildGridViewItem(trans.translate("Börse"),
+                              _buildGridViewItem(trans.translate("Exchange"),
                                   snapshot.data!.exchangeShortName),
                               _buildGridViewItem(trans.translate("Sektor"),
                                   "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
-                              _buildGridViewItem(
-                                  trans.translate("Marktkapitalisierung"),
+                              _buildGridViewItem(trans.translate("Börsenwert"),
                                   snapshot.data!.mktCap),
                               _buildGridViewItem(trans.translate("Mitarbeiter"),
                                   snapshot.data!.fullTimeEmployees),
@@ -136,7 +170,6 @@ class CreateChart0State extends State<CreateChart0> {
       } else {
         fontSize = 50.0;
       }
-
       return InkWell(
         onTap: title == 'CEO'
             ? () {
