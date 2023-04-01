@@ -78,7 +78,7 @@ class CreateChart11State extends State<CreateChart11> {
                           label: Text(trans.translate("Performance"),
                               style: const TextStyle(color: Colors.white))),
                       DataColumn(
-                          label: Text("${trans.translate("Price")} \$",
+                          label: Text("${trans.translate("Price")} in \$",
                               style: const TextStyle(color: Colors.white)))
                     ],
                   ),

@@ -62,8 +62,8 @@ class CreateChart0State extends State<CreateChart0> {
                             crossAxisCount:
                                 MediaQuery.of(context).size.width > 800 ? 3 : 2,
                             children: [
-                              _buildGridViewItem(
-                                  "Name", snapshot.data!.companyName),
+                              _buildGridViewItemName(
+                                  snapshot.data!.companyName),
                               _buildGridViewItemImage(
                                   snapshot.data!.image.toString()),
                               _buildGridViewItem("CEO", snapshot.data!.ceo),
@@ -137,75 +137,38 @@ class CreateChart0State extends State<CreateChart0> {
         fontSize = 50.0;
       }
 
-      return Column(
-        children: [
-          InkWell(
-            onTap: title == 'Name'
-                ? () {
-                    launchUrl(Uri(
-                        scheme: 'https',
-                        host: 'google.com',
-                        path: 'search',
-                        queryParameters: {'q': value}));
-                  }
-                : null,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: primaryColor, borderRadius: BorderRadius.circular(20)),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(title,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: fontSize,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 5),
-                  Text(value,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: fontSize,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center)
-                ],
-              ),
-            ),
+      return InkWell(
+        onTap: title == 'CEO'
+            ? () {
+                launchUrl(Uri(
+                    scheme: 'https',
+                    host: 'google.com',
+                    path: 'search',
+                    queryParameters: {'q': value}));
+              }
+            : null,
+        child: Container(
+          decoration: BoxDecoration(
+              color: primaryColor, borderRadius: BorderRadius.circular(20)),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(title,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(height: 5),
+              Text(value,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center)
+            ],
           ),
-          InkWell(
-            onTap: title == 'CEO'
-                ? () {
-                    launchUrl(Uri(
-                        scheme: 'https',
-                        host: 'google.com',
-                        path: 'search',
-                        queryParameters: {'q': value}));
-                  }
-                : null,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: primaryColor, borderRadius: BorderRadius.circular(20)),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(title,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: fontSize,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 5),
-                  Text(value,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: fontSize,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center)
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       );
     });
   }
