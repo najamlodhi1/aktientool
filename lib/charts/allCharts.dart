@@ -78,7 +78,6 @@ class _AllChartsState extends State<AllCharts> {
                     CreateChart11(parentData[1]), // Performance
                     Institutionalholders(parentData[9]),
                     CompanyScreen(parentData[2]), // Dividend History
-                    ScoreScreen(parentData[10]),
                     BarChartIncomeScreen(parentData[5]), // Bar Chart income
                     CreateChart2(parentData[5]),
                     BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
@@ -86,7 +85,9 @@ class _AllChartsState extends State<AllCharts> {
                     BarChartCashFlowScreen(parentData[7]),
                     CreateChart4(parentData[7]),
                     DCFLeveredScreen(parentData[12]),
-                    ConcensusScreen(parentData[8]),
+                    ConcensusScreen(parentData[8]), // Analysten bewertung
+                    ScoreScreen(parentData[10]), // Risikobewertung
+
                     StockNewsScreen(parentData[11]),
                     Footer()
                   ],
