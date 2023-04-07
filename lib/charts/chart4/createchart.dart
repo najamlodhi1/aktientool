@@ -113,7 +113,9 @@ class CreateChart4State extends State<CreateChart4> {
 
   buildTable() {
     return SizedBox(
-      width: tableData.length * 170,
+      width: (tableData.length * 170) < MediaQuery.of(context).size.width
+          ? MediaQuery.of(context).size.width
+          : tableData.length * 170,
       height: tableData[0].reports.length * 50,
       child: DataTable2(
         columnSpacing: 50,

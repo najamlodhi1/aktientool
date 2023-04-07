@@ -152,9 +152,14 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 if (tableData.last.price > tableData.last.equityValuePerShare)
                   Padding(
                     padding: EdgeInsets.only(
-                        left: (tableData.last.equityValuePerShare /
-                                (tableData.last.price * 1.3)) *
-                            width),
+                        left: ((tableData.last.equityValuePerShare /
+                                        (tableData.last.price * 1.3)) *
+                                    width)
+                                .isNegative
+                            ? 0
+                            : (tableData.last.equityValuePerShare /
+                                    (tableData.last.price * 1.3)) *
+                                width),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
@@ -184,9 +189,16 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                 if (tableData.last.price < tableData.last.equityValuePerShare)
                   Padding(
                     padding: EdgeInsets.only(
-                        left: (tableData.last.price /
-                                (tableData.last.equityValuePerShare * 1.3)) *
-                            width),
+                        left: ((tableData.last.price /
+                                        (tableData.last.equityValuePerShare *
+                                            1.3)) *
+                                    width)
+                                .isNegative
+                            ? 0
+                            : ((tableData.last.price /
+                                    (tableData.last.equityValuePerShare *
+                                        1.3)) *
+                                width)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
@@ -425,8 +437,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
   Widget buildCashFlowTable() {
     return SizedBox(
-      width: tableData.length * 220,
-      height: tableData.length * 52,
+      width: (tableData.length * 220) < MediaQuery.of(context).size.width
+          ? MediaQuery.of(context).size.width
+          : tableData.length * 220,
+      height: tableData.length * 85,
       child: DataTable2(
         dataRowColor: const MaterialStatePropertyAll(primaryColor),
         headingRowColor: const MaterialStatePropertyAll(primaryColor),
@@ -460,8 +474,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
   Widget buildbuildUpTable() {
     return SizedBox(
-      width: tableData.length * 220,
-      height: tableData.length * 52,
+      width: (tableData.length * 220) < MediaQuery.of(context).size.width
+          ? MediaQuery.of(context).size.width
+          : tableData.length * 220,
+      height: tableData.length * 80,
       child: DataTable2(
         dataRowColor: const MaterialStatePropertyAll(primaryColor),
         headingRowColor: const MaterialStatePropertyAll(primaryColor),

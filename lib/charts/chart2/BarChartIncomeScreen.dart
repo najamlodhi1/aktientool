@@ -94,6 +94,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                     ),
                     Container(
                         height: 600,
+                        width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.all(12.0),
                         child: BarChart(BarChartData(
                             borderData:
