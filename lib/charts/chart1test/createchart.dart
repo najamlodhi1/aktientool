@@ -376,9 +376,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                         ImageCache().clear();
                         drawLine = !drawLine;
                         if (drawLine && imageFile == null) {
-                          screenshotController
-                              .capture(pixelRatio: 1)
-                              .then((image) {
+                          screenshotController.capture().then((image) {
                             setState(() {
                               imageFile = image!;
                             });
