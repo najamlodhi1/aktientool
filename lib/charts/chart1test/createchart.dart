@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart1test/data.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -71,6 +69,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               onPressed: () {
                 setState(() {
+                  drawLine = false;
+                  offsets = [];
+                  imageFile = null;
                   getFLData = flchartData1;
                   buttonIndex = 0;
                 });
@@ -83,6 +84,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               onPressed: () {
                 setState(() {
+                  drawLine = false;
+                  offsets = [];
+                  imageFile = null;
                   getFLData = flchartData3;
                   buttonIndex = 1;
                 });
@@ -96,6 +100,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               onPressed: () {
                 setState(() {
+                  drawLine = false;
+                  offsets = [];
+                  imageFile = null;
                   getFLData = flchartData5;
                   buttonIndex = 2;
                 });
@@ -109,6 +116,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
             ),
             onPressed: () {
               setState(() {
+                drawLine = false;
+                offsets = [];
+                imageFile = null;
                 getFLData = flchartData10;
                 buttonIndex = 3;
               });
@@ -123,6 +133,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
             ),
             onPressed: () {
               setState(() {
+                drawLine = false;
+                offsets = [];
+                imageFile = null;
                 getFLData = flchartDataMax;
                 buttonIndex = 4;
               });
@@ -213,7 +226,6 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                                               .year
                                               .toString()
                                               .substring(0, 10);
-
                                       return LineTooltipItem(
                                           '${touchedSpot.y}\n$stockDate',
                                           textStyle);
