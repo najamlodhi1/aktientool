@@ -118,7 +118,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(trans.translate("Discounted Cash Flow (DCF) Analyis Levered"),
+          Text(trans.translate("Discounted Cash Flow (DCF) Analysis Levered"),
               style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
@@ -422,11 +422,6 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           const SizedBox(
             height: 10,
           ),
-          Text(trans.translate("Discounted Cash Flow (DCF) Analysis Levered"),
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22,
-                  color: Colors.white)),
           Text(trans.translate("Free Cash Flow"),
               style: const TextStyle(
                   fontWeight: FontWeight.w600,

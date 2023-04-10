@@ -175,7 +175,7 @@ class CreateChart11State extends State<CreateChart11> {
                     fontSize: fontSize,
                     fontWeight: FontWeight.bold)),
             Text(
-                '${index == 0 ? (1000 + (10 * double.parse(data.the1D))).toStringAsFixed(2) : index == 1 ? (1000 + (10 * double.parse(data.the5D))).toStringAsFixed(2) : index == 2 ? (1000 + (10 * double.parse(data.the1M))).toStringAsFixed(2) : index == 3 ? (1000 + (10 * double.parse(data.the3M))).toStringAsFixed(2) : index == 4 ? (1000 + (10 * double.parse(data.the6M))).toStringAsFixed(2) : index == 5 ? (1000 + (10 * double.parse(data.the1Y))).toStringAsFixed(2) : index == 6 ? (1000 + (10 * double.parse(data.the3Y))).toStringAsFixed(2) : index == 7 ? (1000 + (10 * double.parse(data.the5Y))).toStringAsFixed(2) : index == 8 ? (1000 + (10 * double.parse(data.the10Y))).toStringAsFixed(2) : (1000 + (10 * double.parse(data.max))).toStringAsFixed(2)} \$',
+                '${index == 0 ? (1000 + (10 * double.parse(data.the1D))).toStringAsFixed(2) : index == 1 ? (1000 + (10 * double.parse(data.the1M))).toStringAsFixed(2) : index == 2 ? (1000 + (10 * double.parse(data.the3M))).toStringAsFixed(2) : index == 3 ? (1000 + (10 * double.parse(data.the6M))).toStringAsFixed(2) : index == 4 ? (1000 + (10 * double.parse(data.the1Y))).toStringAsFixed(2) : index == 5 ? (1000 + (10 * double.parse(data.the3Y))).toStringAsFixed(2) : index == 6 ? (1000 + (10 * double.parse(data.the5Y))).toStringAsFixed(2) : index == 7 ? (1000 + (10 * double.parse(data.the10Y))).toStringAsFixed(2) : (1000 + (10 * double.parse(data.max))).toStringAsFixed(2)} \$',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: fontSize,
