@@ -1,14 +1,10 @@
-// ignore_for_file: file_names
-
 import 'dart:math';
-
 import 'package:aktientool/charts/DCFLevered/DCFLeveredModel.dart';
 import 'package:aktientool/charts/DCFLevered/DCFLeveredService.dart';
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../settings/app_localizations.dart';
 
 class DCFLeveredScreen extends StatefulWidget {
@@ -24,6 +20,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
   late Future<List<DCFLeveredModel>> getFuture;
   bool iseditable = true;
+  bool showData = false;
+
   @override
   void initState() {
     super.initState();
@@ -45,12 +43,13 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                freeCashFlow(),
-                weightedAverage(),
-                buildUp(),
-                terminalValue(),
-                intrinsicValue(),
-                overValue()
+                overValue(),
+                if (showData) ...[
+                  freeCashFlow(),
+                  weightedAverage(),
+                  terminalValue(),
+                  intrinsicValue()
+                ],
               ],
             );
           } else {
@@ -116,188 +115,227 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
         color: primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Stack(
-          children: [
-            Container(color: Colors.red, height: 330, width: width),
-            Container(
-                color: Colors.yellow,
-                height: 330,
-                width: (tableData.last.price >
-                        tableData.last.equityValuePerShare)
-                    ? ((tableData.last.price / (tableData.last.price * 1.3)) *
-                        width)
-                    : ((tableData.last.equityValuePerShare /
-                            (tableData.last.equityValuePerShare * 1.3)) *
-                        width)),
-            Container(
-                color: Colors.green,
-                height: 330,
-                width: (tableData.last.price >
-                        tableData.last.equityValuePerShare)
-                    ? (((tableData.last.equityValuePerShare /
-                                (tableData.last.price * 1.3)) *
-                            width) -
-                        ((overvalue / (tableData.last.price * 1.3)) * width))
-                    : (((tableData.last.price /
-                                (tableData.last.equityValuePerShare * 1.3)) *
-                            width) -
-                        ((undervalue /
-                                (tableData.last.equityValuePerShare * 1.3)) *
-                            width))),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(trans.translate("Discounted Cash Flow (DCF) Analyis Levered"),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Colors.white)),
+          const SizedBox(
+            height: 10,
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30.0),
+            child: Stack(
               children: [
-                if (tableData.last.price > tableData.last.equityValuePerShare)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: ((tableData.last.equityValuePerShare /
-                                        (tableData.last.price * 1.3)) *
-                                    width)
-                                .isNegative
-                            ? 0
-                            : (tableData.last.equityValuePerShare /
+                Container(color: Colors.red, height: 330, width: width),
+                Container(
+                    color: Colors.yellow,
+                    height: 330,
+                    width: (tableData.last.price >
+                            tableData.last.equityValuePerShare)
+                        ? ((tableData.last.price /
+                                (tableData.last.price * 1.3)) *
+                            width)
+                        : ((tableData.last.equityValuePerShare /
+                                (tableData.last.equityValuePerShare * 1.3)) *
+                            width)),
+                Container(
+                    color: Colors.green,
+                    height: 330,
+                    width: (tableData.last.price >
+                            tableData.last.equityValuePerShare)
+                        ? (((tableData.last.equityValuePerShare /
                                     (tableData.last.price * 1.3)) *
-                                width),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('${overvaluepercent.toStringAsFixed(1)}%',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.brown)),
-                          const SizedBox(height: 5),
-                          Text(trans.translate('Overvalued'),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.brown)),
-                          const SizedBox(height: 5),
-                          Container(
-                            height: 5,
-                            color: Colors.brown,
-                            width: (overvalue / (tableData.last.price * 1.3)) *
-                                width,
+                                width) -
+                            ((overvalue / (tableData.last.price * 1.3)) *
+                                width))
+                        : (((tableData.last.price /
+                                    (tableData.last.equityValuePerShare *
+                                        1.3)) *
+                                width) -
+                            ((undervalue /
+                                    (tableData.last.equityValuePerShare *
+                                        1.3)) *
+                                width))),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (tableData.last.price >
+                        tableData.last.equityValuePerShare)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: ((tableData.last.equityValuePerShare /
+                                            (tableData.last.price * 1.3)) *
+                                        width)
+                                    .isNegative
+                                ? 0
+                                : (tableData.last.equityValuePerShare /
+                                        (tableData.last.price * 1.3)) *
+                                    width),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('${overvaluepercent.toStringAsFixed(1)}%',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.brown)),
+                              const SizedBox(height: 5),
+                              Text(trans.translate('Overvalued'),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.brown)),
+                              const SizedBox(height: 5),
+                              Container(
+                                height: 5,
+                                color: Colors.brown,
+                                width:
+                                    (overvalue / (tableData.last.price * 1.3)) *
+                                        width,
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                if (tableData.last.price < tableData.last.equityValuePerShare)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: ((tableData.last.price /
+                    if (tableData.last.price <
+                        tableData.last.equityValuePerShare)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: ((tableData.last.price /
+                                            (tableData
+                                                    .last.equityValuePerShare *
+                                                1.3)) *
+                                        width)
+                                    .isNegative
+                                ? 0
+                                : ((tableData.last.price /
                                         (tableData.last.equityValuePerShare *
                                             1.3)) *
-                                    width)
-                                .isNegative
-                            ? 0
-                            : ((tableData.last.price /
-                                    (tableData.last.equityValuePerShare *
-                                        1.3)) *
-                                width)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('${undervaluepercent.toStringAsFixed(1)}%',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.brown)),
-                          const SizedBox(height: 5),
-                          Text(trans.translate('Undervalued'),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.brown)),
-                          const SizedBox(height: 5),
-                          Container(
-                            height: 5,
-                            color: Colors.brown,
-                            width: (undervalue /
-                                    (tableData.last.equityValuePerShare *
-                                        1.3)) *
-                                width,
+                                    width)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('${undervaluepercent.toStringAsFixed(1)}%',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.brown)),
+                              const SizedBox(height: 5),
+                              Text(trans.translate('Undervalued'),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.brown)),
+                              const SizedBox(height: 5),
+                              Container(
+                                height: 5,
+                                color: Colors.brown,
+                                width: (undervalue /
+                                        (tableData.last.equityValuePerShare *
+                                            1.3)) *
+                                    width,
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
+                    Container(
+                      height: 100,
+                      width: (tableData.last.price /
+                              (((tableData.last.price >
+                                          tableData.last.equityValuePerShare)
+                                      ? tableData.last.price
+                                      : tableData.last.equityValuePerShare) *
+                                  1.3)) *
+                          width,
+                      color: const Color(0xff1C222D),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(trans.translate('Current Price'),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                      ' ${tableData.last.price.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            )
+                          ]),
                     ),
-                  ),
-                Container(
-                  height: 100,
-                  width: (tableData.last.price /
-                          (((tableData.last.price >
-                                      tableData.last.equityValuePerShare)
-                                  ? tableData.last.price
-                                  : tableData.last.equityValuePerShare) *
-                              1.3)) *
-                      width,
-                  color: const Color(0xff1C222D),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(trans.translate('Current Price'),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
-                          const SizedBox(height: 5),
-                          Text(' ${tableData.last.price.toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white))
-                        ],
-                      ),
-                    )
-                  ]),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  height: 100,
-                  color: Colors.black54,
-                  width: (tableData.last.equityValuePerShare /
-                          (((tableData.last.price >
-                                      tableData.last.equityValuePerShare)
-                                  ? tableData.last.price
-                                  : tableData.last.equityValuePerShare) *
-                              1.3)) *
-                      width,
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(trans.translate('Fair Value'),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
-                          const SizedBox(height: 5),
-                          Text(
-                              tableData.last.equityValuePerShare
-                                  .toStringAsFixed(2),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white))
-                        ],
-                      ),
-                    )
-                  ]),
+                    const SizedBox(height: 10),
+                    Container(
+                      height: 100,
+                      color: Colors.black54,
+                      width: (tableData.last.equityValuePerShare /
+                              (((tableData.last.price >
+                                          tableData.last.equityValuePerShare)
+                                      ? tableData.last.price
+                                      : tableData.last.equityValuePerShare) *
+                                  1.3)) *
+                          width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(trans.translate('Fair Value'),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                      tableData.last.equityValuePerShare
+                                          .toStringAsFixed(2),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            )
+                          ]),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 15),
+          TextButton(
+              style: TextButton.styleFrom(
+                  backgroundColor: showData ? Colors.red : Colors.green),
+              onPressed: () {
+                setState(() {
+                  showData = !showData;
+                  iseditable = true;
+                  calculateFreeCashFlow();
+                });
+              },
+              child: Text(
+                showData ? 'Hide Data' : 'Show Data',
+                style: const TextStyle(color: Colors.white),
+              ))
+        ],
       ),
     );
   }
@@ -394,9 +432,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                   color: Colors.white)),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           buildCashFlowTable(),
         ],
       ),
@@ -440,7 +476,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
       width: (tableData.length * 220) < MediaQuery.of(context).size.width
           ? MediaQuery.of(context).size.width
           : tableData.length * 220,
-      height: tableData.length * 85,
+      height: 7 * 60,
       child: DataTable2(
         dataRowColor: const MaterialStatePropertyAll(primaryColor),
         headingRowColor: const MaterialStatePropertyAll(primaryColor),
@@ -477,7 +513,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
       width: (tableData.length * 220) < MediaQuery.of(context).size.width
           ? MediaQuery.of(context).size.width
           : tableData.length * 220,
-      height: tableData.length * 80,
+      height: 7 * 60,
       child: DataTable2(
         dataRowColor: const MaterialStatePropertyAll(primaryColor),
         headingRowColor: const MaterialStatePropertyAll(primaryColor),
@@ -642,8 +678,14 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           tableData.map((e) => e.operatingCashFlowPercentage).toList(), 1),
       simpleCashFlowRow('Capital Expenditure',
           tableData.map((e) => e.capitalExpenditure).toList()),
-      fieldCashFlowRow('Capital Expenditure (%)',
-          tableData.map((e) => e.capitalExpenditurePercentage).toList(), 2),
+      fieldCashFlowRow(
+          'Capital Expenditure (%)',
+          tableData
+              .map((e) => e.year >= DateTime.now().year
+                  ? e.capitalExpenditurePercentage.abs()
+                  : e.capitalExpenditurePercentage)
+              .toList(),
+          2),
       simpleCashFlowRow(
           'Free Cash Flow', tableData.map((e) => e.freeCashFlow).toList())
     ];
@@ -1369,24 +1411,22 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
   void calculateFreeCashFlow() {
     for (var i = 0; i < tableData.length; i++) {
       if (i != 0) {
-        tableData[i].revenue =
+        var temp =
             tableData[i - 1].revenue * (tableData[i].revenuePercentage / 100) +
                 tableData[i - 1].revenue;
-
-        // tableData[i].revenuePercentage =
-        //     (tableData[i - 1].revenue - tableData[i].revenue) /
-        //         tableData[i - 1].revenue *
-        //         -100;
+        tableData[i].revenue = temp;
       }
-
-      tableData[i].operatingCashFlow = tableData[i].revenue *
+      var temp = tableData[i].revenue *
           (tableData[i].operatingCashFlowPercentage / 100);
+      tableData[i].operatingCashFlow =
+          tableData[i].year >= DateTime.now().year ? temp.abs() : temp;
 
-      tableData[i].capitalExpenditure = tableData[i].revenue *
+      temp = tableData[i].revenue *
           (tableData[i].capitalExpenditurePercentage / 100);
+      tableData[i].capitalExpenditure = temp;
 
-      tableData[i].freeCashFlow =
-          tableData[i].operatingCashFlow + tableData[i].capitalExpenditure;
+      temp = tableData[i].operatingCashFlow + tableData[i].capitalExpenditure;
+      tableData[i].freeCashFlow = temp;
     }
 
     tableData.last.afterTaxCostOfDebt = tableData.last.costofDebt -
@@ -1442,6 +1482,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
 
     tableData.last.equityValuePerShare =
         tableData.last.equityValue / tableData.last.dilutedSharesOutstanding;
+
     Future.delayed(const Duration(seconds: 1))
         .then((value) => iseditable = false);
   }

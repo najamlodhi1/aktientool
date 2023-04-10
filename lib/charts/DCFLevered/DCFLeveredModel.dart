@@ -102,7 +102,7 @@ class DCFLeveredModel {
           enterpriseValue: json['enterpriseValue'],
           netDebt: json['netDebt'],
           equityValue: json['equityValue'] ?? 0,
-          equityValuePerShare: json['equityValuePerShare']??0,
+          equityValuePerShare: json['equityValuePerShare'] ?? 0,
           freeCashFlowT1: json['freeCashFlowT1'],
           operatingCashFlowPercentage: json['operatingCashFlowPercentage']);
 }

@@ -4,7 +4,6 @@ class DCFLeveredService {
   Future<List<DCFLeveredModel>> getData(dynamic data) async {
     List<DCFLeveredModel> temp = parseData(data);
     temp.sort((a, b) => a.year.compareTo(b.year));
-    temp.removeAt(0);
     return temp;
   }
 
