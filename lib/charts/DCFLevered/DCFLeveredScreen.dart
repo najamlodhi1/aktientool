@@ -102,6 +102,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
     double undervaluepercent =
         (undervalue / tableData.last.equityValuePerShare) * 100;
 
+    double inputValue = MediaQuery.of(context).size.width;
+    double outputValue = 1.3 + ((inputValue - 300) / 700) * 0.05;
+    outputValue = outputValue.clamp(1.3, 1.35);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.all(10),
@@ -168,12 +172,14 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                       Padding(
                         padding: EdgeInsets.only(
                             left: ((tableData.last.equityValuePerShare /
-                                            (tableData.last.price * 1.3)) *
+                                            (tableData.last.price *
+                                                outputValue)) *
                                         width)
                                     .isNegative
                                 ? 0
                                 : (tableData.last.equityValuePerShare /
-                                        (tableData.last.price * 1.3)) *
+                                        ((tableData.last.price *
+                                            outputValue))) *
                                     width),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
