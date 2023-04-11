@@ -130,10 +130,10 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
             borderRadius: BorderRadius.circular(30.0),
             child: Stack(
               children: [
-                Container(color: Colors.red, height: 230, width: width),
+                Container(color: Colors.red, height: 210, width: width),
                 Container(
                     color: Colors.yellow,
-                    height: 230,
+                    height: 210,
                     width: tableData.last.price <
                             tableData.last.equityValuePerShare
                         ? ((tableData.last.equityValuePerShare /
@@ -152,7 +152,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                             width)),
                 Container(
                     color: Colors.green,
-                    height: 230,
+                    height: 210,
                     width: tableData.last.price >
                             tableData.last.equityValuePerShare
                         ? ((tableData.last.equityValuePerShare /
@@ -245,34 +245,6 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                     ),
                   ],
                 ),
-                if (tableData.last.price > tableData.last.equityValuePerShare)
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: (tableData.last.equityValuePerShare /
-                            (((tableData.last.price >
-                                        tableData.last.equityValuePerShare)
-                                    ? tableData.last.price
-                                    : tableData.last.equityValuePerShare) *
-                                1.3)) *
-                        width,
-                    child: const VerticalDivider(
-                        color: Colors.green, width: 0, thickness: 2),
-                  ),
-                if (tableData.last.price < tableData.last.equityValuePerShare)
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: (tableData.last.price /
-                            (((tableData.last.price >
-                                        tableData.last.equityValuePerShare)
-                                    ? tableData.last.price
-                                    : tableData.last.equityValuePerShare) *
-                                1.3)) *
-                        width,
-                    child: const VerticalDivider(
-                        color: Colors.yellow, width: 0, thickness: 2),
-                  ),
               ],
             ),
           ),
@@ -284,7 +256,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
-                      color: Colors.yellow)),
+                      color: Colors.red)),
             ),
           if (tableData.last.price < tableData.last.equityValuePerShare)
             Center(
@@ -293,12 +265,12 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
-                      color: Colors.yellow)),
+                      color: Color.fromARGB(255, 87, 199, 90))),
             ),
           const SizedBox(height: 15),
           TextButton(
               style: TextButton.styleFrom(
-                  backgroundColor: showData ? Colors.red : Colors.green),
+                  backgroundColor: showData ? Colors.grey : Colors.black),
               onPressed: () {
                 setState(() {
                   showData = !showData;
