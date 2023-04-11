@@ -265,7 +265,7 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
-                      color: Color.fromARGB(255, 87, 199, 90))),
+                      color: Colors.green)),
             ),
           const SizedBox(height: 15),
           TextButton(

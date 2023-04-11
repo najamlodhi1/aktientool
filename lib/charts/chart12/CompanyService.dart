@@ -4,7 +4,7 @@ class CompanyService {
   Future<List<DividendModel>> getData(dynamic data) async {
     List<DividendModel> temp = parseData(data);
     temp.removeWhere((element) =>
-        element.recordDate == "" ||
+        element.date == "" ||
         //element.declarationDate == "" ||
         element.paymentDate == "");
     return temp;
