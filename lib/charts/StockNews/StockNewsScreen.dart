@@ -52,10 +52,22 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:
-                List.generate(data.length, (index) => buildCard(data[index]))));
+          children: [
+            const Text("News",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                    color: Colors.white)),
+            const SizedBox(
+              height: 10,
+            ),
+            Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                    data.length, (index) => buildCard(data[index]))),
+          ],
+        ));
   }
 
   buildCard(StockNewsModel data) {
