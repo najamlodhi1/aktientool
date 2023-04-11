@@ -6,10 +6,12 @@ import '../../settings/app_localizations.dart';
 
 const primaryColor = Color(0xff5B2D90);
 const secondaryColor = Color(0xff442881);
+//String currencNow = "USD";
 
 class CreateChart0 extends StatefulWidget {
   const CreateChart0(this.data, {super.key});
   final dynamic data;
+
   @override
   State<CreateChart0> createState() => CreateChart0State();
 }
@@ -41,41 +43,6 @@ class CreateChart0State extends State<CreateChart0> {
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
-                /*
-            Container(
-              color: primaryColor,
-              padding: const EdgeInsets.all(10),
-              child: MediaQuery.of(context).size.width > 800
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: leftwidget(snapshot.data!),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: Center(
-                                    child: rightwidget(snapshot.data!))),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 550,
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        rightwidget(snapshot.data!),
-                        const SizedBox(height: 20),
-                        leftwidget(snapshot.data!),
-                        //discriptionWidget(snapshot.data!)
-                      ],
-                    ),
-            ),
-            */
                 Container(
                     color: primaryColor,
                     padding: const EdgeInsets.all(20),
@@ -89,7 +56,7 @@ class CreateChart0State extends State<CreateChart0> {
                           padding: const EdgeInsets.all(10),
                           child: GridView.count(
                             physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 20 / 9,
+                            childAspectRatio: 20 / 13,
                             clipBehavior: Clip.antiAlias,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 20,
@@ -97,8 +64,11 @@ class CreateChart0State extends State<CreateChart0> {
                             crossAxisCount:
                                 MediaQuery.of(context).size.width > 800 ? 3 : 2,
                             children: [
-                              _buildGridViewItemName(
-                                  snapshot.data!.companyName),
+                              // _buildGridViewItemName(snapshot.data!.isin),
+                              _buildGridViewItem(snapshot.data!.companyName,
+                                  "Isin:  ${snapshot.data!.isin} "),
+                              _buildGridViewItem(trans.translate("Price"),
+                                  "${snapshot.data!.price} ${snapshot.data!.currency}  ${snapshot.data!.changes} %"),
                               _buildGridViewItemImage(
                                   snapshot.data!.image.toString()),
                               _buildGridViewItem("CEO", snapshot.data!.ceo),
@@ -107,9 +77,14 @@ class CreateChart0State extends State<CreateChart0> {
                               _buildGridViewItem(trans.translate("Sektor"),
                                   "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
                               _buildGridViewItem(trans.translate("Marketcap"),
-                                  snapshot.data!.mktCap),
+                                  "${snapshot.data!.mktCap}${snapshot.data!.currency}"),
                               _buildGridViewItem(trans.translate("Mitarbeiter"),
                                   snapshot.data!.fullTimeEmployees),
+                              _buildGridViewItem(
+                                  trans.translate("Dividendendenrendite"),
+                                  snapshot.data!.lastDiv),
+                              _buildGridViewItem(
+                                  trans.translate("Beta"), snapshot.data!.beta),
                               _buildGridViewItem(trans.translate("Börsengang"),
                                   snapshot.data!.ipoDate),
                               _buildGridViewItem(trans.translate("Sitz"),

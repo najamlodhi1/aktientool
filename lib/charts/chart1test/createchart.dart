@@ -1,4 +1,5 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
+
 import 'package:aktientool/charts/chart1test/data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
@@ -304,7 +305,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
     String todayPrice =
         flchartData1[flchartData1.length - 1].toString().replaceAll(")", "");
     int x = todayPrice.indexOf(" ");
-    String todayPriceFinal = todayPrice.substring(x);
+    String todayPriceFinal = "${todayPrice.substring(x)}CURRENCY";
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -332,8 +333,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               const Spacer(),
               SizedBox(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 child: TextButton(
                     style: TextButton.styleFrom(backgroundColor: Colors.red),
                     onPressed: () {
@@ -346,8 +347,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               const SizedBox(width: 20),
               SizedBox(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 child: TextButton(
                     style: TextButton.styleFrom(backgroundColor: currentColor),
                     onPressed: () {
@@ -378,8 +379,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               const SizedBox(width: 20),
               SizedBox(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 child: TextButton(
                     style: TextButton.styleFrom(
                         backgroundColor: drawLine ? currentColor : Colors.grey),

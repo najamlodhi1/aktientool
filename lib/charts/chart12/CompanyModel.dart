@@ -17,5 +17,5 @@ class DividendModel {
       //declarationDate: json['declarationDate'],
       date: json['date'],
       paymentDate: json['paymentDate'],
-      dividend: json['dividend'].toString());
+      dividend: "${json['dividend']} CURRENCY");
 }
