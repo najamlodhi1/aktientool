@@ -107,16 +107,15 @@ class CreateChart0State extends State<CreateChart0> {
         decoration: BoxDecoration(
             color: primaryColor, borderRadius: BorderRadius.circular(20)),
         alignment: Alignment.center,
-        child: Image.network(image, width: 800));
+        child: Image.network(image, width: 700));
   }
 
   Widget _buildGridViewItemName(String title) {
     return LayoutBuilder(builder: (_, c) {
-      final width = c.maxWidth;
       var fontSize = 16.0;
-      if (width <= 480) {
+      if (c.maxWidth <= 480) {
         fontSize = 16.0;
-      } else if (width > 480 && width <= 960) {
+      } else if (c.maxWidth > 480 && c.maxWidth <= 960) {
         fontSize = 25.0;
       } else {
         fontSize = 50.0;
@@ -136,11 +135,10 @@ class CreateChart0State extends State<CreateChart0> {
 
   Widget _buildGridViewItem(String title, value) {
     return LayoutBuilder(builder: (_, c) {
-      final width = c.maxWidth;
-      var fontSize = 16.0;
-      if (width <= 480) {
-        fontSize = 16.0;
-      } else if (width > 480 && width <= 960) {
+      var fontSize = 15.0;
+      if (c.maxWidth <= 480) {
+        fontSize = 15.0;
+      } else if (c.maxWidth > 480 && c.maxWidth <= 960) {
         fontSize = 25.0;
       } else {
         fontSize = 50.0;
@@ -181,54 +179,30 @@ class CreateChart0State extends State<CreateChart0> {
     });
   }
 
-  Widget rightwidget(CompanyInfo data) {
-    return Image.network(
-      data.image.toString(),
-      fit: BoxFit.fill,
-    );
-  }
-
-  Widget leftwidget(CompanyInfo data) {
-    return LayoutBuilder(builder: (_, c) {
-      final width = c.maxWidth;
-      var fontSize = 100.0;
-      if (width <= 480) {
-        fontSize = 30.0;
-      } else if (width > 480 && width <= 960) {
-        fontSize = 100.0; // Apple Inc. Aktie Analyse gröse auf Laptop
-      } else {
-        fontSize = 50.0;
-      }
-
-      return Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(children: [
-            Container(
-                color: Colors.black,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${data.companyName}\nAktie Analyse",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSize,
-                            fontWeight: FontWeight.bold)))),
-            //const SizedBox(height: 10),
-            Container(
-                color: Colors.white,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Aktie Analyse",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: fontSize,
-                            fontWeight: FontWeight.bold)))),
-          ]));
-    });
-  }
-
   Widget discriptionWidget(CompanyInfo data) {
-    return Text("${data.description}\n",
-        style: const TextStyle(color: Colors.white, fontSize: 16),
-        textAlign: TextAlign.left);
+    return Column(
+      children: [
+        Text("${data.description}\n",
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+            textAlign: TextAlign.left),
+        Center(
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.black, // foreground
+              ),
+              onPressed: () {
+                launchUrl(Uri.parse(data.website));
+              },
+              child: Text(
+                data.website.toString().replaceRange(0, 8, ""),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              )),
+        ),
+      ],
+    );
   }
 }
