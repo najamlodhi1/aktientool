@@ -56,7 +56,7 @@ class CreateChart0State extends State<CreateChart0> {
                           padding: const EdgeInsets.all(10),
                           child: GridView.count(
                             physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 20 / 13,
+                            childAspectRatio: 35 / 13,
                             clipBehavior: Clip.antiAlias,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 20,
