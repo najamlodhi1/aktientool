@@ -5,7 +5,7 @@ class CompanyService {
     List<DividendModel> temp = parseData(data);
     temp.removeWhere((element) =>
         element.recordDate == "" ||
-        element.declarationDate == "" ||
+        //element.declarationDate == "" ||
         element.paymentDate == "");
     return temp;
   }

@@ -12,8 +12,8 @@ class DataSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     return DataRow(cells: [
-      DataCell(Text(_data[index].declarationDate,
-          style: const TextStyle(color: Colors.white))),
+      /*DataCell(Text(_data[index].declarationDate,
+          style: const TextStyle(color: Colors.white))),*/
       DataCell(Text(_data[index].recordDate,
           style: const TextStyle(color: Colors.white))),
       DataCell(Text(_data[index].paymentDate,

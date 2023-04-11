@@ -70,9 +70,10 @@ class _CompanyScreenState extends State<CompanyScreen> {
           ),
           source: tempdata,
           columns: [
-            DataColumn(
+            /*DataColumn(
                 label: Text(trans.translate("Declared"),
                     style: const TextStyle(color: Colors.white))),
+                    */
             DataColumn(
                 label: Text(trans.translate("Record"),
                     style: const TextStyle(color: Colors.white))),
