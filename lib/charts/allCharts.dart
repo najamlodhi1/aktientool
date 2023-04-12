@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:aktientool/authentication/services/http_service.dart';
 import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
+import 'package:aktientool/charts/Rating/RatingScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
@@ -86,8 +87,8 @@ class _AllChartsState extends State<AllCharts> {
                     CreateChart4(parentData[7]),
                     DCFLeveredScreen(parentData[12]),
                     ConcensusScreen(parentData[8]), // Analysten bewertung
+                    RatingScreen(parentData[13]),
                     ScoreScreen(parentData[10]), // Risikobewertung
-
                     StockNewsScreen(parentData[11]),
                     Footer()
                   ],
