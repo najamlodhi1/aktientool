@@ -195,7 +195,19 @@ class HomePageState extends State<HomePage>
                       SliverAppBar(
                         actions: [
                           if (tabController.index != 3)
-                            TextButton(
+                            IconButton(
+                              icon: Image.asset(
+                                  'assets/images/${selectedLocale.languageCode}.svg'),
+                              iconSize: 50,
+                              onPressed: () {
+                                MyApp.of(context)!.setLocale(
+                                    selectedLocale.languageCode == 'en'
+                                        ? 'de'
+                                        : 'en');
+                                setState(() {});
+                              },
+                            )
+                          /* TextButton(
                               child: Text(
                                 selectedLocale.languageCode == 'en'
                                     ? "English"
@@ -209,7 +221,7 @@ class HomePageState extends State<HomePage>
                                         : 'en');
                                 setState(() {});
                               },
-                            ),
+                            ),*/
                         ],
                         backgroundColor: Colors.black,
                         title:
@@ -221,7 +233,7 @@ class HomePageState extends State<HomePage>
                           controller: tabController,
                           isScrollable: true,
                           tabs: <Widget>[
-                            Tab(child: Text(trans.translate('Home'))),
+                            const Tab(child: Text('Home')),
                             Tab(child: Text(trans.translate('Login'))),
                             Tab(child: Text(trans.translate('Register'))),
                             Tab(child: Text(trans.translate('Test'))),
