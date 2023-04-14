@@ -39,11 +39,27 @@ class DataSource extends DataTableSource {
           style: const TextStyle(color: Colors.white))),
       DataCell(Text(_data[index].transactionType,
           style: const TextStyle(color: Colors.white))),
-      DataCell(Text(_data[index].securitiesTransacted.toString(),
+      DataCell(
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.white,
+            ),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '${_data[index].securitiesTransacted}\n',
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(
+                  text:
+                      "${(_data[index].securitiesTransacted * _data[index].price).round()} CURRENCYY"),
+            ],
+          ),
+        ),
+      ),
+      DataCell(Text("${_data[index].price} CURRENCYY",
           style: const TextStyle(color: Colors.white))),
-      DataCell(Text(_data[index].price.toString(),
-          style: const TextStyle(color: Colors.white))),
-      DataCell(Text(_data[index].securitiesOwned.toString(),
+      DataCell(Text("${_data[index].securitiesOwned}",
           style: const TextStyle(color: Colors.white))),
     ]);
   }
