@@ -12,6 +12,7 @@ import 'package:aktientool/webpage/components/footer.dart';
 import 'package:flutter/material.dart';
 import '../settings/app_localizations.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
+import 'Insider/InsiderScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart11/createchart.dart';
@@ -81,6 +82,7 @@ class _AllChartsState extends State<AllCharts> {
                     CompanyScreen(parentData[2]), // Dividend History
                     BarChartIncomeScreen(parentData[5]), // Bar Chart income
                     CreateChart2(parentData[5]),
+                    InsiderScreen(parentData[14]),
                     BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
                     CreateChart3(parentData[6]),
                     BarChartCashFlowScreen(parentData[7]),
