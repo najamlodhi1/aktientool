@@ -13,9 +13,24 @@ class DataSource extends DataTableSource {
   DataRow? getRow(int index) {
     return DataRow(cells: [
       DataCell(
-          Text(
-              '${_data[index].reportingName}\n${_data[index].typeOfOwner.split(': ').last}',
-              style: const TextStyle(color: Colors.white)), onTap: () {
+          Column(
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.white,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: '${_data[index].reportingName}\n',
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: _data[index].typeOfOwner.split(': ').last),
+                  ],
+                ),
+              ),
+            ],
+          ), onTap: () {
         html.window.open(
             'https://www.google.com/search?q=${_data[index].reportingName}',
             _data[index].reportingName);
