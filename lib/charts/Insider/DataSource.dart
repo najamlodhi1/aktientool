@@ -38,7 +38,11 @@ class DataSource extends DataTableSource {
       DataCell(Text(_data[index].filingDate,
           style: const TextStyle(color: Colors.white))),
       DataCell(Text(_data[index].transactionType,
-          style: const TextStyle(color: Colors.white))),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: _data[index].transactionType == "S-Sale"
+                  ? Colors.redAccent
+                  : Colors.green))),
       DataCell(
         RichText(
           text: TextSpan(
