@@ -8,10 +8,11 @@ const primaryColor = Color(0xff5B2D90);
 const secondaryColor = Color(0xff442881);
 //String currencNow = "USD";
 
+ValueNotifier<String> currencyNotifier = ValueNotifier('');
+
 class CreateChart0 extends StatefulWidget {
   const CreateChart0(this.data, {super.key});
   final dynamic data;
-
   @override
   State<CreateChart0> createState() => CreateChart0State();
 }
@@ -33,7 +34,11 @@ class CreateChart0State extends State<CreateChart0> {
     return FutureBuilder<CompanyInfo>(
         future: getFuture,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            Future.delayed(Duration(seconds: 1)).then((value) {
+              currencyNotifier.value = snapshot.data!.currency;
+              currencyNotifier.notifyListeners();
+            });
             return Column(
               children: [
                 Padding(

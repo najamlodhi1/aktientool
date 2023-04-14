@@ -305,7 +305,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
     String todayPrice =
         flchartData1[flchartData1.length - 1].toString().replaceAll(")", "");
     int x = todayPrice.indexOf(" ");
-    String todayPriceFinal = "${todayPrice.substring(x)}CURRENCY";
+    String todayPriceFinal = todayPrice.substring(x);
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -327,9 +327,12 @@ class CreateChart1TestState extends State<CreateChart1Test> {
             children: [
               Container(),
               const Spacer(),
-              Text(
-                todayPriceFinal,
-                style: const TextStyle(fontSize: 30, color: Colors.white),
+              ValueListenableBuilder(
+                builder: (context, value, child) => Text(
+                  todayPriceFinal + value,
+                  style: const TextStyle(fontSize: 30, color: Colors.white),
+                ),
+                valueListenable: currencyNotifier,
               ),
               const Spacer(),
               SizedBox(
