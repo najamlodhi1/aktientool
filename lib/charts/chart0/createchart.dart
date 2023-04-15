@@ -35,7 +35,7 @@ class CreateChart0State extends State<CreateChart0> {
         future: getFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            Future.delayed(Duration(seconds: 1)).then((value) {
+            Future.delayed(const Duration(seconds: 1)).then((value) {
               currencyNotifier.value = snapshot.data!.currency;
               currencyNotifier.notifyListeners();
             });
@@ -67,7 +67,7 @@ class CreateChart0State extends State<CreateChart0> {
                             crossAxisSpacing: 20,
                             shrinkWrap: true,
                             crossAxisCount:
-                                MediaQuery.of(context).size.width > 800 ? 3 : 2,
+                                MediaQuery.of(context).size.width > 800 ? 4 : 2,
                             children: [
                               // _buildGridViewItemName(snapshot.data!.isin),
                               _buildGridViewItem(snapshot.data!.companyName,
