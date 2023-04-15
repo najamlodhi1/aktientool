@@ -167,7 +167,8 @@ class CreateChart0State extends State<CreateChart0> {
             children: [
               Text(title,
                   style: TextStyle(
-                      color: Colors.black,
+                      color: const Color.fromARGB(255, 0, 0, 0), // foreground
+
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
@@ -194,7 +195,8 @@ class CreateChart0State extends State<CreateChart0> {
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.black, // foreground
+                backgroundColor:
+                    const Color.fromARGB(255, 0, 0, 0), // foreground
               ),
               onPressed: () {
                 launchUrl(Uri.parse(data.website));

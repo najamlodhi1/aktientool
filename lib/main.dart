@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -196,14 +197,19 @@ class HomePageState extends State<HomePage>
                         actions: [
                           if (tabController.index != 3)
                             IconButton(
-                              icon: Image.asset(
+                              icon: SvgPicture.asset(
+                                "assets/images/${selectedLocale.languageCode}.svg",
+                                fit: BoxFit.cover,
+                              ),
+                              iconSize: 40,
+                              /*Image.asset(
                                   'assets/images/${selectedLocale.languageCode}.svg'),
-                              iconSize: 50,
+                              */
                               onPressed: () {
                                 MyApp.of(context)!.setLocale(
-                                    selectedLocale.languageCode == 'en'
+                                    selectedLocale.languageCode == 'us'
                                         ? 'de'
-                                        : 'en');
+                                        : 'us');
                                 setState(() {});
                               },
                             )

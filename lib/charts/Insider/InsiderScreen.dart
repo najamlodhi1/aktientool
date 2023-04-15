@@ -76,10 +76,10 @@ class InsiderScreenState extends State<InsiderScreen> {
                   label: Text(trans.translate('Name'),
                       style: const TextStyle(color: Colors.white))),
               DataColumn(
-                  label: Text(trans.translate('Date'),
+                  label: Text(trans.translate('Transaction'),
                       style: const TextStyle(color: Colors.white))),
               DataColumn(
-                  label: Text(trans.translate('Transaction'),
+                  label: Text(trans.translate('Date'),
                       style: const TextStyle(color: Colors.white))),
               DataColumn(
                   label: Text(trans.translate('Trading Shares'),

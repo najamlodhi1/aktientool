@@ -35,14 +35,14 @@ class DataSource extends DataTableSource {
             'https://www.google.com/search?q=${_data[index].reportingName}',
             _data[index].reportingName);
       }),
-      DataCell(Text(_data[index].filingDate,
-          style: const TextStyle(color: Colors.white))),
       DataCell(Text(_data[index].transactionType,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               color: _data[index].transactionType == "S-Sale"
                   ? Colors.redAccent
                   : Colors.green))),
+      DataCell(Text(_data[index].filingDate,
+          style: const TextStyle(color: Colors.white))),
       DataCell(
         RichText(
           text: TextSpan(
