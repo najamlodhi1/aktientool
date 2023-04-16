@@ -384,7 +384,6 @@ class HomePageState extends State<HomePage>
                                   ],
                                 ),
                               ),
-                              const Spacer(),
                               const SizedBox(
                                 width: 200,
                               ),
