@@ -48,14 +48,6 @@ class IosAppAd extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "IOS APP",
-                          style: GoogleFonts.oswald(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16.0,
-                          ),
-                        ),
                         SizedBox(
                           height: 15.0,
                         ),

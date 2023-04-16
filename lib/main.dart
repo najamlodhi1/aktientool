@@ -1,27 +1,30 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, constant_identifier_names
 
 import 'dart:html' as html;
-import 'package:aktientool/authentication/screens/create_account.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
+import 'package:aktientool/webpage/components/ios_app_ad.dart';
+import 'package:aktientool/webpage/components/portfolio_stats.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:neon/neon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'authentication/screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'authentication/screens/create_account.dart';
+import 'authentication/screens/login.dart';
 import 'charts/allCharts.dart';
 import 'firebase_options.dart';
 import 'settings/app_localizations.dart';
-import 'webpage/start.dart';
 
 // flutter run -d chrome --web-renderer html
 main() async {
@@ -37,9 +40,24 @@ main() async {
 const List<Locale> SUPPORTED_LOCALES = [Locale('en'), Locale('de')];
 Locale selectedLocale = const Locale('de');
 
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+
+CollectionReference requests =
+    FirebaseFirestore.instance.collection('requests');
+
+Future<void> addRequests(String email, String id) {
+  return requests
+      .doc(email)
+      .set({'request': 3, 'created': DateTime.now()})
+      .then((value) => print("req data Added"))
+      .catchError((error) => print("req couldn't be added."));
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key, this.clicks});
   final String? clicks;
+
   @override
   MyAppState createState() => MyAppState();
   static MyAppState? of(BuildContext context) =>
@@ -47,6 +65,9 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  CollectionReference requests =
+      FirebaseFirestore.instance.collection('requests');
+
   void setLocale(String value) {
     setState(() {
       selectedLocale = Locale(value);
@@ -103,7 +124,6 @@ class HomePageState extends State<HomePage>
   bool mIsShowStripeCancelDialog = false;
   bool mIsShowStripeSuccessDialog = false;
 
-  late final tabController = TabController(length: 4, vsync: this);
   bool? isLoggedIn = false;
 
   @override
@@ -185,71 +205,103 @@ class HomePageState extends State<HomePage>
             );
             return const Home();
           } else {
-            return DefaultTabController(
-              length: 4,
-              child: Scaffold(
-                backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                body: NestedScrollView(
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return <Widget>[
-                      SliverAppBar(
-                        actions: [
-                          if (tabController.index != 3)
-                            IconButton(
-                              icon: SvgPicture.asset(
-                                "assets/images/${selectedLocale.languageCode}.svg",
-                                fit: BoxFit.cover,
-                              ),
-                              iconSize: 40,
-                              /*Image.asset(
-                                  'assets/images/${selectedLocale.languageCode}.svg'),
-                              */
-                              onPressed: () {
-                                MyApp.of(context)!.setLocale(
-                                    selectedLocale.languageCode == 'us'
-                                        ? 'de'
-                                        : 'us');
-                                setState(() {});
-                              },
-                            )
-                          /* TextButton(
-                              child: Text(
-                                selectedLocale.languageCode == 'en'
-                                    ? "English"
-                                    : "Deutsch",
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                MyApp.of(context)!.setLocale(
-                                    selectedLocale.languageCode == 'en'
-                                        ? 'de'
-                                        : 'en');
-                                setState(() {});
-                              },
-                            ),*/
-                        ],
-                        backgroundColor: Colors.black,
-                        title:
-                            Image.asset('assets/images/logo.png', height: 25),
-                        centerTitle: true,
-                        pinned: true,
-                        floating: true,
-                        bottom: TabBar(
-                          controller: tabController,
-                          isScrollable: true,
-                          tabs: <Widget>[
-                            const Tab(child: Text('Home')),
-                            Tab(child: Text(trans.translate('Login'))),
-                            Tab(child: Text(trans.translate('Register'))),
-                            Tab(child: Text(trans.translate('Test'))),
-                          ],
+            return Scaffold(
+              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+              appBar: AppBar(
+                  backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Image.asset('assets/images/logo.png', height: 30),
+                    ],
+                  ),
+                  leading: IconButton(
+                    icon: const Icon(Icons.accessibility),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllCharts(),
                         ),
+                      );
+                    },
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        "assets/images/${selectedLocale.languageCode}.svg",
+                        fit: BoxFit.cover,
                       ),
-                    ];
-                  },
-                  body: TabBarView(
-                    controller: tabController,
+                      iconSize: 60,
+                      onPressed: () {
+                        MyApp.of(context)!.setLocale(
+                            selectedLocale.languageCode == 'us' ? 'de' : 'us');
+                        setState(() {});
+                      },
+                    )
+                  ]),
+              body: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      actions: [
+                        const Spacer(),
+                        ButtonTheme(
+                          height: 20,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => CreateAccount(),
+                                ),
+                              );
+                            },
+                            child: Neon(
+                              text: 'REGISTRIEREN',
+                              color: Colors.blue,
+                              fontSize: 20,
+                              font: NeonFont.Beon,
+                              flickeringText: true,
+                              flickeringLetters: null,
+                              glowingDuration: const Duration(seconds: 3),
+                            ),
+                          ),
+                        ),
+                        ButtonTheme(
+                          height: 20,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: Neon(
+                              text: 'ANMELDEN',
+                              color: Colors.blue,
+                              fontSize: 20,
+                              font: NeonFont.Beon,
+                              flickeringText: true,
+                              flickeringLetters: null,
+                              glowingDuration: const Duration(seconds: 3),
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                      ],
+                      backgroundColor: Colors.black,
+                      centerTitle: true,
+                      pinned: true,
+                      floating: true,
+                      bottom: null,
+                    ),
+                  ];
+                },
+                body: SingleChildScrollView(
+                  child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -258,65 +310,134 @@ class HomePageState extends State<HomePage>
                           child: Wrap(
                             alignment: WrapAlignment.center,
                             children: [
+                              const SizedBox(
+                                width: 200,
+                              ),
                               SizedBox(
-                                width: 600,
+                                //width: 500,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
+                                    const SizedBox(
+                                      height: 150.0,
+                                    ),
                                     Text(
-                                      trans
-                                          .translate("AKTIENTOOL SUPPORTS YOU"),
+                                      trans.translate("A STOCK SCREENER"),
                                       style: GoogleFonts.oswald(
                                         color: kPrimaryColor,
                                         fontWeight: FontWeight.w900,
-                                        fontSize: 25.0,
+                                        fontSize: 50.0,
                                       ),
                                     ),
                                     Text(
                                       trans.translate(
-                                          "IN YOUR INVESTMENT DECISION"),
+                                          "that quickly and easily the right shares for your portfolio."),
+                                      style: GoogleFonts.oswald(
+                                        color: Colors.white,
+                                        fontSize: 35.0,
+                                        //fontWeight: FontWeight.w900,
+                                        height: 1.3,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 40.0,
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            kPrimaryColor, // foreground
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                CreateAccount(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        textAlign: TextAlign.left,
+                                        trans.translate("REGISTER"),
+                                        style: GoogleFonts.oswald(
+                                          color: Colors.white,
+                                          fontSize: 25.0,
+                                          //fontWeight: FontWeight.w900,
+                                          height: 1.3,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      trans.translate(
+                                          "REGISTER AND TRY FOR FREE WHITOUT ABO"),
                                       style: GoogleFonts.oswald(
                                         color: Colors.white,
                                         fontSize: 25.0,
-                                        fontWeight: FontWeight.w900,
+                                        //fontWeight: FontWeight.w900,
                                         height: 1.3,
                                       ),
                                     ),
                                     const SizedBox(
                                       height: 10.0,
                                     ),
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              const SizedBox(
+                                width: 200,
+                              ),
+                              SizedBox(
+                                  height: 600,
+                                  child: Image.asset(
+                                      "assets/images/website.png",
+                                      fit: BoxFit.contain)),
+                              const SizedBox(
+                                height: 700,
+                              ),
+                              Body(),
+                              IosAppAd(),
+                              const SizedBox(
+                                width: 200,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 28.0),
+                                child: PortfolioStats(),
+                              ),
+                              const SizedBox(
+                                height: 50.0,
+                              ),
+                              const SizedBox(
+                                width: 200,
+                              ),
+                              SizedBox(
+                                //width: 500,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const SizedBox(
+                                      height: 150.0,
+                                    ),
                                     Text(
-                                      trans.translate('hometext1'),
-                                      style: const TextStyle(
-                                        color: kCaptionColor,
-                                        fontSize: 15.0,
-                                        height: 1.5,
+                                      trans.translate("A STOCK SCREENER"),
+                                      style: GoogleFonts.oswald(
+                                        color: kPrimaryColor,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 50.0,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    SizedBox(
-                                      child: Wrap(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {},
-                                            child: MouseRegion(
-                                              cursor: SystemMouseCursors.click,
-                                              child: Text(
-                                                trans.translate(
-                                                    "Register and test for free"),
-                                                style: const TextStyle(
-                                                  height: 0.5,
-                                                  color: Colors.white,
-                                                  fontSize: 17.0,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
+                                    Text(
+                                      trans.translate(
+                                          "that quickly and easily the right shares for your portfolio."),
+                                      style: GoogleFonts.oswald(
+                                        color: Colors.white,
+                                        fontSize: 35.0,
+                                        //fontWeight: FontWeight.w900,
+                                        height: 1.3,
                                       ),
                                     ),
                                     const SizedBox(
@@ -338,11 +459,17 @@ class HomePageState extends State<HomePage>
                                             ),
                                             child: TextButton(
                                               onPressed: () {
-                                                tabController.index = 2;
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginScreen(),
+                                                  ),
+                                                );
                                               },
                                               child: Text(
                                                 trans
-                                                    .translate("Register")
+                                                    .translate("TEST FOR FREE")
                                                     .toUpperCase(),
                                                 style: const TextStyle(
                                                   color: Colors.white,
@@ -354,7 +481,7 @@ class HomePageState extends State<HomePage>
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 20,
                                         ),
                                         MouseRegion(
                                           cursor: SystemMouseCursors.click,
@@ -370,11 +497,11 @@ class HomePageState extends State<HomePage>
                                             ),
                                             child: TextButton(
                                               onPressed: () {
-                                                tabController.index = 1;
+                                                // Register
                                               },
                                               child: Text(
                                                 trans
-                                                    .translate("Login")
+                                                    .translate("DEMO")
                                                     .toUpperCase(),
                                                 style: const TextStyle(
                                                   color: kPrimaryColor,
@@ -391,55 +518,22 @@ class HomePageState extends State<HomePage>
                                 ),
                               ),
                               const SizedBox(
-                                width: 100,
+                                width: 200,
                               ),
                               SizedBox(
-                                  height: 400,
-                                  child: Image.asset("assets/images/image1.png",
+                                  height: 600,
+                                  child: Image.asset(
+                                      "assets/images/website.png",
                                       fit: BoxFit.contain)),
                               const SizedBox(height: 0.0),
-
-                              //CvSection(),
-
-                              //IosAppAd(),
-                              /*const SizedBox(
-            height: 70.0,
-          ),
-          WebsiteAd(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 28.0),
-            child: PortfolioStats(),
-          ),
-          const SizedBox(
-            height: 50.0,
-          ),
-          EducationSection(),
-          const SizedBox(
-            height: 50.0,
-          ),
-          SkillSection(),
-          const SizedBox(
-            height: 50.0,
-          ),
-          Sponsors(),
-          const SizedBox(
-            height: 50.0,
-          ),
-          TestimonialWidget(), */
                               const SizedBox(
                                 height: 450,
                               ),
-                              Body(),
                               Footer(),
-
-                              const SizedBox(height: 1, child: Start()),
                             ],
                           ),
                         ),
                       ),
-                      LoginScreen(),
-                      CreateAccount(),
-                      AllCharts(),
                     ],
                   ),
                 ),

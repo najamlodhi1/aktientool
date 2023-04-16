@@ -62,9 +62,9 @@ class Body extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Image.asset(
-                                    designProcesses[i].imagePath,
-                                    width: 40.0,
+                                  const Icon(
+                                    Icons.account_tree_outlined,
+                                    color: kPrimaryColor,
                                   ),
                                   const SizedBox(
                                     width: 15.0,

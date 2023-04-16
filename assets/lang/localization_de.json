@@ -1,8 +1,11 @@
 {
     "Home": "Heim",
     "Login": "Anmelden",
-    "Register": "Registrieren",
-    "Test": "Prüfen",
+    "REGISTER": "REGISTRIERE",
+    "REGISTER AND TRY FOR FREE WHITOUT ABO": "DICH KOSTENLOS ZUM TESTEN",
+    "A STOCK SCREENER": "Der AKTIEN-SCREENER",
+    "that quickly and easily the right shares for your portfolio.": "findet schnell die richtigen\nQualitätsaktien für dein Depot",
+    "Test": "Test",
     "disclaimer": "Die Inhalte stellen keine Anlageberatung oder Kaufempfehlung dar. Alle Angaben könnten komplett falsch sein!",
     "Exchange": "Börse",
     "Sektor": "Sektor",
