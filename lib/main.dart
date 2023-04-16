@@ -209,7 +209,7 @@ class HomePageState extends State<HomePage>
               backgroundColor: const Color.fromARGB(255, 0, 0, 0),
               appBar: AppBar(
                   backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                  title: Row(
+                  title: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
