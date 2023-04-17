@@ -22,6 +22,7 @@ import 'chart2/createchart.dart';
 import 'chart3/BarChartBalanceScreen.dart';
 import 'chart3/createchart.dart';
 import 'chart4/BarChartCashFlowScreen.dart';
+import 'ESGScore/ESGScoreScreen.dart';
 
 dynamic parentData;
 
@@ -83,6 +84,7 @@ class _AllChartsState extends State<AllCharts> {
                     BarChartIncomeScreen(parentData[5]), // Bar Chart income
                     CreateChart2(parentData[5]),
                     InsiderScreen(parentData[14]),
+                    ESGScoreScreen(parentData[15]),
                     BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
                     CreateChart3(parentData[6]),
                     BarChartCashFlowScreen(parentData[7]),

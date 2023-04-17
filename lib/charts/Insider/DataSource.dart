@@ -7,7 +7,8 @@ import 'InsiderModel.dart';
 class DataSource extends DataTableSource {
   final BuildContext context;
   final List<InsiderModel> _data;
-  DataSource(this.context, this._data);
+  final String currency;
+  DataSource(this.context, this._data, this.currency);
 
   @override
   DataRow? getRow(int index) {
@@ -56,14 +57,14 @@ class DataSource extends DataTableSource {
                   style: const TextStyle(fontWeight: FontWeight.bold)),
               TextSpan(
                   text:
-                      "${(_data[index].securitiesTransacted * _data[index].price).round()} CURRENCYY"),
+                      "${(_data[index].securitiesTransacted * _data[index].price).toStringAsFixed(2)} $currency"),
             ],
           ),
         ),
       ),
-      DataCell(Text("${_data[index].price} CURRENCYY",
+      DataCell(Text("${_data[index].price} $currency",
           style: const TextStyle(color: Colors.white))),
-      DataCell(Text("${_data[index].securitiesOwned}",
+      DataCell(Text(_data[index].securitiesOwned.toStringAsFixed(2),
           style: const TextStyle(color: Colors.white))),
     ]);
   }

@@ -41,59 +41,63 @@ class InsiderScreenState extends State<InsiderScreen> {
   }
 
   Widget bodyWidget(List<InsiderModel> data) {
-    final DataTableSource tempdata = DataSource(context, data);
-    return SingleChildScrollView(
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.teal,
-            style: BorderStyle.none,
-            width: 2,
-          ),
-          color: primaryColor,
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-              cardColor: primaryColor,
-              textTheme:
-                  const TextTheme(bodySmall: TextStyle(color: Colors.white))),
-          child: PaginatedDataTable(
-            arrowHeadColor: Colors.white,
-            header: Center(
-              child: Text(trans.translate('Insider'),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22,
-                      color: Colors.white)),
+    return ValueListenableBuilder(
+        valueListenable: currencyNotifier,
+        builder: (context, value, child) {
+          final DataTableSource tempdata = DataSource(context, data, value);
+          return SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.teal,
+                  style: BorderStyle.none,
+                  width: 2,
+                ),
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                    cardColor: primaryColor,
+                    textTheme: const TextTheme(
+                        bodySmall: TextStyle(color: Colors.white))),
+                child: PaginatedDataTable(
+                  arrowHeadColor: Colors.white,
+                  header: Center(
+                    child: Text(trans.translate('Insider'),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                            color: Colors.white)),
+                  ),
+                  source: tempdata,
+                  columns: [
+                    DataColumn(
+                        label: Text(trans.translate('Name'),
+                            style: const TextStyle(color: Colors.white))),
+                    DataColumn(
+                        label: Text(trans.translate('Transaction'),
+                            style: const TextStyle(color: Colors.white))),
+                    DataColumn(
+                        label: Text(trans.translate('Date'),
+                            style: const TextStyle(color: Colors.white))),
+                    DataColumn(
+                        label: Text(trans.translate('Trading Shares'),
+                            style: const TextStyle(color: Colors.white))),
+                    DataColumn(
+                        label: Text(trans.translate('Price'),
+                            style: const TextStyle(color: Colors.white))),
+                    DataColumn(
+                        label: Text(trans.translate('Owned Stocks'),
+                            style: const TextStyle(color: Colors.white))),
+                  ],
+                ),
+              ),
             ),
-            source: tempdata,
-            columns: [
-              DataColumn(
-                  label: Text(trans.translate('Name'),
-                      style: const TextStyle(color: Colors.white))),
-              DataColumn(
-                  label: Text(trans.translate('Transaction'),
-                      style: const TextStyle(color: Colors.white))),
-              DataColumn(
-                  label: Text(trans.translate('Date'),
-                      style: const TextStyle(color: Colors.white))),
-              DataColumn(
-                  label: Text(trans.translate('Trading Shares'),
-                      style: const TextStyle(color: Colors.white))),
-              DataColumn(
-                  label: Text(trans.translate('Price'),
-                      style: const TextStyle(color: Colors.white))),
-              DataColumn(
-                  label: Text(trans.translate('Owned Stocks'),
-                      style: const TextStyle(color: Colors.white))),
-            ],
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 }

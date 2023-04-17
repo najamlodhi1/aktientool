@@ -7,7 +7,8 @@ import 'CompanyModel.dart';
 class DataSource extends DataTableSource {
   final BuildContext context;
   final List<DividendModel> _data;
-  DataSource(this.context, this._data);
+  final String currency;
+  DataSource(this.context, this._data, this.currency);
 
   @override
   DataRow? getRow(int index) {

@@ -249,7 +249,6 @@ class ShowCompanies extends ConsumerWidget {
                             Center(
                               child: Text(
                                 "MC: \$${((snapshot.data![index].marketcap)! / 1000000000).toStringAsFixed(0)} B",
-
                                 //"${snapshot.data![index].price} \$",
                                 style: const TextStyle(
                                   color: Color.fromARGB(255, 0, 255, 145),

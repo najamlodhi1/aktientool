@@ -5,13 +5,13 @@ class InsiderModel {
   final String transactionDate;
   final String reportingCik;
   final String transactionType;
-  final int securitiesOwned;
+  final double securitiesOwned;
   final String companyCik;
   final String reportingName;
   final String typeOfOwner;
   final String acquistionOrDisposition;
   final String formType;
-  final int securitiesTransacted;
+  final double securitiesTransacted;
   final double price;
   final String securityName;
 
@@ -20,13 +20,13 @@ class InsiderModel {
       transactionDate: json["transactionDate"],
       reportingCik: json["reportingCik"],
       transactionType: json["transactionType"],
-      securitiesOwned: json["securitiesOwned"],
+      securitiesOwned: json["securitiesOwned"].toDouble(),
       companyCik: json["companyCik"],
       reportingName: json["reportingName"],
       typeOfOwner: json["typeOfOwner"],
       acquistionOrDisposition: json["acquistionOrDisposition"],
       formType: json["formType"],
-      securitiesTransacted: json["securitiesTransacted"],
+      securitiesTransacted: json["securitiesTransacted"].toDouble(),
       price: json["price"],
       securityName: json["securityName"]);
 
