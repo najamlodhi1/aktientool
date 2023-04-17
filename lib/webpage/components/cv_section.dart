@@ -12,7 +12,7 @@ final List<DesignProcess> designProcesses = [
     title: "BENUTZERFREUNDLICH",
     imagePath: "assets/images/design.png",
     subtitle:
-        "Wir haben uns bei der Gestaltung unserer Software bemüht, sie so intuitiv und benutzerfreundlich wie möglich zu gestalten, damit du dich nicht durch verwirrende Menüs oder unübersichtliche Daten kämpfen zu musst.",
+        "Wir haben uns bei der Gestaltung unserer Software bemüht, sie so intuitiv und benutzerfreundlich wie möglich zu gestalten, damit du dich nicht durch verwirrende Menüs oder unübersichtliche Daten kämpfen musst.",
   ),
   DesignProcess(
     title: "QUALITATIVE ANALYSE",

@@ -323,7 +323,7 @@ class HomePageState extends State<HomePage>
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const SizedBox(
-                                      height: 150.0,
+                                      height: 50.0,
                                     ),
                                     Text(
                                       trans.translate("A STOCK SCREENER"),
@@ -395,7 +395,7 @@ class HomePageState extends State<HomePage>
                                       "assets/images/website.png",
                                       fit: BoxFit.contain)),
                               const SizedBox(
-                                height: 700,
+                                height: 650,
                               ),
                               Body(),
                               IosAppAd(),
