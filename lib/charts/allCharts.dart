@@ -83,8 +83,8 @@ class _AllChartsState extends State<AllCharts> {
                     CompanyScreen(parentData[2]), // Dividend History
                     BarChartIncomeScreen(parentData[5]), // Bar Chart income
                     CreateChart2(parentData[5]),
-                    InsiderScreen(parentData[14]),
                     ESGScoreScreen(parentData[15]),
+                    InsiderScreen(parentData[14]),
                     BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
                     CreateChart3(parentData[6]),
                     BarChartCashFlowScreen(parentData[7]),

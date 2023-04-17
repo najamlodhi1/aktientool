@@ -1,3 +1,5 @@
+// bring greater transparency to financial markets, enabling the investment community to make better decisions
+
 // ignore_for_file: avoid_web_libraries_in_flutter, constant_identifier_names
 
 import 'dart:html' as html;

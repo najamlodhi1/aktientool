@@ -58,6 +58,9 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
                           fontSize: 22,
                           color: Colors.white)),
                   const SizedBox(height: 10),
+                  const Text(
+                      "ESG ratings measure a company’s commitment to environmental, social, and governance standards. These ESG ratings focus on a company’s exposure to ESG specific risks. These types of risks are not usually identified during traditional investment analysis but they can have a significant financial impact on companies that choose to ignore ESG."),
+                  const SizedBox(height: 10),
                   MediaQuery.of(context).size.width > 700
                       ? Row(
                           children: [
@@ -82,40 +85,260 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
   }
 
   Widget firstwidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          '${((tableData.first.environmentalScore + tableData.first.socialScore + tableData.first.governanceScore) / 3).toStringAsFixed(2)}\n/ 100',
-          style: const TextStyle(
-              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        Text(
-          'Environment ${tableData.first.environmentalScore.toStringAsFixed(2)}',
-          style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-        )
-      ],
+    Color egsColor = Colors.white;
+    String egsText = "";
+    var esgscore = ((tableData.first.environmentalScore +
+            tableData.first.socialScore +
+            tableData.first.governanceScore) /
+        3);
+
+    if (esgscore >= 71.0) {
+      egsColor = Colors.green;
+      egsText =
+          "An ESG leader is a company leading its industry in managing the most significant ESG risks and opportunities.";
+    } else if (esgscore >= 28.0 && esgscore < 71.0) {
+      egsColor = Colors.yellow;
+      egsText =
+          "An average ESG score means a company has a mixed or unexceptional track record of managing the most significant ESG risks and opportunities relative to industry peers.";
+    } else {
+      egsText =
+          "A laggard is a company lagging its industry based on its high exposure and failure to manage significant ESG risks.";
+
+      egsColor = Colors.red;
+    }
+
+    return Container(
+      decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+      child: Wrap(
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            //color: Colors.red,
+            decoration: const BoxDecoration(color: Colors.black),
+            child: Expanded(
+              child: Row(
+                children: [
+                  Container(
+                    child: Text(
+                      ' ${((tableData.first.environmentalScore + tableData.first.socialScore + tableData.first.governanceScore) / 3).toStringAsFixed(2)}\n / 100   ',
+                      style: TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: egsColor),
+                    ),
+                  ),
+                  Expanded(
+                    child: Wrap(
+                      children: [
+                        Text(
+                          egsText,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 76, 175, 139)),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      'Environment ${tableData.first.environmentalScore.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.white,
+                  ),
+                  //const Spacer(),
+                  Wrap(
+                    children: const [
+                      Text(
+                        textAlign: TextAlign.left,
+                        'Climate Change',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    textAlign: TextAlign.left,
+                    'Natural Capital',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    textAlign: TextAlign.left,
+                    'Pollution & Waste',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    'Env. Opportunities',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget secondwidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Social ${tableData.first.socialScore.toStringAsFixed(2)}',
-          style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        Text(
-          'Governance ${tableData.first.governanceScore.toStringAsFixed(2)}',
-          style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-        )
-      ],
+    return Container(
+      decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+      child: Wrap(
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 252, 126, 117)),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      'Social ${tableData.first.socialScore.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.white,
+                  ),
+                  //const Spacer(),
+                  Wrap(
+                    children: const [
+                      Text(
+                        textAlign: TextAlign.left,
+                        'Human Rights',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    textAlign: TextAlign.left,
+                    'Product Liability',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    textAlign: TextAlign.left,
+                    'Stakeholder Opposition',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    'Social Opportunities',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 70, 193, 250)),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      'Governance ${tableData.first.governanceScore.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.white,
+                  ),
+                  //const Spacer(),
+                  Wrap(
+                    children: const [
+                      Text(
+                        textAlign: TextAlign.left,
+                        'Corporate Governance',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    textAlign: TextAlign.left,
+                    'Corporate Behavior',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    textAlign: TextAlign.left,
+                    '',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    '',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -124,9 +347,9 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
       width: (tableData.length * 220) < MediaQuery.of(context).size.width
           ? MediaQuery.of(context).size.width
           : 9 * 220,
-      height: 9 * 52,
+      height: 5 * 52,
       child: DataTable2(
-        columnSpacing: 50,
+        columnSpacing: 20,
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
         fixedLeftColumns: 1,
@@ -144,21 +367,25 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
         columns: <DataColumn2>[
           MediaQuery.of(context).size.width < 1000
               ? DataColumn2(
-                  fixedWidth: 100,
-                  label: Text(trans.translate("Date"),
+                  fixedWidth: 150,
+                  label: Text(
+                      textAlign: TextAlign.left,
+                      trans.translate("Date"),
                       style: const TextStyle(color: Colors.white)),
                 )
               : DataColumn2(
-                  fixedWidth: 330,
-                  label: Text(trans.translate("Date"),
+                  fixedWidth: 150,
+                  label: Text(
+                      textAlign: TextAlign.left,
+                      trans.translate("Date"),
                       style: const TextStyle(color: Colors.white)),
                 ),
           for (int x = 0; x < tableData.length; x++) ...[
             DataColumn2(
-                label: Center(
-              child: Text(tableData[x].date,
+              label: Text(tableData[x].date,
+                  textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white)),
-            )),
+            ),
           ],
         ],
       ),
@@ -167,10 +394,9 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
 
   DataCell customcolumns(String title) {
     return DataCell(
-      Center(
-          child: Text(trans.translate(title),
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white))),
+      Text(trans.translate(title),
+          textAlign: TextAlign.left,
+          style: const TextStyle(color: Colors.white)),
     );
   }
 
@@ -178,48 +404,12 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
     return [
       DataRow(
         cells: [
-          customcolumns("CIK"),
+          customcolumns("ESG Score"),
           for (int x = 0; x < tableData.length; x++) ...[
             DataCell(
-              Center(
-                  child: Text(tableData[x].cik,
-                      style: const TextStyle(color: Colors.white))),
-            ),
-          ],
-        ],
-      ),
-      DataRow(
-        cells: [
-          customcolumns("Company Name"),
-          for (int x = 0; x < tableData.length; x++) ...[
-            DataCell(
-              Center(
-                  child: Text(tableData[x].companyName,
-                      style: const TextStyle(color: Colors.white))),
-            ),
-          ],
-        ],
-      ),
-      DataRow(
-        cells: [
-          customcolumns("Form Type"),
-          for (int x = 0; x < tableData.length; x++) ...[
-            DataCell(
-              Center(
-                  child: Text(tableData[x].formType,
-                      style: const TextStyle(color: Colors.white))),
-            ),
-          ],
-        ],
-      ),
-      DataRow(
-        cells: [
-          customcolumns("Accepted Date"),
-          for (int x = 0; x < tableData.length; x++) ...[
-            DataCell(
-              Center(
-                  child: Text(tableData[x].acceptedDate,
-                      style: const TextStyle(color: Colors.white))),
+              Text(tableData[x].ESGScore.toStringAsFixed(2),
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(color: Colors.white)),
             ),
           ],
         ],
@@ -229,10 +419,10 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
           customcolumns("Environmental Score"),
           for (int x = 0; x < tableData.length; x++) ...[
             DataCell(
-              Center(
-                  child: Text(
-                      tableData[x].environmentalScore.toStringAsFixed(2),
-                      style: const TextStyle(color: Colors.white))),
+              Text(
+                  textAlign: TextAlign.left,
+                  tableData[x].environmentalScore.toStringAsFixed(2),
+                  style: const TextStyle(color: Colors.white)),
             ),
           ],
         ],
@@ -242,9 +432,10 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
           customcolumns("Social Score"),
           for (int x = 0; x < tableData.length; x++) ...[
             DataCell(
-              Center(
-                  child: Text(tableData[x].socialScore.toStringAsFixed(2),
-                      style: const TextStyle(color: Colors.white))),
+              Text(
+                  textAlign: TextAlign.left,
+                  tableData[x].socialScore.toStringAsFixed(2),
+                  style: const TextStyle(color: Colors.white)),
             ),
           ],
         ],
@@ -254,25 +445,14 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
           customcolumns("Governance Score"),
           for (int x = 0; x < tableData.length; x++) ...[
             DataCell(
-              Center(
-                  child: Text(tableData[x].governanceScore.toStringAsFixed(2),
-                      style: const TextStyle(color: Colors.white))),
+              Text(
+                  textAlign: TextAlign.left,
+                  tableData[x].governanceScore.toStringAsFixed(2),
+                  style: const TextStyle(color: Colors.white)),
             ),
           ],
         ],
       ),
-      DataRow(
-        cells: [
-          customcolumns("ESG Score"),
-          for (int x = 0; x < tableData.length; x++) ...[
-            DataCell(
-              Center(
-                  child: Text(tableData[x].ESGScore.toStringAsFixed(2),
-                      style: const TextStyle(color: Colors.white))),
-            ),
-          ],
-        ],
-      )
     ];
   }
 }
