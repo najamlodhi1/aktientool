@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../webpage/components/footer.dart';
 import '../services/auth_service.dart';
+import 'login.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -38,6 +39,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   showSecond(BuildContext context) {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: Column(
@@ -46,13 +48,17 @@ class _CreateAccountState extends State<CreateAccount> {
             Text(trans.translate('2. Go to Login')),
           ],
         ),
-        content: const Icon(Icons.check_circle_outline),
+        //content: const Icon(Icons.done, size: 50),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ),
+              );
             },
-            child: const Text('OK'),
+            child: const Icon(Icons.done, size: 50),
           ),
         ],
       ),
@@ -104,7 +110,7 @@ class _CreateAccountState extends State<CreateAccount> {
             children: [
               const Center(
                 child: SizedBox(
-                  height: 30,
+                  height: 100,
                 ),
               ),
               SizedBox(
