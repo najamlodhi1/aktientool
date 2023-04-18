@@ -55,18 +55,7 @@ flutter:
   uses-material-design: true
 
 
-  fonts:
-    - family: WorkSansSemiBold
-      fonts:
-        - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
-    - family: WorkSansBold
-      fonts:
-        - asset: assets/fonts/Work_Sans/WorkSans-Bold.ttf
-    - family: WorkSansMedium
-      fonts:
-        - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
-          
+    
   assets:
     - assets/images/
     - assets/lang/
-    - assets/google_fonts/

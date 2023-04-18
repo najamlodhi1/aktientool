@@ -2,7 +2,6 @@
 
 import 'package:aktientool/main.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../webpage/constants.dart';
 import '../services/auth_service.dart';
@@ -49,8 +48,9 @@ class ForgotPassword extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
+        title: Image.asset('assets/images/logo.png', height: 30),
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         centerTitle: true,
       ),
@@ -64,44 +64,35 @@ class ForgotPassword extends StatelessWidget {
               ),
             ),
             SizedBox(
-                child: Column(
-              children: [
-                Text(
-                  "PASSWORT ZURÜCKSETZEN",
-                  style: GoogleFonts.oswald(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 25.0,
-                  ),
-                ),
-              ],
-            )),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'Email eingeben'),
+                    filled: true, //<-- SEE HERE
+                    fillColor: Colors.white,
+                    hintText: '1. Email eingeben'),
               ),
             ),
             const SizedBox(
-              height: 30.0,
+              height: 10.0,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                final status = await AuthService()
-                    .resetPassword(email: _emailController.text.trim());
-                if (status == AuthStatus.successful) {
-                  _showMyDialog();
-                }
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(kPrimaryColor),
+            SizedBox(
+              height: 50,
+              width: 250,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final status = await AuthService()
+                      .resetPassword(email: _emailController.text.trim());
+                  if (status == AuthStatus.successful) {
+                    _showMyDialog();
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(kPrimaryColor),
+                ),
+                child: const Text('2. PASSWORT ZURÜCKSETZEN',
+                    style: TextStyle(fontSize: 15)),
               ),
-              child: const Text('ZURÜCKSETZEN', style: TextStyle(fontSize: 15)),
             ),
           ],
         ),

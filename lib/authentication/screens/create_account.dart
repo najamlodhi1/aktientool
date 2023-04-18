@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../webpage/components/footer.dart';
 import '../services/auth_service.dart';
-import 'login.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -25,9 +24,6 @@ class _CreateAccountState extends State<CreateAccount> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  Color firstdone = Colors.black;
-  Color seconddone = Colors.black;
-  Color thirddone = Colors.black;
 
   CollectionReference requests =
       FirebaseFirestore.instance.collection('requests');
@@ -40,12 +36,35 @@ class _CreateAccountState extends State<CreateAccount> {
         .catchError((error) => print("req couldn't be added."));
   }
 
+  showSecond(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Column(
+          children: [
+            Text(trans.translate('1. Check your Junk Mail')),
+            Text(trans.translate('2. Go to Login')),
+          ],
+        ),
+        content: const Icon(Icons.check_circle_outline),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(trans.translate("REGISTERS")),
+        title: Image.asset('assets/images/logo.png', height: 30),
         backgroundColor: Colors.black,
         leading: Column(
           children: [
@@ -92,13 +111,12 @@ class _CreateAccountState extends State<CreateAccount> {
                   child: Wrap(
                 children: [
                   Text(
-                    trans.translate("1. Type Email & Password"),
+                    trans.translate("Kostenlos registrieren"),
                     style: GoogleFonts.oswald(
                       color: Colors.white,
                       fontSize: 25.0,
                     ),
                   ),
-                  Icon(Icons.done, color: firstdone, size: 40),
                 ],
               )),
               const SizedBox(
@@ -110,7 +128,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   controller: _emailController,
                   decoration: const InputDecoration(
                       filled: true, //<-- SEE HERE
-                      fillColor: Color.fromARGB(255, 150, 111, 255),
+                      fillColor: Colors.white,
                       hintText: 'Email'),
                 ),
               ),
@@ -124,7 +142,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   obscureText: true,
                   decoration: const InputDecoration(
                       filled: true, //<-- SEE HERE
-                      fillColor: Color.fromARGB(255, 150, 111, 255),
+                      fillColor: Colors.white,
                       hintText: 'Password'),
                 ),
               ),
@@ -183,114 +201,118 @@ class _CreateAccountState extends State<CreateAccount> {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 250,
-                height: 40,
-                child: Wrap(
-                  children: [
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            //registerWithEmailAndPassword();
-                            setState(() {
-                              firstdone = Colors.greenAccent;
-                            });
-                            final message = await AuthService().registration(
-                                email: _emailController.text,
-                                password: _passwordController.text);
-                            if (message is UserCredential) {
-                              addRequests(
-                                  _emailController.text, message.user!.uid);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(trans.translate(
-                                        'Verification Email is sent. Please verify to continue'))),
-                              );
-                              setState(() {
-                                seconddone = Colors.greenAccent;
-                              });
-
-                              AuthService().signOut();
-                            } else if (message is String) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(trans.translate(message))),
-                              );
-                            }
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                const Color.fromARGB(255, 114, 54, 244)),
+              Stack(
+                alignment: Alignment.topCenter,
+                children: <Widget>[
+                  SizedBox(
+                    width: 250,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10.0),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: CustomTheme.loginGradientStart,
+                            offset: Offset(1.0, 6.0),
+                            blurRadius: 20.0,
                           ),
-                          child: SizedBox(
-                            width: 250,
-                            child: Text(
-                              trans.translate('2. Become a Member'),
-                              style: GoogleFonts.oswald(
-                                color: Colors.white,
-                                fontSize: 25.0,
-                              ),
-                            ),
+                          BoxShadow(
+                            color: CustomTheme.loginGradientEnd,
+                            offset: Offset(1.0, 6.0),
+                            blurRadius: 20.0,
                           ),
-                        ),
-                      ],
-                    ),
-                    Icon(Icons.done, color: seconddone, size: 40),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              Wrap(
-                children: [
-                  Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          thirddone = Colors.greenAccent;
-                        },
-                        child: Text(
-                          trans.translate("3. Check your Junk Mail"),
-                          style: GoogleFonts.oswald(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                          ),
-                        ),
+                        ],
+                        gradient: LinearGradient(
+                            colors: <Color>[
+                              CustomTheme.loginGradientEnd,
+                              CustomTheme.loginGradientStart
+                            ],
+                            begin: FractionalOffset(0.2, 0.2),
+                            end: FractionalOffset(1.0, 1.0),
+                            stops: <double>[0.0, 1.0],
+                            tileMode: TileMode.clamp),
                       ),
-                    ],
-                  ),
-                  Icon(Icons.done, color: thirddone, size: 40),
+                      child: MaterialButton(
+                        highlightColor: Colors.transparent,
+                        splashColor: CustomTheme.loginGradientEnd,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 42.0),
+                          child: Text(
+                            trans.translate("REGISTERS"),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 22.0,
+                                fontFamily: 'WorkSansBold'),
+                          ),
+                        ),
+                        onPressed: () async {
+                          //registerWithEmailAndPassword();
+
+                          final message = await AuthService().registration(
+                              email: _emailController.text,
+                              password: _passwordController.text);
+                          if (message is UserCredential) {
+                            addRequests(
+                                _emailController.text, message.user!.uid);
+                            showSecond(context);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(trans.translate(
+                                      'Verification Email is sent. Please verify to continue'))),
+                            );
+                            AuthService().signOut();
+                          } else if (message is String) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(trans.translate(message))),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 250,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    trans.translate("4. Go to Login"),
-                    style: GoogleFonts.oswald(
-                      color: Colors.white,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      trans.translate("Hast Du ein Benutzerkonto? Einloggen"),
+                      style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontFamily: 'WorkSansMedium'),
+                    )),
               ),
-              Footer()
+              Footer(),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class CustomTheme {
+  const CustomTheme();
+
+  static const Color loginGradientStart = Color.fromARGB(255, 157, 102, 251);
+  static const Color loginGradientEnd = Color(0xFFf7418c);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
+
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: <Color>[loginGradientStart, loginGradientEnd],
+    stops: <double>[0.0, 1.0],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }

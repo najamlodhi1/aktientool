@@ -2,12 +2,11 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../settings/app_localizations.dart';
 import '../../webpage/components/footer.dart';
-
-import '../../webpage/constants.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
@@ -27,32 +26,24 @@ class LoginScreen extends StatelessWidget {
     trans = AppLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: Image.asset('assets/images/logo.png', height: 30),
+        backgroundColor: Colors.black,
+        leading: Column(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       body: SingleChildScrollView(
           child: Container(
         constraints:
-            BoxConstraints(minHeight: MediaQuery.of(context).size.height
-                //set minimum height equal to 100% of VH
-                ),
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         width: MediaQuery.of(context).size.width,
-        //make width of outer wrapper to 100%
-
-        /*
-        
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color.fromARGB(255, 0, 255, 225),
-              Color.fromARGB(255, 64, 255, 226),
-              Color.fromARGB(255, 54, 244, 200),
-              Color.fromARGB(255, 82, 255, 189),
-            ],
-          ),
-        ), //show linear gradient background of page
-*/
-
         child: Column(children: <Widget>[
           const Center(
             child: SizedBox(
@@ -65,8 +56,7 @@ class LoginScreen extends StatelessWidget {
               Text(
                 "${trans.translate("WELCOME BACK")} :)",
                 style: GoogleFonts.oswald(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w900,
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: 25.0,
                 ),
               ),
@@ -80,7 +70,9 @@ class LoginScreen extends StatelessWidget {
             child: TextField(
               controller: _emailController,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Email'),
+                  filled: true, //<-- SEE HERE
+                  fillColor: Colors.white,
+                  hintText: 'Email'),
             ),
           ),
           const SizedBox(
@@ -91,57 +83,13 @@ class LoginScreen extends StatelessWidget {
             child: TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                hintText: trans.translate('Password'),
-              ),
+              decoration: const InputDecoration(
+                  filled: true, //<-- SEE HERE
+                  fillColor: Colors.white,
+                  hintText: 'Password'),
             ),
           ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ForgotPassword(),
-                ),
-              );
-            },
-            child: Text(
-              trans.translate('Forgot Password?'),
-              style: const TextStyle(fontSize: 17, color: kPrimaryColor),
-            ),
-          ),
-          const SizedBox(
-            height: 30.0,
-          ),
-          SizedBox(
-            width: 200,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () async {
-                final pref = await SharedPreferences.getInstance();
-                final message = await AuthService().login(
-                    email: _emailController.text,
-                    password: _passwordController.text);
-                if (message is UserCredential) {
-                  pref.setBool('isLogin', true);
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const Home()));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(trans.translate(message))));
-                }
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black),
-              ),
-              child: Text(trans.translate('Login').toUpperCase(),
-                  style: const TextStyle(fontSize: 15)),
-            ),
-          ),
-          const SizedBox(height: 15),
+
           /*
           SizedBox(
             width: 200,
@@ -173,12 +121,201 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 15)),
             ),
           ),*/
-          const SizedBox(
-            height: 30.0,
+
+          Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
+              SizedBox(
+                width: 250,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: CustomTheme.loginGradientStart,
+                        offset: Offset(1.0, 6.0),
+                        blurRadius: 20.0,
+                      ),
+                      BoxShadow(
+                        color: CustomTheme.loginGradientEnd,
+                        offset: Offset(1.0, 6.0),
+                        blurRadius: 20.0,
+                      ),
+                    ],
+                    gradient: LinearGradient(
+                        colors: <Color>[
+                          CustomTheme.loginGradientEnd,
+                          CustomTheme.loginGradientStart
+                        ],
+                        begin: FractionalOffset(0.2, 0.2),
+                        end: FractionalOffset(1.0, 1.0),
+                        stops: <double>[0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  child: MaterialButton(
+                    highlightColor: Colors.transparent,
+                    splashColor: CustomTheme.loginGradientEnd,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 42.0),
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontFamily: 'WorkSansBold'),
+                      ),
+                    ),
+                    onPressed: () async {
+                      final pref = await SharedPreferences.getInstance();
+                      final message = await AuthService().login(
+                          email: _emailController.text,
+                          password: _passwordController.text);
+                      if (message is UserCredential) {
+                        pref.setBool('isLogin', true);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(trans.translate(message))));
+                      }
+                    },
+                  ),
+                ),
+              )
+            ],
           ),
-          Footer()
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ForgotPassword(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontFamily: 'WorkSansMedium'),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: <Color>[
+                          Colors.white10,
+                          Colors.white,
+                        ],
+                        begin: FractionalOffset(0.0, 0.0),
+                        end: FractionalOffset(1.0, 1.0),
+                        stops: <double>[0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  width: 100.0,
+                  height: 1.0,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                  child: Text(
+                    'Or',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontFamily: 'WorkSansMedium'),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: <Color>[
+                          Colors.white,
+                          Colors.white10,
+                        ],
+                        begin: FractionalOffset(0.0, 0.0),
+                        end: FractionalOffset(1.0, 1.0),
+                        stops: <double>[0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  width: 100.0,
+                  height: 1.0,
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, right: 40.0),
+                child: GestureDetector(
+                  onTap: () => null,
+                  child: Container(
+                    padding: const EdgeInsets.all(15.0),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: const Icon(
+                      FontAwesomeIcons.facebookF,
+                      color: Color(0xFF0084ff),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: GestureDetector(
+                  onTap: () => null,
+                  child: Container(
+                    padding: const EdgeInsets.all(15.0),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: const Icon(
+                      FontAwesomeIcons.google,
+                      color: Color(0xFF0084ff),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Footer(),
         ]),
       )),
     );
   }
+}
+
+class CustomTheme {
+  const CustomTheme();
+
+  static const Color loginGradientStart = Color.fromARGB(255, 157, 102, 251);
+  static const Color loginGradientEnd = Color(0xFFf7418c);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
+
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: <Color>[loginGradientStart, loginGradientEnd],
+    stops: <double>[0.0, 1.0],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }

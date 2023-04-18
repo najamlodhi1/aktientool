@@ -25,7 +25,6 @@ import 'package:flutter/material.dart';
 import 'authentication/screens/create_account.dart';
 import 'charts/allCharts.dart';
 import 'firebase_options.dart';
-import 'authentication/login/login_page.dart';
 import 'settings/app_localizations.dart';
 
 // flutter run -d chrome --web-renderer html
@@ -277,7 +276,7 @@ class HomePageState extends State<HomePage>
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
+                                  builder: (context) => LoginScreen(),
                                 ),
                               );
                             },
