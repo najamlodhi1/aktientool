@@ -212,9 +212,9 @@ class HomePageState extends State<HomePage>
               appBar: PreferredSize(
                 preferredSize: Size(screenSize.width, 1000),
                 child: Container(
-                  color: Colors.blue,
+                  color: Colors.black,
                   child: Padding(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(2),
                     child: Row(
                       children: [
                         IconButton(
@@ -243,27 +243,6 @@ class HomePageState extends State<HomePage>
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.white)),
                             ],
-                          ),
-                        ),
-                        ButtonTheme(
-                          height: 20,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-                            child: Neon(
-                              text: 'ANMELDEN',
-                              color: Colors.purple,
-                              fontSize: 20,
-                              font: NeonFont.NightClub70s,
-                              flickeringText: true,
-                              flickeringLetters: null,
-                              glowingDuration: const Duration(seconds: 3),
-                            ),
                           ),
                         ),
                         InkWell(
