@@ -154,6 +154,7 @@ class HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
+    var screenSize = MediaQuery.of(context).size;
 
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -208,7 +209,88 @@ class HomePageState extends State<HomePage>
           } else {
             return Scaffold(
               backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-              appBar: AppBar(
+              appBar: PreferredSize(
+                preferredSize: Size(screenSize.width, 1000),
+                child: Container(
+                  color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.accessibility,
+                              color: Colors.white),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AllCharts(),
+                              ),
+                            );
+                          },
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {},
+                                child: Image.asset('assets/images/logo.png',
+                                    height: 30),
+                              ),
+                              SizedBox(width: screenSize.width / 20),
+                              const Text("BLOG",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            ],
+                          ),
+                        ),
+                        ButtonTheme(
+                          height: 20,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: Neon(
+                              text: 'ANMELDEN',
+                              color: Colors.purple,
+                              fontSize: 20,
+                              font: NeonFont.NightClub70s,
+                              flickeringText: true,
+                              flickeringLetters: null,
+                              glowingDuration: const Duration(seconds: 3),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                            onTap: () {},
+                            child: IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/images/${selectedLocale.languageCode}.svg",
+                                fit: BoxFit.cover,
+                              ),
+
+                              //iconSize: 40,
+                              onPressed: () {
+                                MyApp.of(context)!.setLocale(
+                                    selectedLocale.languageCode == 'us'
+                                        ? 'de'
+                                        : 'us');
+                                setState(() {});
+                              },
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              /*
+              AppBar(
                   backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   title: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -217,16 +299,20 @@ class HomePageState extends State<HomePage>
                       Image.asset('assets/images/logo.png', height: 30),
                     ],
                   ),
-                  leading: IconButton(
-                    icon: const Icon(Icons.accessibility),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AllCharts(),
-                        ),
-                      );
-                    },
+                  leading: Column(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.accessibility),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AllCharts(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   actions: [
                     IconButton(
@@ -242,6 +328,8 @@ class HomePageState extends State<HomePage>
                       },
                     )
                   ]),
+
+                  */
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -249,27 +337,6 @@ class HomePageState extends State<HomePage>
                     SliverAppBar(
                       actions: [
                         const Spacer(),
-                        ButtonTheme(
-                          height: 20,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const CreateAccount(),
-                                ),
-                              );
-                            },
-                            child: Neon(
-                              text: 'REGISTRIEREN',
-                              color: Colors.purple,
-                              fontSize: 20,
-                              font: NeonFont.NightClub70s,
-                              flickeringText: true,
-                              flickeringLetters: null,
-                              glowingDuration: const Duration(seconds: 3),
-                            ),
-                          ),
-                        ),
                         ButtonTheme(
                           height: 20,
                           child: TextButton(
@@ -328,7 +395,6 @@ class HomePageState extends State<HomePage>
                                       trans.translate("A STOCK SCREENER"),
                                       style: GoogleFonts.oswald(
                                         color: kPrimaryColor,
-                                        fontWeight: FontWeight.w900,
                                         fontSize: 50.0,
                                       ),
                                     ),

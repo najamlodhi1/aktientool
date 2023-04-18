@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../webpage/components/footer.dart';
 import '../services/auth_service.dart';
-import 'login.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -51,11 +50,9 @@ class _CreateAccountState extends State<CreateAccount> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                ),
-              );
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/', ModalRoute.withName('/'));
+              //Navigator.of(context).pop();
             },
             child: const Icon(Icons.done,
                 size: 50, color: Color.fromARGB(255, 105, 240, 179)),
