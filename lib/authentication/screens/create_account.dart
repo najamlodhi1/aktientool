@@ -44,8 +44,7 @@ class _CreateAccountState extends State<CreateAccount> {
       builder: (BuildContext context) => AlertDialog(
         title: Column(
           children: [
-            Text(trans.translate('1. Check your Junk Mail')),
-            Text(trans.translate('2. Go to Login')),
+            Text(trans.translate('Verify your email for Aktientool')),
           ],
         ),
         //content: const Icon(Icons.done, size: 50),
@@ -58,7 +57,8 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
               );
             },
-            child: const Icon(Icons.done, size: 50),
+            child: const Icon(Icons.done,
+                size: 50, color: Color.fromARGB(255, 105, 240, 179)),
           ),
         ],
       ),
