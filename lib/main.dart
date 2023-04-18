@@ -3,9 +3,9 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, constant_identifier_names
 
 import 'dart:html' as html;
+import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
-import 'package:aktientool/webpage/body.dart';
 import 'package:aktientool/webpage/components/footer.dart';
 import 'package:aktientool/webpage/components/ios_app_ad.dart';
 import 'package:aktientool/webpage/components/portfolio_stats.dart';
@@ -23,9 +23,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'authentication/screens/create_account.dart';
-import 'authentication/screens/login.dart';
 import 'charts/allCharts.dart';
 import 'firebase_options.dart';
+import 'authentication/login/login_page.dart';
 import 'settings/app_localizations.dart';
 
 // flutter run -d chrome --web-renderer html
@@ -235,7 +235,7 @@ class HomePageState extends State<HomePage>
                         "assets/images/${selectedLocale.languageCode}.svg",
                         fit: BoxFit.cover,
                       ),
-                      iconSize: 60,
+                      iconSize: 40,
                       onPressed: () {
                         MyApp.of(context)!.setLocale(
                             selectedLocale.languageCode == 'us' ? 'de' : 'us');
@@ -256,15 +256,15 @@ class HomePageState extends State<HomePage>
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => CreateAccount(),
+                                  builder: (context) => const CreateAccount(),
                                 ),
                               );
                             },
                             child: Neon(
                               text: 'REGISTRIEREN',
-                              color: Colors.blue,
+                              color: Colors.purple,
                               fontSize: 20,
-                              font: NeonFont.Beon,
+                              font: NeonFont.NightClub70s,
                               flickeringText: true,
                               flickeringLetters: null,
                               glowingDuration: const Duration(seconds: 3),
@@ -277,15 +277,15 @@ class HomePageState extends State<HomePage>
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
+                                  builder: (context) => const LoginPage(),
                                 ),
                               );
                             },
                             child: Neon(
                               text: 'ANMELDEN',
-                              color: Colors.blue,
+                              color: Colors.purple,
                               fontSize: 20,
-                              font: NeonFont.Beon,
+                              font: NeonFont.NightClub70s,
                               flickeringText: true,
                               flickeringLetters: null,
                               glowingDuration: const Duration(seconds: 3),
@@ -355,7 +355,7 @@ class HomePageState extends State<HomePage>
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                CreateAccount(),
+                                                const CreateAccount(),
                                           ),
                                         );
                                       },
@@ -397,7 +397,7 @@ class HomePageState extends State<HomePage>
                               const SizedBox(
                                 height: 650,
                               ),
-                              Body(),
+                              //Body(),
                               IosAppAd(),
                               const SizedBox(
                                 width: 200,

@@ -9,16 +9,25 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../webpage/components/footer.dart';
-import '../../webpage/constants.dart';
 import '../services/auth_service.dart';
+import 'login.dart';
 
-class CreateAccount extends StatelessWidget {
+class CreateAccount extends StatefulWidget {
+  const CreateAccount({super.key});
+
+  @override
+  State<CreateAccount> createState() => _CreateAccountState();
+}
+
+class _CreateAccountState extends State<CreateAccount> {
+  @override
   late AppLocalizations trans;
-
-  CreateAccount({super.key});
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  Color firstdone = Colors.black;
+  Color seconddone = Colors.black;
+  Color thirddone = Colors.black;
 
   CollectionReference requests =
       FirebaseFirestore.instance.collection('requests');
@@ -35,7 +44,19 @@ class CreateAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: Text(trans.translate("REGISTERS")),
+        backgroundColor: Colors.black,
+        leading: Column(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       body: SingleChildScrollView(
         child: Container(
           constraints:
@@ -68,16 +89,16 @@ class CreateAccount extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                  child: Column(
+                  child: Wrap(
                 children: [
                   Text(
-                    trans.translate("JOIN NOW FOR FREE"),
+                    trans.translate("1. Type Email & Password"),
                     style: GoogleFonts.oswald(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
                       fontSize: 25.0,
                     ),
                   ),
+                  Icon(Icons.done, color: firstdone, size: 40),
                 ],
               )),
               const SizedBox(
@@ -88,7 +109,9 @@ class CreateAccount extends StatelessWidget {
                 child: TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(), hintText: 'Email'),
+                      filled: true, //<-- SEE HERE
+                      fillColor: Color.fromARGB(255, 150, 111, 255),
+                      hintText: 'Email'),
                 ),
               ),
               const SizedBox(
@@ -99,10 +122,10 @@ class CreateAccount extends StatelessWidget {
                 child: TextField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: trans.translate('Password'),
-                  ),
+                  decoration: const InputDecoration(
+                      filled: true, //<-- SEE HERE
+                      fillColor: Color.fromARGB(255, 150, 111, 255),
+                      hintText: 'Password'),
                 ),
               ),
               const SizedBox(
@@ -117,11 +140,13 @@ class CreateAccount extends StatelessWidget {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             text: trans.translate('create1'),
-                            style: DefaultTextStyle.of(context).style,
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 12),
                             children: <TextSpan>[
                               TextSpan(
                                 text: trans.translate('create2'),
-                                style: const TextStyle(color: kPrimaryColor),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 12),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.of(context).push(
@@ -134,7 +159,8 @@ class CreateAccount extends StatelessWidget {
                               TextSpan(text: trans.translate('create3')),
                               TextSpan(
                                 text: trans.translate('create4'),
-                                style: const TextStyle(color: kPrimaryColor),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 12),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.of(context).push(
@@ -158,33 +184,106 @@ class CreateAccount extends StatelessWidget {
                 height: 10,
               ),
               SizedBox(
-                width: 200,
+                width: 250,
                 height: 40,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    //registerWithEmailAndPassword();
+                child: Wrap(
+                  children: [
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            //registerWithEmailAndPassword();
+                            setState(() {
+                              firstdone = Colors.greenAccent;
+                            });
+                            final message = await AuthService().registration(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+                            if (message is UserCredential) {
+                              addRequests(
+                                  _emailController.text, message.user!.uid);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(trans.translate(
+                                        'Verification Email is sent. Please verify to continue'))),
+                              );
+                              setState(() {
+                                seconddone = Colors.greenAccent;
+                              });
 
-                    final message = await AuthService().registration(
-                        email: _emailController.text,
-                        password: _passwordController.text);
-                    if (message is UserCredential) {
-                      addRequests(_emailController.text, message.user!.uid);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(trans.translate(
-                                'Verification Email is sent. Please verify to continue'))),
-                      );
-                      AuthService().signOut();
-                    } else if (message is String) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(trans.translate(message))),
-                      );
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black),
+                              AuthService().signOut();
+                            } else if (message is String) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(trans.translate(message))),
+                              );
+                            }
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 114, 54, 244)),
+                          ),
+                          child: SizedBox(
+                            width: 250,
+                            child: Text(
+                              trans.translate('2. Become a Member'),
+                              style: GoogleFonts.oswald(
+                                color: Colors.white,
+                                fontSize: 25.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Icon(Icons.done, color: seconddone, size: 40),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 60,
+              ),
+              Wrap(
+                children: [
+                  Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          thirddone = Colors.greenAccent;
+                        },
+                        child: Text(
+                          trans.translate("3. Check your Junk Mail"),
+                          style: GoogleFonts.oswald(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Text(trans.translate('BECOME A MEMBER')),
+                  Icon(Icons.done, color: thirddone, size: 40),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 250,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    trans.translate("4. Go to Login"),
+                    style: GoogleFonts.oswald(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                    ),
+                  ),
                 ),
               ),
               Footer()

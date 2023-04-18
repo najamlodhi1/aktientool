@@ -41,6 +41,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   screenshot: ^1.3.0
   neon: ^0.1.0
+  ionicons: ^0.1.2
 
 
 dev_dependencies:
@@ -53,6 +54,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+
+  fonts:
+    - family: WorkSansSemiBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
+    - family: WorkSansBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Bold.ttf
+    - family: WorkSansMedium
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
+          
   assets:
     - assets/images/
     - assets/lang/
+    - assets/google_fonts/
