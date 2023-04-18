@@ -1,5 +1,5 @@
 import 'package:aktientool/authentication/login/widgets/sign_in.dart';
-import 'package:aktientool/authentication/login/widgets/sign_up.dart';
+import 'package:aktientool/authentication/screens/login.dart';
 import 'package:flutter/material.dart';
 
 class CustomTheme {
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     ConstrainedBox(
                       constraints: const BoxConstraints.expand(),
-                      child: const SignUp(),
+                      child: LoginScreen(),
                     ),
                   ],
                 ),
@@ -171,11 +171,11 @@ class _LoginPageState extends State<LoginPage>
 
   void _onSignInButtonPress() {
     _pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+        duration: const Duration(milliseconds: 1), curve: Curves.decelerate);
   }
 
   void _onSignUpButtonPress() {
     _pageController.animateToPage(1,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+        duration: const Duration(milliseconds: 1), curve: Curves.decelerate);
   }
 }

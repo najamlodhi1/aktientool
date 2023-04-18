@@ -344,7 +344,7 @@ class HomePageState extends State<HomePage>
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 40.0,
+                                      height: 50.0,
                                     ),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
@@ -361,10 +361,10 @@ class HomePageState extends State<HomePage>
                                       },
                                       child: Text(
                                         textAlign: TextAlign.left,
-                                        trans.translate("REGISTER"),
+                                        trans.translate("REGISTERS"),
                                         style: GoogleFonts.oswald(
                                           color: Colors.white,
-                                          fontSize: 25.0,
+                                          fontSize: 40.0,
                                           //fontWeight: FontWeight.w900,
                                           height: 1.3,
                                         ),
