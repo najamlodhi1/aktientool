@@ -10,6 +10,7 @@ import 'package:aktientool/webpage/components/ios_app_ad.dart';
 import 'package:aktientool/webpage/components/portfolio_stats.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/webpage/constants.dart';
@@ -23,6 +24,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'authentication/screens/create_account.dart';
 import 'charts/allCharts.dart';
+import 'datenschutz/datenschutzerklaerung.dart';
 import 'datenschutz/myformpage.dart';
 import 'firebase_options.dart';
 import 'settings/app_localizations.dart';
@@ -130,6 +132,10 @@ class HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, () {
+      // ignore: deprecated_member_use
+      checkCookiesx(context);
+    });
     String currentUrl = html.window.location.href;
     if (currentUrl.contains("ret=cancel")) {
       setState(() {
@@ -635,6 +641,58 @@ class HomePageState extends State<HomePage>
             );
           }
         });
+  }
+
+  void checkCookiesx(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: const Text("Verwendung von Cookies"),
+          content: const Text(
+            'Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu.',
+          ),
+          actions: <Widget>[
+            Wrap(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Datenschutzerklaerung(),
+                      ),
+                    );
+                  },
+                  child: const Text("Datenschutzerklärung"),
+                ),
+              ],
+            ),
+            // usually buttons at the bottom of the dialog
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                //ref.read(cookieProvider.state).state = true;
+                if (kDebugMode) {
+                  print("Alle Cookies erlauben");
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: kPrimaryColor,
+                fixedSize: const Size(200, 40),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
