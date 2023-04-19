@@ -5,7 +5,6 @@ import 'dart:html' as html;
 import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
-import 'package:aktientool/webpage/components/footer.dart';
 import 'package:aktientool/webpage/components/ios_app_ad.dart';
 import 'package:aktientool/webpage/components/portfolio_stats.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -623,7 +622,7 @@ class HomePageState extends State<HomePage>
                               const SizedBox(
                                 height: 450,
                               ),
-                              Footer(),
+                              //Footer(),
                             ],
                           ),
                         ),
