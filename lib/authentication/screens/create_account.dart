@@ -50,8 +50,8 @@ class _CreateAccountState extends State<CreateAccount> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/', ModalRoute.withName('/'));
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/', (Route<dynamic> route) => false);
               //Navigator.of(context).pop();
             },
             child: const Icon(Icons.done,

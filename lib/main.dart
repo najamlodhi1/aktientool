@@ -402,44 +402,79 @@ class HomePageState extends State<HomePage>
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 50.0,
-                                    ),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            kPrimaryColor, // foreground
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CreateAccount(),
-                                          ),
-                                        );
-                                      },
-                                      child: Text(
-                                        textAlign: TextAlign.left,
-                                        trans.translate("REGISTERS"),
-                                        style: GoogleFonts.oswald(
-                                          color: Colors.white,
-                                          fontSize: 40.0,
-                                          //fontWeight: FontWeight.w900,
-                                          height: 1.3,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      trans.translate(
-                                          "REGISTER AND TRY FOR FREE WHITOUT ABO"),
-                                      style: GoogleFonts.oswald(
-                                        color: Colors.white,
-                                        fontSize: 25.0,
-                                        //fontWeight: FontWeight.w900,
-                                        height: 1.3,
-                                      ),
-                                    ),
-                                    const SizedBox(
                                       height: 10.0,
+                                    ),
+                                    Stack(
+                                      alignment: Alignment.topCenter,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: 250,
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 10.0),
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              boxShadow: <BoxShadow>[
+                                                BoxShadow(
+                                                  color: CustomTheme
+                                                      .loginGradientStart,
+                                                  offset: Offset(1.0, 6.0),
+                                                  blurRadius: 20.0,
+                                                ),
+                                                BoxShadow(
+                                                  color: CustomTheme
+                                                      .loginGradientEnd,
+                                                  offset: Offset(1.0, 6.0),
+                                                  blurRadius: 20.0,
+                                                ),
+                                              ],
+                                              gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    CustomTheme
+                                                        .loginGradientEnd,
+                                                    CustomTheme
+                                                        .loginGradientStart
+                                                  ],
+                                                  begin: FractionalOffset(
+                                                      0.2, 0.2),
+                                                  end: FractionalOffset(
+                                                      1.0, 1.0),
+                                                  stops: <double>[0.0, 1.0],
+                                                  tileMode: TileMode.clamp),
+                                            ),
+                                            child: MaterialButton(
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              splashColor:
+                                                  CustomTheme.loginGradientEnd,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10.0,
+                                                        horizontal: 42.0),
+                                                child: Text(
+                                                  trans.translate(
+                                                      "Kostenlos Registrieren"),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 22.0,
+                                                      fontFamily:
+                                                          'WorkSansBold'),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const CreateAccount(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -601,4 +636,20 @@ class HomePageState extends State<HomePage>
           }
         });
   }
+}
+
+class CustomTheme {
+  const CustomTheme();
+
+  static const Color loginGradientStart = Color.fromARGB(255, 157, 102, 251);
+  static const Color loginGradientEnd = Color(0xFFf7418c);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
+
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: <Color>[loginGradientStart, loginGradientEnd],
+    stops: <double>[0.0, 1.0],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }
