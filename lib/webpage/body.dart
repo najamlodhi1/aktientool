@@ -22,11 +22,13 @@ final List<DesignProcess> designProcesses = [
     imagePath: "assets/images/3.png",
     subtitle: "homesubtitle3",
   ),
+  /*
   DesignProcess(
     title: "CURRENT FINANCIAL DATA",
     imagePath: "assets/images/4.png",
     subtitle: "homesubtitle4",
   ),
+  */
 ];
 
 class Body extends StatelessWidget {
@@ -40,11 +42,11 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Wrap(
         children: <Widget>[
-          for (int i = 0; i < 4; i++)
+          for (int i = 0; i < 3; i++)
             InkWell(
               onTap: () {},
               child: Container(
-                width: 310,
+                width: 330,
                 height: 210,
                 margin: const EdgeInsets.all(10.0),
                 padding: const EdgeInsets.all(2.0),

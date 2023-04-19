@@ -27,6 +27,7 @@ import 'charts/allCharts.dart';
 import 'datenschutz/myformpage.dart';
 import 'firebase_options.dart';
 import 'settings/app_localizations.dart';
+import 'webpage/body.dart';
 
 // flutter run -d chrome --web-renderer html
 main() async {
@@ -490,7 +491,7 @@ class HomePageState extends State<HomePage>
                               const SizedBox(
                                 height: 650,
                               ),
-                              //Body(),
+                              Body(),
                               IosAppAd(),
                               const SizedBox(
                                 width: 200,

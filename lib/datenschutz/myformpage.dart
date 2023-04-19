@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:aktientool/constants/constants.dart';
+import 'package:aktientool/webpage/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -72,9 +72,9 @@ class MyFormPage extends StatelessWidget {
             allowHalfRating: true,
             itemSize: 70.0,
             ratingWidget: RatingWidget(
-              full: const Icon(Icons.star, color: Colors.yellow),
-              half: const Icon(Icons.star_half, color: Colors.yellow),
-              empty: const Icon(Icons.star_border, color: Colors.yellow),
+              full: const Icon(Icons.star, color: kPrimaryColor),
+              half: const Icon(Icons.star_half, color: kPrimaryColor),
+              empty: const Icon(Icons.star_border, color: kPrimaryColor),
             ),
             onRatingUpdate: (rating) {
               // Rating is updated
@@ -206,7 +206,7 @@ class MyFormPage extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.local_post_office_outlined,
-                        size: 100,
+                        size: 70,
                         color: Colors.white,
                       ),
                     ),
