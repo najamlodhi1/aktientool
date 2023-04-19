@@ -1,11 +1,12 @@
 import 'dart:developer';
 
-import 'package:aktientool/webpage/components/footer.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import '../webpage/footer.dart';
 
 class MyFormPage extends StatelessWidget {
   MyFormPage({Key? key}) : super(key: key);

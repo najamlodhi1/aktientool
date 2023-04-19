@@ -2,10 +2,19 @@
 
 import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/screen_helper.dart';
-import 'package:aktientool/webpage/stat.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+
+class Stat {
+  final String count;
+  final String text;
+
+  Stat({
+    required this.count,
+    required this.text,
+  });
+}
 
 final List<Stat> stats = [
   Stat(count: "22500+", text: "Aktien"),

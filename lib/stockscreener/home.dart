@@ -31,14 +31,5 @@ class Home extends ConsumerWidget {
       ),
       body: SafeArea(child: ShowCompanies()),
     );
-
-    /*
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: SearchArea(),
-      body: SafeArea(child: ShowCompanies()),
-      
-    );
-    */
   }
 }

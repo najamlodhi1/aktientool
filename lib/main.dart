@@ -5,13 +5,13 @@ import 'dart:html' as html;
 import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
-import 'package:aktientool/webpage/components/footer.dart';
+import 'package:aktientool/webpage/footer.dart';
+import 'package:aktientool/webpage/ios_app_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:aktientool/webpage/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:neon/neon.dart';
@@ -22,12 +22,33 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'authentication/screens/create_account.dart';
 import 'charts/allCharts.dart';
+import 'constants/responsive.dart';
 import 'datenschutz/datenschutzerklaerung.dart';
 import 'datenschutz/myformpage.dart';
 import 'firebase_options.dart';
-import 'settings/app_localizations.dart';
 import 'webpage/body.dart';
+import 'webpage/screen_helper.dart';
+import 'settings/app_localizations.dart';
 
+import 'package:responsive_framework/responsive_framework.dart';
+
+import 'webpage/constants.dart';
+
+class Stat {
+  final String count;
+  final String text;
+
+  Stat({
+    required this.count,
+    required this.text,
+  });
+}
+
+final List<Stat> stats = [
+  Stat(count: "22500+", text: "Aktien"),
+  Stat(count: "60", text: "Ländern"),
+  Stat(count: "180+", text: "Industrien"),
+];
 // flutter run -d chrome --web-renderer html
 main() async {
   setPathUrlStrategy();
@@ -376,7 +397,7 @@ class HomePageState extends State<HomePage>
                             alignment: WrapAlignment.center,
                             children: [
                               const SizedBox(
-                                width: 200,
+                                width: 0,
                               ),
                               SizedBox(
                                 //width: 500,
@@ -477,35 +498,39 @@ class HomePageState extends State<HomePage>
                                               },
                                             ),
                                           ),
-                                        )
+                                        ),
+                                        if (Responsive.isDesktop(context) ==
+                                            false)
+                                          const SizedBox(
+                                            height: 100,
+                                          ),
                                       ],
                                     ),
                                   ],
                                 ),
                               ),
                               const SizedBox(
-                                width: 200,
+                                width: 100,
                               ),
                               SizedBox(
-                                  height: 600,
+                                  height: 500,
                                   child: Image.asset(
                                       "assets/images/website.png",
                                       fit: BoxFit.contain)),
                               const SizedBox(
-                                height: 650,
+                                height: 600,
                               ),
                               Body(),
-                              //IosAppAd(),
-                              //PortfolioStats(),
+                              IosAppAd(),
+                              const PortfolioStats(),
                               const SizedBox(
                                 width: 200,
                               ),
-
-                              Footer(),
                             ],
                           ),
                         ),
                       ),
+                      Footer(),
                     ],
                   ),
                 ),
@@ -564,6 +589,70 @@ class HomePageState extends State<HomePage>
           ],
         );
       },
+    );
+  }
+}
+
+class PortfolioStats extends StatelessWidget {
+  const PortfolioStats({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: ScreenHelper(
+        desktop: _buildUi(kDesktopMaxWidth, context),
+        tablet: _buildUi(kTabletMaxWidth, context),
+        mobile: _buildUi(getMobileMaxWidth(context), context),
+      ),
+    );
+  }
+
+  Widget _buildUi(double width, BuildContext context) {
+    return ResponsiveWrapper(
+      maxWidth: width,
+      minWidth: width,
+      defaultScale: false,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraint) {
+          return Wrap(
+            spacing: 20.0,
+            runSpacing: 20.0,
+            children: stats.map((stat) {
+              return Container(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                // Just use the helper here really
+                width: ScreenHelper.isMobile(context)
+                    ? constraint.maxWidth / 2.0 - 20
+                    : (constraint.maxWidth / 4.0 - 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      stat.count,
+                      style: GoogleFonts.oswald(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 32.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      stat.text,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        color: kCaptionColor,
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
+          );
+        },
+      ),
     );
   }
 }

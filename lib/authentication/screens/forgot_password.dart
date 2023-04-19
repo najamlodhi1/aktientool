@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, no_leading_underscores_for_local_identifiers
 
 import 'package:aktientool/main.dart';
+import 'package:aktientool/webpage/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../../webpage/constants.dart';
 import '../services/auth_service.dart';
 import '../services/auth_status.dart';
 
