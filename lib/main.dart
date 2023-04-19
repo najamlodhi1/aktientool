@@ -24,6 +24,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'authentication/screens/create_account.dart';
 import 'charts/allCharts.dart';
+import 'datenschutz/myformpage.dart';
 import 'firebase_options.dart';
 import 'settings/app_localizations.dart';
 
@@ -238,10 +239,10 @@ class HomePageState extends State<HomePage>
                                 child: Image.asset('assets/images/logo.png',
                                     height: 30),
                               ),
-                              SizedBox(width: screenSize.width / 20),
+                              /*SizedBox(width: screenSize.width / 20),
                               const Text("BLOG",
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.white)),
+                                      fontSize: 20, color: Colors.white)),*/
                             ],
                           ),
                         ),
@@ -336,6 +337,19 @@ class HomePageState extends State<HomePage>
                               glowingDuration: const Duration(seconds: 3),
                             ),
                           ),
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MyFormPage(),
+                              ),
+                            );
+                          },
+                          child: const Text("FEEDBACK",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white)),
                         ),
                         const Spacer(),
                       ],

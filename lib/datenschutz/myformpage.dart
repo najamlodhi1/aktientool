@@ -1,134 +1,217 @@
+import 'dart:developer';
+
+import 'package:aktientool/constants/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-//import '../database_manager.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MyFormPage extends StatelessWidget {
-  MyFormPage({required Key key}) : super(key: key);
+  MyFormPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+  double sendRating = 0.0;
+
+  CollectionReference feedback =
+      FirebaseFirestore.instance.collection('feedback');
+
+  Future<void> addFeedback(
+      String email, String title, String feedbacks, double rating) {
+    return feedback
+        .doc(DateTime.now().toString())
+        .set({
+          'email': email,
+          'title': title,
+          'feedback': feedbacks,
+          'rating': rating,
+          'created': DateTime.now()
+        })
+        .then((value) => print("feedback Added"))
+        .catchError((error) => print("feedback couldn't be added."));
+  }
+
+  succesMessage(BuildContext context) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Column(
+          children: const [
+            Text("Ihre Nachricht wurde erfolgreich übermittelt"),
+          ],
+        ),
+        //content: const Icon(Icons.done, size: 50),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/', ModalRoute.withName('/'));
+              //Navigator.of(context).pop();
+            },
+            child: const Icon(Icons.done,
+                size: 50, color: Color.fromARGB(255, 105, 240, 179)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget rating() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text(
+            'Sind Sie mit dem AktienTool zufrieden?\n',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+          RatingBar(
+            initialRating: 0,
+            minRating: 0,
+            maxRating: 5,
+            allowHalfRating: true,
+            itemSize: 70.0,
+            ratingWidget: RatingWidget(
+              full: const Icon(Icons.star, color: Colors.yellow),
+              half: const Icon(Icons.star_half, color: Colors.yellow),
+              empty: const Icon(Icons.star_border, color: Colors.yellow),
+            ),
+            onRatingUpdate: (rating) {
+              // Rating is updated
+              log('rating update to: $rating');
+              sendRating = rating;
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController vornameController = TextEditingController();
-    TextEditingController nachnameController = TextEditingController();
+    TextEditingController titleController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController nachrichtController = TextEditingController();
 
     return Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text("Kontakt"),
+          backgroundColor: Colors.black,
+          title: const Text(
+            "Feedback",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    controller: vornameController,
-                    keyboardType: TextInputType.text,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      labelText: 'Vorname',
-                      border: OutlineInputBorder(),
+              child: Center(
+                child: Column(
+                  children: [
+                    rating(),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Bitte den Vornamen eingeben';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: nachnameController,
-                    keyboardType: TextInputType.text,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      labelText: 'Nachname',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Bitte den Nachnamen eingeben';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: 'E-Mail',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Bitte E-Mail eingeben';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: nachrichtController,
-                    maxLines: 5,
-                    maxLength: 500,
-                    decoration: const InputDecoration(
-                      hintText: 'Nachricht',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Bitte Nachricht eingeben';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey,
-                            textStyle: const TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // reset() setzt alle Felder wieder auf den Initalwert zurück.
-                          _formKey.currentState!.reset();
-                        },
-                        child: const Text('Löschen'),
-                      ),
-                      const SizedBox(width: 25),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            textStyle: const TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Wenn alle Validatoren der Felder des Formulars gültig sind.
-                          if (_formKey.currentState!.validate()) {
-                            /*print(
-                                "Formular ist gültig und kann verarbeitet werden");
-                            FireStoreDataBase().kontaktformular(
-                                vornameController.text,
-                                nachnameController.text,
-                                emailController.text,
-                                nachrichtController.text);*/
-                          } else {
-                            if (kDebugMode) {
-                              print("Formular ist nicht gültig");
+                    Wrap(
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 10,
+                          width: 0,
+                        ),
+                        SizedBox(
+                          width: 250,
+                          child: TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                                filled: true, //<-- SEE HERE
+                                fillColor: Colors.white,
+                                hintText: 'Email zur Kontaktaufnahme'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Bitte E-Mail eingeben';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: 250,
+                          child: TextFormField(
+                            controller: titleController,
+                            keyboardType: TextInputType.text,
+                            autocorrect: false,
+                            decoration: const InputDecoration(
+                                filled: true, //<-- SEE HERE
+                                fillColor: Colors.white,
+                                hintText: 'Titel'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Bitte den Titel eingeben';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 80),
+                        TextFormField(
+                          controller: nachrichtController,
+                          maxLines: 10,
+                          maxLength: 2000,
+                          decoration: const InputDecoration(
+                              filled: true, //<-- SEE HERE
+                              fillColor: Colors.white,
+                              hintText:
+                                  'Was können wir besser machen?\nHaben Sie neue Ideen, Vorschläge oder Fehler entdeckt?\n',
+                              hintStyle: TextStyle(fontSize: 20)),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Bitte Feedback schreiben';
                             }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
+                    ElevatedButton(
+                      style: const ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(kPrimaryColor),
+                      ),
+                      onPressed: () {
+                        // Wenn alle Validatoren der Felder des Formulars gültig sind.
+                        if (_formKey.currentState!.validate()) {
+                          print(
+                              "Formular ist gültig und kann verarbeitet werden");
+                          addFeedback(
+                              emailController.text.toString(),
+                              titleController.text.toString(),
+                              nachrichtController.text.toString(),
+                              sendRating);
+                          print("erfolgreich gespeichert");
+                          succesMessage(context);
+                        } else {
+                          print("ungültig");
+
+                          if (kDebugMode) {
+                            print("Formular ist nicht gültig");
                           }
-                        },
-                        child: const Text('Absenden'),
-                      )
-                    ],
-                  )
-                ],
+                        }
+                      },
+                      child: const Icon(
+                        Icons.local_post_office_outlined,
+                        size: 100,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
