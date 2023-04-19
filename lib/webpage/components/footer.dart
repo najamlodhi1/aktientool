@@ -8,7 +8,7 @@ import 'package:aktientool/webpage/screen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
+import 'dart:js' as js;
 import '../../settings/app_localizations.dart';
 
 class Footer extends StatelessWidget {
@@ -54,19 +54,24 @@ Widget _buildUi(double width, BuildContext context) {
               Wrap(
                 children: [
                   IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.instagram),
-                      color: kPrimaryColor,
-                      iconSize: 50,
-                      onPressed: () {
-                        print("Pressed");
-                      }),
+                    icon: const FaIcon(FontAwesomeIcons.instagram),
+                    color: kPrimaryColor,
+                    iconSize: 50,
+                    onPressed: () async {
+                      js.context.callMethod(
+                          'open', ["https://www.instagram.com/aktientool/"]);
+                    },
+                  ),
                   IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.youtube),
-                      color: kPrimaryColor,
-                      iconSize: 54,
-                      onPressed: () {
-                        print("Pressed");
-                      }),
+                    icon: const FaIcon(FontAwesomeIcons.youtube),
+                    color: kPrimaryColor,
+                    iconSize: 54,
+                    onPressed: () async {
+                      js.context.callMethod('open', [
+                        'https://www.youtube.com/channel/UCYMfu0xZgSTiNLjJLQ9zJhA?sub_confirmation=1'
+                      ]);
+                    },
+                  ),
                 ],
               ),
               Row(
