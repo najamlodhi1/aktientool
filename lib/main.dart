@@ -6,8 +6,6 @@ import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/webpage/components/footer.dart';
-import 'package:aktientool/webpage/components/ios_app_ad.dart';
-import 'package:aktientool/webpage/components/portfolio_stats.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -497,138 +495,12 @@ class HomePageState extends State<HomePage>
                                 height: 650,
                               ),
                               Body(),
-                              IosAppAd(),
+                              //IosAppAd(),
+                              //PortfolioStats(),
                               const SizedBox(
                                 width: 200,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 28.0),
-                                child: PortfolioStats(),
-                              ),
-                              const SizedBox(
-                                height: 50.0,
-                              ),
-                              const SizedBox(
-                                width: 200,
-                              ),
-                              SizedBox(
-                                //width: 500,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const SizedBox(
-                                      height: 150.0,
-                                    ),
-                                    Text(
-                                      trans.translate("A STOCK SCREENER"),
-                                      style: GoogleFonts.oswald(
-                                        color: kPrimaryColor,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 50.0,
-                                      ),
-                                    ),
-                                    Text(
-                                      trans.translate(
-                                          "that quickly and easily the right shares for your portfolio."),
-                                      style: GoogleFonts.oswald(
-                                        color: Colors.white,
-                                        fontSize: 35.0,
-                                        //fontWeight: FontWeight.w900,
-                                        height: 1.3,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    Wrap(
-                                      children: [
-                                        MouseRegion(
-                                          cursor: SystemMouseCursors.click,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: kPrimaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            height: 48.0,
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 28.0,
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginScreen(),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text(
-                                                trans
-                                                    .translate("TEST FOR FREE")
-                                                    .toUpperCase(),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 13.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        MouseRegion(
-                                          cursor: SystemMouseCursors.click,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            height: 48.0,
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 28.0,
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {
-                                                // Register
-                                              },
-                                              child: Text(
-                                                trans
-                                                    .translate("DEMO")
-                                                    .toUpperCase(),
-                                                style: const TextStyle(
-                                                  color: kPrimaryColor,
-                                                  fontSize: 13.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 200,
-                              ),
-                              SizedBox(
-                                  height: 600,
-                                  child: Image.asset(
-                                      "assets/images/website.png",
-                                      fit: BoxFit.contain)),
-                              const SizedBox(height: 0.0),
-                              const SizedBox(
-                                height: 450,
-                              ),
+
                               Footer(),
                             ],
                           ),
@@ -652,7 +524,7 @@ class HomePageState extends State<HomePage>
         return AlertDialog(
           title: const Text("Verwendung von Cookies"),
           content: const Text(
-            'Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu.',
+            'Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies.\nDurch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu.',
           ),
           actions: <Widget>[
             Wrap(

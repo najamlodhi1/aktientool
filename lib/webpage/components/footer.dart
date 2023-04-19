@@ -172,9 +172,15 @@ Widget _buildUi(double width, BuildContext context) {
                       ),
                     ),
                   ),
-                  const Spacer()
+                  const Spacer(),
                 ],
-              )
+              ),
+              const SizedBox(
+                child: Text(
+                  "Aktientool kann für manche Links eine Affiliate-Provision erhalten wenn Produkte darüber erworben werden. Die Einnahmen fließen in die Entwicklung.",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
             ],
           );
         },

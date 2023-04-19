@@ -49,67 +49,64 @@ class Body extends StatelessWidget {
     trans = AppLocalizations.of(context);
 
     return SingleChildScrollView(
-      child: Wrap(
-        children: <Widget>[
-          for (int i = 0; i < 3; i++)
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: 330,
-                height: 210,
-                margin: const EdgeInsets.all(10.0),
-                padding: const EdgeInsets.all(2.0),
-                //decoration: BoxDecoration(
-                //  border: Border.all(color: Colors.white),
-                //),
-                child: Column(
-                  children: [
-                    Wrap(
-                      children: <Widget>[
-                        Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  designProcesses[i].imagePath,
-                                  //Icons.account_tree_outlined,
+      child: Center(
+        child: Wrap(
+          children: <Widget>[
+            for (int i = 0; i < 3; i++)
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  width: 330,
+                  height: 210,
+                  margin: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(2.0),
+                  //decoration: BoxDecoration(
+                  //  border: Border.all(color: Colors.white),
+                  //),
+                  child: Wrap(
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                designProcesses[i].imagePath,
+                                //Icons.account_tree_outlined,
 
-                                  const SizedBox(
-                                    width: 15.0,
-                                  ),
-                                  Text(
-                                    trans.translate(designProcesses[i].title),
-                                    style: GoogleFonts.oswald(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 15.0,
-                              ),
-                              Text(
-                                trans.translate(designProcesses[i].subtitle),
-                                style: const TextStyle(
-                                  color: kCaptionColor,
-                                  height: 1.5,
-                                  fontSize: 14.0,
+                                const SizedBox(
+                                  width: 15.0,
                                 ),
-                              )
-                            ],
-                          ),
+                                Text(
+                                  trans.translate(designProcesses[i].title),
+                                  style: GoogleFonts.oswald(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            Text(
+                              trans.translate(designProcesses[i].subtitle),
+                              style: const TextStyle(
+                                color: kCaptionColor,
+                                height: 1.5,
+                                fontSize: 14.0,
+                              ),
+                            )
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
