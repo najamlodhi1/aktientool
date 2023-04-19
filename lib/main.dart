@@ -628,6 +628,9 @@ class PortfolioStats extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
                     Text(
                       stat.count,
                       style: GoogleFonts.oswald(

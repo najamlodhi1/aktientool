@@ -36,26 +36,30 @@ class IosAppAd extends StatelessWidget {
                   // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                    child: Image.asset(
-                      "assets/images/website.png",
-                      // Set width for image on smaller screen
-                      width: constraints.maxWidth > 720.0 ? null : 350.0,
+                    child: SizedBox(
+                      child: Image.asset(
+                        "assets/images/image1.png",
+                        // Set width for image on smaller screen
+                        width: constraints.maxWidth > 720.0 ? null : 350.0,
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    width: 100,
                   ),
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 15.0,
+                          height: 30,
                         ),
                         Text(
-                          "UNIVERSAL\nSMART HOME APP",
+                          "ÜBER 22000 AKTIEN",
                           style: GoogleFonts.oswald(
                             color: Colors.white,
-                            fontWeight: FontWeight.w900,
                             height: 1.3,
                             fontSize: 35.0,
                           ),
@@ -64,7 +68,7 @@ class IosAppAd extends StatelessWidget {
                           height: 10.0,
                         ),
                         Text(
-                          "This is a random text about the project, I should have used the regular lorem ipsum text, but I am too lazy to search for that. This should be long enough",
+                          "Der Aktientool bietet Ihnen die Möglichkeit, mehr als 22000 Unternehmen in 60 verschiedenen Ländern und 180 verschiedenen Industrien anzuzeigen",
                           style: TextStyle(
                             color: kCaptionColor,
                             height: 1.5,
@@ -74,7 +78,7 @@ class IosAppAd extends StatelessWidget {
                         SizedBox(
                           height: 25.0,
                         ),
-                        Row(
+                        /*Row(
                           children: [
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
@@ -132,7 +136,7 @@ class IosAppAd extends StatelessWidget {
                               ),
                             )
                           ],
-                        )
+                        )*/
                       ],
                     ),
                   )
