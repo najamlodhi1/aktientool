@@ -408,7 +408,7 @@ class HomePageState extends State<HomePage>
                                       alignment: Alignment.topCenter,
                                       children: <Widget>[
                                         SizedBox(
-                                          width: 250,
+                                          width: 255,
                                           child: Container(
                                             margin: const EdgeInsets.only(
                                                 top: 10.0),
@@ -452,7 +452,7 @@ class HomePageState extends State<HomePage>
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 10.0,
-                                                        horizontal: 42.0),
+                                                        horizontal: 10.0),
                                                 child: Text(
                                                   trans.translate(
                                                       "Kostenlos Registrieren"),

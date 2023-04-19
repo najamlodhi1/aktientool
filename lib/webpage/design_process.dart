@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+
 class DesignProcess {
   final String title;
-  final String imagePath;
+  final Icon imagePath;
   final String subtitle;
 
   DesignProcess({

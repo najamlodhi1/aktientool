@@ -1,4 +1,3 @@
-import 'package:aktientool/webpage/components/cv_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aktientool/datenschutz/cookie.dart';
@@ -136,7 +135,6 @@ class Start extends ConsumerWidget {
             const SizedBox(
               height: 40.0,
             ),
-            CvSection(),
             //IosAppAd(),
             /*const SizedBox(
             height: 70.0,

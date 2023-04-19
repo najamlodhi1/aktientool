@@ -43,6 +43,7 @@ dependencies:
   neon: ^0.1.0
   envied_generator: ^0.3.0
   flutter_rating_bar: ^4.0.1
+  getwidget: ^3.1.1
 
 
 

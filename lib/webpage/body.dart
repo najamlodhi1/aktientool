@@ -8,19 +8,28 @@ import 'design_process.dart';
 
 final List<DesignProcess> designProcesses = [
   DesignProcess(
-    title: "USER FRIENDLY",
-    imagePath: "assets/images/1.png",
+    title: "INVESTIERE WIE BÖRSENGURUS",
+    imagePath: const Icon(
+      Icons.accessibility_new_outlined,
+      color: kPrimaryColor,
+    ),
     subtitle: "homesubtitle1",
   ),
   DesignProcess(
-    title: "QUALITATIVE ANALYSIS",
-    imagePath: "assets/images/2.png",
-    subtitle: "homesubtitle2",
+    title: "EXTENSIVE FILTERS",
+    imagePath: const Icon(
+      Icons.screen_search_desktop_outlined,
+      color: kPrimaryColor,
+    ),
+    subtitle: "homesubtitle3",
   ),
   DesignProcess(
-    title: "EXTENSIVE FILTERS",
-    imagePath: "assets/images/3.png",
-    subtitle: "homesubtitle3",
+    title: "SCORING SYSTEM",
+    imagePath: const Icon(
+      Icons.account_tree_outlined,
+      color: kPrimaryColor,
+    ),
+    subtitle: "homesubtitle2",
   ),
   /*
   DesignProcess(
@@ -64,10 +73,9 @@ class Body extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const Icon(
-                                    Icons.account_tree_outlined,
-                                    color: kPrimaryColor,
-                                  ),
+                                  designProcesses[i].imagePath,
+                                  //Icons.account_tree_outlined,
+
                                   const SizedBox(
                                     width: 15.0,
                                   ),

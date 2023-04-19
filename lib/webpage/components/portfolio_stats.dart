@@ -9,9 +9,8 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 final List<Stat> stats = [
   Stat(count: "22500+", text: "Aktien"),
-  Stat(count: "68", text: "Länder"),
-  Stat(count: "90", text: "Branchen"),
-  Stat(count: "30", text: "Industrie"),
+  Stat(count: "60", text: "Ländern"),
+  Stat(count: "180+", text: "Industrien"),
 ];
 
 class PortfolioStats extends StatelessWidget {

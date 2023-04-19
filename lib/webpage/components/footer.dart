@@ -4,44 +4,18 @@ import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
 import 'package:aktientool/datenschutz/impressum.dart';
 import 'package:aktientool/webpage/constants.dart';
-import 'package:aktientool/webpage/footer_item.dart';
 import 'package:aktientool/webpage/screen_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../settings/app_localizations.dart';
-
-final List<FooterItem> footerItems = [
-  FooterItem(
-    iconPath: "assets/mappin.png",
-    title: "ADDRESS",
-    text1: "999 Carter Street",
-    text2: "Sailor Springs, IL 64234",
-  ),
-  FooterItem(
-    iconPath: "assets/phone.png",
-    title: "PHONE",
-    text1: "+1 618-689-9604",
-    text2: "+1 781-689-9632",
-  ),
-  FooterItem(
-    iconPath: "assets/email.png",
-    title: "EMAIL",
-    text1: "hello@example.com",
-    text2: "info@flutterpanda.com",
-  ),
-  FooterItem(
-    iconPath: "assets/whatsapp.png",
-    title: "WHATSAPP",
-    text1: "+234 901-134-0095",
-    text2: "+234 901-134-0095",
-  )
-];
 
 class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.black26,
       child: ScreenHelper(
         desktop: _buildUi(kDesktopMaxWidth, context),
         tablet: _buildUi(kTabletMaxWidth, context),
@@ -62,79 +36,114 @@ Widget _buildUi(double width, BuildContext context) {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              /*
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 50.0),
-                child: Wrap(
-                  spacing: 20.0,
-                  runSpacing: 20.0,
-                  children: footerItems
-                      .map(
-                        (footerItem) => Container(
-                          height: 120.0,
-                          width: ScreenHelper.isMobile(context)
-                              ? constraints.maxWidth / 2.0 - 20.0
-                              : constraints.maxWidth / 4.0 - 20.0,
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
-                                      footerItem.iconPath,
-                                      width: 25.0,
-                                    ),
-                                    SizedBox(
-                                      width: 15.0,
-                                    ),
-                                    Text(
-                                      footerItem.title,
-                                      style: GoogleFonts.oswald(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 15.0,
-                                ),
-                                RichText(
-                                  textAlign: TextAlign.start,
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "${footerItem.text1}\n",
-                                        style: TextStyle(
-                                          color: kCaptionColor,
-                                          height: 1.8,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: "${footerItem.text2}\n",
-                                        style: TextStyle(
-                                          color: kCaptionColor,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-              */
               const SizedBox(
-                height: 40.0,
+                height: 20,
+              ),
+              const Divider(color: Colors.white),
+              GestureDetector(
+                  onTap: () {
+                    print('click on edit');
+                  },
+                  child: const Image(
+                    image: AssetImage('assets/images/logo.png'),
+                    fit: BoxFit.cover,
+                    height: 40,
+                  )),
+              Wrap(
+                children: [
+                  IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.instagram),
+                      color: kPrimaryColor,
+                      iconSize: 50,
+                      onPressed: () {
+                        print("Pressed");
+                      }),
+                  IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.youtube),
+                      color: kPrimaryColor,
+                      iconSize: 54,
+                      onPressed: () {
+                        print("Pressed");
+                      }),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Datenschutzerklaerung(),
+                        ),
+                      );
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Text(
+                        "\n${trans.translate("Data Protection")}",
+                        style: const TextStyle(
+                          color: kCaptionColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: const Text(
+                      "\n|",
+                      style: TextStyle(
+                        color: kCaptionColor,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Impressum(),
+                        ),
+                      );
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Text(
+                        "\n${trans.translate("Imprint")}",
+                        style: const TextStyle(color: kCaptionColor),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: const Text(
+                      "\n|",
+                      style: TextStyle(
+                        color: kCaptionColor,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AGB(),
+                        ),
+                      );
+                    },
+                    child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text("\n${trans.translate("Conditions")}",
+                            style: const TextStyle(color: kCaptionColor))),
+                  )
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0),
               ),
               Flex(
                 direction: ScreenHelper.isMobile(context)
@@ -144,89 +153,21 @@ Widget _buildUi(double width, BuildContext context) {
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      trans.translate("rawdata"),
-                      style: const TextStyle(
-                        color: kCaptionColor,
+                  const Spacer(),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Center(
+                        child: Text(
+                          trans.translate("rawdata"),
+                          style: const TextStyle(
+                            color: kCaptionColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const Datenschutzerklaerung(),
-                            ),
-                          );
-                        },
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text(
-                            trans.translate("Data Protection"),
-                            style: const TextStyle(
-                              color: kCaptionColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: const Text(
-                          "|",
-                          style: TextStyle(
-                            color: kCaptionColor,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Impressum(),
-                            ),
-                          );
-                        },
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text(
-                            trans.translate("Imprint"),
-                            style: const TextStyle(color: kCaptionColor),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: const Text(
-                          "|",
-                          style: TextStyle(
-                            color: kCaptionColor,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AGB(),
-                            ),
-                          );
-                        },
-                        child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Text(trans.translate("Conditions"),
-                                style: const TextStyle(color: kCaptionColor))),
-                      )
-                    ],
-                  )
+                  const Spacer()
                 ],
               )
             ],

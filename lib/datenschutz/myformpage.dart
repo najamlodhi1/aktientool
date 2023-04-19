@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aktientool/webpage/components/footer.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -210,6 +211,8 @@ class MyFormPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+                    const SizedBox(height: 100),
+                    Footer()
                   ],
                 ),
               ),

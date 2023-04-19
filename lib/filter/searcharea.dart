@@ -2,7 +2,6 @@
 
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/payment/stripe/hompage.dart';
-import 'package:aktientool/payment/stripe/stripe_checkout_web.dart';
 import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -82,45 +81,6 @@ class SearchArea extends ConsumerWidget {
                   onPressed: () {
                     searchController.text = "";
                     ref.read(sp_search.notifier).state = "";
-
-/*
-            setState(() {
-              if (customIcon.icon == Icons.search) {
-                customIcon = const Icon(Icons.cancel);
-                customSearchBar = ListTile(
-                  leading: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 28,
-                  ),
-                  title: TextField(
-                    controller: searchController,
-                    decoration: const InputDecoration(
-                      hintText: 'Aktie eingeben',
-                      hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  ref
-                  sp_search = searchController.toString();
-                );
-              } else {
-                customIcon = const Icon(Icons.search);
-                customSearchBar = Image.asset(
-                  'assets/images/logo.png',
-                  height: 25,
-                );
-              }
-            }
-
-            );*/
                   },
                   icon: customIcon,
                 ),
