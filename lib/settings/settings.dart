@@ -40,56 +40,58 @@ class _SettingsState extends State<Settings> {
             const SizedBox(
               height: 10,
             ),
-            ListTile(
-              title: Text(
-                trans.translate('Logout'),
-                style: const TextStyle(color: Colors.white),
+            if (FirebaseAuth.instance.currentUser != null) ...[
+              ListTile(
+                title: Text(
+                  trans.translate('Logout'),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  AuthService().signOut().then((result) {
+                    if (kDebugMode) {
+                      print(result);
+                    }
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => const MyApp(),
+                      ),
+                    );
+                  }).catchError((error) {
+                    if (kDebugMode) {
+                      print('Registration Error: $error');
+                    }
+                  });
+                },
               ),
-              onTap: () {
-                AuthService().signOut().then((result) {
-                  if (kDebugMode) {
-                    print(result);
-                  }
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (context) => const MyApp(),
-                    ),
-                  );
-                }).catchError((error) {
-                  if (kDebugMode) {
-                    print('Registration Error: $error');
-                  }
-                });
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              title: Text(
-                trans.translate('Delete Account'),
-                style: const TextStyle(color: Colors.white),
+              const SizedBox(
+                height: 10,
               ),
-              onTap: () {
-                FirebaseAuth.instance.currentUser!.delete();
-                AuthService().signOut().then((result) {
-                  if (kDebugMode) {
-                    print(result);
-                  }
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (context) => const MyApp(),
-                    ),
-                  );
-                }).catchError((error) {
-                  if (kDebugMode) {
-                    print('Registration Error: $error');
-                  }
-                });
-              },
-            ),
+              ListTile(
+                title: Text(
+                  trans.translate('Delete Account'),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  FirebaseAuth.instance.currentUser!.delete();
+                  AuthService().signOut().then((result) {
+                    if (kDebugMode) {
+                      print(result);
+                    }
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => const MyApp(),
+                      ),
+                    );
+                  }).catchError((error) {
+                    if (kDebugMode) {
+                      print('Registration Error: $error');
+                    }
+                  });
+                },
+              ),
+            ]
           ],
         ),
       ),
