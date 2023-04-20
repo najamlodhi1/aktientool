@@ -173,6 +173,7 @@ class _TestState extends State<Test> {
         title: const Text("Guru Strategy"),
       ),
       body: DefaultTabController(
+          initialIndex: 1,
           length: 5,
           child: Scaffold(
             appBar: AppBar(
