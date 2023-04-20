@@ -28,10 +28,13 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
     return FutureBuilder<List<StockNewsModel>>(
         future: getFuture,
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          if (snapshot.hasData &&
+              snapshot.connectionState == ConnectionState.done) {
             return bodyWidget(snapshot.data!);
-          } else {
+          } else if (snapshot.hasData && snapshot.data!.isEmpty) {
             return const SizedBox();
+          } else {
+            return const Center(child: CircularProgressIndicator());
           }
         });
   }

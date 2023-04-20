@@ -24,8 +24,6 @@ import 'chart3/createchart.dart';
 import 'chart4/BarChartCashFlowScreen.dart';
 import 'ESGScore/ESGScoreScreen.dart';
 
-dynamic parentData;
-
 class AllCharts extends StatefulWidget {
   late AppLocalizations trans;
   AllCharts({super.key});
@@ -49,59 +47,186 @@ class AllCharts extends StatefulWidget {
 }
 
 class _AllChartsState extends State<AllCharts> {
+  final scaffoldkey = GlobalKey<ScaffoldState>();
+  dynamic parentData;
+  int selectedindex = 0;
+  List<dynamic> widgetData = [];
+  List pages = [
+    "Overview",
+    "Evaluation",
+    "Performance1",
+    "Growth",
+    "Health",
+    "Dividend",
+    "Management",
+    "News"
+  ];
+
+  late AppLocalizations trans;
   late Future getFuture;
 
   @override
   void initState() {
     super.initState();
-    getFuture = getalldata();
+    for (var i = 0; i < pages.length; i++) {
+      widgetData.add(null);
+    }
+    getFuture = getdata(null, 'overview');
   }
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
     return Scaffold(
+      key: scaffoldkey,
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        leading: const BackButton(color: Colors.white),
-        title: Text(ShowCompanies.companyname),
-        centerTitle: true,
-      ),
-      body: FutureBuilder(
-          future: getFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              parentData = jsonDecode(snapshot.data.body);
-              return SingleChildScrollView(
-                child: Column(
+      drawer: MediaQuery.of(context).size.width < 700
+          ? Drawer(backgroundColor: Colors.grey, child: customDrawer())
+          : null,
+      body: Row(
+        children: [
+          MediaQuery.of(context).size.width > 700
+              ? Container(width: 300, color: Colors.grey, child: customDrawer())
+              : Container(),
+          Expanded(
+            child: Scaffold(
+              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+              appBar: AppBar(
+                backgroundColor: Colors.black,
+                leadingWidth: 200,
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    CreateChart0(parentData[0]), // Info
-                    // CreateChart13(parentData[3]),
-                    CreateChart1Test(parentData[4]), // Chart
-                    CreateChart11(parentData[1]), // Performance
-                    Institutionalholders(parentData[9]),
-                    CompanyScreen(parentData[2]), // Dividend History
-                    BarChartIncomeScreen(parentData[5]), // Bar Chart income
-                    CreateChart2(parentData[5]),
-                    ESGScoreScreen(parentData[15]),
-                    InsiderScreen(parentData[14]),
-                    BarChartBalanceScreen(parentData[6]), // Bar Chart Balance
-                    CreateChart3(parentData[6]),
-                    BarChartCashFlowScreen(parentData[7]),
-                    CreateChart4(parentData[7]),
-                    DCFLeveredScreen(parentData[12]),
-                    ConcensusScreen(parentData[8]), // Analysten bewertung
-                    RatingScreen(parentData[13]),
-                    ScoreScreen(parentData[10]), // Risikobewertung
-                    StockNewsScreen(parentData[11]),
-                    Footer()
+                    if (MediaQuery.of(context).size.width < 700)
+                      IconButton(
+                          onPressed: () {
+                            scaffoldkey.currentState!.openDrawer();
+                          },
+                          icon: const Icon(Icons.menu)),
+                    const BackButton(color: Colors.white),
                   ],
                 ),
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          }),
+                title: Text(ShowCompanies.companyname),
+                centerTitle: true,
+              ),
+              body: FutureBuilder(
+                  future: getFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.connectionState == ConnectionState.done) {
+                      parentData = jsonDecode(snapshot.data);
+                      widgetData[selectedindex] = snapshot.data;
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            if (selectedindex == 0) ...[
+                              CreateChart0(parentData[0]), // Info
+                              CreateChart1Test(parentData[1]), // Chart
+                            ],
+                            if (selectedindex == 1) ...[
+                              ConcensusScreen(
+                                  parentData[0]), // Analysten bewertung
+                            ],
+                            if (selectedindex == 2) ...[
+                              CreateChart11(parentData[0]), // Performance
+                            ],
+                            if (selectedindex == 3) ...[
+                              BarChartIncomeScreen(
+                                  parentData[0]), // Bar Chart income
+                              CreateChart2(parentData[0]),
+                              BarChartBalanceScreen(
+                                  parentData[1]), // Bar Chart Balance
+                              CreateChart3(parentData[1]),
+                              BarChartCashFlowScreen(parentData[2]),
+                              CreateChart4(parentData[2])
+                            ],
+                            if (selectedindex == 4) ...[
+                              Institutionalholders(parentData[0]),
+                              ESGScoreScreen(parentData[4]),
+                              InsiderScreen(parentData[3]),
+                              RatingScreen(parentData[2]),
+                              ScoreScreen(parentData[1]), // Risikobewertung
+                            ],
+                            if (selectedindex == 5) ...[
+                              CompanyScreen(parentData[0]), // Dividend History
+                            ],
+                            if (selectedindex == 6) ...[
+                              DCFLeveredScreen(parentData[0])
+                            ],
+                            if (selectedindex == 7) ...[
+                              StockNewsScreen(parentData[0]),
+                            ],
+                            Footer()
+                          ],
+                        ),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget customDrawer() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        children: [
+          Image.asset("assets/images/logo.png", width: 150),
+          const SizedBox(height: 20),
+          ...List.generate(
+              pages.length,
+              (index) => InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedindex = index;
+                        if (selectedindex == 0) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'overview');
+                        } else if (selectedindex == 1) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'evaluation');
+                        } else if (selectedindex == 2) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'performance');
+                        } else if (selectedindex == 3) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'growth');
+                        } else if (selectedindex == 4) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'health');
+                        } else if (selectedindex == 5) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'dividend');
+                        } else if (selectedindex == 6) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'management');
+                        } else if (selectedindex == 7) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'news');
+                        }
+                      });
+                      if (MediaQuery.of(context).size.width < 700) {
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: Text(trans.translate(pages[index]),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white)),
+                      ),
+                    ),
+                  ))
+        ],
+      ),
     );
   }
 }

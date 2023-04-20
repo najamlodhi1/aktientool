@@ -25,5 +25,6 @@ class RequestService {
     return request.doc(id).update({'request': (requestsLeft - 1)});
   }
 
-  static int fromSnapshot(DocumentSnapshot doc) => doc.get("request");
+  static int fromSnapshot(DocumentSnapshot doc) =>
+      (doc.data() as Map).containsKey("request") ? doc.get("request") : 0;
 }
