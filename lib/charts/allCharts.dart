@@ -8,8 +8,12 @@ import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/charts/chart4/createchart.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../authentication/services/request_service.dart';
+import '../filter/searcharea.dart';
 import '../settings/app_localizations.dart';
+import '../settings/settings.dart';
 import '../webpage/footer.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'Insider/InsiderScreen.dart';
@@ -71,7 +75,7 @@ class _AllChartsState extends State<AllCharts> {
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < pages.length + 1; i++) {
+    for (var i = 0; i < pages.length + 2; i++) {
       widgetData.add(null);
     }
     drawingoffsets = [];
@@ -99,6 +103,37 @@ class _AllChartsState extends State<AllCharts> {
               appBar: AppBar(
                 backgroundColor: Colors.black,
                 leadingWidth: 200,
+                actions: [
+                  if (FirebaseAuth.instance.currentUser != null)
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          // var uid = auth.currentUser!.uid;
+                          upgradepopup(context);
+                        },
+                        child: StreamBuilder<int>(
+                            stream: RequestService().getrequests(),
+                            builder: (context, snapshot) {
+                              return Text(snapshot.hasData
+                                  ? snapshot.data!.toString()
+                                  : '0');
+                            }),
+                      ),
+                    )
+                  else
+                    const SizedBox.shrink(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Settings(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.settings))
+                ],
                 leading: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -192,11 +227,31 @@ class _AllChartsState extends State<AllCharts> {
                 Navigator.pop(context);
               }
             },
-            child: Center(
+            child: const Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Text(trans.translate("Set Filter"),
-                    style: const TextStyle(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Text("Set Filter",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white)),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              setState(() {
+                selectedindex = 9;
+              });
+              if (MediaQuery.of(context).size.width < 700) {
+                Navigator.pop(context);
+              }
+            },
+            child: const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Text("View Stocks",
+                    style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                         color: Colors.white)),
