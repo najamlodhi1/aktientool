@@ -56,27 +56,29 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> {
   late PageController _pageController;
+  int selectedItem = 0;
+  //List selectquality = [0, 0, 0];
 
   List listquality = [
-    "Warren Buffett,Hagstrom Screen,url",
-    "Ronald Muhlenkamp,ROE Screen,url",
-    "Joseph Piotroski,High F-Score Screen,url",
+    "Warren Buffett,Hagstrom Screen,1,url",
+    "Ronald Muhlenkamp,ROE Screen,2,url",
+    "Joseph Piotroski,High F-Score Screen,3,url",
   ];
 
   List listgrowth = [
-    "Jim Slater,ZULU Screen,url",
-    "William O'Neil,CAN-SLIM Screen,url",
-    "Martin Zweig,Growth Screen,url",
-    "T Rowe Price,T Rowe Price Screen,url",
-    "Philip Fisher,Growth Screen,url",
-    "Peter Lynch,Growth Screen,url",
+    "Jim Slater,ZULU Screen,4,url",
+    "William O'Neil,CAN-SLIM Screen,5,url",
+    "Martin Zweig,Growth Screen,6,url",
+    "T Rowe Price,T Rowe Price Screen,7,url",
+    "Philip Fisher,Growth Screen,8,url",
+    "Peter Lynch,Growth Screen,9,url",
   ];
 
   List listvalue = [
-    "Benjamin Graham,Enterprising Investor Screen,url",
-    "Ludwig Chincarini,Neglected Firms Screen,url",
-    "Bill Miller,Contrarian Value Screen,url",
-    "John Templeton,Bargain Screen,url",
+    "Benjamin Graham,Enterprising Investor Screen,10,url",
+    "Ludwig Chincarini,Neglected Firms Screen,11,url",
+    "Bill Miller,Contrarian Value Screen,12,url",
+    "John Templeton,Bargain Screen,13,url",
   ];
 
   @override
@@ -114,6 +116,7 @@ class _TestState extends State<Test> {
   ) {
     // split txt
     List<String> result = txt.split(',');
+
     return SizedBox(
       width: ScreenHelper.isMobile(context)
           ? MediaQuery.of(context).size.width / 1.0
@@ -122,43 +125,50 @@ class _TestState extends State<Test> {
         padding: const EdgeInsets.all(2.0),
         child: Center(
           child: Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                  leading: Image.asset(
-                    'assets/images/${result[0]}.png',
-                  ),
-                  subtitle: Text(result[0]),
-                  title: Text(result[1]),
-                  trailing: IconButton(
-                    icon: const FaIcon(FontAwesomeIcons.bookAtlas),
-                    color: kPrimaryColor,
-                    iconSize: 40,
-                    onPressed: () async {
-                      js.context.callMethod(
-                          'open', ["https://www.instagram.com/aktientool/"]);
-                    },
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                      child: const Text('Strategy'),
-                      onPressed: () {/* ... */},
+            shape: (selectedItem == int.parse(result[2]))
+                ? const RoundedRectangleBorder(
+                    side: BorderSide(color: kPrimaryColor, width: 3))
+                : null,
+            elevation: 5,
+            child: InkWell(
+              onTap: () => setState(() {
+                print("${result[2]} ${result[1]}");
+                selectedItem = int.parse(result[2]);
+              }),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: Image.asset(
+                      'assets/images/${result[0]}.png',
                     ),
-                    const SizedBox(width: 8),
-                    TextButton(
-                      child: const Text('READ BOOK'),
-                      onPressed: () {/* ... */},
+                    subtitle: Text(result[0]),
+                    title: Text(result[1]),
+                    trailing: IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.bookAtlas),
+                      color: kPrimaryColor,
+                      iconSize: 40,
+                      onPressed: () async {
+                        js.context.callMethod(
+                            'open', ["https://www.instagram.com/aktientool/"]);
+                      },
                     ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-              ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      const SizedBox(width: 8),
+                      TextButton(
+                        child: const Text('READ STRATEGY'),
+                        onPressed: () {/* ... */},
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -177,6 +187,7 @@ class _TestState extends State<Test> {
           length: 5,
           child: Scaffold(
             appBar: AppBar(
+              toolbarHeight: 50,
               backgroundColor: Colors.white,
               elevation: 0,
               bottom: TabBar(
@@ -186,8 +197,9 @@ class _TestState extends State<Test> {
                   unselectedLabelColor: kPrimaryColor,
                   indicatorSize: TabBarIndicatorSize.label,
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: kPrimaryColor),
+                    borderRadius: BorderRadius.circular(50),
+                    color: kPrimaryColor,
+                  ),
                   tabs: [
                     Container(color: Colors.transparent),
                     Tab(
@@ -229,13 +241,17 @@ class _TestState extends State<Test> {
             body: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  Container(color: Colors.transparent),
                   loadCardQuality(listquality),
                   loadCardGrowth(listgrowth),
                   loadCardValue(listvalue),
-                  Container(color: Colors.transparent),
                 ]),
           )),
     );
   }
 }
+
+
+
+/*
+
+*/

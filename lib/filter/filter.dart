@@ -4,7 +4,6 @@ import 'package:aktientool/filter/searcharea.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../authentication/services/request_service.dart';
-import '../charts/allCharts.dart';
 import '../charts/chart13/createchart.dart';
 import '../settings/app_localizations.dart';
 import 'country.dart';
