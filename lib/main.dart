@@ -5,6 +5,7 @@ import 'dart:html' as html;
 import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/stockscreener/home.dart';
+import 'package:aktientool/test.dart';
 import 'package:aktientool/webpage/footer.dart';
 import 'package:aktientool/webpage/ios_app_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +25,7 @@ import 'authentication/screens/create_account.dart';
 import 'charts/allCharts.dart';
 import 'constants/responsive.dart';
 import 'datenschutz/datenschutzerklaerung.dart';
+
 import 'datenschutz/myformpage.dart';
 import 'firebase_options.dart';
 import 'webpage/body.dart';
@@ -559,6 +561,17 @@ class HomePageState extends State<HomePage>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
+                        builder: (context) => const Test(),
+                      ),
+                    );
+                  },
+                  child: const Text("Test"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
                         builder: (context) => const Datenschutzerklaerung(),
                       ),
                     );
@@ -629,7 +642,7 @@ class PortfolioStats extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 100,
+                      height: 00,
                     ),
                     Text(
                       stat.count,
