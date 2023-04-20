@@ -1,45 +1,3 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
-
-/*
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
-class Test extends StatefulWidget {
-  const Test({super.key});
-
-  @override
-  State<Test> createState() => _TestState();
-}
-
-class _TestState extends State<Test> {
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-      appBar: AppBar(
-        title: Image.asset('assets/images/logo.png', height: 30),
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            Center(
-              child: SizedBox(
-                height: 30,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-*/
-
 import 'package:aktientool/webpage/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -47,14 +5,14 @@ import 'dart:js' as js;
 
 import 'webpage/screen_helper.dart';
 
-class Test extends StatefulWidget {
-  const Test({super.key});
+class FilterArea extends StatefulWidget {
+  const FilterArea({super.key});
 
   @override
-  State<Test> createState() => _TestState();
+  State<FilterArea> createState() => _FilterAreaState();
 }
 
-class _TestState extends State<Test> {
+class _FilterAreaState extends State<FilterArea> {
   late PageController _pageController;
   int selectedItem = 0;
   //List selectquality = [0, 0, 0];
@@ -129,7 +87,7 @@ class _TestState extends State<Test> {
                 ? const RoundedRectangleBorder(
                     side: BorderSide(color: kPrimaryColor, width: 3))
                 : null,
-            elevation: 5,
+            elevation: 3,
             child: InkWell(
               onTap: () => setState(() {
                 print("${result[2]} ${result[1]}");
@@ -184,7 +142,7 @@ class _TestState extends State<Test> {
       ),
       body: DefaultTabController(
           initialIndex: 1,
-          length: 5,
+          length: 3,
           child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 50,
@@ -201,7 +159,6 @@ class _TestState extends State<Test> {
                     color: kPrimaryColor,
                   ),
                   tabs: [
-                    Container(color: Colors.transparent),
                     Tab(
                       child: Container(
                         decoration: BoxDecoration(
@@ -235,7 +192,6 @@ class _TestState extends State<Test> {
                         ),
                       ),
                     ),
-                    Container(color: Colors.transparent),
                   ]),
             ),
             body: TabBarView(
