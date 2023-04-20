@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/charts/chart0/createchart.dart';
 
 import 'package:aktientool/charts/chart1test/data.dart';
@@ -26,7 +27,6 @@ class CreateChart1TestState extends State<CreateChart1Test> {
 // create some values
   Color pickerColor = Colors.green;
   Color currentColor = Colors.green;
-  List<DrawLineModel> offsets = [];
 
 // ValueChanged<Color> callback
   void changeColor(Color color) {
@@ -71,7 +71,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               onPressed: () {
                 setState(() {
                   drawLine = false;
-                  offsets = [];
+                  drawingoffsets = [];
                   imageFile = null;
                   getFLData = flchartData1;
                   buttonIndex = 0;
@@ -86,7 +86,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               onPressed: () {
                 setState(() {
                   drawLine = false;
-                  offsets = [];
+                  drawingoffsets = [];
                   imageFile = null;
                   getFLData = flchartData3;
                   buttonIndex = 1;
@@ -102,7 +102,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               onPressed: () {
                 setState(() {
                   drawLine = false;
-                  offsets = [];
+                  drawingoffsets = [];
                   imageFile = null;
                   getFLData = flchartData5;
                   buttonIndex = 2;
@@ -118,7 +118,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
             onPressed: () {
               setState(() {
                 drawLine = false;
-                offsets = [];
+                drawingoffsets = [];
                 imageFile = null;
                 getFLData = flchartData10;
                 buttonIndex = 3;
@@ -135,7 +135,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
             onPressed: () {
               setState(() {
                 drawLine = false;
-                offsets = [];
+                drawingoffsets = [];
                 imageFile = null;
                 getFLData = flchartDataMax;
                 buttonIndex = 4;
@@ -181,7 +181,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           ? null
           : (details) {
               setState(() {
-                offsets.add(DrawLineModel(
+                drawingoffsets.add(DrawLineModel(
                     start: details.localPosition,
                     end: details.localPosition,
                     color: currentColor));
@@ -191,7 +191,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           ? null
           : (details) {
               setState(() {
-                offsets.last.end = details.localPosition;
+                drawingoffsets.last.end = details.localPosition;
               });
             },
       child: AspectRatio(
@@ -285,13 +285,15 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               ),
               if (drawLine)
                 ...List.generate(
-                    offsets.length,
+                    drawingoffsets.length,
                     (index) => CustomPaint(
-                        painter: LinePainter(offsets[index].start,
-                            offsets[index].end, offsets[index].color),
+                        painter: LinePainter(
+                            drawingoffsets[index].start,
+                            drawingoffsets[index].end,
+                            drawingoffsets[index].color),
                         child: GestureDetector(onTap: () {
                           setState(() {
-                            offsets.removeAt(index);
+                            drawingoffsets.removeAt(index);
                           });
                         }))),
             ],
@@ -343,7 +345,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                     onPressed: () {
                       ImageCache().clear();
                       setState(() {
-                        offsets = [];
+                        drawingoffsets = [];
                       });
                     },
                     child: const Icon(Icons.clear, color: Colors.white)),

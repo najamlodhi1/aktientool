@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/allCharts.dart';
 import 'package:translator/translator.dart';
 import '../../main.dart';
 import 'StockNewsModel.dart';
@@ -7,8 +8,8 @@ class StockNewsService {
 
   Future<List<StockNewsModel>> getData(dynamic data) async {
     List<StockNewsModel> temp = parseData(data);
-    for (var i = 0; i < temp.length; i++) {
-      if (selectedLocale.languageCode == 'de') {
+    if (selectedLocale.languageCode == 'de' && newsData == null) {
+      for (var i = 0; i < temp.length; i++) {
         temp[i].title = await translator
             .translate(temp[i].title, to: 'de')
             .then((value) => value.text);
@@ -16,6 +17,9 @@ class StockNewsService {
             .translate(temp[i].text, to: 'de')
             .then((value) => value.text);
       }
+    }
+    if (newsData != null) {
+      return newsData;
     }
     return temp;
   }

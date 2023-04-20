@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,6 +31,7 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData &&
               snapshot.connectionState == ConnectionState.done) {
+            newsData = snapshot.data!;
             return bodyWidget(snapshot.data!);
           } else if (snapshot.hasData && snapshot.data!.isEmpty) {
             return const SizedBox();

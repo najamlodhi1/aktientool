@@ -24,6 +24,9 @@ import 'chart3/createchart.dart';
 import 'chart4/BarChartCashFlowScreen.dart';
 import 'ESGScore/ESGScoreScreen.dart';
 
+List<DrawLineModel> drawingoffsets = [];
+var newsData;
+
 class AllCharts extends StatefulWidget {
   late AppLocalizations trans;
   AllCharts({super.key});
@@ -68,9 +71,11 @@ class _AllChartsState extends State<AllCharts> {
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < pages.length; i++) {
+    for (var i = 0; i < pages.length + 1; i++) {
       widgetData.add(null);
     }
+    drawingoffsets = [];
+    newsData = null;
     getFuture = getdata(null, 'overview');
   }
 
@@ -178,6 +183,26 @@ class _AllChartsState extends State<AllCharts> {
         children: [
           Image.asset("assets/images/logo.png", width: 150),
           const SizedBox(height: 20),
+          InkWell(
+            onTap: () {
+              setState(() {
+                selectedindex = 8;
+              });
+              if (MediaQuery.of(context).size.width < 700) {
+                Navigator.pop(context);
+              }
+            },
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Text(trans.translate("Set Filter"),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white)),
+              ),
+            ),
+          ),
           ...List.generate(
               pages.length,
               (index) => InkWell(
