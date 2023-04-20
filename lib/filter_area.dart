@@ -136,72 +136,69 @@ class _FilterAreaState extends State<FilterArea> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Guru Strategy"),
-      ),
-      body: DefaultTabController(
-          initialIndex: 1,
-          length: 3,
-          child: Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 50,
-              backgroundColor: Colors.white,
-              elevation: 0,
-              bottom: TabBar(
-                  onTap: (value) {
-                    print("Tab$value");
-                  },
-                  unselectedLabelColor: kPrimaryColor,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: kPrimaryColor,
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          toolbarHeight: 50,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          bottom: TabBar(
+              onTap: (value) {
+                print("Tab$value");
+              },
+              unselectedLabelColor: kPrimaryColor,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: kPrimaryColor,
+              ),
+              tabs: [
+                Tab(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: kPrimaryColor, width: 1)),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text("Quality"),
+                    ),
                   ),
-                  tabs: [
-                    Tab(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: kPrimaryColor, width: 1)),
-                        child: const Align(
-                          alignment: Alignment.center,
-                          child: Text("Quality"),
-                        ),
-                      ),
+                ),
+                Tab(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: kPrimaryColor, width: 1)),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text("Growth"),
                     ),
-                    Tab(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: kPrimaryColor, width: 1)),
-                        child: const Align(
-                          alignment: Alignment.center,
-                          child: Text("Growth"),
-                        ),
-                      ),
+                  ),
+                ),
+                Tab(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: kPrimaryColor, width: 1)),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text("Value"),
                     ),
-                    Tab(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: kPrimaryColor, width: 1)),
-                        child: const Align(
-                          alignment: Alignment.center,
-                          child: Text("Value"),
-                        ),
-                      ),
-                    ),
-                  ]),
-            ),
-            body: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  loadCardQuality(listquality),
-                  loadCardGrowth(listgrowth),
-                  loadCardValue(listvalue),
-                ]),
-          )),
+                  ),
+                ),
+              ]),
+        ),
+        body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              loadCardQuality(listquality),
+              loadCardGrowth(listgrowth),
+              loadCardValue(listvalue),
+            ]),
+      ),
     );
   }
 }
