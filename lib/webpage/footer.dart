@@ -1,7 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, avoid_web_libraries_in_flutter
 
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
+import 'package:aktientool/datenschutz/haftung.dart';
 import 'package:aktientool/datenschutz/impressum.dart';
 import 'package:aktientool/webpage/constants.dart';
 import 'package:aktientool/webpage/screen_helper.dart';
@@ -98,6 +99,34 @@ Widget _buildUi(double width, BuildContext context) {
                       cursor: SystemMouseCursors.click,
                       child: Text(
                         "\n${trans.translate("Data Protection")}",
+                        style: const TextStyle(
+                          color: kCaptionColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: const Text(
+                      "\n|",
+                      style: TextStyle(
+                        color: kCaptionColor,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Haftung(),
+                        ),
+                      );
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Text(
+                        "\n${trans.translate("Liability")}",
                         style: const TextStyle(
                           color: kCaptionColor,
                         ),
