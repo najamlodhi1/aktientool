@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, deprecated_member_use, non_constant_identifier_names, must_be_immutable, unused_local_variable
 
-import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/payment/stripe/hompage.dart';
-import 'package:aktientool/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../settings/app_localizations.dart';
-import 'filter.dart';
 
 final sp_search = StateProvider((ref) => "");
 int requestsLeft = 0;
@@ -38,16 +35,6 @@ class SearchArea extends ConsumerWidget {
 
     {
       return AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Filter(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.menu)),
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         title: ListTile(
           title: TextField(
@@ -74,58 +61,6 @@ class SearchArea extends ConsumerWidget {
           ),
         ),
         automaticallyImplyLeading: false,
-        actions: [
-          searchController.text.isEmpty
-              ? const SizedBox()
-              : IconButton(
-                  onPressed: () {
-                    searchController.text = "";
-                    ref.read(sp_search.notifier).state = "";
-                  },
-                  icon: customIcon,
-                ),
-          const SizedBox(
-            width: 5,
-          ),
-          if (FirebaseAuth.instance.currentUser != null)
-            Padding(
-              padding: const EdgeInsets.all(2),
-              child: ElevatedButton(
-                onPressed: () async {
-                  // var uid = auth.currentUser!.uid;
-                  upgradepopup(context);
-                },
-                child: StreamBuilder<int>(
-                    stream: RequestService().getrequests(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        isFirst = false;
-                        requestsLeft = snapshot.data!;
-                        if (requestsLeft == 0 && isFirst) {
-                          Future.delayed(const Duration(milliseconds: 200))
-                              .then((value) {
-                            upgradepopup(context);
-                          });
-                        }
-                      }
-                      return Text(
-                          snapshot.hasData ? snapshot.data!.toString() : '0');
-                    }),
-              ),
-            )
-          else
-            const SizedBox.shrink(),
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Settings(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.settings))
-        ],
         centerTitle: true,
       );
     }

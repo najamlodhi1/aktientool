@@ -154,7 +154,6 @@ class HomePageState extends State<HomePage>
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
-      // ignore: deprecated_member_use
       checkCookiesx(context);
     });
     String currentUrl = html.window.location.href;
@@ -233,7 +232,7 @@ class HomePageState extends State<HomePage>
                 }
               },
             );
-            return const Home();
+            return AllCharts();
           } else {
             return Scaffold(
               backgroundColor: const Color.fromARGB(255, 0, 0, 0),

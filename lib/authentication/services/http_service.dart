@@ -13,10 +13,10 @@ Future getdata(dynamic data, String path) async {
 
   String token = '';
 
-  if (stock != 'AAPL') {
-    token = await FirebaseAuth.instance.currentUser!.getIdToken();
-  }
   if (data == null) {
+    if (stock != 'AAPL') {
+      token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    }
     return await http.get(
         Uri(
             scheme: scheme,

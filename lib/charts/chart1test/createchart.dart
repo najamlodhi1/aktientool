@@ -51,7 +51,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
       initialData: getFLData.isNotEmpty ? [] : null,
       future: getfuture,
       builder: (ctx, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasData) {
           return showChart();
         } else {
           return const SizedBox();

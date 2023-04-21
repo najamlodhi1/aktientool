@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../charts/allCharts.dart';
 import '../../settings/app_localizations.dart';
 import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
@@ -177,7 +178,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Home()));
+                                builder: (context) => AllCharts()));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(trans.translate(message))));
