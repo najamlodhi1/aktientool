@@ -7,12 +7,10 @@ import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/charts/chart4/createchart.dart';
-import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../authentication/services/request_service.dart';
-import '../filter/filter.dart';
 import '../filter/searcharea.dart';
 import '../settings/app_localizations.dart';
 import '../settings/settings.dart';
@@ -58,10 +56,11 @@ class AllCharts extends StatefulWidget {
 class _AllChartsState extends State<AllCharts> {
   final scaffoldkey = GlobalKey<ScaffoldState>();
   dynamic parentData;
-  int selectedindex = 9;
+  int selectedindex = 0;
   List<dynamic> widgetData = [];
-
   List pages = [
+    "Select Filter",
+    "Select Stocks",
     "Overview",
     "Evaluation",
     "Performance1",
@@ -73,7 +72,7 @@ class _AllChartsState extends State<AllCharts> {
   ];
 
   late AppLocalizations trans;
-  Future? getFuture;
+  late Future getFuture;
 
   @override
   void initState() {
@@ -83,6 +82,7 @@ class _AllChartsState extends State<AllCharts> {
     }
     drawingoffsets = [];
     newsData = null;
+    getFuture = getdata(null, 'overview');
   }
 
   @override
@@ -92,58 +92,51 @@ class _AllChartsState extends State<AllCharts> {
       key: scaffoldkey,
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       drawer: MediaQuery.of(context).size.width < 700
-          ? Drawer(backgroundColor: Colors.grey, child: customDrawer())
+          ? Drawer(backgroundColor: Colors.black, child: customDrawer())
           : null,
       body: Row(
         children: [
           MediaQuery.of(context).size.width > 700
-              ? Container(width: 300, color: Colors.grey, child: customDrawer())
+              ? Container(
+                  width: 250, color: Colors.black, child: customDrawer())
               : Container(),
           Expanded(
             child: Scaffold(
               backgroundColor: const Color.fromARGB(255, 0, 0, 0),
               appBar: AppBar(
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.black,
                 leadingWidth: 200,
-                actions: (FirebaseAuth.instance.currentUser == null)
-                    ? null
-                    : [
-                        Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              upgradepopup(context);
-                            },
-                            child: StreamBuilder<int>(
-                                stream: RequestService().getrequests(),
-                                builder: (context, snapshot) {
-                                  return Text(snapshot.hasData
-                                      ? snapshot.data!.toString()
-                                      : '0');
-                                }),
+                actions: [
+                  if (FirebaseAuth.instance.currentUser != null)
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          // var uid = auth.currentUser!.uid;
+                          upgradepopup(context);
+                        },
+                        child: StreamBuilder<int>(
+                            stream: RequestService().getrequests(),
+                            builder: (context, snapshot) {
+                              return Text(snapshot.hasData
+                                  ? snapshot.data!.toString()
+                                  : '0');
+                            }),
+                      ),
+                    )
+                  else
+                    const SizedBox.shrink(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Settings(),
                           ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Filter(),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.filter_alt)),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Settings(),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.settings))
-                      ],
+                        );
+                      },
+                      icon: const Icon(Icons.settings))
+                ],
                 leading: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -162,12 +155,7 @@ class _AllChartsState extends State<AllCharts> {
               body: FutureBuilder(
                   future: getFuture,
                   builder: (context, snapshot) {
-                    if (selectedindex == 9 &&
-                        FirebaseAuth.instance.currentUser != null) {
-                      return const Home();
-                    } else if (getFuture == null) {
-                      return Container();
-                    } else if (snapshot.hasData &&
+                    if (snapshot.hasData &&
                         snapshot.connectionState == ConnectionState.done) {
                       parentData = jsonDecode(snapshot.data);
                       widgetData[selectedindex] = snapshot.data;
@@ -231,103 +219,72 @@ class _AllChartsState extends State<AllCharts> {
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
-          Image.asset("assets/images/logo.png", width: 150),
-          const SizedBox(height: 20),
-          InkWell(
-            onTap: () {
-              setState(() {
-                selectedindex = 8;
-              });
-              if (MediaQuery.of(context).size.width < 700) {
-                Navigator.pop(context);
-              }
-            },
-            child: const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Text("Set Filter",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white)),
-              ),
-            ),
+          const SizedBox(
+            height: 80,
           ),
-          InkWell(
-            onTap: () {
-              setState(() {
-                selectedindex = 9;
-              });
-              if (MediaQuery.of(context).size.width < 700) {
-                Navigator.pop(context);
-              }
-            },
-            child: const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Text("View Stocks",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white)),
-              ),
-            ),
+          Image.asset("assets/images/logo.png", width: 150),
+          const SizedBox(height: 40),
+          const Divider(
+            height: 10,
+            thickness: 1,
+          ),
+          const Divider(
+            height: 10,
+            thickness: 1,
           ),
           ...List.generate(
-              pages.length,
-              (index) => InkWell(
-                    onTap: () {
-                      if (ShowCompanies.companysymbol.isEmpty &&
-                          FirebaseAuth.instance.currentUser != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text("Select a company to continue")));
-                      }
-                      {
-                        setState(() {
-                          selectedindex = index;
-                          if (selectedindex == 0) {
-                            getFuture =
-                                getdata(widgetData[selectedindex], 'overview');
-                          } else if (selectedindex == 1) {
-                            getFuture = getdata(
-                                widgetData[selectedindex], 'evaluation');
-                          } else if (selectedindex == 2) {
-                            getFuture = getdata(
-                                widgetData[selectedindex], 'performance');
-                          } else if (selectedindex == 3) {
-                            getFuture =
-                                getdata(widgetData[selectedindex], 'growth');
-                          } else if (selectedindex == 4) {
-                            getFuture =
-                                getdata(widgetData[selectedindex], 'health');
-                          } else if (selectedindex == 5) {
-                            getFuture =
-                                getdata(widgetData[selectedindex], 'dividend');
-                          } else if (selectedindex == 6) {
-                            getFuture = getdata(
-                                widgetData[selectedindex], 'management');
-                          } else if (selectedindex == 7) {
-                            getFuture =
-                                getdata(widgetData[selectedindex], 'news');
-                          }
-                        });
-                      }
-                      if (MediaQuery.of(context).size.width < 700) {
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Text(trans.translate(pages[index]),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.white)),
-                      ),
-                    ),
-                  ))
+            pages.length,
+            (index) => InkWell(
+                onTap: () {
+                  setState(() {
+                    selectedindex = index;
+                    if (selectedindex == 0) {
+                      getFuture =
+                          getdata(widgetData[selectedindex], 'overview');
+                    } else if (selectedindex == 1) {
+                      getFuture =
+                          getdata(widgetData[selectedindex], 'evaluation');
+                    } else if (selectedindex == 2) {
+                      getFuture =
+                          getdata(widgetData[selectedindex], 'performance');
+                    } else if (selectedindex == 3) {
+                      getFuture = getdata(widgetData[selectedindex], 'growth');
+                    } else if (selectedindex == 4) {
+                      getFuture = getdata(widgetData[selectedindex], 'health');
+                    } else if (selectedindex == 5) {
+                      getFuture =
+                          getdata(widgetData[selectedindex], 'dividend');
+                    } else if (selectedindex == 6) {
+                      getFuture =
+                          getdata(widgetData[selectedindex], 'management');
+                    } else if (selectedindex == 7) {
+                      getFuture = getdata(widgetData[selectedindex], 'news');
+                    }
+                  });
+                  if (MediaQuery.of(context).size.width < 700) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: ListTile(
+                  //leading: const Icon(Icons.abc),
+                  title: Text("${index + 1}. ${trans.translate(pages[index])}",
+                      style:
+                          const TextStyle(fontSize: 18, color: Colors.white)),
+                )
+
+/*
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Text(trans.translate(pages[index]),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white)),
+              ),
+
+              */
+                ),
+          )
         ],
       ),
     );
