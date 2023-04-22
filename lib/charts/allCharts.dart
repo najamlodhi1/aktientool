@@ -7,6 +7,8 @@ import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
 import 'package:aktientool/charts/chart2/BarChartIncomeScreen.dart';
 import 'package:aktientool/charts/chart4/createchart.dart';
+import 'package:aktientool/filter_area.dart';
+import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +84,7 @@ class _AllChartsState extends State<AllCharts> {
     }
     drawingoffsets = [];
     newsData = null;
-    getFuture = getdata(null, 'overview');
+    // getFuture = getdata(null, 'overview');
   }
 
   @override
@@ -123,9 +125,7 @@ class _AllChartsState extends State<AllCharts> {
                                   : '0');
                             }),
                       ),
-                    )
-                  else
-                    const SizedBox.shrink(),
+                    ),
                   IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -152,61 +152,70 @@ class _AllChartsState extends State<AllCharts> {
                 title: Text(ShowCompanies.companyname),
                 centerTitle: true,
               ),
-              body: FutureBuilder(
-                  future: getFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.connectionState == ConnectionState.done) {
-                      parentData = jsonDecode(snapshot.data);
-                      widgetData[selectedindex] = snapshot.data;
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            if (selectedindex == 0) ...[
-                              CreateChart0(parentData[0]), // Info
-                              CreateChart1Test(parentData[1]), // Chart
-                            ],
-                            if (selectedindex == 1) ...[
-                              ConcensusScreen(
-                                  parentData[0]), // Analysten bewertung
-                            ],
-                            if (selectedindex == 2) ...[
-                              CreateChart11(parentData[0]), // Performance
-                            ],
-                            if (selectedindex == 3) ...[
-                              BarChartIncomeScreen(
-                                  parentData[0]), // Bar Chart income
-                              CreateChart2(parentData[0]),
-                              BarChartBalanceScreen(
-                                  parentData[1]), // Bar Chart Balance
-                              CreateChart3(parentData[1]),
-                              BarChartCashFlowScreen(parentData[2]),
-                              CreateChart4(parentData[2])
-                            ],
-                            if (selectedindex == 4) ...[
-                              Institutionalholders(parentData[0]),
-                              ESGScoreScreen(parentData[4]),
-                              InsiderScreen(parentData[3]),
-                              RatingScreen(parentData[2]),
-                              ScoreScreen(parentData[1]), // Risikobewertung
-                            ],
-                            if (selectedindex == 5) ...[
-                              CompanyScreen(parentData[0]), // Dividend History
-                            ],
-                            if (selectedindex == 6) ...[
-                              DCFLeveredScreen(parentData[0])
-                            ],
-                            if (selectedindex == 7) ...[
-                              StockNewsScreen(parentData[0]),
-                            ],
-                            Footer()
-                          ],
-                        ),
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  }),
+              body: selectedindex == 0
+                  ? const FilterArea()
+                  : selectedindex == 1
+                      ? const Home()
+                      : FutureBuilder(
+                          future: getFuture,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData &&
+                                snapshot.connectionState ==
+                                    ConnectionState.done) {
+                              parentData = jsonDecode(snapshot.data);
+                              widgetData[selectedindex] = snapshot.data;
+                              return SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    if (selectedindex == 2) ...[
+                                      CreateChart0(parentData[0]), // Info
+                                      CreateChart1Test(parentData[1]), // Chart
+                                    ],
+                                    if (selectedindex == 3) ...[
+                                      ConcensusScreen(
+                                          parentData[0]), // Analysten bewertung
+                                    ],
+                                    if (selectedindex == 4) ...[
+                                      CreateChart11(
+                                          parentData[0]), // Performance
+                                    ],
+                                    if (selectedindex == 5) ...[
+                                      BarChartIncomeScreen(
+                                          parentData[0]), // Bar Chart income
+                                      CreateChart2(parentData[0]),
+                                      BarChartBalanceScreen(
+                                          parentData[1]), // Bar Chart Balance
+                                      CreateChart3(parentData[1]),
+                                      BarChartCashFlowScreen(parentData[2]),
+                                      CreateChart4(parentData[2])
+                                    ],
+                                    if (selectedindex == 6) ...[
+                                      Institutionalholders(parentData[0]),
+                                      ESGScoreScreen(parentData[4]),
+                                      InsiderScreen(parentData[3]),
+                                      RatingScreen(parentData[2]),
+                                      ScoreScreen(
+                                          parentData[1]), // Risikobewertung
+                                    ],
+                                    if (selectedindex == 7) ...[
+                                      CompanyScreen(
+                                          parentData[0]), // Dividend History
+                                    ],
+                                    if (selectedindex == 8) ...[
+                                      DCFLeveredScreen(parentData[0])
+                                    ],
+                                    if (selectedindex == 9) ...[
+                                      StockNewsScreen(parentData[0]),
+                                    ],
+                                    Footer()
+                                  ],
+                                ),
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                          }),
             ),
           ),
         ],
@@ -236,54 +245,52 @@ class _AllChartsState extends State<AllCharts> {
             pages.length,
             (index) => InkWell(
                 onTap: () {
-                  setState(() {
-                    selectedindex = index;
-                    if (selectedindex == 0) {
-                      getFuture =
-                          getdata(widgetData[selectedindex], 'overview');
-                    } else if (selectedindex == 1) {
-                      getFuture =
-                          getdata(widgetData[selectedindex], 'evaluation');
-                    } else if (selectedindex == 2) {
-                      getFuture =
-                          getdata(widgetData[selectedindex], 'performance');
-                    } else if (selectedindex == 3) {
-                      getFuture = getdata(widgetData[selectedindex], 'growth');
-                    } else if (selectedindex == 4) {
-                      getFuture = getdata(widgetData[selectedindex], 'health');
-                    } else if (selectedindex == 5) {
-                      getFuture =
-                          getdata(widgetData[selectedindex], 'dividend');
-                    } else if (selectedindex == 6) {
-                      getFuture =
-                          getdata(widgetData[selectedindex], 'management');
-                    } else if (selectedindex == 7) {
-                      getFuture = getdata(widgetData[selectedindex], 'news');
+                  if (ShowCompanies.companysymbol.isEmpty &&
+                      FirebaseAuth.instance.currentUser != null) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(trans.translate('selectCompany'))));
+                  } else {
+                    if (selectedindex != index) {
+                      setState(() {
+                        selectedindex = index;
+                        if (selectedindex == 2) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'overview');
+                        } else if (selectedindex == 3) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'evaluation');
+                        } else if (selectedindex == 4) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'performance');
+                        } else if (selectedindex == 5) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'growth');
+                        } else if (selectedindex == 6) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'health');
+                        } else if (selectedindex == 7) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'dividend');
+                        } else if (selectedindex == 8) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'management');
+                        } else if (selectedindex == 9) {
+                          getFuture =
+                              getdata(widgetData[selectedindex], 'news');
+                        }
+                      });
+                      if (MediaQuery.of(context).size.width < 700) {
+                        Navigator.pop(context);
+                      }
                     }
-                  });
-                  if (MediaQuery.of(context).size.width < 700) {
-                    Navigator.pop(context);
                   }
                 },
                 child: ListTile(
-                  //leading: const Icon(Icons.abc),
                   title: Text("${index + 1}. ${trans.translate(pages[index])}",
                       style:
                           const TextStyle(fontSize: 18, color: Colors.white)),
-                )
-
-/*
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Text(trans.translate(pages[index]),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white)),
-              ),
-
-              */
-                ),
+                )),
           )
         ],
       ),
