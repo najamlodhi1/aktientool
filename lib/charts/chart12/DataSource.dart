@@ -19,7 +19,7 @@ class DataSource extends DataTableSource {
           Text(_data[index].date, style: const TextStyle(color: Colors.white))),
       DataCell(Text(_data[index].paymentDate,
           style: const TextStyle(color: Colors.white))),
-      DataCell(Text(_data[index].dividend,
+      DataCell(Text('${_data[index].dividend} $currency',
           style: const TextStyle(color: Colors.white)))
     ]);
   }

@@ -8,7 +8,7 @@ const primaryColor = Color.fromARGB(255, 0, 137, 201);
 const secondaryColor = Color(0xff442881);
 //String currencNow = "USD";
 
-ValueNotifier<String> currencyNotifier = ValueNotifier('');
+ValueNotifier<String> currencyNotifier = ValueNotifier('USD');
 
 class CreateChart0 extends StatefulWidget {
   const CreateChart0(this.data, {super.key});

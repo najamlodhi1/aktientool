@@ -133,7 +133,11 @@ class _AllChartsState extends State<AllCharts> {
                           MaterialPageRoute(
                             builder: (context) => Settings(),
                           ),
-                        );
+                        ).then((value) {
+                          setState(() {
+                            getindexData();
+                          });
+                        });
                       },
                       icon: const Icon(Icons.settings))
                 ],
@@ -246,7 +250,8 @@ class _AllChartsState extends State<AllCharts> {
             (index) => InkWell(
                 onTap: () {
                   if (ShowCompanies.companysymbol.isEmpty &&
-                      FirebaseAuth.instance.currentUser != null) {
+                      FirebaseAuth.instance.currentUser != null &&
+                      index > 1) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(trans.translate('selectCompany'))));
@@ -254,31 +259,7 @@ class _AllChartsState extends State<AllCharts> {
                     if (selectedindex != index) {
                       setState(() {
                         selectedindex = index;
-                        if (selectedindex == 2) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'overview');
-                        } else if (selectedindex == 3) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'evaluation');
-                        } else if (selectedindex == 4) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'performance');
-                        } else if (selectedindex == 5) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'growth');
-                        } else if (selectedindex == 6) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'health');
-                        } else if (selectedindex == 7) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'dividend');
-                        } else if (selectedindex == 8) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'management');
-                        } else if (selectedindex == 9) {
-                          getFuture =
-                              getdata(widgetData[selectedindex], 'news');
-                        }
+                        getindexData();
                       });
                       if (MediaQuery.of(context).size.width < 700) {
                         Navigator.pop(context);
@@ -295,5 +276,25 @@ class _AllChartsState extends State<AllCharts> {
         ],
       ),
     );
+  }
+
+  void getindexData() {
+    if (selectedindex == 2) {
+      getFuture = getdata(widgetData[selectedindex], 'overview');
+    } else if (selectedindex == 3) {
+      getFuture = getdata(widgetData[selectedindex], 'evaluation');
+    } else if (selectedindex == 4) {
+      getFuture = getdata(widgetData[selectedindex], 'performance');
+    } else if (selectedindex == 5) {
+      getFuture = getdata(widgetData[selectedindex], 'growth');
+    } else if (selectedindex == 6) {
+      getFuture = getdata(widgetData[selectedindex], 'health');
+    } else if (selectedindex == 7) {
+      getFuture = getdata(widgetData[selectedindex], 'dividend');
+    } else if (selectedindex == 8) {
+      getFuture = getdata(widgetData[selectedindex], 'management');
+    } else if (selectedindex == 9) {
+      getFuture = getdata(widgetData[selectedindex], 'news');
+    }
   }
 }

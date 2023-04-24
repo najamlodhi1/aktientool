@@ -4,6 +4,7 @@ import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../webpage/constants.dart';
 import 'StockNewsModel.dart';
 import 'StockNewsService.dart';
 
@@ -17,7 +18,7 @@ class StockNewsScreen extends StatefulWidget {
 class _StockNewsScreenState extends State<StockNewsScreen> {
   late Future<List<StockNewsModel>> getFuture;
   bool iseditable = true;
-
+  int selectedIndex = -1;
   @override
   void initState() {
     super.initState();
@@ -70,20 +71,27 @@ class _StockNewsScreenState extends State<StockNewsScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
-                    data.length, (index) => buildCard(data[index]))),
+                    data.length, (index) => buildCard(data[index], index))),
           ],
         ));
   }
 
-  buildCard(StockNewsModel data) {
+  Widget buildCard(StockNewsModel data, int index) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
         onTap: () {
-          _launchUrl(Uri.parse(data.url));
+          if (index == selectedIndex) {
+            _launchUrl(Uri.parse(data.url));
+          } else {
+            setState(() {
+              selectedIndex = index;
+            });
+          }
         },
         child: PhysicalModel(
-          color: primaryColor,
+          borderRadius: BorderRadius.circular(10),
+          color: index == selectedIndex ? kPrimaryColor : primaryColor,
           elevation: 2,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
