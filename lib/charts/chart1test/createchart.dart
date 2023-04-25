@@ -151,7 +151,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
   }
 
   double calculateDateTitlesInterval(int btnIndex) {
-    int maxScreenWidth = 1200;
+    int maxScreenWidth = 1600;
     switch (btnIndex) {
       // 1 y
       case 0:
@@ -328,17 +328,17 @@ class CreateChart1TestState extends State<CreateChart1Test> {
           Row(
             children: [
               Container(),
-              const Spacer(),
+              //const Spacer(),
               ValueListenableBuilder(
                 builder: (context, value, child) => Text(
-                  todayPriceFinal + value,
-                  style: const TextStyle(fontSize: 30, color: Colors.white),
+                  "$todayPriceFinal $value",
+                  style: const TextStyle(fontSize: 22, color: Colors.white),
                 ),
                 valueListenable: currencyNotifier,
               ),
               const Spacer(),
               SizedBox(
-                height: 40,
+                height: 30,
                 width: 40,
                 child: TextButton(
                     style: TextButton.styleFrom(backgroundColor: Colors.red),
@@ -350,9 +350,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                     },
                     child: const Icon(Icons.clear, color: Colors.white)),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 10),
               SizedBox(
-                height: 40,
+                height: 30,
                 width: 40,
                 child: TextButton(
                     style: TextButton.styleFrom(backgroundColor: currentColor),
@@ -382,9 +382,9 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                     },
                     child: const Icon(Icons.color_lens, color: Colors.white)),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 10),
               SizedBox(
-                height: 40,
+                height: 30,
                 width: 40,
                 child: TextButton(
                     style: TextButton.styleFrom(
@@ -403,7 +403,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                       });
                     },
                     child: const Icon(Icons.line_axis, color: Colors.white)),
-              )
+              ),
+              const Spacer(),
             ],
           ),
           const SizedBox(
