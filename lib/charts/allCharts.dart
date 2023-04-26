@@ -10,7 +10,6 @@ import 'package:aktientool/charts/chart4/createchart.dart';
 import 'package:aktientool/filter_area.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
-import 'package:aktientool/webpage/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../authentication/services/request_service.dart';
@@ -268,7 +267,7 @@ class _AllChartsState extends State<AllCharts> {
                   }
                 },
                 child: Container(
-                  color: selectedindex == index ? kPrimaryColor : null,
+                  color: selectedindex == index ? primaryColor : null,
                   child: ListTile(
                     title: Text(
                         "${index + 1}. ${trans.translate(pages[index])}",
