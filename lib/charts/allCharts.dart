@@ -10,6 +10,7 @@ import 'package:aktientool/charts/chart4/createchart.dart';
 import 'package:aktientool/filter_area.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
+import 'package:aktientool/webpage/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../authentication/services/request_service.dart';
@@ -174,15 +175,15 @@ class _AllChartsState extends State<AllCharts> {
                                     if (selectedindex == 2) ...[
                                       CreateChart0(parentData[0]), // Info
                                       CreateChart1Test(parentData[1]), // Chart
+                                      CreateChart11(
+                                          parentData[2]), // Performance
+                                      Institutionalholders(parentData[3]),
                                     ],
                                     if (selectedindex == 3) ...[
                                       ConcensusScreen(
                                           parentData[0]), // Analysten bewertung
                                     ],
-                                    if (selectedindex == 4) ...[
-                                      CreateChart11(
-                                          parentData[0]), // Performance
-                                    ],
+                                    if (selectedindex == 4) ...[],
                                     if (selectedindex == 5) ...[
                                       BarChartIncomeScreen(
                                           parentData[0]), // Bar Chart income
@@ -194,7 +195,6 @@ class _AllChartsState extends State<AllCharts> {
                                       CreateChart4(parentData[2])
                                     ],
                                     if (selectedindex == 6) ...[
-                                      Institutionalholders(parentData[0]),
                                       ESGScoreScreen(parentData[4]),
                                       InsiderScreen(parentData[3]),
                                       RatingScreen(parentData[2]),
@@ -267,10 +267,14 @@ class _AllChartsState extends State<AllCharts> {
                     }
                   }
                 },
-                child: ListTile(
-                  title: Text("${index + 1}. ${trans.translate(pages[index])}",
-                      style:
-                          const TextStyle(fontSize: 18, color: Colors.white)),
+                child: Container(
+                  color: selectedindex == index ? kPrimaryColor : null,
+                  child: ListTile(
+                    title: Text(
+                        "${index + 1}. ${trans.translate(pages[index])}",
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.white)),
+                  ),
                 )),
           )
         ],
