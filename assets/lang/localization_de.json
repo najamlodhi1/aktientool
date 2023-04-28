@@ -244,5 +244,7 @@
     "AboutCompany": "Über das Unternehmen",
     "CEO": "CEO",
     "Website": "Webseite",
-    "country": "Land"
+    "country": "Land",
+    "showLess":"Weniger anzeigen",
+    "readMore": "Weiterlesen"
 }

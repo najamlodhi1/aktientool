@@ -75,7 +75,7 @@ class CreateChart0State extends State<CreateChart0> {
                               width: 10,
                               height: 10,
                             ),
-                            Expanded(child: aboutCompanyWidget(snapshot)),
+                            Expanded(child: aboutCompanyWidget(snapshot,maxLines : 21)),
                           ],
                         );
                       } else if (constraints.maxWidth >= 600) {
@@ -150,7 +150,8 @@ class CreateChart0State extends State<CreateChart0> {
         });
   }
 
-  Widget aboutCompanyWidget(AsyncSnapshot<CompanyInfo> snapshot) {
+  Widget aboutCompanyWidget(AsyncSnapshot<CompanyInfo> snapshot,
+      {final maxLines = 100}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
@@ -162,7 +163,9 @@ class CreateChart0State extends State<CreateChart0> {
             borderRadius: BorderRadius.circular(5.0),
             color: const Color(0xff1a222d),
           ),
-          child: discriptionWidget(snapshot.data!)),
+          child:WidgetWithReadMore(data:snapshot.data!,trans: trans,maxLines:maxLines)
+          // child: discriptionWidget(snapshot.data!)
+    ),
     );
   }
 
@@ -383,6 +386,8 @@ class CreateChart0State extends State<CreateChart0> {
     });
   }
 
+
+
   Widget discriptionWidget(CompanyInfo data) {
     return Column(
       children: [
@@ -462,7 +467,7 @@ class CreateChart0State extends State<CreateChart0> {
                 color: Color(0xffEAEAEB),
                 fontSize: 15.5,
               ),
-              maxLines: 23,
+              // maxLines: 21,
               textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
             ),
@@ -548,4 +553,152 @@ class InstagramWidgetListItems extends StatelessWidget {
       ],
     );
   }
+}
+
+class WidgetWithReadMore extends StatefulWidget {
+  final CompanyInfo data;
+  final trans;
+  final maxLines;
+  WidgetWithReadMore({required this.data, @required this.trans,@required this.maxLines});
+
+  @override
+  _WidgetWithReadMoreState createState() => _WidgetWithReadMoreState();
+}
+
+class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme
+        .of(context)
+        .textTheme;
+    final trans = widget.trans;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            trans.translate("AboutCompany"),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      trans.translate("Börsengang"),
+                      style:
+                      const TextStyle(color: Color(0xffa1a4a8), fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      widget.data.ipoDate,
+                      style: const TextStyle(
+                          color: Color(0xffEAEAEB), fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      trans.translate("Mitarbeiter"),
+                      style:
+                      const TextStyle(color: Color(0xffa1a4a8), fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      widget.data.fullTimeEmployees,
+                      style: const TextStyle(
+                          color: Color(0xffEAEAEB), fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      trans.translate("CEO"),
+                      style:
+                      const TextStyle(color: Color(0xffa1a4a8), fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      widget.data.ceo,
+                      style: const TextStyle(
+                          color: Color(0xffEAEAEB), fontSize: 14),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 7, 10, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "${widget.data.description}\n",
+                style: const TextStyle(
+                  color: Color(0xffEAEAEB),
+                  height: 1.15, // set custom line height
+                  fontSize: 15.5,
+                ),
+                maxLines: _isExpanded ? 500 : widget.maxLines,
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+              ),
+              if ((widget.data.description.trim().length) > widget.maxLines * 15.5*1.15) // Adjust 21 as per your font size and line height
+                if (widget.maxLines==21)
+                Padding(
+                  padding:_isExpanded? const EdgeInsets.only(top:0.0,bottom: 7):const EdgeInsets.only(top:8.0,bottom: 7),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _isExpanded = !_isExpanded;
+                          });
+                        },
+                        child: Text(
+                          _isExpanded?trans.translate("showLess"):trans.translate("readMore"),
+                          style: const TextStyle(color: Colors.white,
+                         ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
 }
