@@ -385,97 +385,6 @@ class CreateChart0State extends State<CreateChart0> {
       );
     });
   }
-
-
-
-  Widget discriptionWidget(CompanyInfo data) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          alignment: Alignment.centerLeft,
-          child: Text(trans.translate("AboutCompany"),
-              style: const TextStyle(color: Colors.white, fontSize: 18),
-              textAlign: TextAlign.left),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(trans.translate("Börsengang"),
-                        style: const TextStyle(
-                            color: Color(0xffa1a4a8), fontSize: 14),
-                        textAlign: TextAlign.left),
-                    Text(data.ipoDate,
-                        style: const TextStyle(
-                            color: Color(0xffEAEAEB), fontSize: 14),
-                        textAlign: TextAlign.left),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(trans.translate("Mitarbeiter"),
-                        style: const TextStyle(
-                            color: Color(0xffa1a4a8), fontSize: 14),
-                        textAlign: TextAlign.left),
-                    Text(data.fullTimeEmployees,
-                        style: const TextStyle(
-                            color: Color(0xffEAEAEB), fontSize: 14),
-                        textAlign: TextAlign.left),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(trans.translate("CEO"),
-                        style: const TextStyle(
-                            color: Color(0xffa1a4a8), fontSize: 14),
-                        textAlign: TextAlign.left),
-                    Text(
-                      data.ceo,
-                      style: const TextStyle(
-                          color: Color(0xffEAEAEB), fontSize: 14),
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 7, 10, 6),
-          child: SizedBox(
-            child: Text(
-              "${data.description}\n",
-              style: const TextStyle(
-                color: Color(0xffEAEAEB),
-                fontSize: 15.5,
-              ),
-              // maxLines: 21,
-              textAlign: TextAlign.left,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }
 
 class InstagramWidgetListItems extends StatelessWidget {
@@ -662,14 +571,14 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
                 "${widget.data.description}\n",
                 style: const TextStyle(
                   color: Color(0xffEAEAEB),
-                  height: 1.15, // set custom line height
+                  height: 1.15,
                   fontSize: 15.5,
                 ),
                 maxLines: _isExpanded ? 500 : widget.maxLines,
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
               ),
-              if ((widget.data.description.trim().length) > widget.maxLines * 15.5*1.15) // Adjust 21 as per your font size and line height
+              if ((widget.data.description.trim().length) > widget.maxLines * 15.5*1.15)
                 if (widget.maxLines==21)
                 Padding(
                   padding:_isExpanded? const EdgeInsets.only(top:0.0,bottom: 7):const EdgeInsets.only(top:8.0,bottom: 7),
