@@ -99,7 +99,7 @@ class _FilterAreaState extends State<FilterArea> {
         padding: const EdgeInsets.all(2.0),
         child: Center(
           child: SizedBox(
-            height: 150,
+            height: 110,
             child: Card(
               color: col,
               shape: (shapeList[int.parse(result[2])] == "select")
@@ -202,7 +202,7 @@ class _FilterAreaState extends State<FilterArea> {
           ),
           SizedBox(
             //margin: const EdgeInsets.symmetric(vertical: 5.0),
-            height: 100.0,
+            height: 110.0,
             child: ListView(
               // This next line does the trick.
               scrollDirection: Axis.horizontal,
