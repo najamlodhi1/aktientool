@@ -166,14 +166,22 @@ class _AllChartsState extends State<AllCharts> {
                             if (snapshot.hasData &&
                                 snapshot.connectionState ==
                                     ConnectionState.done) {
-                              parentData = jsonDecode(snapshot.data);
+                              if (snapshot.data is String) {
+                                parentData = jsonDecode(snapshot.data);
+                              } else if (snapshot.data is List<dynamic>) {
+                                List temp=[];
+                                for(var i in snapshot.data){
+                                  temp.add(jsonDecode(i));
+                                }
+                                parentData = temp;
+                              }
                               widgetData[selectedindex] = snapshot.data;
                               return SingleChildScrollView(
                                 child: Column(
                                   children: [
                                     if (selectedindex == 2) ...[
-                                      CreateChart0(parentData[0]), // Info
-                                      CreateChart1Test(parentData[1]), // Chart
+                                      CreateChart0(parentData[0][0],parentData[1][0]), // Info
+                                      CreateChart1Test(parentData[0][1]), // Chart
                                     ],
                                     if (selectedindex == 3) ...[
                                       ConcensusScreen(
@@ -280,7 +288,10 @@ class _AllChartsState extends State<AllCharts> {
 
   void getindexData() {
     if (selectedindex == 2) {
-      getFuture = getdata(widgetData[selectedindex], 'overview');
+      getFuture = Future.wait([
+        getdata(widgetData[selectedindex]!=null&&widgetData[selectedindex][0]!=null?widgetData[selectedindex][0]:null, 'overview'),
+        getdata(widgetData[selectedindex]!=null&&widgetData[selectedindex][1]!=null?widgetData[selectedindex][1]:null, 'performance')
+      ]);
     } else if (selectedindex == 3) {
       getFuture = getdata(widgetData[selectedindex], 'evaluation');
     } else if (selectedindex == 4) {

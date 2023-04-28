@@ -1,18 +1,21 @@
 import 'package:aktientool/charts/chart0/data.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../settings/app_localizations.dart';
+import '../chart11/performanceList.dart';
 
 const primaryColor = Color.fromARGB(255, 0, 137, 201);
 const secondaryColor = Color(0xff442881);
-//String currencNow = "USD";
 
 ValueNotifier<String> currencyNotifier = ValueNotifier('USD');
 
 class CreateChart0 extends StatefulWidget {
-  const CreateChart0(this.data, {super.key});
+  const CreateChart0(this.data, this.performanceData, {super.key});
   final dynamic data;
+  final dynamic performanceData;
   @override
   State<CreateChart0> createState() => CreateChart0State();
 }
@@ -49,56 +52,96 @@ class CreateChart0State extends State<CreateChart0> {
                   ),
                 ),
                 Container(
-                    color: primaryColor,
-                    padding: const EdgeInsets.all(20),
-                    child: discriptionWidget(snapshot.data!)),
-                const SizedBox(height: 10),
-                Container(
-                    color: Colors.black,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: GridView.count(
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 35 / 13,
-                            clipBehavior: Clip.antiAlias,
-                            mainAxisSpacing: 20,
-                            crossAxisSpacing: 20,
-                            shrinkWrap: true,
-                            crossAxisCount:
-                                MediaQuery.of(context).size.width > 800 ? 4 : 2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: const Color(0xff7f7f7f),
+                  ),
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  child: LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      if (constraints.maxWidth >= 890) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            instagramWidget(snapshot),
+                            const SizedBox(
+                              width: 10,
+                              height: 10,
+                            ),
+                            performanceListWidget(),
+                            const SizedBox(
+                              width: 10,
+                              height: 10,
+                            ),
+                            Expanded(child: aboutCompanyWidget(snapshot)),
+                          ],
+                        );
+                      } else if (constraints.maxWidth >= 600) {
+                        return Container(
+                          constraints: const BoxConstraints(
+                            minHeight: 600,
+                          ),
+                          child: Flex(
+                            direction: Axis.vertical,
                             children: [
-                              // _buildGridViewItemName(snapshot.data!.isin),
-                              _buildGridViewItem(snapshot.data!.companyName,
-                                  "Isin:  ${snapshot.data!.isin} "),
-                              _buildGridViewItem(trans.translate("Price"),
-                                  "${snapshot.data!.price} ${snapshot.data!.currency}  ${snapshot.data!.changes} %"),
-                              _buildGridViewItemImage(
-                                  snapshot.data!.image.toString()),
-                              _buildGridViewItem("CEO", snapshot.data!.ceo),
-                              _buildGridViewItem(trans.translate("Exchange"),
-                                  snapshot.data!.exchangeShortName),
-                              _buildGridViewItem(trans.translate("Sektor"),
-                                  "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
-                              _buildGridViewItem(trans.translate("Marketcap"),
-                                  "${snapshot.data!.mktCap}${snapshot.data!.currency}"),
-                              _buildGridViewItem(trans.translate("Mitarbeiter"),
-                                  snapshot.data!.fullTimeEmployees),
-                              _buildGridViewItem(
-                                  trans.translate("Dividendendenrendite"),
-                                  snapshot.data!.lastDiv),
-                              _buildGridViewItem(
-                                  trans.translate("Beta"), snapshot.data!.beta),
-                              _buildGridViewItem(trans.translate("Börsengang"),
-                                  snapshot.data!.ipoDate),
-                              _buildGridViewItem(trans.translate("Sitz"),
-                                  "${snapshot.data!.city} / ${snapshot.data!.state}"),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  instagramWidget(snapshot),
+                                  const SizedBox(
+                                    width: 10,
+                                    height: 10,
+                                  ),
+                                  performanceListWidget(),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                                height: 10,
+                              ),
+                              aboutCompanyWidget(snapshot),
                             ],
                           ),
-                        ),
-                      ],
-                    ))
+                        );
+                      } else {
+                        return Container(
+                          constraints: const BoxConstraints(
+                            minHeight: 600,
+                          ),
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  instagramWidget(snapshot),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                                height: 10,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  performanceListWidget(),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                                height: 10,
+                              ),
+                              aboutCompanyWidget(snapshot),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10),
               ],
             );
           } else {
@@ -107,12 +150,167 @@ class CreateChart0State extends State<CreateChart0> {
         });
   }
 
-  Widget _buildGridViewItemImage(String image) {
+  Widget aboutCompanyWidget(AsyncSnapshot<CompanyInfo> snapshot) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: const Color(0xff363435),
+      ),
+      padding: const EdgeInsets.all(15),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0),
+            color: const Color(0xff1a222d),
+          ),
+          child: discriptionWidget(snapshot.data!)),
+    );
+  }
+
+  Expanded performanceListWidget() {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: const Color(0xff363435),
+        ),
+        padding: const EdgeInsets.fromLTRB(15, 15, 15, 5),
+        child: PerformanceList(widget.performanceData),
+      ),
+    );
+  }
+
+  Expanded instagramWidget(AsyncSnapshot<CompanyInfo> snapshot) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: const Color(0xff363435),
+        ),
+        padding: const EdgeInsets.all(15),
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: const Color(0xffe6e2e3),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildGridViewItemImage(snapshot.data!.image.toString(),
+                          width: 50),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 45,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(snapshot.data!.companyName,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 19,
+                                          color: Colors.black),
+                                      textAlign: TextAlign.left),
+                                  Text(
+                                      "${snapshot.data!.price} ${snapshot.data!.currency}",
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18),
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    "${trans.translate("DIVR")} ${snapshot.data!.lastDiv}",
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 15.5),
+                                    textAlign: TextAlign.left),
+                                Text(
+                                    "${trans.translate("Beta").toUpperCase()} ${snapshot.data!.beta.substring(0, 4)}",
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 15.5),
+                                    textAlign: TextAlign.left),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                  height: 8,
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Column(
+                      children: [
+                        InstagramWidgetListItems(
+                          text: trans.translate("country"),
+                          value: snapshot.data!.country,
+                          isCountry: true,
+                        ),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Exchange"),
+                            value: snapshot.data!.exchangeShortName),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Sektor"),
+                            // value: "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
+                            value: "${snapshot.data!.sector}"),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Marketcap"),
+                            value:
+                                // "${snapshot.data!.mktCap}${snapshot.data!.currency}"
+                                "${snapshot.data!.mktCap}"),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Sitz"),
+                            value:
+                                "${snapshot.data!.city} / ${snapshot.data!.state}"),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Website"),
+                            value: snapshot.data!.website,
+                            isWebsite: true),
+                        InstagramWidgetListItems(
+                            text: "isin".toUpperCase(),
+                            value: snapshot.data!.isin,
+                            showDivider: false),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )),
+      ),
+    );
+  }
+
+  Widget _buildGridViewItemImage(String image, {double width = 700}) {
     return Container(
         decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(20)),
+            color: Colors.transparent, borderRadius: BorderRadius.circular(0)),
         alignment: Alignment.center,
-        child: Image.network(image, width: 700));
+        child: Image.network(image, width: width));
   }
 
   Widget _buildGridViewItemName(String title) {
@@ -188,27 +386,165 @@ class CreateChart0State extends State<CreateChart0> {
   Widget discriptionWidget(CompanyInfo data) {
     return Column(
       children: [
-        Text("${data.description}\n",
-            style: const TextStyle(color: Colors.white, fontSize: 16),
-            textAlign: TextAlign.left),
-        Center(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor:
-                    const Color.fromARGB(255, 0, 0, 0), // foreground
-              ),
-              onPressed: () {
-                launchUrl(Uri.parse(data.website));
-              },
-              child: Text(
-                data.website.toString().replaceRange(0, 8, ""),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              )),
+        Container(
+          padding: const EdgeInsets.all(10),
+          alignment: Alignment.centerLeft,
+          child: Text(trans.translate("AboutCompany"),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+              textAlign: TextAlign.left),
         ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(trans.translate("Börsengang"),
+                        style: const TextStyle(
+                            color: Color(0xffa1a4a8), fontSize: 14),
+                        textAlign: TextAlign.left),
+                    Text(data.ipoDate,
+                        style: const TextStyle(
+                            color: Color(0xffEAEAEB), fontSize: 14),
+                        textAlign: TextAlign.left),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(trans.translate("Mitarbeiter"),
+                        style: const TextStyle(
+                            color: Color(0xffa1a4a8), fontSize: 14),
+                        textAlign: TextAlign.left),
+                    Text(data.fullTimeEmployees,
+                        style: const TextStyle(
+                            color: Color(0xffEAEAEB), fontSize: 14),
+                        textAlign: TextAlign.left),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(trans.translate("CEO"),
+                        style: const TextStyle(
+                            color: Color(0xffa1a4a8), fontSize: 14),
+                        textAlign: TextAlign.left),
+                    Text(
+                      data.ceo,
+                      style: const TextStyle(
+                          color: Color(0xffEAEAEB), fontSize: 14),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 7, 10, 6),
+          child: SizedBox(
+            child: Text(
+              "${data.description}\n",
+              style: const TextStyle(
+                color: Color(0xffEAEAEB),
+                fontSize: 15.5,
+              ),
+              maxLines: 24,
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class InstagramWidgetListItems extends StatelessWidget {
+  final text, value, isWebsite, isCountry, showDivider;
+  InstagramWidgetListItems(
+      {super.key,
+      this.text,
+      this.value,
+      this.isWebsite = false,
+      this.isCountry = false,
+      this.showDivider = true});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+            padding: showDivider
+                ? const EdgeInsets.fromLTRB(2, 6, 2, 5)
+                : const EdgeInsets.fromLTRB(2, 6, 2, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(text,
+                    style: const TextStyle(color: Colors.black, fontSize: 15.5),
+                    textAlign: TextAlign.left),
+                isWebsite
+                    ? GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse(value));
+                        },
+                        child: Text(
+                          value.toString().replaceRange(0, 8, ""),
+                          style: const TextStyle(
+                              color: Color(0xff71acce), fontSize: 15.5),
+                          textAlign: TextAlign.left,
+                        ))
+                    : isCountry
+                        ? Row(
+                            children: [
+                              SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: SvgPicture.asset(
+                                  (kIsWeb)
+                                      ? "assets/images/${value.toLowerCase()}.svg"
+                                      : "images/${value.toLowerCase()}.svg",
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(value,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 15.5),
+                                  textAlign: TextAlign.left),
+                            ],
+                          )
+                        : Text(value,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 15.5),
+                            textAlign: TextAlign.left),
+              ],
+            )),
+        showDivider
+            ? const SizedBox(
+                width: double.maxFinite,
+                child: Divider(
+                  height: 1,
+                  color: Colors.white,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

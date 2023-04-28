@@ -240,5 +240,11 @@
     "Cash at beginning of period": "Cash at beginning of period",
     "Cash at end of period": "Cash at end of period",
     "Net cash flow / Change in cash": "Net cash flow / Change in cash",
-    "Cashflow Statement": "Cashflow Statement"
+    "Cashflow Statement": "Cashflow Statement",
+    "DIVR": "DIVR",
+    "AboutCompany": "About the company",
+    "CEO": "CEO",
+    "Website": "Website",
+    "country": "Country"
+
 }

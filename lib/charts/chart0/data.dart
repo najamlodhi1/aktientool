@@ -44,11 +44,12 @@ class RemoteService {
         posts[0].isin ?? "",
         posts[0].beta.toString(),
         posts[0].price.toString(),
-        "${(posts[0].lastDiv / posts[0].price * 100).toStringAsFixed(2)} % ",
+        "${(posts[0].lastDiv / posts[0].price * 100).toStringAsFixed(2)}% ",
         //posts[0].lastDiv.toString(),
         posts[0].currency.toString(),
         posts[0].changes.toString(),
-        posts[0].state ?? ""));
+        posts[0].state ?? "",
+        posts[0].country ?? ""));
 
     return companyInfo[0];
   }
@@ -75,7 +76,8 @@ class CompanyInfo {
       this.lastDiv,
       this.currency,
       this.changes,
-      this.state);
+      this.state,
+      this.country);
 
   final String image;
   final String companyName;
@@ -97,6 +99,7 @@ class CompanyInfo {
   final String currency;
   final String changes;
   final String state;
+  final String country;
 }
 
 List get companyData {
@@ -121,6 +124,7 @@ List get companyData {
           element.lastDiv,
           element.currency,
           element.changes,
-          element.state))
+          element.state,
+          element.country))
       .toList();
 }
