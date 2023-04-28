@@ -226,7 +226,7 @@ class _FilterAreaState extends State<FilterArea> {
           const Align(
             alignment: FractionalOffset.topLeft,
             child: Text(
-              "  Or choose MANUAL",
+              "  Or select MANUAL",
               style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
