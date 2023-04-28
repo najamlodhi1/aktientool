@@ -176,7 +176,7 @@ class _FilterAreaState extends State<FilterArea> {
                         border: Border.all(color: kPrimaryColor, width: 1)),
                     child: const Align(
                       alignment: Alignment.center,
-                      child: Text("Growth"),
+                      child: Text("Financials"),
                     ),
                   ),
                 ),

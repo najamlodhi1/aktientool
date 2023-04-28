@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'dart:convert';
 import 'package:aktientool/authentication/services/http_service.dart';
-import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
 import 'package:aktientool/charts/Rating/RatingScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
@@ -17,6 +16,7 @@ import '../filter/searcharea.dart';
 import '../settings/app_localizations.dart';
 import '../settings/settings.dart';
 import '../webpage/footer.dart';
+import 'Consensus/ConcensusScreen.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'Insider/InsiderScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
@@ -64,9 +64,9 @@ class _AllChartsState extends State<AllCharts> {
     "Select Filter",
     "Select Stocks",
     "Overview",
+    "Financials",
     "Evaluation",
     "Performance1",
-    "Growth",
     "Health",
     "Dividend",
     "Management",
