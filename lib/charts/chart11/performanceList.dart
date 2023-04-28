@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart11/data.dart';
 import 'package:flutter/material.dart';
 import '../../settings/app_localizations.dart';
@@ -34,6 +35,9 @@ class PerformanceListState extends State<PerformanceList> {
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Text("${trans.translate('Performance with')} 1000\$",
                         style: const TextStyle(
                             fontWeight: FontWeight.normal,
@@ -41,7 +45,7 @@ class PerformanceListState extends State<PerformanceList> {
                             color: Colors.white)),
                     Container(
                         decoration: BoxDecoration(
-                            color: const Color(0xff2B2B29),
+                            color: primaryColor,
                             borderRadius: BorderRadius.circular(5)),
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         padding: const EdgeInsets.symmetric(
@@ -66,13 +70,12 @@ class PerformanceListState extends State<PerformanceList> {
         children: [
           Container(
             padding: index == 0
-                ? const EdgeInsets.only(bottom: 8)
+                ? const EdgeInsets.only(bottom: 4.8)
                 : index == 8
-                    ? const EdgeInsets.only(top: 8)
-                    : const EdgeInsets.symmetric(vertical: 8),
+                    ? const EdgeInsets.only(top: 4.8)
+                    : const EdgeInsets.symmetric(vertical: 4.8),
             decoration: BoxDecoration(
-                color: const Color(0xff2B2B29),
-                borderRadius: BorderRadius.circular(5)),
+                color: primaryColor, borderRadius: BorderRadius.circular(5)),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

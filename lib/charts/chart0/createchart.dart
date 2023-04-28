@@ -7,8 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../settings/app_localizations.dart';
 import '../chart11/performanceList.dart';
 
-const primaryColor = Color.fromARGB(255, 48, 48, 48);
-const secondaryColor = Color(0xff442881);
+const primaryColor = Color.fromARGB(255, 26, 26, 26);
 
 ValueNotifier<String> currencyNotifier = ValueNotifier('USD');
 
@@ -54,7 +53,7 @@ class CreateChart0State extends State<CreateChart0> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    color: const Color(0xff7f7f7f),
+                    color: primaryColor,
                   ),
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),
@@ -77,7 +76,7 @@ class CreateChart0State extends State<CreateChart0> {
                             ),
                             Expanded(
                                 child:
-                                    aboutCompanyWidget(snapshot, maxLines: 21)),
+                                    aboutCompanyWidget(snapshot, maxLines: 20)),
                           ],
                         );
                       } else if (constraints.maxWidth >= 600) {
@@ -157,13 +156,13 @@ class CreateChart0State extends State<CreateChart0> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: const Color(0xff363435),
+        color: primaryColor,
       ),
       padding: const EdgeInsets.all(15),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: const Color(0xff1a222d),
+            color: primaryColor,
           ),
           child: WidgetWithReadMore(
               data: snapshot.data!, trans: trans, maxLines: maxLines)
@@ -177,7 +176,7 @@ class CreateChart0State extends State<CreateChart0> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
-          color: const Color(0xff363435),
+          color: primaryColor,
         ),
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 5),
         child: PerformanceList(widget.performanceData),
@@ -190,13 +189,13 @@ class CreateChart0State extends State<CreateChart0> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
-          color: const Color(0xff363435),
+          color: primaryColor,
         ),
         padding: const EdgeInsets.all(15),
         child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: const Color(0xffe6e2e3),
+              color: primaryColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -228,12 +227,12 @@ class CreateChart0State extends State<CreateChart0> {
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w900,
                                           fontSize: 19,
-                                          color: Colors.black),
+                                          color: Colors.white),
                                       textAlign: TextAlign.left),
                                   Text(
                                       "${snapshot.data!.price} ${snapshot.data!.currency}",
                                       style: const TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18),
                                       textAlign: TextAlign.left),
@@ -247,12 +246,12 @@ class CreateChart0State extends State<CreateChart0> {
                                 Text(
                                     "${trans.translate("DIVR")} ${snapshot.data!.lastDiv}",
                                     style: const TextStyle(
-                                        color: Colors.black, fontSize: 15.5),
+                                        color: Colors.white, fontSize: 15.5),
                                     textAlign: TextAlign.left),
                                 Text(
                                     "${trans.translate("Beta").toUpperCase()} ${snapshot.data!.beta.substring(0, 4)}",
                                     style: const TextStyle(
-                                        color: Colors.black, fontSize: 15.5),
+                                        color: Colors.white, fontSize: 15.5),
                                     textAlign: TextAlign.left),
                               ],
                             ),
@@ -272,6 +271,9 @@ class CreateChart0State extends State<CreateChart0> {
                     padding: const EdgeInsets.only(right: 10),
                     child: Column(
                       children: [
+                        const SizedBox(
+                          height: 50,
+                        ),
                         InstagramWidgetListItems(
                           text:
                               "${(double.parse(snapshot.data!.changes)).toStringAsFixed(2)}%",
@@ -389,7 +391,7 @@ class CreateChart0State extends State<CreateChart0> {
             children: [
               Text(title,
                   style: TextStyle(
-                      color: const Color.fromARGB(255, 0, 0, 0), // foreground
+                      color: primaryColor, // foreground
 
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold)),
@@ -430,7 +432,7 @@ class InstagramWidgetListItems extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(text,
-                    style: const TextStyle(color: Colors.black, fontSize: 15.5),
+                    style: const TextStyle(color: Colors.white, fontSize: 15.5),
                     textAlign: TextAlign.left),
                 isWebsite
                     ? GestureDetector(
@@ -440,7 +442,7 @@ class InstagramWidgetListItems extends StatelessWidget {
                         child: Text(
                           value.toString().replaceRange(0, 8, ""),
                           style: const TextStyle(
-                              color: Color(0xff71acce), fontSize: 15.5),
+                              color: Colors.blue, fontSize: 15.5),
                           textAlign: TextAlign.left,
                         ))
                     : isCountry
@@ -461,13 +463,13 @@ class InstagramWidgetListItems extends StatelessWidget {
                               ),
                               Text(value,
                                   style: const TextStyle(
-                                      color: Colors.black, fontSize: 15.5),
+                                      color: Colors.white, fontSize: 15.5),
                                   textAlign: TextAlign.left),
                             ],
                           )
                         : Text(value,
                             style: const TextStyle(
-                                color: Colors.black, fontSize: 15.5),
+                                color: Colors.white, fontSize: 15.5),
                             textAlign: TextAlign.left),
               ],
             )),
@@ -543,7 +545,7 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
               ),
               if ((widget.data.description.trim().length) >
                   widget.maxLines * 15.5 * 1.15)
-                if (widget.maxLines == 21)
+                if (widget.maxLines == 20)
                   Padding(
                     padding: _isExpanded
                         ? const EdgeInsets.only(top: 0.0, bottom: 7)
