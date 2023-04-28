@@ -33,12 +33,6 @@ class CreateChart1TestState extends State<CreateChart1Test> {
     setState(() => pickerColor = color);
   }
 
-  final List<Color> color = [
-    const Color(0xFF6FFF7C),
-    const Color(0xFF0087FF),
-    const Color(0xFF5620FF)
-  ];
-
   @override
   void initState() {
     getfuture = RemoteService().getData(widget.data);

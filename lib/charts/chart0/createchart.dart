@@ -22,7 +22,7 @@ class CreateChart0 extends StatefulWidget {
 
 class CreateChart0State extends State<CreateChart0> {
   late AppLocalizations trans;
-  double? apppadding = 20;
+  double? apppadding = 10;
   late Future<CompanyInfo> getFuture;
 
   @override
@@ -75,7 +75,9 @@ class CreateChart0State extends State<CreateChart0> {
                               width: 10,
                               height: 10,
                             ),
-                            Expanded(child: aboutCompanyWidget(snapshot,maxLines : 21)),
+                            Expanded(
+                                child:
+                                    aboutCompanyWidget(snapshot, maxLines: 21)),
                           ],
                         );
                       } else if (constraints.maxWidth >= 600) {
@@ -163,9 +165,10 @@ class CreateChart0State extends State<CreateChart0> {
             borderRadius: BorderRadius.circular(5.0),
             color: const Color(0xff1a222d),
           ),
-          child:WidgetWithReadMore(data:snapshot.data!,trans: trans,maxLines:maxLines)
+          child: WidgetWithReadMore(
+              data: snapshot.data!, trans: trans, maxLines: maxLines)
           // child: discriptionWidget(snapshot.data!)
-    ),
+          ),
     );
   }
 
@@ -270,7 +273,8 @@ class CreateChart0State extends State<CreateChart0> {
                     child: Column(
                       children: [
                         InstagramWidgetListItems(
-                          text: trans.translate("country"),
+                          text:
+                              "${(double.parse(snapshot.data!.changes)).toStringAsFixed(2)}%",
                           value: snapshot.data!.country,
                           isCountry: true,
                         ),
@@ -280,12 +284,17 @@ class CreateChart0State extends State<CreateChart0> {
                         InstagramWidgetListItems(
                             text: trans.translate("Sektor"),
                             // value: "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
-                            value: "${snapshot.data!.sector}"),
+                            value: snapshot.data!.sector),
                         InstagramWidgetListItems(
-                            text: trans.translate("Marketcap"),
-                            value:
-                                // "${snapshot.data!.mktCap}${snapshot.data!.currency}"
-                                "${snapshot.data!.mktCap}"),
+                            text: trans.translate("Industry"),
+                            value: snapshot.data!.industry),
+                        InstagramWidgetListItems(
+                          text: trans.translate("Marketcap"),
+                          value:
+                              // "${snapshot.data!.mktCap}${snapshot.data!.currency}"
+                              snapshot.data!.mktCap +
+                                  snapshot.data!.currency.toString(),
+                        ),
                         InstagramWidgetListItems(
                             text: trans.translate("Sitz"),
                             value:
@@ -294,6 +303,18 @@ class CreateChart0State extends State<CreateChart0> {
                             text: trans.translate("Website"),
                             value: snapshot.data!.website,
                             isWebsite: true),
+                        InstagramWidgetListItems(
+                            text: trans.translate("CEO"),
+                            // value: "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
+                            value: snapshot.data!.ceo),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Börsengang"),
+                            // value: "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
+                            value: snapshot.data!.ipoDate),
+                        InstagramWidgetListItems(
+                            text: trans.translate("Mitarbeiter"),
+                            // value: "${snapshot.data!.sector} / ${snapshot.data!.industry}"),
+                            value: snapshot.data!.fullTimeEmployees),
                         InstagramWidgetListItems(
                             text: "isin".toUpperCase(),
                             value: snapshot.data!.isin,
@@ -389,7 +410,7 @@ class CreateChart0State extends State<CreateChart0> {
 
 class InstagramWidgetListItems extends StatelessWidget {
   final text, value, isWebsite, isCountry, showDivider;
-  InstagramWidgetListItems(
+  const InstagramWidgetListItems(
       {super.key,
       this.text,
       this.value,
@@ -468,7 +489,11 @@ class WidgetWithReadMore extends StatefulWidget {
   final CompanyInfo data;
   final trans;
   final maxLines;
-  WidgetWithReadMore({required this.data, @required this.trans,@required this.maxLines});
+  const WidgetWithReadMore(
+      {super.key,
+      required this.data,
+      @required this.trans,
+      @required this.maxLines});
 
   @override
   _WidgetWithReadMoreState createState() => _WidgetWithReadMoreState();
@@ -485,7 +510,7 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
       children: [
         Container(
           padding: const EdgeInsets.all(10),
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.center,
           child: Text(
             trans.translate("AboutCompany"),
             style: const TextStyle(color: Colors.white, fontSize: 18),
@@ -497,69 +522,7 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trans.translate("Börsengang"),
-                      style:
-                      const TextStyle(color: Color(0xffa1a4a8), fontSize: 14),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      widget.data.ipoDate,
-                      style: const TextStyle(
-                          color: Color(0xffEAEAEB), fontSize: 14),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trans.translate("Mitarbeiter"),
-                      style:
-                      const TextStyle(color: Color(0xffa1a4a8), fontSize: 14),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      widget.data.fullTimeEmployees,
-                      style: const TextStyle(
-                          color: Color(0xffEAEAEB), fontSize: 14),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trans.translate("CEO"),
-                      style:
-                      const TextStyle(color: Color(0xffa1a4a8), fontSize: 14),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      widget.data.ceo,
-                      style: const TextStyle(
-                          color: Color(0xffEAEAEB), fontSize: 14),
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            children: const [],
           ),
         ),
         Padding(
@@ -578,33 +541,38 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
               ),
-              if ((widget.data.description.trim().length) > widget.maxLines * 15.5*1.15)
-                if (widget.maxLines==21)
-                Padding(
-                  padding:_isExpanded? const EdgeInsets.only(top:0.0,bottom: 7):const EdgeInsets.only(top:8.0,bottom: 7),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _isExpanded = !_isExpanded;
-                          });
-                        },
-                        child: Text(
-                          _isExpanded?trans.translate("showLess"):trans.translate("readMore"),
-                          style: const TextStyle(color: Colors.white,
-                         ),
+              if ((widget.data.description.trim().length) >
+                  widget.maxLines * 15.5 * 1.15)
+                if (widget.maxLines == 21)
+                  Padding(
+                    padding: _isExpanded
+                        ? const EdgeInsets.only(top: 0.0, bottom: 7)
+                        : const EdgeInsets.only(top: 8.0, bottom: 7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _isExpanded = !_isExpanded;
+                            });
+                          },
+                          child: Text(
+                            _isExpanded
+                                ? trans.translate("showLess")
+                                : trans.translate("readMore"),
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
             ],
           ),
         ),
       ],
     );
   }
-
 }

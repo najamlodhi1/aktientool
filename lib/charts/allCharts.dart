@@ -21,7 +21,6 @@ import 'DCFLevered/DCFLeveredScreen.dart';
 import 'Insider/InsiderScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
-import 'chart11/createchart.dart';
 import 'chart12/CompanyScreen.dart';
 import 'chart1test/createchart.dart';
 import 'chart2/createchart.dart';
@@ -131,7 +130,7 @@ class _AllChartsState extends State<AllCharts> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Settings(),
+                            builder: (context) => const Settings(),
                           ),
                         ).then((value) {
                           setState(() {
@@ -169,8 +168,8 @@ class _AllChartsState extends State<AllCharts> {
                               if (snapshot.data is String) {
                                 parentData = jsonDecode(snapshot.data);
                               } else if (snapshot.data is List<dynamic>) {
-                                List temp=[];
-                                for(var i in snapshot.data){
+                                List temp = [];
+                                for (var i in snapshot.data) {
                                   temp.add(jsonDecode(i));
                                 }
                                 parentData = temp;
@@ -180,16 +179,15 @@ class _AllChartsState extends State<AllCharts> {
                                 child: Column(
                                   children: [
                                     if (selectedindex == 2) ...[
-
-                                      CreateChart0(parentData[0][0],parentData[1][0]), // Info
-                                      CreateChart1Test(parentData[0][1]), // Chart
+                                      CreateChart0(parentData[0][0],
+                                          parentData[1][0]), // Info
+                                      CreateChart1Test(
+                                          parentData[0][1]), // Chart
 
                                       //CreateChart0(parentData[0]), // Info
                                       //CreateChart1Test(parentData[1]), // Chart
-                                      CreateChart11(
-                                          parentData[1][0]), // Performance
-                                      Institutionalholders(parentData[0][3]),
 
+                                      Institutionalholders(parentData[0][3]),
                                     ],
                                     if (selectedindex == 3) ...[
                                       ConcensusScreen(
@@ -297,8 +295,18 @@ class _AllChartsState extends State<AllCharts> {
   void getindexData() {
     if (selectedindex == 2) {
       getFuture = Future.wait([
-        getdata(widgetData[selectedindex]!=null&&widgetData[selectedindex][0]!=null?widgetData[selectedindex][0]:null, 'overview'),
-        getdata(widgetData[selectedindex]!=null&&widgetData[selectedindex][1]!=null?widgetData[selectedindex][1]:null, 'performance')
+        getdata(
+            widgetData[selectedindex] != null &&
+                    widgetData[selectedindex][0] != null
+                ? widgetData[selectedindex][0]
+                : null,
+            'overview'),
+        getdata(
+            widgetData[selectedindex] != null &&
+                    widgetData[selectedindex][1] != null
+                ? widgetData[selectedindex][1]
+                : null,
+            'performance')
       ]);
     } else if (selectedindex == 3) {
       getFuture = getdata(widgetData[selectedindex], 'evaluation');

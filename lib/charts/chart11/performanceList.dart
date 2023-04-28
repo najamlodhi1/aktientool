@@ -41,22 +41,18 @@ class PerformanceListState extends State<PerformanceList> {
                             color: Colors.white)),
                     Container(
                         decoration: BoxDecoration(
-                            color:Color(0xff2B2B29),
+                            color: const Color(0xff2B2B29),
                             borderRadius: BorderRadius.circular(5)),
-                        margin: const EdgeInsets.symmetric(vertical: 10 ),
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
                         child: Column(
-                            children:
-                            List.generate(
+                            children: List.generate(
                                 9,
-                                    (index) =>
-                                    _buildGridViewItem(index, snapshot.data[0]))
-                        )
-                    ),
+                                (index) => _buildGridViewItem(
+                                    index, snapshot.data[0])))),
                   ],
-                )
-
-            );
+                ));
           } else {
             return const SizedBox();
           }
@@ -69,9 +65,13 @@ class PerformanceListState extends State<PerformanceList> {
       return Column(
         children: [
           Container(
-            padding: index == 0?const EdgeInsets.only(bottom: 8):index==8?const EdgeInsets.only(top: 8):const  EdgeInsets.symmetric(vertical: 8),
+            padding: index == 0
+                ? const EdgeInsets.only(bottom: 8)
+                : index == 8
+                    ? const EdgeInsets.only(top: 8)
+                    : const EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
-                color:Color(0xff2B2B29),
+                color: const Color(0xff2B2B29),
                 borderRadius: BorderRadius.circular(5)),
             alignment: Alignment.center,
             child: Column(
@@ -90,49 +90,60 @@ class PerformanceListState extends State<PerformanceList> {
                         color: index == 0 && double.parse(data.the1D) < 1000
                             ? Colors.red
                             : (index == 1 &&
-                            double.parse(data.the5D) > double.parse(data.the1M))
-                            ? Colors.red
-                            : (index == 2 &&
-                            double.parse(data.the1M) > double.parse(data.the3M))
-                            ? Colors.red
-                            : (index == 3 &&
-                            double.parse(data.the3M) >
-                                double.parse(data.the6M))
-                            ? Colors.red
-                            : (index == 4 &&
-                            double.parse(data.the6M) >
-                                double.parse(data.the1Y))
-                            ? Colors.red
-                            : (index == 5 &&
-                            double.parse(data.the1Y) >
-                                double.parse(data.the3Y))
-                            ? Colors.red
-                            : (index == 6 &&
-                            double.parse(data.the3Y) >
-                                double.parse(data.the5Y))
-                            ? Colors.red
-                            : (index == 7 &&
-                            double.parse(data.the5Y) >
-                                double.parse(data.the10Y))
-                            ? Colors.red
-                            : (index == 8 &&
-                            double.parse(data.the10Y) >
-                                double.parse(data.max))
-                            ? Colors.red
-                            : Colors.green,
+                                    double.parse(data.the5D) >
+                                        double.parse(data.the1M))
+                                ? Colors.red
+                                : (index == 2 &&
+                                        double.parse(data.the1M) >
+                                            double.parse(data.the3M))
+                                    ? Colors.red
+                                    : (index == 3 &&
+                                            double.parse(data.the3M) >
+                                                double.parse(data.the6M))
+                                        ? Colors.red
+                                        : (index == 4 &&
+                                                double.parse(data.the6M) >
+                                                    double.parse(data.the1Y))
+                                            ? Colors.red
+                                            : (index == 5 &&
+                                                    double.parse(data.the1Y) >
+                                                        double.parse(
+                                                            data.the3Y))
+                                                ? Colors.red
+                                                : (index == 6 &&
+                                                        double.parse(
+                                                                data.the3Y) >
+                                                            double.parse(
+                                                                data.the5Y))
+                                                    ? Colors.red
+                                                    : (index == 7 &&
+                                                            double.parse(data
+                                                                    .the5Y) >
+                                                                double.parse(data
+                                                                    .the10Y))
+                                                        ? Colors.red
+                                                        : (index == 8 &&
+                                                                double.parse(data
+                                                                        .the10Y) >
+                                                                    double.parse(
+                                                                        data.max))
+                                                            ? Colors.red
+                                                            : Colors.green,
                         fontSize: fontSize,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center),
               ],
             ),
           ),
-          (index==8)? const SizedBox():  const SizedBox(
-            width: double.maxFinite,
-            child: Divider(
-              height: 1,
-              color: Colors.white,
-            ),
-          ),
+          (index == 8)
+              ? const SizedBox()
+              : const SizedBox(
+                  // width: double.maxFinite,
+                  child: Divider(
+                    height: 1,
+                    color: Colors.white,
+                  ),
+                ),
         ],
       );
     });
