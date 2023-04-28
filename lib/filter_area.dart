@@ -99,7 +99,7 @@ class _FilterAreaState extends State<FilterArea> {
         padding: const EdgeInsets.all(2.0),
         child: Center(
           child: SizedBox(
-            height: 100,
+            height: 150,
             child: Card(
               color: col,
               shape: (shapeList[int.parse(result[2])] == "select")
