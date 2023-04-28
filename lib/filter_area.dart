@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'package:aktientool/webpage/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:js' as js;
@@ -16,7 +15,6 @@ class FilterArea extends StatefulWidget {
 
 class _FilterAreaState extends State<FilterArea> {
   late PageController _pageController;
-  int selectedItem = 0;
   //List selectquality = [0, 0, 0];
 
   List listquality = [
@@ -41,6 +39,22 @@ class _FilterAreaState extends State<FilterArea> {
     "John Templeton,Bargain Screen,13,url",
   ];
 
+  List shapeList = [
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect",
+    "unselect"
+  ];
   @override
   void initState() {
     super.initState();
@@ -88,15 +102,37 @@ class _FilterAreaState extends State<FilterArea> {
             height: 100,
             child: Card(
               color: col,
-              shape: (selectedItem == int.parse(result[2]))
+              shape: (shapeList[int.parse(result[2])] == "select")
                   ? const RoundedRectangleBorder(
-                      side: BorderSide(color: kPrimaryColor, width: 3))
+                      side: BorderSide(color: Colors.white, width: 3))
                   : null,
               elevation: 3,
               child: InkWell(
                 onTap: () => setState(() {
-                  print("${result[2]} ${result[1]}");
-                  selectedItem = int.parse(result[2]);
+                  if (shapeList[int.parse(result[2])] == "select") {
+                    shapeList[int.parse(result[2])] = "unselect";
+                  } else if (shapeList[int.parse(result[2])] == "unselect") {
+                    shapeList = [
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect",
+                      "unselect"
+                    ];
+                    shapeList[int.parse(result[2])] = "select";
+                  }
+
+                  print(
+                      "${result[2]} ${"${result[1]} " + shapeList[int.parse(result[2])]}");
                 }),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
