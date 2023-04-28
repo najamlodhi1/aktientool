@@ -462,7 +462,7 @@ class CreateChart0State extends State<CreateChart0> {
                 color: Color(0xffEAEAEB),
                 fontSize: 15.5,
               ),
-              maxLines: 24,
+              maxLines: 23,
               textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
             ),
