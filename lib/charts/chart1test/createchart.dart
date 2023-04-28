@@ -189,7 +189,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
               });
             },
       child: AspectRatio(
-        aspectRatio: 16 / 6,
+        aspectRatio: 11 / 6,
         child: Center(
           child: Stack(
             children: [

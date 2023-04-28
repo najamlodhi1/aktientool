@@ -229,6 +229,7 @@ class CreateChart0State extends State<CreateChart0> {
                                           fontSize: 19,
                                           color: Colors.white),
                                       textAlign: TextAlign.left),
+                                  const Spacer(),
                                   Text(
                                       "${snapshot.data!.price} ${snapshot.data!.currency}",
                                       style: const TextStyle(
@@ -242,18 +243,7 @@ class CreateChart0State extends State<CreateChart0> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    "${trans.translate("DIVR")} ${snapshot.data!.lastDiv}",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 15.5),
-                                    textAlign: TextAlign.left),
-                                Text(
-                                    "${trans.translate("Beta").toUpperCase()} ${snapshot.data!.beta.substring(0, 4)}",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 15.5),
-                                    textAlign: TextAlign.left),
-                              ],
+                              children: const [],
                             ),
                           ],
                         ),
@@ -272,11 +262,11 @@ class CreateChart0State extends State<CreateChart0> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 50,
+                          height: 19,
                         ),
                         InstagramWidgetListItems(
                           text:
-                              "${(double.parse(snapshot.data!.changes)).toStringAsFixed(2)}%",
+                              "DIVR ${snapshot.data!.lastDiv}\nBETA ${snapshot.data!.beta}",
                           value: snapshot.data!.country,
                           isCountry: true,
                         ),
@@ -448,9 +438,16 @@ class InstagramWidgetListItems extends StatelessWidget {
                     : isCountry
                         ? Row(
                             children: [
+                              Text(value,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 15.5),
+                                  textAlign: TextAlign.left),
+                              const SizedBox(
+                                width: 5,
+                              ),
                               SizedBox(
-                                height: 25,
-                                width: 25,
+                                height: 50,
+                                width: 50,
                                 child: SvgPicture.asset(
                                   (kIsWeb)
                                       ? "assets/images/${value.toLowerCase()}.svg"
@@ -458,13 +455,6 @@ class InstagramWidgetListItems extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(value,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 15.5),
-                                  textAlign: TextAlign.left),
                             ],
                           )
                         : Text(value,
@@ -532,6 +522,9 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 10,
+              ),
               Text(
                 "${widget.data.description}\n",
                 style: const TextStyle(
@@ -553,18 +546,21 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _isExpanded = !_isExpanded;
-                            });
-                          },
-                          child: Text(
-                            _isExpanded
-                                ? trans.translate("showLess")
-                                : trans.translate("readMore"),
-                            style: const TextStyle(
-                              color: Colors.white,
+                        SizedBox(
+                          height: 40,
+                          child: TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _isExpanded = !_isExpanded;
+                              });
+                            },
+                            child: Text(
+                              _isExpanded
+                                  ? trans.translate("showLess")
+                                  : trans.translate("readMore"),
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

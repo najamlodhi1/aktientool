@@ -89,12 +89,6 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
             DataColumn(
                 label: Text(trans.translate("Shares"),
                     style: const TextStyle(color: Colors.white))),
-            DataColumn(
-                label: Text(trans.translate("Change"),
-                    style: const TextStyle(color: Colors.white))),
-            DataColumn(
-                label: Text(trans.translate("Reported Date"),
-                    style: const TextStyle(color: Colors.white)))
           ],
         ),
       ),

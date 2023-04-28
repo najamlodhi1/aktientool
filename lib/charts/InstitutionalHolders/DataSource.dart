@@ -17,10 +17,6 @@ class DataSource extends DataTableSource {
           style: const TextStyle(color: Colors.white))),
       DataCell(Text(_data[index].shares.toString(),
           style: const TextStyle(color: Colors.white))),
-      DataCell(Text(_data[index].change.toString(),
-          style: const TextStyle(color: Colors.white))),
-      DataCell(Text(_data[index].dateReported,
-          style: const TextStyle(color: Colors.white))),
     ]);
   }
 
