@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../settings/app_localizations.dart';
 import '../chart11/performanceList.dart';
 
-const primaryColor = Color.fromARGB(255, 0, 137, 201);
+const primaryColor = Color.fromARGB(255, 48, 48, 48);
 const secondaryColor = Color(0xff442881);
 
 ValueNotifier<String> currencyNotifier = ValueNotifier('USD');

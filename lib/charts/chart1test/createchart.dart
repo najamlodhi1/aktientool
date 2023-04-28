@@ -363,7 +363,7 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                             return AlertDialog(
                               title: const Text('Pick a color!'),
                               content: SingleChildScrollView(
-                                child: ColorPicker(
+                                child: BlockPicker(
                                   pickerColor: pickerColor,
                                   onColorChanged: changeColor,
                                 ),

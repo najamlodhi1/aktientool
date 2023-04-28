@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'dart:convert';
 import 'package:aktientool/authentication/services/http_service.dart';
-import 'package:aktientool/charts/Consensus/ConcensusScreen.dart';
 import 'package:aktientool/charts/Rating/RatingScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
@@ -17,6 +16,7 @@ import '../filter/searcharea.dart';
 import '../settings/app_localizations.dart';
 import '../settings/settings.dart';
 import '../webpage/footer.dart';
+import 'Consensus/ConcensusScreen.dart';
 import 'DCFLevered/DCFLeveredScreen.dart';
 import 'Insider/InsiderScreen.dart';
 import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
@@ -64,9 +64,9 @@ class _AllChartsState extends State<AllCharts> {
     "Select Filter",
     "Select Stocks",
     "Overview",
+    "Financials",
     "Evaluation",
     "Performance1",
-    "Growth",
     "Health",
     "Dividend",
     "Management",
@@ -180,17 +180,22 @@ class _AllChartsState extends State<AllCharts> {
                                 child: Column(
                                   children: [
                                     if (selectedindex == 2) ...[
+
                                       CreateChart0(parentData[0][0],parentData[1][0]), // Info
                                       CreateChart1Test(parentData[0][1]), // Chart
+
+                                      //CreateChart0(parentData[0]), // Info
+                                      //CreateChart1Test(parentData[1]), // Chart
+                                      CreateChart11(
+                                          parentData[2]), // Performance
+                                      Institutionalholders(parentData[3]),
+
                                     ],
                                     if (selectedindex == 3) ...[
                                       ConcensusScreen(
                                           parentData[0]), // Analysten bewertung
                                     ],
-                                    if (selectedindex == 4) ...[
-                                      CreateChart11(
-                                          parentData[0]), // Performance
-                                    ],
+                                    if (selectedindex == 4) ...[],
                                     if (selectedindex == 5) ...[
                                       BarChartIncomeScreen(
                                           parentData[0]), // Bar Chart income
@@ -202,7 +207,6 @@ class _AllChartsState extends State<AllCharts> {
                                       CreateChart4(parentData[2])
                                     ],
                                     if (selectedindex == 6) ...[
-                                      Institutionalholders(parentData[0]),
                                       ESGScoreScreen(parentData[4]),
                                       InsiderScreen(parentData[3]),
                                       RatingScreen(parentData[2]),
@@ -275,10 +279,14 @@ class _AllChartsState extends State<AllCharts> {
                     }
                   }
                 },
-                child: ListTile(
-                  title: Text("${index + 1}. ${trans.translate(pages[index])}",
-                      style:
-                          const TextStyle(fontSize: 18, color: Colors.white)),
+                child: Container(
+                  color: selectedindex == index ? primaryColor : null,
+                  child: ListTile(
+                    title: Text(
+                        "${index + 1}. ${trans.translate(pages[index])}",
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.white)),
+                  ),
                 )),
           )
         ],

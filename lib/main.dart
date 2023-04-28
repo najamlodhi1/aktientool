@@ -5,7 +5,6 @@ import 'dart:html' as html;
 import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/filter_area.dart';
-import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/webpage/footer.dart';
 import 'package:aktientool/webpage/ios_app_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

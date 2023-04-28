@@ -44,6 +44,7 @@ dependencies:
   envied_generator: ^0.3.0
   flutter_rating_bar: ^4.0.1
   getwidget: ^3.1.1
+  charts_flutter: ^0.12.0
 
 
 
