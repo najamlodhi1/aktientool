@@ -20,9 +20,9 @@ class _FilterAreaState extends State<FilterArea> {
   //List selectquality = [0, 0, 0];
 
   List listquality = [
-    "Warren Buffett,Hagstrom Screen,1,url",
-    "Ronald Muhlenkamp,ROE Screen,2,url",
-    "Joseph Piotroski,High F-Score Screen,3,url",
+    "Warren Buffett,Hagstrom Screen,1,https://amzn.to/3AyNoYv",
+    "Ronald Muhlenkamp,ROE Screen,2,url,https://amzn.to/3AyvwwK",
+    "Joseph Piotroski,High F-Score Screen,3,https://amzn.to/3oSgvDy",
   ];
 
   List listgrowth = [
@@ -35,7 +35,7 @@ class _FilterAreaState extends State<FilterArea> {
   ];
 
   List listvalue = [
-    "Benjamin Graham,Enterprising Investor Screen,10,url",
+    "Benjamin Graham,Enterprising Screen,10,url",
     "Ludwig Chincarini,Neglected Firms Screen,11,url",
     "Bill Miller,Contrarian Value Screen,12,url",
     "John Templeton,Bargain Screen,13,url",
@@ -55,79 +55,88 @@ class _FilterAreaState extends State<FilterArea> {
 
   loadCardQuality(var list) {
     return Wrap(children: [
-      for (var i = 0; i < list.length; i++) createCard(list[i].toString())
+      for (var i = 0; i < list.length; i++)
+        createCard(list[i].toString(), "Quality", Colors.green)
     ]);
   }
 
   loadCardGrowth(var list) {
     return Wrap(children: [
-      for (var i = 0; i < list.length; i++) createCard(list[i].toString())
+      for (var i = 0; i < list.length; i++)
+        createCard(list[i].toString(), "Growth", Colors.blue)
     ]);
   }
 
   loadCardValue(var list) {
     return Wrap(children: [
-      for (var i = 0; i < list.length; i++) createCard(list[i].toString())
+      for (var i = 0; i < list.length; i++)
+        createCard(list[i].toString(), "Value", Colors.red)
     ]);
   }
 
-  createCard(
-    String txt,
-  ) {
-    // split txt
+  createCard(String txt, String whichtype, var col) {
     List<String> result = txt.split(',');
 
     return SizedBox(
       width: ScreenHelper.isMobile(context)
-          ? MediaQuery.of(context).size.width / 1.0
-          : (MediaQuery.of(context).size.width / 4.0),
+          ? MediaQuery.of(context).size.width / 1.2
+          : (MediaQuery.of(context).size.width / 5.0),
       child: Padding(
         padding: const EdgeInsets.all(2.0),
         child: Center(
-          child: Card(
-            shape: (selectedItem == int.parse(result[2]))
-                ? const RoundedRectangleBorder(
-                    side: BorderSide(color: kPrimaryColor, width: 3))
-                : null,
-            elevation: 3,
-            child: InkWell(
-              onTap: () => setState(() {
-                print("${result[2]} ${result[1]}");
-                selectedItem = int.parse(result[2]);
-              }),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    leading: Image.asset(
-                      'assets/images/${result[0]}.png',
-                    ),
-                    subtitle: Text(result[0]),
-                    title: Text(result[1]),
-                    trailing: IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.bookAtlas),
-                      color: kPrimaryColor,
-                      iconSize: 40,
-                      onPressed: () async {
-                        js.context.callMethod(
-                            'open', ["https://www.instagram.com/aktientool/"]);
-                      },
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      const SizedBox(width: 8),
-                      TextButton(
-                        child: const Text('READ STRATEGY'),
-                        onPressed: () {/* ... */},
+          child: SizedBox(
+            height: 100,
+            child: Card(
+              color: col,
+              shape: (selectedItem == int.parse(result[2]))
+                  ? const RoundedRectangleBorder(
+                      side: BorderSide(color: kPrimaryColor, width: 3))
+                  : null,
+              elevation: 3,
+              child: InkWell(
+                onTap: () => setState(() {
+                  print("${result[2]} ${result[1]}");
+                  selectedItem = int.parse(result[2]);
+                }),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: AssetImage(
+                            'assets/images/${result[0]}.png'), // No matter how big it is, it won't overflow
                       ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                ],
+                      subtitle: Text(result[0]),
+                      title: Text(result[1]),
+                      trailing: IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.amazon),
+                        color: Colors.white,
+                        iconSize: 40,
+                        onPressed: () async {
+                          js.context.callMethod('open', [result[3]]);
+                        },
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        ElevatedButton(onPressed: null, child: Text(whichtype)),
+                        const Spacer(),
+                        const SizedBox(width: 8),
+                        TextButton(
+                          child: const Text(
+                            'READ STRATEGY',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {/* ... */},
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -138,75 +147,64 @@ class _FilterAreaState extends State<FilterArea> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          toolbarHeight: 50,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          bottom: TabBar(
-              onTap: (value) {
-                print("Tab$value");
-              },
-              unselectedLabelColor: kPrimaryColor,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: kPrimaryColor,
-              ),
-              tabs: [
-                Tab(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: kPrimaryColor, width: 1)),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text("Quality"),
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: kPrimaryColor, width: 1)),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text("Financials"),
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: kPrimaryColor, width: 1)),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text("Value"),
-                    ),
-                  ),
-                ),
-              ]),
-        ),
-        body: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              loadCardQuality(listquality),
-              loadCardGrowth(listgrowth),
-              loadCardValue(listvalue),
-            ]),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Column(
+        children: [
+          const Divider(
+            color: Colors.grey,
+          ),
+          const Align(
+            alignment: FractionalOffset.topLeft,
+            child: Text(
+              "  Invest like a GURU",
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+          SizedBox(
+            //margin: const EdgeInsets.symmetric(vertical: 5.0),
+            height: 100.0,
+            child: ListView(
+              // This next line does the trick.
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                loadCardQuality(listquality),
+                loadCardGrowth(listgrowth),
+                loadCardValue(listvalue),
+              ],
+            ),
+          ),
+          const Text(
+            " ",
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          ),
+          const Divider(
+            color: Colors.grey,
+          ),
+          const Align(
+            alignment: FractionalOffset.topLeft,
+            child: Text(
+              "  Or choose MANUAL",
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-
-
 /*
-
+                loadCardQuality(listquality),
+                loadCardGrowth(listgrowth),
+                loadCardValue(listvalue),
 */
