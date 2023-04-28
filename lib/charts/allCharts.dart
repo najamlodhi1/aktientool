@@ -187,8 +187,8 @@ class _AllChartsState extends State<AllCharts> {
                                       //CreateChart0(parentData[0]), // Info
                                       //CreateChart1Test(parentData[1]), // Chart
                                       CreateChart11(
-                                          parentData[2]), // Performance
-                                      Institutionalholders(parentData[3]),
+                                          parentData[1][0]), // Performance
+                                      Institutionalholders(parentData[0][3]),
 
                                     ],
                                     if (selectedindex == 3) ...[
