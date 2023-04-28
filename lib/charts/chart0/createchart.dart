@@ -570,9 +570,6 @@ class _WidgetWithReadMoreState extends State<WidgetWithReadMore> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
     final trans = widget.trans;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
