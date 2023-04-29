@@ -1,6 +1,10 @@
 import pandas as pd
 import requests
 import json
+import time
+time.time()
+
+timestamp1 = time.time()
 
 try:
         
@@ -18,7 +22,14 @@ try:
     if response.status_code == 200:
         
         allSymbols = response.json()
-        allSymbols = ["AAPL","APC.F","APC.DE","APC.NE"] #Zum testen
+        allSymbols = ["AAPL","APC.F","APC.DE","APC.NE","MSFT","META","PLTR"] #Zum testen
+
+        new_string = ','.join(allSymbols)
+        print("")
+        print(new_string)
+        print("")
+
+
 
         Count = 1
         for Symbol in allSymbols:
@@ -28,8 +39,9 @@ try:
                 continue
             
             else:
+ 
                 response = requests.get(f"https://financialmodelingprep.com/api/v4/company-outlook?symbol={Symbol}&apikey=9ad9c8dfa54c11aff6c1489d109e87b6")
-                
+
                 if response.status_code == 200:
                 
                     Data = response.json()
@@ -155,6 +167,15 @@ try:
                     except: 
                         eps                               = 0
 
+                    try:
+
+                        response1y = requests.get(f"https://financialmodelingprep.com/api/v3/stock-price-change/{Symbol}?apikey=9ad9c8dfa54c11aff6c1489d109e87b6")
+                        year = response1y.json()
+
+                        performance1y                     = year[0]["1Y"]
+                    except: 
+                        performance1y                     = 0
+
                     if isEtf == True or price == None or price == 0 or country == None or country == "" or changes == None or changes == "" or mktCap == 0 or mktCap == None or volAvg == 0 or volAvg == None:
                         continue
 
@@ -206,6 +227,7 @@ try:
                         "ratingDetailsPERecommendation":ratingDetailsPERecommendation,
                         "ratingDetailsPBRecommendation":ratingDetailsPBRecommendation,
                         "eps":eps,
+                        "performance1y":performance1y,
                     })
                     
                     masterList.append(Object)
@@ -224,6 +246,7 @@ try:
     else:
 
         print(f"Error :(  status_code={response.status_code}")
+
 
 except KeyboardInterrupt:
     print("Program Exited ...")
@@ -252,3 +275,7 @@ finally:
         
 
     print("Execution Finished :)")
+timestamp2 = time.time()
+print ("This took %.2f seconds" % (timestamp2 - timestamp1))
+print ("This took %.2f minutes" % ((timestamp2 - timestamp1)/60))
+print ("This took %.2f hours  " % ((timestamp2 - timestamp1)/3600))

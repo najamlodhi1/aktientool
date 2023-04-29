@@ -1,0 +1,2 @@
+                        "isEtf":isEtf,
+                        "isFund":isFund,
