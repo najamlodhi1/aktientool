@@ -16,6 +16,11 @@ class CreateChart1Test extends StatefulWidget {
 }
 
 class CreateChart1TestState extends State<CreateChart1Test> {
+  final List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];
+
   ScreenshotController screenshotController = ScreenshotController();
   List<FlSpot> getFLData = [];
   int buttonIndex = 3;
@@ -203,40 +208,68 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                               ? null
                               : LineTouchData(
                                   touchTooltipData: LineTouchTooltipData(
-                                  fitInsideHorizontally: true,
-                                  fitInsideVertically: true,
-                                  getTooltipItems: (touchedSpots) {
-                                    return touchedSpots
-                                        .map((LineBarSpot touchedSpot) {
-                                      final textStyle = TextStyle(
-                                        color: touchedSpot
-                                                .bar.gradient?.colors[0] ??
-                                            touchedSpot.bar.color,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                      );
+                                    //fitInsideHorizontally: true,
+                                    //fitInsideVertically: true,
+                                    tooltipBgColor: Colors.transparent,
 
-                                      String stockDate =
-                                          chartDataMax[touchedSpot.x.toInt()]
-                                              .year
-                                              .toString()
-                                              .substring(0, 10);
-                                      return LineTooltipItem(
-                                          '${touchedSpot.y}\n$stockDate',
-                                          textStyle);
-                                    }).toList();
-                                  },
-                                )),
+                                    getTooltipItems: (touchedSpots) {
+                                      return touchedSpots
+                                          .map((LineBarSpot touchedSpot) {
+                                        const textStyle = TextStyle(
+                                          backgroundColor: Colors.red,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        );
+
+                                        String stockDate =
+                                            chartDataMax[touchedSpot.x.toInt()]
+                                                .year
+                                                .toString()
+                                                .substring(0, 10);
+                                        return LineTooltipItem(
+                                            '${touchedSpot.y}\n$stockDate',
+                                            textStyle);
+                                      }).toList();
+                                    },
+                                  ),
+                                ),
                           lineBarsData: [
                             LineChartBarData(
                               spots: getFLData
                                   .map((point) => FlSpot(point.x, point.y))
                                   .toList(),
-                              color: Colors.white,
-                              barWidth: 2,
+                              gradient: const LinearGradient(colors: [
+                                Color(0xff23b6e6),
+                                Color(0xff02d39a),
+                              ]),
+                              barWidth: 1.5,
                               dotData: FlDotData(show: false),
+                              belowBarData: BarAreaData(
+                                  show: true,
+                                  gradient: LinearGradient(
+                                    colors: gradientColors
+                                        .map((color) => color.withOpacity(0.3))
+                                        .toList(),
+                                  )),
                             ),
                           ],
+                          gridData: FlGridData(
+                            show: true,
+                            drawVerticalLine: true,
+                            getDrawingHorizontalLine: (value) {
+                              return FlLine(
+                                color: const Color(0xff37434d),
+                                strokeWidth: 1,
+                              );
+                            },
+                            getDrawingVerticalLine: (value) {
+                              return FlLine(
+                                color: Colors.transparent,
+                                strokeWidth: 1,
+                              );
+                            },
+                          ),
                           borderData: FlBorderData(
                               border: const Border(
                                   bottom: BorderSide(), left: BorderSide())),
@@ -272,7 +305,27 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                             topTitles: AxisTitles(
                                 sideTitles: SideTitles(showTitles: false)),
                             rightTitles: AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
+                                sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 50,
+                              getTitlesWidget: (value, meta) {
+                                Widget axisTitle = Text(
+                                  value.toStringAsFixed(0),
+                                  style: const TextStyle(color: Colors.white),
+                                );
+                                // A workaround to hide the max value title as FLChart is overlapping it on top of previous
+                                if (value == meta.max) {
+                                  final remainder =
+                                      value % meta.appliedInterval;
+                                  if (remainder != 0.0 &&
+                                      remainder / meta.appliedInterval < 0.5) {
+                                    axisTitle = const SizedBox.shrink();
+                                  }
+                                }
+                                return SideTitleWidget(
+                                    axisSide: meta.axisSide, child: axisTitle);
+                              },
+                            )),
                           ),
                         ),
                       ),
