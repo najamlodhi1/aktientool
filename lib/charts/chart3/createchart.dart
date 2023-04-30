@@ -2,6 +2,7 @@ import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import '../../settings/app_localizations.dart';
+import '../chart2/createchart.dart';
 import 'BalanceReportModel.dart';
 import 'BarChartBalanceScreen.dart';
 import 'data.dart';
@@ -159,14 +160,14 @@ class CreateChart3State extends State<CreateChart3> {
     return List.generate(
         tableData[0].reports.length,
         (index) => DataRow(
-              selected: BalanceService
-                  .isSelected.value[tableData[0].reports[index].title]!,
-              onSelectChanged: (bool? value) {
-                BalanceService.isSelected
-                    .value[tableData[0].reports[index].title] = value!;
-                BalanceService.isSelected.notifyListeners();
-                setState(() {});
-              },
+              // selected: BalanceService
+              //     .isSelected.value[tableData[0].reports[index].title]!,
+              // onSelectChanged: (bool? value) {
+              //   BalanceService.isSelected
+              //       .value[tableData[0].reports[index].title] = value!;
+              //   BalanceService.isSelected.notifyListeners();
+              //   setState(() {});
+              // },
               cells: [
                 DataCell(
                   Text(trans.translate(tableData[0].reports[index].title),
@@ -174,25 +175,46 @@ class CreateChart3State extends State<CreateChart3> {
                 ),
                 for (int x = 0; x < tableData.length; x++) ...[
                   DataCell(
-                    ColoredBox(
-                      color: x < tableData.length - 1
-                          ? tableData[tableData.length - 1 - x]
-                                      .reports[index]
-                                      .value >=
-                                  tableData[tableData.length - 1 - x - 1]
-                                      .reports[index]
-                                      .value
-                              ? Colors.green
-                              : Colors.red
-                          : Colors.green,
-                      child: Center(
-                          child: Text(
-                              numberToKFormat(
-                                  tableData[tableData.length - 1 - x]
-                                      .reports[index]
-                                      .value),
-                              style: const TextStyle(color: Colors.white))),
-                    ),
+                    Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                            numberToKFormat(tableData[tableData.length - 1 - x]
+                                .reports[index]
+                                .value),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          width: 80,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: (x < tableData.length - 1
+                                      ? tableData[tableData.length - 1 - x]
+                                                  .reports[index]
+                                                  .value >=
+                                              tableData[tableData.length -
+                                                      1 -
+                                                      x -
+                                                      1]
+                                                  .reports[index]
+                                                  .value
+                                          ? Colors.green
+                                          : Colors.red
+                                      : Colors.grey)
+                                  .withOpacity(0.3)),
+                          child: Center(
+                            child: Text(
+                              '${x < (tableData.length - 1) ? calculatepercentage(tableData[tableData.length - 1 - x].reports[index].value, tableData[tableData.length - 1 - x - 1].reports[index].value).toStringAsFixed(2) : 'N/A'}%',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
                   ),
                 ],
               ],
