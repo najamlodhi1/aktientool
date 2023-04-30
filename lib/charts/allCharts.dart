@@ -179,30 +179,27 @@ class _AllChartsState extends State<AllCharts> {
                                 child: Column(
                                   children: [
                                     if (selectedindex == 2) ...[
-                                      CreateChart0(parentData[0][0],
-                                          parentData[1][0]), // Info
-                                      CreateChart1Test(
-                                          parentData[0][1]), // Chart
-
+                                      CreateChart0(
+                                          parentData[0], parentData[4]), // Info
+                                      CreateChart1Test(parentData[1]), // Chart
                                       //CreateChart0(parentData[0]), // Info
                                       //CreateChart1Test(parentData[1]), // Chart
-
-                                      Institutionalholders(parentData[0][3]),
+                                      Institutionalholders(parentData[3]),
                                     ],
                                     if (selectedindex == 3) ...[
-                                      ConcensusScreen(
-                                          parentData[0]), // Analysten bewertung
+                                      // BarChartIncomeScreen(
+                                      //     parentData[0]), // Bar Chart income
+                                      CreateChart2(parentData[0]),
+                                      // BarChartBalanceScreen(
+                                      //     parentData[1]), // Bar Chart Balance
+                                      CreateChart3(parentData[1]),
+                                      // BarChartCashFlowScreen(parentData[2]),
+                                      CreateChart4(parentData[2])
+                                      // Analysten bewertung
                                     ],
                                     if (selectedindex == 4) ...[],
                                     if (selectedindex == 5) ...[
-                                      BarChartIncomeScreen(
-                                          parentData[0]), // Bar Chart income
-                                      CreateChart2(parentData[0]),
-                                      BarChartBalanceScreen(
-                                          parentData[1]), // Bar Chart Balance
-                                      CreateChart3(parentData[1]),
-                                      BarChartCashFlowScreen(parentData[2]),
-                                      CreateChart4(parentData[2])
+                                      ConcensusScreen(parentData[0]),
                                     ],
                                     if (selectedindex == 6) ...[
                                       ESGScoreScreen(parentData[4]),
@@ -294,26 +291,13 @@ class _AllChartsState extends State<AllCharts> {
 
   void getindexData() {
     if (selectedindex == 2) {
-      getFuture = Future.wait([
-        getdata(
-            widgetData[selectedindex] != null &&
-                    widgetData[selectedindex][0] != null
-                ? widgetData[selectedindex][0]
-                : null,
-            'overview'),
-        getdata(
-            widgetData[selectedindex] != null &&
-                    widgetData[selectedindex][1] != null
-                ? widgetData[selectedindex][1]
-                : null,
-            'performance')
-      ]);
+      getFuture = getdata(widgetData[selectedindex], 'overview');
     } else if (selectedindex == 3) {
-      getFuture = getdata(widgetData[selectedindex], 'evaluation');
+      getFuture = getdata(widgetData[selectedindex], 'growth');
     } else if (selectedindex == 4) {
       getFuture = getdata(widgetData[selectedindex], 'performance');
     } else if (selectedindex == 5) {
-      getFuture = getdata(widgetData[selectedindex], 'growth');
+      getFuture = getdata(widgetData[selectedindex], 'evaluation');
     } else if (selectedindex == 6) {
       getFuture = getdata(widgetData[selectedindex], 'health');
     } else if (selectedindex == 7) {
