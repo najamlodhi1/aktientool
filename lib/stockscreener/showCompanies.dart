@@ -57,7 +57,7 @@ class ShowCompanies extends ConsumerWidget {
     print(modifiedMarketcapEndUrl);
 
     String url =
-        "https://apex.oracle.com/pls/apex/at55555/comp/v1/list?p_country=&p_industry=&p_marketcapend=100000000000000&p_marketcapstart=100&p_secor=&p_cname=$search&offset=$offset";
+        "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/v1/list?p_cou=US,FR&p_ind=Banks—Regional,Utilities—Diversified&p_mkmax=100000000000000&p_mkmin=100&p_sec=Financial Services,Utilities&p_betmin=0&p_betmax=0.2&p_epsmin=-10&p_epsmax=10&p_cname=$search&offset=$offset";
     //String url =
     // "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$modifiedMarketcapStartUrl&p_marketcapEnd=$modifiedMarketcapEndUrl&p_cname=$search&offset=$offset";
     print(url);

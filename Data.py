@@ -21,8 +21,8 @@ try:
 
     if response.status_code == 200:
         
-        allSymbols = response.json()
-        allSymbols = ["AAPL","APC.F","APC.DE","APC.NE","MSFT","META","PLTR"] #Zum testen
+        #allSymbols = response.json()
+        allSymbols = ["GOOG","AAPL"] #Zum testen
 
         new_string = ','.join(allSymbols)
         print("")
