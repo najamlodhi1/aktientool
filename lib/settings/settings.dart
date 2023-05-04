@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -6,6 +7,9 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../authentication/services/auth_service.dart';
 import '../main.dart';
 import 'app_localizations.dart';
+
+
+
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -23,14 +27,59 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
-    Color pickerColor = Colors.green;
-    Color currentColor = Colors.green;
+    Color pickerPrimaryColor = primaryColor;
+    Color pickerBackgroundColor = backgroundColor;
 
-    Color buttonTextGreenColor = const Color(0xff28b6aa);
-    Color contactUsEmail = const Color(0xff25a49b);
+    Color buttonTextGreenColor = primaryColor;
+    Color contactUsEmail =primaryColor;
 
-    void changeColor(Color color) {
-      setState(() => pickerColor = color);
+    Map<String, Color> colorMap = {
+      "red": Colors.red,
+      "pink": Colors.pink,
+      "purple": Colors.purple,
+      "deep Purple": Colors.deepPurple,
+      "indigo": Colors.indigo,
+      "blue": Colors.blue,
+      "light Blue": Colors.lightBlue,
+      "cyan": Colors.cyan,
+      "teal": Colors.teal,
+      "green": Colors.green,
+      "light Green": Colors.lightGreen,
+      "lime": Colors.lime,
+      "yellow": Colors.yellow,
+      "amber": Colors.amber,
+      "orange": Colors.orange,
+      "deep Orange": Colors.deepOrange,
+      "brown": Colors.brown,
+      "grey": Colors.grey,
+      "blue Grey": Colors.blueGrey,
+      "black": Colors.black,
+      "Dark Gray":  Color.fromARGB(255, 26, 26, 26),
+
+    };
+
+    String getColorName(Color color) {
+
+      for (Color c in colorMap.values) {
+        if (c == color) {
+          for (String name in colorMap.keys) {
+            if (colorMap[name] == color) {
+              return name.capitalize();
+            }
+          }
+        }
+      }
+      return "Unknown";
+    }
+
+    String     primaryColorText=getColorName(primaryColor);
+    String     backgroundColorText=getColorName(backgroundColor);
+
+    void changeBackgroundColor(Color color) {
+      setState(() => pickerBackgroundColor = color);
+    }
+    void changePrimaryColor(Color color) {
+      setState(() => pickerPrimaryColor = color);
     }
 
     // Setting List Options
@@ -40,32 +89,13 @@ class _SettingsState extends State<Settings> {
         subheading: 'Change the language of the app',
         trailingWidget: TextButton(
           onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => SimpleDialog(
-                title: const Text('Select Language'),
-                titlePadding: const EdgeInsets.fromLTRB(20, 24, 0, 0),
-                children: [
-                  ListTile(
-                    title: const Text('English'),
-                    onTap: () {
-                      MyApp.of(context)!.setLocale('en');
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Deutsch'),
-                    onTap: () {
-                      MyApp.of(context)!.setLocale('de');
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            );
+            MyApp.of(context)!.setLocale(
+                selectedLocale.languageCode == 'en' ? 'de' : 'en');
+            setState(() {});
+            return;
           },
           child: Text(
-            'Change',
+            selectedLocale.languageCode == 'en' ? "English" : "Deutsch",
             style: TextStyle(
                 fontWeight: FontWeight.w600, color: buttonTextGreenColor),
           ),
@@ -80,30 +110,44 @@ class _SettingsState extends State<Settings> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Pick a Text Color!'),
-                    content: SingleChildScrollView(
-                      child: BlockPicker(
-                        pickerColor: pickerColor,
-                        onColorChanged: changeColor,
+                  return WillPopScope(
+                    onWillPop: () async {
+                      setState(() {
+                        pickerPrimaryColor = primaryColor;
+                      });
+                      return true;
+                    },
+                    child: AlertDialog(
+                      title: const Text('Pick a Text Color!'),
+                      content: SingleChildScrollView(
+                        child: BlockPicker(
+                          pickerColor: pickerPrimaryColor,
+                          onColorChanged: changePrimaryColor,
+                            availableColors: colorMap.values.toList()
+                        ),
                       ),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          child: const Text('Save'),
+                          onPressed: () {
+                            setState(() {
+                              primaryColor = pickerPrimaryColor;
+                              primaryColorText=getColorName(primaryColor);
+                               buttonTextGreenColor = primaryColor;
+                               contactUsEmail =primaryColor;
+                            });
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
                     ),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        child: const Text('Save'),
-                        onPressed: () {
-                          setState(() => currentColor = pickerColor);
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
                   );
                 });
           },
           child: Text(
-            'Change',
+            primaryColorText,
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: buttonTextGreenColor),
+                fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {
@@ -118,30 +162,44 @@ class _SettingsState extends State<Settings> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Pick a Background Color!'),
-                    content: SingleChildScrollView(
-                      child: BlockPicker(
-                        pickerColor: pickerColor,
-                        onColorChanged: changeColor,
+                  return WillPopScope(
+                    onWillPop: () async {
+                      setState(() {
+                        pickerBackgroundColor = backgroundColor;
+                      });
+                      return true;
+                    },
+                    child: AlertDialog(
+                      title: const Text('Pick a Background Color!'),
+                      content: SingleChildScrollView(
+                        child: BlockPicker(
+                          pickerColor: pickerBackgroundColor,
+                          onColorChanged: changeBackgroundColor,
+                          availableColors: colorMap.values.toList()
+                        ),
                       ),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          child: const Text('Save'),
+                          onPressed: () {
+
+                            setState(() {
+                              backgroundColorText=getColorName(backgroundColor);
+
+                              backgroundColor = pickerBackgroundColor;
+                            });
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
                     ),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        child: const Text('Save'),
-                        onPressed: () {
-                          setState(() => currentColor = pickerColor);
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
                   );
                 });
           },
           child: Text(
-            'Change',
+            backgroundColorText,
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: buttonTextGreenColor),
+                fontWeight: FontWeight.w600, color: backgroundColor),
           ),
         ),
         toggleFunction: (value) {},
@@ -387,11 +445,11 @@ class _SettingsState extends State<Settings> {
                   const Color(0xffc64240),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+              child: const Padding(
+                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
                 child: Text(
                   'Delete account irrevocably',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -412,11 +470,11 @@ class _SettingsState extends State<Settings> {
                     const Color(0xff232735),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
                   child: Text(
                     'Interrupt',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -691,7 +749,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Transform.scale(
                         scale: 0.70,
                         child: CupertinoSwitch(
-                          activeColor: const Color(0xff28b6aa),
+                          activeColor: primaryColor,
                           value: widget.options[index].isToggleDisabled
                               ? false
                               : widget.options[index].toggleValue,
@@ -755,5 +813,12 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
         ),
       ),
     );
+  }
+}
+
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
   }
 }

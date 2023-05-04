@@ -192,8 +192,8 @@ class ESGScoreScreenState extends State<ESGScoreScreen> {
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
         fixedLeftColumns: 1,
-        dataRowColor: const MaterialStatePropertyAll(primaryColor),
-        headingRowColor: const MaterialStatePropertyAll(primaryColor),
+        dataRowColor: MaterialStatePropertyAll(primaryColor),
+        headingRowColor: MaterialStatePropertyAll(primaryColor),
         fixedTopRows: 0,
         border: const TableBorder(
           top: BorderSide(color: Colors.grey, width: 0.5),
