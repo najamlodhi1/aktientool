@@ -53,6 +53,10 @@ final List<Stat> stats = [
 ];
 // flutter run -d chrome --web-renderer html
 main() async {
+  final loader = document.getElementsByClassName('loader');
+  if (loader.isNotEmpty) {
+    loader.first.remove();
+  }
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -97,17 +101,6 @@ class MyAppState extends State<MyApp> {
     setState(() {
       selectedLocale = Locale(value);
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Remove the CSS loader from document
-    final loader = document.getElementsByClassName('loader');
-    if (loader.isNotEmpty) {
-      loader.first.remove();
-    }
   }
 
   @override
@@ -276,10 +269,6 @@ class HomePageState extends State<HomePage>
                                 child: Image.asset('assets/images/logo.png',
                                     height: 30),
                               ),
-                              /*SizedBox(width: screenSize.width / 20),
-                              const Text("BLOG",
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white)),*/
                             ],
                           ),
                         ),
@@ -305,48 +294,6 @@ class HomePageState extends State<HomePage>
                   ),
                 ),
               ),
-
-              /*
-              AppBar(
-                  backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Image.asset('assets/images/logo.png', height: 30),
-                    ],
-                  ),
-                  leading: Column(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.accessibility),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AllCharts(),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        "assets/images/${selectedLocale.languageCode}.svg",
-                        fit: BoxFit.cover,
-                      ),
-                      iconSize: 40,
-                      onPressed: () {
-                        MyApp.of(context)!.setLocale(
-                            selectedLocale.languageCode == 'us' ? 'de' : 'us');
-                        setState(() {});
-                      },
-                    )
-                  ]),
-
-                  */
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
