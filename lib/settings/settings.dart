@@ -8,9 +8,6 @@ import '../authentication/services/auth_service.dart';
 import '../main.dart';
 import 'app_localizations.dart';
 
-
-
-
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
 
@@ -29,10 +26,7 @@ class _SettingsState extends State<Settings> {
     trans = AppLocalizations.of(context);
     Color pickerPrimaryColor = primaryColor;
     Color pickerBackgroundColor = backgroundColor;
-
-    Color buttonTextGreenColor = primaryColor;
-    Color contactUsEmail =primaryColor;
-
+    
     Map<String, Color> colorMap = {
       "red": Colors.red,
       "pink": Colors.pink,
@@ -54,12 +48,10 @@ class _SettingsState extends State<Settings> {
       "grey": Colors.grey,
       "blue Grey": Colors.blueGrey,
       "black": Colors.black,
-      "Dark Gray":  Color.fromARGB(255, 26, 26, 26),
-
+      "Dark Gray": Color.fromARGB(255, 26, 26, 26),
     };
 
     String getColorName(Color color) {
-
       for (Color c in colorMap.values) {
         if (c == color) {
           for (String name in colorMap.keys) {
@@ -72,15 +64,12 @@ class _SettingsState extends State<Settings> {
       return "Unknown";
     }
 
-    String     primaryColorText=getColorName(primaryColor);
-    String     backgroundColorText=getColorName(backgroundColor);
+    String primaryColorText = getColorName(primaryColor);
+    String backgroundColorText = getColorName(backgroundColor);
 
-    void changeBackgroundColor(Color color) {
-      setState(() => pickerBackgroundColor = color);
-    }
-    void changePrimaryColor(Color color) {
-      setState(() => pickerPrimaryColor = color);
-    }
+    void changeBackgroundColor(Color color) => setState(() => pickerBackgroundColor = color);
+
+    void changePrimaryColor(Color color) => setState(() => pickerPrimaryColor = color);
 
     // Setting List Options
     List<SettingOption> generalOptionsList = [
@@ -89,15 +78,15 @@ class _SettingsState extends State<Settings> {
         subheading: 'Change the language of the app',
         trailingWidget: TextButton(
           onPressed: () {
-            MyApp.of(context)!.setLocale(
-                selectedLocale.languageCode == 'en' ? 'de' : 'en');
+            MyApp.of(context)!
+                .setLocale(selectedLocale.languageCode == 'en' ? 'de' : 'en');
             setState(() {});
             return;
           },
           child: Text(
             selectedLocale.languageCode == 'en' ? "English" : "Deutsch",
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: buttonTextGreenColor),
+                fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {},
@@ -121,10 +110,9 @@ class _SettingsState extends State<Settings> {
                       title: const Text('Pick a Text Color!'),
                       content: SingleChildScrollView(
                         child: BlockPicker(
-                          pickerColor: pickerPrimaryColor,
-                          onColorChanged: changePrimaryColor,
-                            availableColors: colorMap.values.toList()
-                        ),
+                            pickerColor: pickerPrimaryColor,
+                            onColorChanged: changePrimaryColor,
+                            availableColors: colorMap.values.toList()),
                       ),
                       actions: <Widget>[
                         ElevatedButton(
@@ -132,9 +120,7 @@ class _SettingsState extends State<Settings> {
                           onPressed: () {
                             setState(() {
                               primaryColor = pickerPrimaryColor;
-                              primaryColorText=getColorName(primaryColor);
-                               buttonTextGreenColor = primaryColor;
-                               contactUsEmail =primaryColor;
+                              primaryColorText = getColorName(primaryColor);
                             });
                             Navigator.of(context).pop();
                           },
@@ -146,8 +132,7 @@ class _SettingsState extends State<Settings> {
           },
           child: Text(
             primaryColorText,
-            style: TextStyle(
-                fontWeight: FontWeight.w600, color: primaryColor),
+            style: TextStyle(fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {
@@ -173,18 +158,17 @@ class _SettingsState extends State<Settings> {
                       title: const Text('Pick a Background Color!'),
                       content: SingleChildScrollView(
                         child: BlockPicker(
-                          pickerColor: pickerBackgroundColor,
-                          onColorChanged: changeBackgroundColor,
-                          availableColors: colorMap.values.toList()
-                        ),
+                            pickerColor: pickerBackgroundColor,
+                            onColorChanged: changeBackgroundColor,
+                            availableColors: colorMap.values.toList()),
                       ),
                       actions: <Widget>[
                         ElevatedButton(
                           child: const Text('Save'),
                           onPressed: () {
-
                             setState(() {
-                              backgroundColorText=getColorName(backgroundColor);
+                              backgroundColorText =
+                                  getColorName(backgroundColor);
 
                               backgroundColor = pickerBackgroundColor;
                             });
@@ -198,8 +182,8 @@ class _SettingsState extends State<Settings> {
           },
           child: Text(
             backgroundColorText,
-            style: TextStyle(
-                fontWeight: FontWeight.w600, color: backgroundColor),
+            style:
+                TextStyle(fontWeight: FontWeight.w600, color: backgroundColor),
           ),
         ),
         toggleFunction: (value) {},
@@ -233,7 +217,7 @@ class _SettingsState extends State<Settings> {
           child: Text(
             'Manage',
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: buttonTextGreenColor),
+                fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {},
@@ -264,7 +248,7 @@ class _SettingsState extends State<Settings> {
           child: Text(
             trans.translate('Logout'),
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: buttonTextGreenColor),
+                fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {},
@@ -296,7 +280,7 @@ class _SettingsState extends State<Settings> {
                       text: 'Portfolio Dashboard ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: buttonTextGreenColor),
+                          color: primaryColor),
                     ),
                     const TextSpan(
                       text: 'under ',
@@ -405,7 +389,7 @@ class _SettingsState extends State<Settings> {
                     TextSpan(
                       text: 'support@parqet.com ',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: contactUsEmail),
+                          fontWeight: FontWeight.bold, color: primaryColor),
                     ),
                     const TextSpan(
                       text: 'and we will take care of your request.',
@@ -815,7 +799,6 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
     );
   }
 }
-
 
 extension StringExtension on String {
   String capitalize() {
