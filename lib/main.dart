@@ -2,6 +2,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, constant_identifier_names
 
 import 'dart:html' as html;
+import 'dart:html';
 import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/filter_area.dart';
@@ -96,6 +97,17 @@ class MyAppState extends State<MyApp> {
     setState(() {
       selectedLocale = Locale(value);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Remove the CSS loader from document
+    final loader = document.getElementsByClassName('loader');
+    if (loader.isNotEmpty) {
+      loader.first.remove();
+    }
   }
 
   @override

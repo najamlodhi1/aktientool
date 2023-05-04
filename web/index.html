@@ -35,6 +35,55 @@
   <title>aktientool</title>
   <link rel="manifest" href="manifest.json">
 
+
+  <style>
+    .loader {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .lds-hourglass {
+        background-color: black;
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+    .lds-hourglass:after {
+        background-color: black;
+        content: " ";
+        display: block;
+        border-radius: 70%;
+        width: 0;
+        height: 0;
+        margin: 8px;
+        box-sizing: border-box;
+        border: 32px solid #a659ff;
+        border-color: #a659ff transparent #a659ff transparent;
+        animation: lds-hourglass 1.2s infinite;
+    }
+    
+    @keyframes lds-hourglass {
+        0% {
+            transform: rotate(0);
+            animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        }
+        50% {
+            transform: rotate(900deg);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        100% {
+            transform: rotate(1800deg);
+        }
+    }
+
+    </style>
+
+
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
@@ -45,9 +94,16 @@
 
 </head>
 <body>
+
+  <div class="loader">
+    <div class="lds-hourglass"></div>
+</div>
+
+
+
   <script>
     window.addEventListener('load', function(ev) {
-      // Download main.dart.js
+      //let loading = document.getElementsByClassName('#loading');
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
@@ -55,6 +111,7 @@
       }).then(function(engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function(appRunner) {
+        //loading.remove();
         return appRunner.runApp();
       });
     });
