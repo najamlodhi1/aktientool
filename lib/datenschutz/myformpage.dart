@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../webpage/footer.dart';
+import '../webpage/screen_helper.dart';
 
 class MyFormPage extends StatelessWidget {
   MyFormPage({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class MyFormPage extends StatelessWidget {
     );
   }
 
-  Widget rating() {
+  Widget rating(context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +73,7 @@ class MyFormPage extends StatelessWidget {
             minRating: 0,
             maxRating: 5,
             allowHalfRating: true,
-            itemSize: 70.0,
+            itemSize: ScreenHelper.isDesktop(context) ? 70 : 40,
             ratingWidget: RatingWidget(
               full: const Icon(Icons.star, color: kPrimaryColor),
               half: const Icon(Icons.star_half, color: kPrimaryColor),
@@ -112,7 +113,7 @@ class MyFormPage extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
-                    rating(),
+                    rating(context),
                     const SizedBox(
                       height: 20,
                     ),
@@ -129,7 +130,7 @@ class MyFormPage extends StatelessWidget {
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
                                 filled: true, //<-- SEE HERE
-                                fillColor: Colors.white,
+                                fillColor: Color.fromARGB(255, 150, 150, 150),
                                 hintText: 'Email zur Kontaktaufnahme'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -150,7 +151,7 @@ class MyFormPage extends StatelessWidget {
                             autocorrect: false,
                             decoration: const InputDecoration(
                                 filled: true, //<-- SEE HERE
-                                fillColor: Colors.white,
+                                fillColor: Color.fromARGB(255, 150, 150, 150),
                                 hintText: 'Titel'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -167,7 +168,7 @@ class MyFormPage extends StatelessWidget {
                           maxLength: 2000,
                           decoration: const InputDecoration(
                               filled: true, //<-- SEE HERE
-                              fillColor: Colors.white,
+                              fillColor: Color.fromARGB(255, 150, 150, 150),
                               hintText:
                                   'Was können wir besser machen?\nHaben Sie neue Ideen, Vorschläge oder Fehler entdeckt?\n',
                               hintStyle: TextStyle(fontSize: 20)),
@@ -182,9 +183,10 @@ class MyFormPage extends StatelessWidget {
                       ],
                     ),
                     ElevatedButton(
-                      style: const ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(kPrimaryColor),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kPrimaryColor,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(24),
                       ),
                       onPressed: () {
                         // Wenn alle Validatoren der Felder des Formulars gültig sind.
@@ -209,7 +211,7 @@ class MyFormPage extends StatelessWidget {
                       child: const Icon(
                         Icons.local_post_office_outlined,
                         size: 70,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 150, 150, 150),
                       ),
                     ),
                     const SizedBox(height: 100),
