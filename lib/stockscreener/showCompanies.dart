@@ -127,7 +127,7 @@ class ShowCompanies extends ConsumerWidget {
       return Row(
         children: [
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
