@@ -447,9 +447,13 @@ class HomePageState extends State<HomePage>
                                                 child: Text(
                                                   trans.translate(
                                                       "Kostenlos Registrieren"),
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 22.0,
+                                                      fontSize: ScreenHelper
+                                                              .isDesktop(
+                                                                  context)
+                                                          ? 22
+                                                          : 18,
                                                       fontFamily:
                                                           'WorkSansBold'),
                                                 ),

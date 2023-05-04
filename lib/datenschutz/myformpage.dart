@@ -73,7 +73,7 @@ class MyFormPage extends StatelessWidget {
             minRating: 0,
             maxRating: 5,
             allowHalfRating: true,
-            itemSize: ScreenHelper.isDesktop(context) ? 70 : 40,
+            itemSize: ScreenHelper.isDesktop(context) ? 70 : 50,
             ratingWidget: RatingWidget(
               full: const Icon(Icons.star, color: kPrimaryColor),
               half: const Icon(Icons.star_half, color: kPrimaryColor),
