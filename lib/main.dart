@@ -372,7 +372,10 @@ class HomePageState extends State<HomePage>
                                       trans.translate("A STOCK SCREENER"),
                                       style: GoogleFonts.oswald(
                                         color: kPrimaryColor,
-                                        fontSize: 50.0,
+                                        fontSize:
+                                            ScreenHelper.isDesktop(context)
+                                                ? 50
+                                                : 40,
                                       ),
                                     ),
                                     Text(
@@ -380,8 +383,10 @@ class HomePageState extends State<HomePage>
                                           "that quickly and easily the right shares for your portfolio."),
                                       style: GoogleFonts.oswald(
                                         color: Colors.white,
-                                        fontSize: 35.0,
-                                        //fontWeight: FontWeight.w900,
+                                        fontSize: ScreenHelper.isDesktop(
+                                                context)
+                                            ? 30
+                                            : 25, //fontWeight: FontWeight.w900,
                                         height: 1.3,
                                       ),
                                     ),
@@ -392,7 +397,9 @@ class HomePageState extends State<HomePage>
                                       alignment: Alignment.topCenter,
                                       children: <Widget>[
                                         SizedBox(
-                                          width: 255,
+                                          width: ScreenHelper.isDesktop(context)
+                                              ? 255
+                                              : 200,
                                           child: Container(
                                             margin: const EdgeInsets.only(
                                                 top: 10.0),
