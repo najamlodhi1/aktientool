@@ -123,8 +123,8 @@ class CreateChart3State extends State<CreateChart3> {
         minWidth: tableData.length * 170,
         fixedLeftColumns: 2,
         fixedTopRows: 0,
-        dataRowColor: const MaterialStatePropertyAll(primaryColor),
-        headingRowColor: const MaterialStatePropertyAll(primaryColor),
+        dataRowColor: MaterialStatePropertyAll(primaryColor),
+        headingRowColor: MaterialStatePropertyAll(primaryColor),
         border: const TableBorder(
           top: BorderSide(color: Colors.grey, width: 0.5),
           bottom: BorderSide(color: Colors.grey, width: 0.5),

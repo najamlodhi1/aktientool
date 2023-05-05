@@ -420,8 +420,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           : tableData.length * 220,
       height: 7 * 60,
       child: DataTable2(
-        dataRowColor: const MaterialStatePropertyAll(primaryColor),
-        headingRowColor: const MaterialStatePropertyAll(primaryColor),
+        dataRowColor:  MaterialStatePropertyAll(primaryColor),
+        headingRowColor:  MaterialStatePropertyAll(primaryColor),
         columnSpacing: 50,
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
@@ -457,8 +457,8 @@ class _DCFLeveredScreenState extends State<DCFLeveredScreen> {
           : tableData.length * 220,
       height: 7 * 60,
       child: DataTable2(
-        dataRowColor: const MaterialStatePropertyAll(primaryColor),
-        headingRowColor: const MaterialStatePropertyAll(primaryColor),
+        dataRowColor:  MaterialStatePropertyAll(primaryColor),
+        headingRowColor:  MaterialStatePropertyAll(primaryColor),
         columnSpacing: 50,
         horizontalMargin: 24,
         minWidth: tableData.length * 220,
