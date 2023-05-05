@@ -379,7 +379,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     const TextSpan(
                       text:
-                          'Tell us how we can improve Parqet in the future. You had problems with Aktientool? Feel free to contact us at ',
+                          'Tell us how we can improve Aktientool in the future. You had problems with Aktientool? Feel free to contact us at ',
                     ),
                     TextSpan(
                       text: 'support@aktientool.com ',
