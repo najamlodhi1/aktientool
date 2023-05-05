@@ -60,7 +60,7 @@ class ShowCompanies extends ConsumerWidget {
     String url =
         "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/v1/list?p_cname=$search&offset=$offset&p_cou=$countryUrl&p_ind=$industryUrl&p_sec=$sectorUrl&p_mkmin=100&p_mkmax=100000000000000&p_betmin=0&p_betmax=0.2&p_epsmin=-10&p_epsmax=10";
     //String url =
-    // "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$modifiedMarketcapStartUrl&p_marketcapEnd=$modifiedMarketcapEndUrl&p_cname=$search&offset=$offset";
+    //  "https://l2uc5cepjxf923s-db80zsd.adb.eu-frankfurt-1.oraclecloudapps.com/ords/at/comp/companies?&p_country=$countryUrl&p_industry=$industryUrl&p_marketcap=$modifiedMarketcapStartUrl&p_marketcapEnd=$modifiedMarketcapEndUrl&p_cname=$search&offset=$offset";
     print(url);
     var responses = await Dio().get(url);
     var x = responses;

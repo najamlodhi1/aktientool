@@ -26,7 +26,7 @@ class _SettingsState extends State<Settings> {
     trans = AppLocalizations.of(context);
     Color pickerPrimaryColor = primaryColor;
     Color pickerBackgroundColor = backgroundColor;
-    
+
     Map<String, Color> colorMap = {
       "red": Colors.red,
       "pink": Colors.pink,
@@ -48,7 +48,7 @@ class _SettingsState extends State<Settings> {
       "grey": Colors.grey,
       "blue Grey": Colors.blueGrey,
       "black": Colors.black,
-      "Dark Gray": Color.fromARGB(255, 26, 26, 26),
+      "Dark Gray": const Color.fromARGB(255, 26, 26, 26),
     };
 
     String getColorName(Color color) {
@@ -67,9 +67,11 @@ class _SettingsState extends State<Settings> {
     String primaryColorText = getColorName(primaryColor);
     String backgroundColorText = getColorName(backgroundColor);
 
-    void changeBackgroundColor(Color color) => setState(() => pickerBackgroundColor = color);
+    void changeBackgroundColor(Color color) =>
+        setState(() => pickerBackgroundColor = color);
 
-    void changePrimaryColor(Color color) => setState(() => pickerPrimaryColor = color);
+    void changePrimaryColor(Color color) =>
+        setState(() => pickerPrimaryColor = color);
 
     // Setting List Options
     List<SettingOption> generalOptionsList = [
@@ -85,8 +87,8 @@ class _SettingsState extends State<Settings> {
           },
           child: Text(
             selectedLocale.languageCode == 'en' ? "English" : "Deutsch",
-            style: TextStyle(
-                fontWeight: FontWeight.w600, color:Color(0xff050d1c)),
+            style: const TextStyle(
+                fontWeight: FontWeight.w600, color: Color(0xff050d1c)),
           ),
         ),
         toggleFunction: (value) {},
@@ -216,8 +218,7 @@ class _SettingsState extends State<Settings> {
           onPressed: () {},
           child: Text(
             'Manage',
-            style: TextStyle(
-                fontWeight: FontWeight.w600, color: primaryColor),
+            style: TextStyle(fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {},
@@ -247,16 +248,14 @@ class _SettingsState extends State<Settings> {
           },
           child: Text(
             trans.translate('Logout'),
-            style: TextStyle(
-                fontWeight: FontWeight.w600, color: primaryColor),
+            style: TextStyle(fontWeight: FontWeight.w600, color: primaryColor),
           ),
         ),
         toggleFunction: (value) {},
       ),
       SettingOption(
           headingWidget: Padding(
-            padding:
-                EdgeInsets.fromLTRB(0, hideContactUsBlock ? 7 : 10, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, hideContactUsBlock ? 7 : 10, 0, 0),
             child: RichText(
               text: TextSpan(
                 style: const TextStyle(
@@ -278,8 +277,7 @@ class _SettingsState extends State<Settings> {
                   TextSpan(
                     text: 'Portfolio Dashboard ',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor),
+                        fontWeight: FontWeight.bold, color: primaryColor),
                   ),
                   const TextSpan(
                     text: 'under ',
@@ -287,8 +285,7 @@ class _SettingsState extends State<Settings> {
                   const TextSpan(
                     text: '"Manage" ',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff050d1c)),
+                        fontWeight: FontWeight.bold, color: Color(0xff050d1c)),
                   ),
                   const TextSpan(
                     text: '- you don\'t have to delete your account.',
@@ -382,10 +379,10 @@ class _SettingsState extends State<Settings> {
                   children: [
                     const TextSpan(
                       text:
-                          'Tell us how we can improve Parqet in the future. You had problems with parqet? Feel free to contact us at ',
+                          'Tell us how we can improve Parqet in the future. You had problems with Aktientool? Feel free to contact us at ',
                     ),
                     TextSpan(
-                      text: 'support@parqet.com ',
+                      text: 'support@aktientool.com ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: primaryColor),
                     ),
@@ -494,7 +491,7 @@ class _SettingsState extends State<Settings> {
                 heading_left: 'Your account',
                 heading_right: "Account Settings",
                 subheading_left:
-                    'This is where you manage your parquet account.',
+                    'This is where you manage your Aktientool account.',
                 options: accountSettingList,
               ),
             ],
@@ -586,7 +583,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             children: [
               Visibility(
                 visible: !isSmallScreen,
-                child: Container(
+                child: SizedBox(
                   width: width_30,
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(0),
@@ -800,6 +797,6 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
 
 extension StringExtension on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1)}";
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }
