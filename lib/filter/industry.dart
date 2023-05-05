@@ -12,6 +12,10 @@ var sp_industry_url = StateProvider((ref) {
   return "";
 });
 
+var sp_sector_url = StateProvider((ref) {
+  return "";
+});
+
 // ignore: must_be_immutable
 class Industry extends ConsumerWidget {
   List<Map> generatedIndustryFromList = [];
