@@ -226,14 +226,9 @@ class ShowCompanies extends ConsumerWidget {
                       child: Container(
                         margin: const EdgeInsets.all(2.0),
                         padding: const EdgeInsets.all(2.0),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            left: BorderSide(color: Colors.red, width: 5),
-                            top: BorderSide(color: Colors.blue, width: 5),
-                            right: BorderSide(color: Colors.orange, width: 5),
-                            bottom: BorderSide(color: Colors.green, width: 5),
-                          ),
-                        ),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromARGB(255, 87, 87, 87))),
                         child: Column(
                           children: <Widget>[
                             Top(context, snapshot, index),
