@@ -80,10 +80,10 @@ class ShowCompanies extends ConsumerWidget {
 
   checkDevice(context) {
     if (Responsive.isDesktop(context) == true) {
-      return 7;
+      return 5;
     }
     if (Responsive.isTablet(context) == true) {
-      return 4;
+      return 3;
     }
     if (Responsive.isMobile(context) == true) {
       return 2;
