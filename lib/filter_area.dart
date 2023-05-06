@@ -60,12 +60,13 @@ class _FilterAreaState extends State<FilterArea> {
     super.initState();
     _pageController = PageController();
   }
-
+/*
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
+*/
 
   loadCardQuality(var list) {
     return Wrap(children: [

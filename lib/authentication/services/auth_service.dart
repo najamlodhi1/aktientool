@@ -57,6 +57,11 @@ class AuthService {
     return 'User signed out';
   }
 
+  Future<String> deleteAccount() async {
+    FirebaseAuth.instance.currentUser!.delete();
+    return 'User removed';
+  }
+
   // Future<User?> signInWithGoogle() async {
   //   await Firebase.initializeApp();
   //   User? user;

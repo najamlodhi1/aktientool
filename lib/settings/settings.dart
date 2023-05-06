@@ -17,7 +17,6 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   late AppLocalizations trans;
-  String userInquiry = '';
 
   bool hideContactUsBlock = false;
 
@@ -72,6 +71,32 @@ class _SettingsState extends State<Settings> {
 
     void changePrimaryColor(Color color) =>
         setState(() => pickerPrimaryColor = color);
+
+    TextEditingController deletecontroller = TextEditingController();
+
+    textarea() {
+      String value = "";
+
+      return Card(
+        elevation: 2,
+        margin: EdgeInsets.zero,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.width > 920 ? 35 : 50,
+          child: TextField(
+            keyboardType: TextInputType.text,
+            expands: true,
+            minLines: null,
+            maxLines: null,
+            controller: deletecontroller,
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(10.0),
+              hintText: '',
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+      );
+    }
 
     // Setting List Options
     List<SettingOption> generalOptionsList = [
@@ -253,109 +278,6 @@ class _SettingsState extends State<Settings> {
         ),
         toggleFunction: (value) {},
       ),
-      SettingOption(
-          headingWidget: Padding(
-            padding: EdgeInsets.fromLTRB(0, hideContactUsBlock ? 7 : 10, 0, 0),
-            child: RichText(
-              text: TextSpan(
-                style: const TextStyle(
-                    fontSize: 15, color: Color(0xff434c5b), height: 1.3),
-                children: [
-                  const WidgetSpan(
-                      child: Icon(
-                    Icons.warning_rounded,
-                    size: 18,
-                    color: Color(0xffFDBA74),
-                  )),
-                  const TextSpan(
-                    text: ' ',
-                  ),
-                  const TextSpan(
-                    text:
-                        'If you only want to delete your portfolio, you can do this in your ',
-                  ),
-                  TextSpan(
-                    text: 'Portfolio Dashboard ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: primaryColor),
-                  ),
-                  const TextSpan(
-                    text: 'under ',
-                  ),
-                  const TextSpan(
-                    text: '"Manage" ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff050d1c)),
-                  ),
-                  const TextSpan(
-                    text: '- you don\'t have to delete your account.',
-                  ),
-                ],
-              ),
-            ),
-          ),
-          subheadingWidget: SizedBox(
-            height: hideContactUsBlock ? 0 : 5,
-          ),
-          noBottomBorder: true,
-          toggleFunction: (_) {}),
-      SettingOption(
-        noBottomBorder: hideContactUsBlock,
-        toggleFunction: (_) {},
-        bottomBorderColor: const Color(0xffe7e9ed),
-        leadingWidget: Container(
-          margin: EdgeInsets.only(bottom: hideContactUsBlock ? 5 : 19),
-          child: Card(
-            elevation: 2,
-            margin: const EdgeInsets.all(0),
-            child: TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                  const Color(0xff232735),
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                child: Text(
-                  'De-register',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        trailingWidget: Container(
-          margin: EdgeInsets.only(bottom: hideContactUsBlock ? 5 : 19),
-          child: TextButton(
-            onPressed: () {
-              setState(() {
-                hideContactUsBlock = true;
-              });
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                const Color(0xfffee2e1),
-              ),
-              foregroundColor: MaterialStateProperty.all<Color>(
-                const Color(0xffc64240),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
-              child: Text(
-                trans.translate('Delete Account'),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
 
       // hide these blocks when delete account btn is clicked
       if (!hideContactUsBlock) ...[
@@ -379,16 +301,16 @@ class _SettingsState extends State<Settings> {
                   children: [
                     const TextSpan(
                       text:
-                          'Tell us how we can improve Aktientool in the future. You had problems with Aktientool? Feel free to contact us at ',
+                          'We hope that you came back in the future. To remove your account type ',
                     ),
                     TextSpan(
-                      text: 'support@aktientool.com ',
+                      text: 'REMOVE ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: primaryColor),
                     ),
                     const TextSpan(
-                      text: 'and we will take care of your request.',
-                    )
+                      text: 'and press the button bellow',
+                    ),
                   ],
                 ),
               ),
@@ -398,13 +320,7 @@ class _SettingsState extends State<Settings> {
         SettingOption(
             customWidget: Padding(
               padding: const EdgeInsets.only(bottom: 18.0, top: 15),
-              child: TextAreaWidget(
-                onTextChanged: (String value) {
-                  setState(() {
-                    userInquiry = value;
-                  });
-                },
-              ),
+              child: textarea(),
             ),
             noBottomBorder: true,
             toggleFunction: (_) {}),
@@ -412,48 +328,34 @@ class _SettingsState extends State<Settings> {
           heading: '.',
           toggleFunction: (_) {},
           noBottomBorder: true,
-          leadingWidget: Container(
-            margin: const EdgeInsets.only(bottom: 15, top: 0),
-            child: TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  const Color(0xfffee2e1),
-                ),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                  const Color(0xffc64240),
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                child: Text(
-                  'Delete account irrevocably',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
           trailingWidget: Container(
             margin: const EdgeInsets.only(bottom: 15, top: 0),
             child: Card(
               elevation: 2,
               margin: const EdgeInsets.all(0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() async {
+                    if (deletecontroller.text == "REMOVE") {
+                      FirebaseAuth.instance.currentUser!.delete();
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/', (Route<dynamic> route) => false);
+                    }
+                  });
+                },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color(0xfffee2e1),
+                  ),
                   foregroundColor: MaterialStateProperty.all<Color>(
-                    const Color(0xff232735),
+                    const Color(0xffc64240),
                   ),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                   child: Text(
-                    'Interrupt',
-                    style: TextStyle(
+                    trans.translate('Delete Account'),
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -748,49 +650,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   ),
                 )
               : null),
-    );
-  }
-}
-
-class TextAreaWidget extends StatefulWidget {
-  final Function(String)? onTextChanged;
-
-  const TextAreaWidget({Key? key, this.onTextChanged}) : super(key: key);
-
-  @override
-  _TextAreaWidgetState createState() => _TextAreaWidgetState();
-}
-
-class _TextAreaWidgetState extends State<TextAreaWidget> {
-  String userInquiry = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: EdgeInsets.zero,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.width > 920 ? 75 : 100,
-        child: TextField(
-          keyboardType: TextInputType.multiline,
-          expands: true,
-          minLines: null,
-          maxLines: null,
-          onChanged: (value) {
-            setState(() {
-              userInquiry = value;
-            });
-            if (widget.onTextChanged != null) {
-              widget.onTextChanged!(value);
-            }
-          },
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.all(10.0),
-            hintText: '',
-            border: InputBorder.none,
-          ),
-        ),
-      ),
     );
   }
 }
