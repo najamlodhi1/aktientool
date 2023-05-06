@@ -8,7 +8,7 @@ class CompanyModel {
   String? country;
   String? exchange;
   String? industry;
-  double? marketcap;
+  double? mktCap;
   String? companyname;
   String? exchangeshortname;
   String? isactivelytrading;
@@ -27,7 +27,7 @@ class CompanyModel {
     this.country,
     this.exchange,
     this.industry,
-    this.marketcap,
+    this.mktCap,
     this.companyname,
     this.exchangeshortname,
     this.isactivelytrading,
@@ -46,7 +46,7 @@ class CompanyModel {
     country = json['country'] ?? "";
     exchange = json['exchange'] ?? "";
     industry = json['industry'] ?? "";
-    marketcap = json['marketcap'] ?? "";
+    mktCap = json['mktCap'] ?? "";
     companyname = json['companyname'] ?? "";
     exchangeshortname = json['exchangeshortname'] ?? "";
     isactivelytrading = json['isactivelytrading'] ?? "";
@@ -66,7 +66,7 @@ class CompanyModel {
     data['country'] = country;
     data['exchange'] = exchange;
     data['industry'] = industry;
-    data['marketcap'] = marketcap;
+    data['mktCap'] = mktCap;
     data['companyname'] = companyname;
     data['exchangeshortname'] = exchangeshortname;
     data['isactivelytrading'] = isactivelytrading;
@@ -80,7 +80,7 @@ class CompanyModel {
     return {
       'symbol': symbol ?? "",
       'companyName': companyname ?? "",
-      'marketCap': marketcap ?? "",
+      'mktCap': mktCap ?? "",
       'sector': sector ?? "",
       'industry': industry ?? "",
       'beta': beta ?? "",
@@ -101,7 +101,7 @@ class CompanyModel {
 class Company {
   String? symbol;
   String? companyName;
-  double? marketCap;
+  double? mktCap;
   String? sector;
   String? industry;
 
@@ -120,7 +120,7 @@ class Company {
   Company({
     this.symbol,
     this.companyName,
-    this.marketCap,
+    this.mktCap,
     this.sector,
     this.industry,
     //this.beta,
@@ -137,7 +137,7 @@ class Company {
   Company.fromJson(Map<String, dynamic> json) {
     symbol = json['symbol'];
     companyName = json['companyName'];
-    marketCap = json['marketCap'];
+    mktCap = json['mktCap'];
     sector = json['sector'];
     industry = json['industry'];
     //beta = json['beta'];
@@ -155,7 +155,7 @@ class Company {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['symbol'] = symbol;
     data['companyName'] = companyName;
-    data['marketCap'] = marketCap;
+    data['mktCap'] = mktCap;
     data['sector'] = sector;
     data['industry'] = industry;
     //data['beta'] = beta;
@@ -174,7 +174,7 @@ class Company {
     return {
       'symbol': symbol,
       'companyName': companyName,
-      'marketCap': marketCap,
+      'mktCap': mktCap,
       'sector': sector,
       'industry': industry,
       //'beta': beta,
