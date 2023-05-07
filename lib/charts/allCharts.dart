@@ -5,7 +5,6 @@ import 'package:aktientool/charts/FinancialsScreens/FinancialNavPage.dart';
 import 'package:aktientool/charts/Rating/RatingScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
-import 'package:aktientool/charts/chart4/createchart.dart';
 import 'package:aktientool/filter_area.dart';
 import 'package:aktientool/stockscreener/home.dart';
 import 'package:aktientool/stockscreener/showCompanies.dart';
@@ -23,8 +22,6 @@ import 'InstitutionalHolders/InstitutionalholdersScreen.dart';
 import 'chart0/createchart.dart';
 import 'chart12/CompanyScreen.dart';
 import 'chart1test/createchart.dart';
-import 'chart2/createchart.dart';
-import 'chart3/createchart.dart';
 import 'ESGScore/ESGScoreScreen.dart';
 
 List<DrawLineModel> drawingoffsets = [];
@@ -230,12 +227,9 @@ class _AllChartsState extends State<AllCharts> {
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
-          const SizedBox(
-            height: 80,
-          ),
           Image.asset("assets/images/logo.png",
-              width: 300, alignment: Alignment.bottomLeft),
-          const SizedBox(height: 40),
+              width: 500, alignment: Alignment.bottomLeft),
+          //const SizedBox(height: 40),
           const Divider(
             height: 10,
             thickness: 1,
