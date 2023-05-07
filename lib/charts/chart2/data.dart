@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
-import '../chart3/data.dart';
 import 'IncomeReportModel.dart';
 
 class IncomeService {
-  static final ValueNotifier<Map<String, bool>> isSelected =
-      ValueNotifier<Map<String, bool>>({});
-  static List<Color> colors = [Colors.green, Colors.red];
+  static final ValueNotifier<String> selectedTitle =
+      ValueNotifier<String>('Revenue');
+
   Future<List<IncomeReportModel>> getData(dynamic data) async {
     var temp = parseData(data);
-    isSelected.value = {};
-
-    for (ReportItemModel element in temp[0].reports) {
-      isSelected.value[element.title] =
-          element.title == 'Revenue' ? true : false;
-    }
-
     temp.sort((a, b) => a.date.year.compareTo(b.date.year));
-    colors.addAll(generateRandomColors(count: temp[0].reports.length - 2));
     return temp;
   }
 

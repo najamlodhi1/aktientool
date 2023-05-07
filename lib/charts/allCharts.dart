@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'dart:convert';
 import 'package:aktientool/authentication/services/http_service.dart';
+import 'package:aktientool/charts/FinancialsScreens/FinancialNavPage.dart';
 import 'package:aktientool/charts/Rating/RatingScreen.dart';
 import 'package:aktientool/charts/Scores/ScoreScreen.dart';
 import 'package:aktientool/charts/StockNews/StockNewsScreen.dart';
@@ -184,14 +185,7 @@ class _AllChartsState extends State<AllCharts> {
                                       Institutionalholders(parentData[3]),
                                     ],
                                     if (selectedindex == 3) ...[
-                                      // BarChartIncomeScreen(
-                                      //     parentData[0]), // Bar Chart income
-                                      CreateChart2(parentData[0]),
-                                      // BarChartBalanceScreen(
-                                      //     parentData[1]), // Bar Chart Balance
-                                      CreateChart3(parentData[1]),
-                                      // BarChartCashFlowScreen(parentData[2]),
-                                      CreateChart4(parentData[2])
+                                      FinancialsNavPage(parentData),
                                       // Analysten bewertung
                                     ],
                                     if (selectedindex == 4) ...[],

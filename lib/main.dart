@@ -538,11 +538,10 @@ class HomePageState extends State<HomePage>
                 TextButton(
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Datenschutzerklaerung(),
-                      ),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const Datenschutzerklaerung()));
                   },
                   child: const Text("Datenschutzerklärung"),
                 ),

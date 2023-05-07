@@ -28,18 +28,16 @@ class CreateChart3State extends State<CreateChart3> {
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
-
-    if (tableData.isEmpty) {
-      return Column(
-        children: [
-          FutureBuilder<List<BalanceReportModel>>(
-              future: getFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData &&
-                    snapshot.data!.isNotEmpty) {
-                  tableData = snapshot.data!;
-                  return Container(
+    return FutureBuilder<List<BalanceReportModel>>(
+        future: getFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData &&
+              snapshot.data!.isNotEmpty) {
+            tableData = snapshot.data!;
+            return Column(
+              children: [
+                Container(
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -51,64 +49,43 @@ class CreateChart3State extends State<CreateChart3> {
                       color: primaryColor,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(trans.translate("Balance Sheet"),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22,
-                                color: Colors.white)),
-                        //const Text(
-                        //    "All numbers are in thousands, Currency in USD"),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        buildTable(),
-                      ],
+                    child: BarChartBalanceScreen(
+                        widget.data)), // Bar Chart income,
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.teal,
+                      style: BorderStyle.none,
+                      width: 2,
                     ),
-                  );
-                } else {
-                  //return const Center(child: CircularProgressIndicator());
-                  return const SizedBox();
-                }
-              }),
-        ],
-      );
-    } else {
-      return Container(
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.teal,
-            style: BorderStyle.none,
-            width: 2,
-          ),
-          color: primaryColor,
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Text(trans.translate("Balance Sheet"),
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 22,
-                    color: Colors.white)),
-            //const Text("All numbers are in thousands, Currency in USD"),
-            const SizedBox(
-              height: 10,
-            ),
-            buildTable(),
-          ],
-        ),
-      );
-    }
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(trans.translate("Balance Sheet"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22,
+                              color: Colors.white)),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      buildTable(),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        });
   }
 
   buildTable() {
@@ -160,61 +137,69 @@ class CreateChart3State extends State<CreateChart3> {
     return List.generate(
         tableData[0].reports.length,
         (index) => DataRow(
-              // selected: BalanceService
-              //     .isSelected.value[tableData[0].reports[index].title]!,
-              // onSelectChanged: (bool? value) {
-              //   BalanceService.isSelected
-              //       .value[tableData[0].reports[index].title] = value!;
-              //   BalanceService.isSelected.notifyListeners();
-              //   setState(() {});
-              // },
               cells: [
                 DataCell(
-                  Text(trans.translate(tableData[0].reports[index].title),
-                      style: const TextStyle(color: Colors.white)),
+                  InkWell(
+                    onTap: () {
+                      BalanceService.selectedTitle.value =
+                          tableData[0].reports[index].title;
+                    },
+                    child: Center(
+                        child: Text(
+                            trans.translate(tableData[0].reports[index].title),
+                            style: const TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center)),
+                  ),
                 ),
                 for (int x = 0; x < tableData.length; x++) ...[
                   DataCell(
-                    Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                            numberToKFormat(tableData[tableData.length - 1 - x]
-                                .reports[index]
-                                .value),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          width: 80,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: (x < tableData.length - 1
-                                      ? tableData[tableData.length - 1 - x]
-                                                  .reports[index]
-                                                  .value >=
-                                              tableData[tableData.length -
-                                                      1 -
-                                                      x -
-                                                      1]
-                                                  .reports[index]
-                                                  .value
-                                          ? Colors.green
-                                          : Colors.red
-                                      : Colors.grey)
-                                  .withOpacity(0.3)),
-                          child: Center(
-                            child: Text(
-                              '${x < (tableData.length - 1) ? calculatepercentage(tableData[tableData.length - 1 - x].reports[index].value, tableData[tableData.length - 1 - x - 1].reports[index].value).toStringAsFixed(2) : 'N/A'}%',
+                    InkWell(
+                      onTap: () {
+                        BalanceService.selectedTitle.value =
+                            tableData[0].reports[index].title;
+                      },
+                      child: Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                              numberToKFormat(
+                                  tableData[tableData.length - 1 - x]
+                                      .reports[index]
+                                      .value),
                               style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            width: 80,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: (x < tableData.length - 1
+                                        ? tableData[tableData.length - 1 - x]
+                                                    .reports[index]
+                                                    .value >=
+                                                tableData[tableData.length -
+                                                        1 -
+                                                        x -
+                                                        1]
+                                                    .reports[index]
+                                                    .value
+                                            ? Colors.green
+                                            : Colors.red
+                                        : Colors.grey)
+                                    .withOpacity(0.3)),
+                            child: Center(
+                              child: Text(
+                                '${x < (tableData.length - 1) ? calculatepercentage(tableData[tableData.length - 1 - x].reports[index].value, tableData[tableData.length - 1 - x - 1].reports[index].value).toStringAsFixed(2) : 'N/A'}%',
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    )),
+                          )
+                        ],
+                      )),
+                    ),
                   ),
                 ],
               ],
