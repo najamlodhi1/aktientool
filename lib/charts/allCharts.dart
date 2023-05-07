@@ -228,7 +228,7 @@ class _AllChartsState extends State<AllCharts> {
       child: Column(
         children: [
           Image.asset("assets/images/logo.png",
-              width: 500, alignment: Alignment.bottomLeft),
+              width: 230, alignment: Alignment.bottomLeft),
           //const SizedBox(height: 40),
           const Divider(
             height: 10,
