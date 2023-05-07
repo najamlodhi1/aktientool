@@ -116,8 +116,12 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                             titlesData: FlTitlesData(show: false),
                             barGroups: barData
                                 .map((e) => BarChartGroupData(
-                                        barsSpace: 0,
-                                        x: 0,
+                                        barsSpace: 10,
+                                        x: MediaQuery.of(context).size.width <
+                                                1000
+                                            ? int.parse(
+                                                DateFormat('yy').format(e.date))
+                                            : e.date.year,
                                         barRods: [
                                           createRod(e.reports[e.reports
                                               .indexWhere((element) =>
