@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../settings/app_localizations.dart';
 import '../chart2/IncomeReportModel.dart';
-import '../chart2/createchart.dart';
 import 'data.dart';
 
 class BarChartBalanceScreen extends StatefulWidget {
@@ -19,8 +18,6 @@ class BarChartBalanceScreen extends StatefulWidget {
 }
 
 class _BarChartScreenState extends State<BarChartBalanceScreen> {
-  int selectedReportIndex = 0;
-
   late Future<List<BalanceReportModel>> getDataFuture;
   late AppLocalizations trans;
 
@@ -28,6 +25,24 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
   void initState() {
     getDataFuture = BalanceService().getData(widget.data);
     super.initState();
+  }
+
+  double calculateChartWidth(
+      Map<String, bool> showBarsNotifier, List<BalanceReportModel> data) {
+    double interval = MediaQuery.of(context).size.width < 1000 ? 200 : 400;
+    double chartWidth = MediaQuery.of(context).size.width >= interval
+        ? MediaQuery.of(context).size.width - interval
+        : MediaQuery.of(context).size.width;
+
+    try {
+      for (int i = 0; i < data.length; i++) {
+        if (showBarsNotifier[data[0].reports[i].title]!) {
+          chartWidth += interval;
+        }
+      }
+    } catch (err) {}
+
+    return chartWidth;
   }
 
   @override
@@ -39,8 +54,6 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
         if (snapshot.hasData) {
           List<BalanceReportModel> data = snapshot.data!;
           data.sort((a, b) => b.date.compareTo(a.date));
-          List<BalanceReportModel> barData = snapshot.data!;
-          barData.sort((a, b) => a.date.compareTo(b.date));
           return Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
@@ -53,49 +66,34 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
               color: primaryColor,
               borderRadius: BorderRadius.circular(30.0),
             ),
-            child: ValueListenableBuilder<String>(
-                valueListenable: BalanceService.selectedTitle,
-                builder: (BuildContext context, String showBarsNotifier,
-                    Widget? child) {
+            child: ValueListenableBuilder<Map<String, bool>>(
+                valueListenable: BalanceService.isSelected,
+                builder: (BuildContext context,
+                    Map<String, bool> showBarsNotifier, Widget? child) {
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox(height: 10),
-                            Text(
-                                numberToKFormat(
-                                    gettotalAmount(data, showBarsNotifier)),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 60,
-                                    color: Colors.blueGrey)),
-                            Text(trans.translate(showBarsNotifier),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 22,
-                                    color: Colors.white)),
-                            // const Text(
-                            //    "All numbers are in thousands, Currency in USD"),
-                            const SizedBox(height: 10),
-                          ],
-                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(trans.translate("Balance Sheet"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22,
+                              color: Colors.white)),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Container(
-                          height: 400,
+                          height: 600,
+                          width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.all(12.0),
                           child: BarChart(BarChartData(
-                              gridData: FlGridData(show: false),
-                              borderData: FlBorderData(
-                                  border: Border.all(width: 0), show: false),
+                              backgroundColor: primaryColor,
+                              borderData:
+                                  FlBorderData(border: Border.all(width: 0)),
                               groupsSpace:
-                                  MediaQuery.of(context).size.width - 450,
-                              // groupsSpace:
-                              //     calculateChartWidth(showBarsNotifier, data),
+                                  calculateChartWidth(showBarsNotifier, data),
                               barTouchData: BarTouchData(
                                 touchTooltipData: BarTouchTooltipData(
                                   fitInsideVertically: true,
@@ -103,10 +101,23 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                                   tooltipBgColor: Colors.black,
                                   getTooltipItem:
                                       (group, groupIndex, rod, rodIndex) {
+                                    Color? rodColor =
+                                        rod.gradient?.colors[0] ?? rod.color;
+
+                                    int currentIndex = 0;
+                                    for (int colorIndex = 0;
+                                        colorIndex < data.length;
+                                        colorIndex++) {
+                                      if (BalanceService.colors[colorIndex] ==
+                                          rodColor) {
+                                        currentIndex = colorIndex;
+                                        break;
+                                      }
+                                    }
                                     return BarTooltipItem(
-                                      '${DateFormat('yyyy-MM-dd').format(data[groupIndex].date)}\n${trans.translate(data[0].reports[rodIndex].title)}\n${numberToKFormat(rod.toY)}',
+                                      '${trans.translate(data[0].reports[currentIndex].title)}\n${numberToKFormat(rod.toY)}',
                                       TextStyle(
-                                        color: rod.color,
+                                        color: rodColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
                                       ),
@@ -114,38 +125,85 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
                                   },
                                 ),
                               ),
-                              alignment: BarChartAlignment.spaceEvenly,
-                              titlesData: FlTitlesData(show: false),
+                              titlesData: FlTitlesData(
+                                  show: true,
+                                  rightTitles: AxisTitles(
+                                      sideTitles:
+                                          SideTitles(showTitles: false)),
+                                  topTitles: AxisTitles(
+                                      sideTitles:
+                                          SideTitles(showTitles: false)),
+                                  bottomTitles: AxisTitles(
+                                    sideTitles: SideTitles(
+                                      showTitles: true,
+                                      interval:
+                                          MediaQuery.of(context).size.width <
+                                                  1000
+                                              ? 2
+                                              : null,
+                                      getTitlesWidget: (double value, meta) {
+                                        return Text(
+                                          value.toStringAsFixed(0),
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .width <
+                                                      1000
+                                                  ? 11.5
+                                                  : null,
+                                              color: Colors.white),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  leftTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                          reservedSize: 70,
+                                          showTitles: true,
+                                          getTitlesWidget:
+                                              (double value, meta) {
+                                            if (value == meta.max ||
+                                                value == meta.min) {
+                                              return const Text("");
+                                            } else {
+                                              return Text(
+                                                numberToKFormat(value),
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              );
+                                            }
+                                          }))),
                               barGroups: data
                                   .map((e) => BarChartGroupData(
-                                          barsSpace: 10,
                                           x: MediaQuery.of(context).size.width <
                                                   1000
                                               ? int.parse(DateFormat('yy')
                                                   .format(e.date))
                                               : e.date.year,
                                           barRods: [
-                                            createRod(e.reports[e.reports
-                                                .indexWhere((element) =>
-                                                    element.title ==
-                                                    showBarsNotifier)])
+                                            for (int i = 0;
+                                                i < e.reports.length;
+                                                i++)
+                                              if (showBarsNotifier[
+                                                      e.reports[i].title] ==
+                                                  true)
+                                                createRod(e.reports[i],
+                                                    BalanceService.colors[i])
                                           ]))
                                   .toList()))),
-                      const SizedBox(height: 10),
-                      const Text("Growth Rate:",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22,
-                              color: Colors.white)),
-                      const SizedBox(height: 5),
                       Wrap(
                           alignment: WrapAlignment.center,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           runAlignment: WrapAlignment.center,
                           children: List.generate(
-                              barData.length,
-                              (index) => createLegend(
-                                  barData[index], barData, index))),
+                              data.length,
+                              (index) => showBarsNotifier[
+                                      data[0].reports[index].title]!
+                                  ? createLegend(
+                                      trans.translate(
+                                          data[0].reports[index].title),
+                                      BalanceService.colors[index])
+                                  : Container())),
                       const SizedBox(width: 15),
                     ],
                   );
@@ -157,58 +215,32 @@ class _BarChartScreenState extends State<BarChartBalanceScreen> {
     );
   }
 
-  Widget createLegend(
-      BalanceReportModel report, List<BalanceReportModel> data, int index) {
-    return Container(
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: Colors.white10,
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(5)),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(report.date.year.toString(),
-              style: const TextStyle(color: Colors.white, fontSize: 12)),
-          const SizedBox(width: 5),
-          Text(
-            '${index < (data.length - 1) ? calculatepercentage(data[data.length - 1 - index].reports[selectedReportIndex].value, data[data.length - 1 - index - 1].reports[selectedReportIndex].value).toStringAsFixed(2) : 'N/A'}%',
-            style: TextStyle(
-                color: (index < data.length - 1
-                    ? data[data.length - 1 - index]
-                                .reports[selectedReportIndex]
-                                .value >=
-                            data[data.length - 1 - index - 1]
-                                .reports[selectedReportIndex]
-                                .value
-                        ? Colors.green
-                        : Colors.red
-                    : Colors.grey),
-                fontSize: 12),
-          ),
-        ],
-      ),
+  Widget createLegend(String title, Color color) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(width: 10),
+        Container(
+            height: 10,
+            width: 10,
+            decoration: BoxDecoration(
+                color: color, borderRadius: BorderRadius.circular(100))),
+        const SizedBox(width: 5),
+        Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
+        const SizedBox(width: 10),
+      ],
     );
   }
 
-  double gettotalAmount(List<BalanceReportModel> data, String title) {
-    double amount = 0;
-    selectedReportIndex =
-        data[0].reports.indexWhere((element) => element.title == title);
-
-    for (var report in data) {
-      amount += report.reports[selectedReportIndex].value;
-    }
-    return amount;
-  }
-
-  BarChartRodData createRod(ReportItemModel value) {
+  BarChartRodData createRod(ReportItemModel value, Color color) {
     return BarChartRodData(
         toY: value.value,
         width: MediaQuery.of(context).size.width < 1000 ? 4 : 13,
-        color: Colors.grey,
+        color: color,
         borderRadius: BorderRadius.circular(5));
   }
 }
