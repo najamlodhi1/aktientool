@@ -31,7 +31,7 @@ class IncomeReportModel {
             ReportItemModel(
                 title: 'Interest Expense', value: json['interestExpense']),
             ReportItemModel(
-                title: 'Income Tax Expense', value: json['incomeTaxExpense']),
+                title: 'Other Expenses', value: json['incomeTaxExpense']),
             ReportItemModel(
                 title: 'Earnings before Tax', value: json['incomeBeforeTax']),
             ReportItemModel(title: 'Net Income', value: json['netIncome']),

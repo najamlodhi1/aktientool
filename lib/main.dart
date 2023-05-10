@@ -7,6 +7,7 @@ import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/filter_area.dart';
 import 'package:aktientool/webpage/footer.dart';
+import 'package:aktientool/webpage/footer1.dart';
 import 'package:aktientool/webpage/ios_app_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -501,6 +502,7 @@ class HomePageState extends State<HomePage>
                         ),
                       ),
                       Footer(),
+                      FooterWidget(),
                     ],
                   ),
                 ),

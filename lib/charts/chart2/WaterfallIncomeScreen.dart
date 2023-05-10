@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import '../chart3/BarChartBalanceScreen.dart';
 import 'IncomeReportModel.dart';
 import 'WaterfallChart.dart';
@@ -43,7 +42,7 @@ class WaterfallIncomeScreen extends StatelessWidget {
                   customtile(
                       'Other Expenses',
                       numberToKFormat(
-                          gettotalAmount(tableData, "Income Tax Expense"))),
+                          gettotalAmount(tableData, "Other Expenses"))),
                   const Divider(color: Colors.white24, height: 0),
                   const Divider(color: Colors.white24, height: 0),
                   customtile('Net Income',

@@ -60,18 +60,12 @@ class _FilterAreaState extends State<FilterArea> {
     super.initState();
     _pageController = PageController();
   }
-/*
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-*/
 
   loadCardQuality(var list) {
     return Wrap(children: [
       for (var i = 0; i < list.length; i++)
-        createCard(list[i].toString(), "Quality", Colors.green)
+        createCard(list[i].toString(), "Quality",
+            const Color.fromARGB(255, 132, 76, 175))
     ]);
   }
 
@@ -91,6 +85,9 @@ class _FilterAreaState extends State<FilterArea> {
 
   createCard(String txt, String whichtype, var col) {
     List<String> result = txt.split(',');
+
+    print(MediaQuery.of(context).size.width / 1.2);
+    print(MediaQuery.of(context).size.width / 5.0);
 
     return SizedBox(
       width: ScreenHelper.isMobile(context)
@@ -239,9 +236,3 @@ class _FilterAreaState extends State<FilterArea> {
     );
   }
 }
-
-/*
-                loadCardQuality(listquality),
-                loadCardGrowth(listgrowth),
-                loadCardValue(listvalue),
-*/
