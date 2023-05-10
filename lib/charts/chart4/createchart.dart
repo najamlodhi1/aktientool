@@ -42,39 +42,8 @@ class CreateChart4State extends State<CreateChart4> {
             Map<String, bool> selectedcolumns = Map.fromEntries(CashFlowService
                 .isSelected.value.entries
                 .where((entry) => entry.value == true));
-
             return Column(
               children: [
-                if (selectedcolumns.isNotEmpty)
-                  GridView.count(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      crossAxisCount: MediaQuery.of(context).size.width > 1500
-                          ? 3
-                          : MediaQuery.of(context).size.width > 1000
-                              ? 2
-                              : 1,
-                      childAspectRatio: 16 / 9,
-                      children: List.generate(
-                          selectedcolumns.length,
-                          (index) => CashFlowHistoryWidget(
-                              data: tableData,
-                              selectedtitle:
-                                  selectedcolumns.keys.toList()[index],
-                              selectedindex: index))),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.teal,
-                        style: BorderStyle.none,
-                        width: 2,
-                      ),
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: BarChartCashFlowScreen(widget.data)),
                 Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),
@@ -104,6 +73,36 @@ class CreateChart4State extends State<CreateChart4> {
                     ],
                   ),
                 ),
+                Container(
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.teal,
+                        style: BorderStyle.none,
+                        width: 2,
+                      ),
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: BarChartCashFlowScreen(widget.data)),
+                if (selectedcolumns.isNotEmpty)
+                  GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: MediaQuery.of(context).size.width > 1500
+                          ? 3
+                          : MediaQuery.of(context).size.width > 1000
+                              ? 2
+                              : 1,
+                      childAspectRatio: 16 / 9,
+                      children: List.generate(
+                          selectedcolumns.length,
+                          (index) => CashFlowHistoryWidget(
+                              data: tableData,
+                              selectedtitle:
+                                  selectedcolumns.keys.toList()[index],
+                              selectedindex: index))),
               ],
             );
           } else {

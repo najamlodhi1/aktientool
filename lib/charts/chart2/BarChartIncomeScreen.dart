@@ -1,11 +1,12 @@
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart2/IncomeReportModel.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import '../../settings/app_localizations.dart';
 import '../chart3/BarChartBalanceScreen.dart';
-import 'data.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'createchart.dart';
+import 'data.dart';
 
 class BarChartIncomeScreen extends StatefulWidget {
   const BarChartIncomeScreen(this.data, {super.key});
@@ -81,8 +82,6 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                             fontWeight: FontWeight.w600,
                             fontSize: 22,
                             color: Colors.white)),
-                    // const Text(
-                    //    "All numbers are in thousands, Currency in USD"),
                     const SizedBox(
                       height: 10,
                     ),
@@ -115,13 +114,13 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                       break;
                                     }
                                   }
+
                                   return BarTooltipItem(
-                                    '${trans.translate(data[0].reports[currentIndex].title)}\n${numberToKFormat(rod.toY)}',
+                                    '${trans.translate(data[0].reports[currentIndex].title)}\n${numberToKFormat(rod.toY)}\n${groupIndex == (data.length - 1) ? 'N/A' : calculatepercentage(data[groupIndex].reports[currentIndex].value, data[groupIndex + 1].reports[currentIndex].value).toStringAsFixed(2)}%',
                                     TextStyle(
-                                      color: rodColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
+                                        color: rodColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
                                   );
                                 },
                               ),
@@ -158,6 +157,7 @@ class _BarChartIncomeScreenState extends State<BarChartIncomeScreen> {
                                     sideTitles: SideTitles(
                                         reservedSize: 70,
                                         showTitles: true,
+                                        // interval: 4,
                                         getTitlesWidget: (double value, meta) {
                                           if (value == meta.max ||
                                               value == meta.min) {

@@ -9,6 +9,7 @@ import '../chart3/BarChartBalanceScreen.dart';
 import 'BarChartIncomeScreen.dart';
 import 'IncomeHistoryWidget.dart';
 import 'IncomeReportModel.dart';
+import 'WaterfallIncomeScreen.dart';
 
 class CreateChart2 extends StatefulWidget {
   const CreateChart2(
@@ -45,40 +46,22 @@ class CreateChart2State extends State<CreateChart2> {
             Map<String, bool> selectedcolumns = Map.fromEntries(IncomeService
                 .isSelected.value.entries
                 .where((entry) => entry.value == true));
-
             return Column(
               children: [
-                if (selectedcolumns.isNotEmpty)
-                  GridView.count(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      crossAxisCount: MediaQuery.of(context).size.width > 1500
-                          ? 3
-                          : MediaQuery.of(context).size.width > 1000
-                              ? 2
-                              : 1,
-                      childAspectRatio: 16 / 9,
-                      children: List.generate(
-                          selectedcolumns.length,
-                          (index) => IncomeHistoryWidget(
-                              data: tableData,
-                              selectedtitle:
-                                  selectedcolumns.keys.toList()[index],
-                              selectedindex: index))),
                 Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.teal,
-                        style: BorderStyle.none,
-                        width: 2,
-                      ),
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(30.0),
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.teal,
+                      style: BorderStyle.none,
+                      width: 2,
                     ),
-                    child:
-                        BarChartIncomeScreen(widget.data)), // Bar Chart income,
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: WaterfallIncomeScreen(tableData),
+                ),
                 Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),
@@ -108,6 +91,37 @@ class CreateChart2State extends State<CreateChart2> {
                     ],
                   ),
                 ),
+                Container(
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.teal,
+                        style: BorderStyle.none,
+                        width: 2,
+                      ),
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child:
+                        BarChartIncomeScreen(widget.data)), // Bar Chart income,
+                if (selectedcolumns.isNotEmpty)
+                  GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: MediaQuery.of(context).size.width > 1500
+                          ? 3
+                          : MediaQuery.of(context).size.width > 1000
+                              ? 2
+                              : 1,
+                      childAspectRatio: 16 / 9,
+                      children: List.generate(
+                          selectedcolumns.length,
+                          (index) => IncomeHistoryWidget(
+                              data: tableData,
+                              selectedtitle:
+                                  selectedcolumns.keys.toList()[index],
+                              selectedindex: index))),
               ],
             );
           } else {

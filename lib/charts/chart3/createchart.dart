@@ -43,37 +43,6 @@ class CreateChart3State extends State<CreateChart3> {
 
             return Column(
               children: [
-                if (selectedcolumns.isNotEmpty)
-                  GridView.count(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      crossAxisCount: MediaQuery.of(context).size.width > 1500
-                          ? 3
-                          : MediaQuery.of(context).size.width > 1000
-                              ? 2
-                              : 1,
-                      childAspectRatio: 16 / 9,
-                      children: List.generate(
-                          selectedcolumns.length,
-                          (index) => BalanceHistoryWidget(
-                              data: tableData,
-                              selectedtitle:
-                                  selectedcolumns.keys.toList()[index],
-                              selectedindex: index))),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.teal,
-                        style: BorderStyle.none,
-                        width: 2,
-                      ),
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: BarChartBalanceScreen(
-                        widget.data)), // Bar Chart income,
                 Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),
@@ -103,6 +72,37 @@ class CreateChart3State extends State<CreateChart3> {
                     ],
                   ),
                 ),
+                Container(
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.teal,
+                        style: BorderStyle.none,
+                        width: 2,
+                      ),
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: BarChartBalanceScreen(
+                        widget.data)), // Bar Chart income,
+                if (selectedcolumns.isNotEmpty)
+                  GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: MediaQuery.of(context).size.width > 1500
+                          ? 3
+                          : MediaQuery.of(context).size.width > 1000
+                              ? 2
+                              : 1,
+                      childAspectRatio: 16 / 9,
+                      children: List.generate(
+                          selectedcolumns.length,
+                          (index) => BalanceHistoryWidget(
+                              data: tableData,
+                              selectedtitle:
+                                  selectedcolumns.keys.toList()[index],
+                              selectedindex: index))),
               ],
             );
           } else {
