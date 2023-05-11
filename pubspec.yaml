@@ -20,10 +20,10 @@ dependencies:
 
   cupertino_icons: ^1.0.5
   url_strategy: ^0.2.0
-  firebase_core: ^2.10.0
-  cloud_firestore: ^4.5.2
+  firebase_core: ^2.11.0
+  firebase_auth: 4.5.0
+  cloud_firestore: ^4.6.0
   flutter_riverpod: ^2.3.5
-  firebase_auth: 4.4.2
   http: ^0.13.5
   dio: ^5.1.1
   font_awesome_flutter: 10.4.0
