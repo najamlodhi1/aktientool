@@ -1,14 +1,13 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, must_be_immutable
 
-import 'package:aktientool/webpage/footer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../charts/allCharts.dart';
+import '../../webpage/footer1.dart';
 import '../../settings/app_localizations.dart';
-import '../../stockscreener/home.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
 
@@ -298,7 +297,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ],
           ),
-          Footer(),
+          const FooterWidget(),
         ]),
       )),
     );

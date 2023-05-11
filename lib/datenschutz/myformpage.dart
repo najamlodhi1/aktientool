@@ -1,13 +1,12 @@
 import 'dart:developer';
 
-import 'package:aktientool/webpage/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../webpage/footer.dart';
-import '../webpage/screen_helper.dart';
+import '../constants/responsive.dart';
+import '../webpage/footer1.dart';
 
 class MyFormPage extends StatelessWidget {
   MyFormPage({Key? key}) : super(key: key);
@@ -215,7 +214,7 @@ class MyFormPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 100),
-                    Footer()
+                    const FooterWidget()
                   ],
                 ),
               ),

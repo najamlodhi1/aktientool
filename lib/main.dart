@@ -3,12 +3,9 @@
 
 import 'dart:html' as html;
 import 'dart:html';
-import 'package:aktientool/authentication/screens/login.dart';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/filter_area.dart';
-import 'package:aktientool/webpage/footer.dart';
-import 'package:aktientool/webpage/footer1.dart';
-import 'package:aktientool/webpage/ios_app_add.dart';
+import 'package:aktientool/webpage/landing_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -16,42 +13,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:neon/neon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'authentication/screens/create_account.dart';
 import 'charts/allCharts.dart';
 import 'constants/responsive.dart';
 import 'datenschutz/datenschutzerklaerung.dart';
 
-import 'datenschutz/myformpage.dart';
 import 'firebase_options.dart';
-import 'webpage/body.dart';
-import 'webpage/screen_helper.dart';
 import 'settings/app_localizations.dart';
 
-import 'package:responsive_framework/responsive_framework.dart';
-
-import 'webpage/constants.dart';
-
-class Stat {
-  final String count;
-  final String text;
-
-  Stat({
-    required this.count,
-    required this.text,
-  });
-}
-
-final List<Stat> stats = [
-  Stat(count: "22500+", text: "Aktien"),
-  Stat(count: "60", text: "Ländern"),
-  Stat(count: "180+", text: "Industrien"),
-];
 // flutter run -d chrome --web-renderer html
 main() async {
   final loader = document.getElementsByClassName('loader');
@@ -298,214 +270,10 @@ class HomePageState extends State<HomePage>
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      actions: [
-                        const Spacer(),
-                        ButtonTheme(
-                          height: 20,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-                            child: Neon(
-                              text: 'ANMELDEN',
-                              color: Colors.purple,
-                              fontSize: 20,
-                              font: NeonFont.NightClub70s,
-                              flickeringText: true,
-                              flickeringLetters: null,
-                              glowingDuration: const Duration(seconds: 3),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => MyFormPage(),
-                              ),
-                            );
-                          },
-                          child: const Text("FEEDBACK",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
-                        ),
-                        const Spacer(),
-                      ],
-                      backgroundColor: Colors.black,
-                      centerTitle: true,
-                      pinned: true,
-                      floating: true,
-                      bottom: null,
-                    ),
-                  ];
+                  return <Widget>[];
                 },
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: SingleChildScrollView(
-                          physics: const ScrollPhysics(),
-                          child: Wrap(
-                            alignment: WrapAlignment.center,
-                            children: [
-                              const SizedBox(
-                                width: 0,
-                              ),
-                              SizedBox(
-                                //width: 500,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const SizedBox(
-                                      height: 50.0,
-                                    ),
-                                    Text(
-                                      trans.translate("A STOCK SCREENER"),
-                                      style: GoogleFonts.oswald(
-                                        color: kPrimaryColor,
-                                        fontSize:
-                                            ScreenHelper.isDesktop(context)
-                                                ? 50
-                                                : 40,
-                                      ),
-                                    ),
-                                    Text(
-                                      trans.translate(
-                                          "that quickly and easily the right shares for your portfolio."),
-                                      style: GoogleFonts.oswald(
-                                        color: Colors.white,
-                                        fontSize: ScreenHelper.isDesktop(
-                                                context)
-                                            ? 30
-                                            : 25, //fontWeight: FontWeight.w900,
-                                        height: 1.3,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Stack(
-                                      alignment: Alignment.topCenter,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          width: ScreenHelper.isDesktop(context)
-                                              ? 255
-                                              : 200,
-                                          child: Container(
-                                            margin: const EdgeInsets.only(
-                                                top: 10.0),
-                                            decoration: const BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              boxShadow: <BoxShadow>[
-                                                BoxShadow(
-                                                  color: CustomTheme
-                                                      .loginGradientStart,
-                                                  offset: Offset(1.0, 6.0),
-                                                  blurRadius: 20.0,
-                                                ),
-                                                BoxShadow(
-                                                  color: CustomTheme
-                                                      .loginGradientEnd,
-                                                  offset: Offset(1.0, 6.0),
-                                                  blurRadius: 20.0,
-                                                ),
-                                              ],
-                                              gradient: LinearGradient(
-                                                  colors: <Color>[
-                                                    CustomTheme
-                                                        .loginGradientEnd,
-                                                    CustomTheme
-                                                        .loginGradientStart
-                                                  ],
-                                                  begin: FractionalOffset(
-                                                      0.2, 0.2),
-                                                  end: FractionalOffset(
-                                                      1.0, 1.0),
-                                                  stops: <double>[0.0, 1.0],
-                                                  tileMode: TileMode.clamp),
-                                            ),
-                                            child: MaterialButton(
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              splashColor:
-                                                  CustomTheme.loginGradientEnd,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                child: Text(
-                                                  trans.translate(
-                                                      "Kostenlos Registrieren"),
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: ScreenHelper
-                                                              .isDesktop(
-                                                                  context)
-                                                          ? 22
-                                                          : 18,
-                                                      fontFamily:
-                                                          'WorkSansBold'),
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const CreateAccount(),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        if (Responsive.isDesktop(context) ==
-                                            false)
-                                          const SizedBox(
-                                            height: 100,
-                                          ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 100,
-                              ),
-                              SizedBox(
-                                  height: 500,
-                                  child: Image.asset(
-                                      "assets/images/website.png",
-                                      fit: BoxFit.contain)),
-                              const SizedBox(
-                                height: 600,
-                              ),
-                              Body(),
-                              IosAppAd(),
-                              const PortfolioStats(),
-                              const SizedBox(
-                                width: 200,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Footer(),
-                      FooterWidget(),
-                    ],
-                  ),
-                ),
+                body: const LandingPage(),
+                // place for the code
               ),
             );
           }
@@ -573,87 +341,4 @@ class HomePageState extends State<HomePage>
       },
     );
   }
-}
-
-class PortfolioStats extends StatelessWidget {
-  const PortfolioStats({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth, context),
-        tablet: _buildUi(kTabletMaxWidth, context),
-        mobile: _buildUi(getMobileMaxWidth(context), context),
-      ),
-    );
-  }
-
-  Widget _buildUi(double width, BuildContext context) {
-    return ResponsiveWrapper(
-      maxWidth: width,
-      minWidth: width,
-      defaultScale: false,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraint) {
-          return Wrap(
-            spacing: 20.0,
-            runSpacing: 20.0,
-            children: stats.map((stat) {
-              return Container(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                // Just use the helper here really
-                width: ScreenHelper.isMobile(context)
-                    ? constraint.maxWidth / 2.0 - 20
-                    : (constraint.maxWidth / 4.0 - 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 00,
-                    ),
-                    Text(
-                      stat.count,
-                      style: GoogleFonts.oswald(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 32.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      stat.text,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: kCaptionColor,
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }).toList(),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class CustomTheme {
-  const CustomTheme();
-
-  static const Color loginGradientStart = Color.fromARGB(255, 157, 102, 251);
-  static const Color loginGradientEnd = Color(0xFFf7418c);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF000000);
-
-  static const LinearGradient primaryGradient = LinearGradient(
-    colors: <Color>[loginGradientStart, loginGradientEnd],
-    stops: <double>[0.0, 1.0],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
 }

@@ -4,7 +4,7 @@ import 'package:aktientool/charts/allCharts.dart';
 import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../webpage/constants.dart';
+import '../../constants/responsive.dart';
 import 'StockNewsModel.dart';
 import 'StockNewsService.dart';
 

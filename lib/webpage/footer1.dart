@@ -1,4 +1,11 @@
+import 'package:aktientool/datenschutz/agb.dart';
+import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
+import 'package:aktientool/datenschutz/haftung.dart';
 import 'package:flutter/material.dart';
+import 'dart:js' as js;
+
+import '../../datenschutz/impressum.dart';
+import '../../datenschutz/myformpage.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({Key? key}) : super(key: key);
@@ -10,6 +17,7 @@ class FooterWidget extends StatelessWidget {
       {
         'heading': 'Company',
         'texts': [
+          {'name': '', 'link': ''},
           {'name': 'About Us', 'link': '/about'},
           {'name': 'Services', 'link': '/services'},
           {'name': 'Contact Us', 'link': '/contact'},
@@ -18,6 +26,7 @@ class FooterWidget extends StatelessWidget {
       {
         'heading': 'Socials',
         'texts': [
+          {'name': '', 'link': ''},
           {
             'name': 'Youtube',
             'link':
@@ -33,6 +42,7 @@ class FooterWidget extends StatelessWidget {
       {
         'heading': 'Legal',
         'texts': [
+          {'name': '', 'link': ''},
           {'name': 'Impressum', 'link': '/raisa-a-ticket'},
           {'name': 'Datenschutz', 'link': '/privacy-policy'},
           {'name': 'AGB', 'link': '/blog'},
@@ -41,6 +51,7 @@ class FooterWidget extends StatelessWidget {
       },
     ];
     return Container(
+      color: Colors.white,
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       child: isSmallScreen
@@ -176,7 +187,62 @@ class FooterItemsWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        if (textData['name'] == "Youtube") {
+                          js.context.callMethod(
+                            'open',
+                            [
+                              'https://www.youtube.com/channel/UCYMfu0xZgSTiNLjJLQ9zJhA?sub_confirmation=1'
+                            ],
+                          );
+                        } else if (textData['name'] == "Instagram") {
+                          js.context.callMethod('open',
+                              ["https://www.instagram.com/aktientool/"]);
+                        } else if (textData['name'] == "TikTok") {
+                          js.context.callMethod(
+                              'open', ["https://www.tiktok.com/@aktientool"]);
+                        } else if (textData['name'] == "Impressum") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Impressum(),
+                            ),
+                          );
+                        } else if (textData['name'] == "Datenschutz") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const Datenschutzerklaerung(),
+                            ),
+                          );
+                        } else if (textData['name'] == "AGB") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AGB(),
+                            ),
+                          );
+                        } else if (textData['name'] == "Haftung") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Haftung(),
+                            ),
+                          );
+                        } else if (textData['name'] == "Contact Us") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyFormPage(),
+                            ),
+                          );
+                        } else {
+                          print(
+                            textData['name'],
+                          );
+                        }
+                      },
                       child: Text(
                         textData['name'],
                         style: const TextStyle(

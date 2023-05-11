@@ -1,8 +1,7 @@
-import 'package:aktientool/webpage/constants.dart';
 import 'package:flutter/material.dart';
+import '../../constants/responsive.dart';
 import '../../settings/app_localizations.dart';
 import '../chart2/createchart.dart';
-import '../chart3/BarChartBalanceScreen.dart';
 import '../chart3/createchart.dart';
 import '../chart4/createchart.dart';
 

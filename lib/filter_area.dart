@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:js' as js;
 
-import 'webpage/screen_helper.dart';
+import 'constants/responsive.dart';
 
 class FilterArea extends StatefulWidget {
   const FilterArea({super.key});

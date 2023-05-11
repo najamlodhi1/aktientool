@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../webpage/footer.dart';
+import '../../webpage/footer1.dart';
 import '../services/auth_service.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -295,7 +295,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           fontFamily: 'WorkSansMedium'),
                     )),
               ),
-              Footer(),
+              const FooterWidget(),
             ],
           ),
         ),
