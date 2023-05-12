@@ -295,6 +295,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           fontFamily: 'WorkSansMedium'),
                     )),
               ),
+              const SizedBox(height: 100),
               const FooterWidget(),
             ],
           ),

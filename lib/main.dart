@@ -4,7 +4,6 @@
 import 'dart:html' as html;
 import 'dart:html';
 import 'package:aktientool/authentication/services/request_service.dart';
-import 'package:aktientool/filter_area.dart';
 import 'package:aktientool/webpage/landing_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -299,11 +298,11 @@ class HomePageState extends State<HomePage>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const FilterArea(),
+                        builder: (context) => AllCharts(),
                       ),
                     );
                   },
-                  child: const Text("Test"),
+                  child: const Text("AllCharts"),
                 ),
                 TextButton(
                   onPressed: () {

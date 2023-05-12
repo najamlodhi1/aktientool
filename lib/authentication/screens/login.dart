@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../charts/allCharts.dart';
-import '../../webpage/footer1.dart';
 import '../../settings/app_localizations.dart';
+import '../../webpage/footer1.dart';
 import '../services/auth_service.dart';
 import 'forgot_password.dart';
 
@@ -297,6 +297,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 100),
           const FooterWidget(),
         ]),
       )),

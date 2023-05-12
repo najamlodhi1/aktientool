@@ -8,8 +8,8 @@ import '../../settings/app_localizations.dart';
 import '../chart11/performanceList.dart';
 
 // App Theme Colors
-Color primaryColor = Color.fromARGB(255, 26, 26, 26);
-Color backgroundColor= const Color.fromARGB(255, 0, 0, 0);
+Color primaryColor = const Color.fromARGB(255, 26, 26, 26);
+Color backgroundColor = const Color.fromARGB(255, 0, 0, 0);
 
 ValueNotifier<String> currencyNotifier = ValueNotifier('USD');
 
