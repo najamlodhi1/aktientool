@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../chart3/BarChartBalanceScreen.dart';
 import 'IncomeReportModel.dart';
-import 'WaterfallChart.dart';
 
 class WaterfallIncomeScreen extends StatelessWidget {
   const WaterfallIncomeScreen(this.tableData, {super.key});
@@ -54,8 +53,8 @@ class WaterfallIncomeScreen extends StatelessWidget {
           //     flex: 3,
           //     child: SizedBox(
           //         height: 250, child: WaterfallChart.withSampleData())),
-          Expanded(
-              flex: 3, child: SizedBox(height: 250, child: WaterfallChart())),
+          //Expanded(
+          //    flex: 3, child: SizedBox(height: 250, child: WaterfallChart())),
         ],
       ),
     );
