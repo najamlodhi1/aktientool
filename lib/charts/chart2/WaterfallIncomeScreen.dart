@@ -103,7 +103,7 @@ class _WaterfallIncomeScreenState extends State<WaterfallIncomeScreen> {
             numberToKFormat(gettotalAmount("Operating Expenses"))),
         const Divider(color: Colors.white24, height: 0),
         customtile('Operating Income',
-            numberToKFormat(gettotalAmount("Interest Expense"))),
+            numberToKFormat(gettotalAmount("Operating Income"))),
         const Divider(color: Colors.white24, height: 0),
         customtile('Other Expenses',
             numberToKFormat(gettotalAmount("Other Expenses"))),
