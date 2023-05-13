@@ -37,7 +37,7 @@ class _WaterfallIncomeScreenState extends State<WaterfallIncomeScreen> {
                     Expanded(
                         flex: 3,
                         child: SizedBox(
-                            height: 250,
+                            height: 400,
                             child: WaterfallChart(getcurrentreport))),
                   ],
                 ),
@@ -48,7 +48,7 @@ class _WaterfallIncomeScreenState extends State<WaterfallIncomeScreen> {
               const SizedBox(height: 10),
               waterfallDetails,
               const SizedBox(height: 15),
-              SizedBox(height: 250, child: WaterfallChart(getcurrentreport))
+              SizedBox(height: 400, child: WaterfallChart(getcurrentreport))
             ]),
     );
   }

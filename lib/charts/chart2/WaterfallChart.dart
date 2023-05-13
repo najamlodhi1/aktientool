@@ -18,7 +18,7 @@ class _WaterfallChartState extends State<WaterfallChart> {
     "Cost of Revenue",
     "Gross Profit",
     "Operating Expenses",
-    "Interest Expense",
+    "Operating Income",
     "Other Expenses",
     "Net Income"
   ];
@@ -45,7 +45,7 @@ class _WaterfallChartState extends State<WaterfallChart> {
             tooltipBgColor: Colors.black,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
-                '${((titles[groupIndex] == 'Interest Expense') ? 'Operating Income' : titles[groupIndex])}\n${numberToKFormat(rod.toY)}',
+                '${titles[groupIndex]}\n${numberToKFormat(widget.data.firstWhere((element) => element.title == titles[groupIndex]).value)}',
                 TextStyle(
                     color: groupIndex % 2 == 0 ? Colors.green : Colors.red,
                     fontWeight: FontWeight.bold,
@@ -57,18 +57,50 @@ class _WaterfallChartState extends State<WaterfallChart> {
         titlesData: FlTitlesData(
             show: true,
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: AxisTitles(
+                sideTitles: SideTitles(
+                    reservedSize: 30,
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      return Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            numberToKFormat(((value.toInt() % 2) != 0 &&
+                                    value.toInt() > 0)
+                                ? ((widget.data
+                                        .firstWhere((element) =>
+                                            element.title ==
+                                            titles[value.toInt()])
+                                        .value) -
+                                    (widget.data
+                                        .firstWhere((element) =>
+                                            element.title ==
+                                            titles[value.toInt() - 1])
+                                        .value))
+                                : (widget.data
+                                    .firstWhere((element) =>
+                                        element.title == titles[value.toInt()])
+                                    .value)),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
+                          ));
+                    })),
             bottomTitles: AxisTitles(
                 sideTitles: SideTitles(
-              reservedSize: 30,
+              reservedSize: 100,
               showTitles: true,
               getTitlesWidget: (value, meta) {
-                int value = int.parse(meta.formattedValue);
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(titles[value],
-                      style: const TextStyle(color: Colors.white)),
-                );
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Transform.rotate(
+                      alignment: Alignment.centerLeft,
+                      angle: 0.785398,
+                      child: Text(
+                        titles[value.toInt()],
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ));
               },
             )),
             leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))),
@@ -77,10 +109,21 @@ class _WaterfallChartState extends State<WaterfallChart> {
             (index) => BarChartGroupData(x: index, barRods: [
                   BarChartRodData(
                       borderRadius: BorderRadius.circular(3),
-                      toY: widget.data
-                          .firstWhere(
-                              (element) => element.title == titles[index])
-                          .value,
+                      fromY: ((index % 2) != 0 && index > 0)
+                          ? widget.data
+                              .firstWhere((element) =>
+                                  element.title == titles[index - 1])
+                              .value
+                          : null,
+                      toY: ((index % 2) != 0 && index > 0)
+                          ? widget.data
+                              .firstWhere((element) =>
+                                  element.title == titles[index + 1])
+                              .value
+                          : widget.data
+                              .firstWhere(
+                                  (element) => element.title == titles[index])
+                              .value,
                       color: (index % 2) == 0 ? Colors.green : Colors.red,
                       width:
                           MediaQuery.of(context).size.width > 1200 ? 70 : 20),
