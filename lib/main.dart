@@ -1,6 +1,6 @@
 // bring greater transparency to financial markets, enabling the investment community to make better decisions
 // ignore_for_file: avoid_web_libraries_in_flutter, constant_identifier_names
-
+//
 import 'dart:html' as html;
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/webpage/landing_page.dart';
