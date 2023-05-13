@@ -1,15 +1,18 @@
 import 'package:aktientool/authentication/screens/create_account.dart';
 import 'package:aktientool/authentication/screens/login.dart';
+import 'package:aktientool/charts/allCharts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../datenschutz/myformpage.dart';
+import '../main.dart';
 import 'footer1.dart';
 
 var getLoginText = 'Anmelden';
 var getStartedText = 'Get Started';
 var contactUsText = 'Contact Us';
-var viewDemoText = 'View Demo';
+var viewDemoText = 'Demo';
 
 class Step {
   var h;
@@ -142,6 +145,35 @@ class _LandingPageState extends State<LandingPage> {
           alignment: Alignment.center,
           child: GestureDetector(
             onTap: () {
+              MyApp.of(context)!
+                  .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
+              setState(() {});
+              // do something when the button is tapped
+            },
+            child: InkWell(
+                onTap: () {},
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/images/${selectedLocale.languageCode}.svg",
+                    fit: BoxFit.cover,
+                  ),
+
+                  //iconSize: 40,
+                  onPressed: () {
+                    MyApp.of(context)!.setLocale(
+                        selectedLocale.languageCode == 'us' ? 'de' : 'us');
+                    setState(() {});
+                  },
+                )),
+          ),
+        ),
+        Container(
+          height: 60,
+          width: 120,
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          alignment: Alignment.center,
+          child: GestureDetector(
+            onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => MyFormPage(),
@@ -208,6 +240,7 @@ class _LandingPageState extends State<LandingPage> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: const <Widget>[
+                TextButton(onPressed: null, child: Text('de')),
                 TextButton(onPressed: null, child: Text('Features')),
                 TextButton(onPressed: null, child: Text('Anmelden'))
               ],
@@ -495,10 +528,10 @@ class _LandingPageState extends State<LandingPage> {
                                                   ],
                                                 ),
                                               ),
-                                              child: Column(
+                                              child: const Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
-                                                children: const [
+                                                children: [
                                                   Text(
                                                     'Step #1',
                                                     style: TextStyle(
@@ -944,6 +977,12 @@ class gradientButtonWidget extends StatefulWidget {
 class _gradientButtonWidgetState extends State<gradientButtonWidget> {
   bool _colorChanged = false;
 
+  void setLocale(String value) {
+    setState(() {
+      selectedLocale = Locale(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -1002,7 +1041,42 @@ class _gradientButtonWidgetState extends State<gradientButtonWidget> {
                   builder: (context) => LoginScreen(),
                 ),
               );
+            } else if (widget.btnText == "Demo") {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AllCharts(),
+                ),
+              );
+            } else if (widget.btnText == "us") {
+              MyApp.of(context)!
+                  .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
+              setState(() {});
+            } else if (widget.btnText == "de") {
+              MyApp.of(context)!
+                  .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
+              setState(() {});
             }
+
+/*
+   InkWell(
+                            onTap: () {},
+                            child: IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/images/${selectedLocale.languageCode}.svg",
+                                fit: BoxFit.cover,
+                              ),
+
+                              //iconSize: 40,
+                              onPressed: () {
+                                MyApp.of(context)!.setLocale(
+                                    selectedLocale.languageCode == 'us'
+                                        ? 'de'
+                                        : 'us');
+                                setState(() {});
+                              },
+                            )),
+ */
+
             // do something when the button is tapped
           },
           child: Container(

@@ -2,7 +2,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, constant_identifier_names
 
 import 'dart:html' as html;
-import 'dart:html';
 import 'package:aktientool/authentication/services/request_service.dart';
 import 'package:aktientool/webpage/landing_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter/gestures.dart';
@@ -25,7 +23,7 @@ import 'settings/app_localizations.dart';
 
 // flutter run -d chrome --web-renderer html
 main() async {
-  final loader = document.getElementsByClassName('loader');
+  final loader = html.document.getElementsByClassName('loader');
   if (loader.isNotEmpty) {
     loader.first.remove();
   }
@@ -212,60 +210,6 @@ class HomePageState extends State<HomePage>
           } else {
             return Scaffold(
               backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-              appBar: PreferredSize(
-                preferredSize: Size(screenSize.width, 1000),
-                child: Container(
-                  color: Colors.black,
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.accessibility,
-                              color: Colors.white),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AllCharts(),
-                              ),
-                            );
-                          },
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {},
-                                child: Image.asset('assets/images/logo.png',
-                                    height: 30),
-                              ),
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                            onTap: () {},
-                            child: IconButton(
-                              icon: SvgPicture.asset(
-                                "assets/images/${selectedLocale.languageCode}.svg",
-                                fit: BoxFit.cover,
-                              ),
-
-                              //iconSize: 40,
-                              onPressed: () {
-                                MyApp.of(context)!.setLocale(
-                                    selectedLocale.languageCode == 'us'
-                                        ? 'de'
-                                        : 'us');
-                                setState(() {});
-                              },
-                            )),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
