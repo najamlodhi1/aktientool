@@ -31,13 +31,25 @@ class _FinancialsNavPageState extends State<FinancialsNavPage> {
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
     return Column(children: [
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        topButton(0, trans.translate("Income Statement")),
-        const SizedBox(width: 20),
-        topButton(1, trans.translate("Balance Sheet")),
-        const SizedBox(width: 20),
-        topButton(2, trans.translate("Cashflow Statement"))
-      ]),
+      if (MediaQuery.of(context).size.width > 1000)
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          topButton(0, trans.translate("Income Statement")),
+          const SizedBox(width: 20),
+          topButton(1, trans.translate("Balance Sheet")),
+          const SizedBox(width: 20),
+          topButton(2, trans.translate("Cashflow Statement"))
+        ])
+      else
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(children: [
+            topButton(0, trans.translate("Income Statement")),
+            const SizedBox(height: 5),
+            topButton(1, trans.translate("Balance Sheet")),
+            const SizedBox(width: 5),
+            topButton(2, trans.translate("Cashflow Statement"))
+          ]),
+        ),
       widgets[pageIndex]
     ]);
   }
@@ -50,7 +62,8 @@ class _FinancialsNavPageState extends State<FinancialsNavPage> {
         });
       },
       child: Container(
-        width: 250,
+        width:
+            MediaQuery.of(context).size.width < 1000 ? double.maxFinite : 250,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
             color: pageIndex == index ? kPrimaryColor : null,
