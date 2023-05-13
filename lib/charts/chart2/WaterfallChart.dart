@@ -36,24 +36,9 @@ class _WaterfallChartState extends State<WaterfallChart> {
     return BarChart(BarChartData(
         groupsSpace: calculateChartWidth,
         gridData: FlGridData(show: false),
+        barTouchData: BarTouchData(enabled: false),
         borderData: FlBorderData(border: Border.all(width: 0)),
         alignment: BarChartAlignment.spaceBetween,
-        barTouchData: BarTouchData(
-          touchTooltipData: BarTouchTooltipData(
-            fitInsideVertically: true,
-            fitInsideHorizontally: true,
-            tooltipBgColor: Colors.black,
-            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              return BarTooltipItem(
-                '${titles[groupIndex]}\n${numberToKFormat(widget.data.firstWhere((element) => element.title == titles[groupIndex]).value)}',
-                TextStyle(
-                    color: groupIndex % 2 == 0 ? Colors.green : Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14),
-              );
-            },
-          ),
-        ),
         titlesData: FlTitlesData(
             show: true,
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -62,25 +47,18 @@ class _WaterfallChartState extends State<WaterfallChart> {
                     reservedSize: 30,
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
+                      String amount = '';
+                      amount = numberToKFormat((widget.data
+                          .firstWhere((element) =>
+                              element.title == titles[value.toInt()])
+                          .value));
+                      if ((value.toInt() % 2) != 0 && value.toInt() > 0) {
+                        amount = '-$amount';
+                      }
                       return Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: Text(
-                            numberToKFormat(((value.toInt() % 2) != 0 &&
-                                    value.toInt() > 0)
-                                ? ((widget.data
-                                        .firstWhere((element) =>
-                                            element.title ==
-                                            titles[value.toInt()])
-                                        .value) -
-                                    (widget.data
-                                        .firstWhere((element) =>
-                                            element.title ==
-                                            titles[value.toInt() - 1])
-                                        .value))
-                                : (widget.data
-                                    .firstWhere((element) =>
-                                        element.title == titles[value.toInt()])
-                                    .value)),
+                            amount,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 12),
                           ));

@@ -11,8 +11,11 @@ class IncomeService {
     isSelected.value = {};
 
     for (ReportItemModel element in temp[0].reports) {
-      isSelected.value[element.title] =
-          element.title == 'Revenue' ? true : false;
+      isSelected.value[element.title] = element.title == 'Revenue' ||
+              element.title == 'Operating Income' ||
+              element.title == 'Net Income'
+          ? true
+          : false;
     }
 
     temp.sort((a, b) => a.date.year.compareTo(b.date.year));
