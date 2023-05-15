@@ -50,18 +50,6 @@ class TextWidgetClass {
     return data;
   }
 }
-
-class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
-
-  @override
-  State<LandingPage> createState() => _LandingPageState();
-}
-
-class _LandingPageState extends State<LandingPage> {
-  late final ScrollController _scrollController;
-
-  bool _isPageScrolled = false;
   List<TextWidgetClass> firstWidgetTexts = [
     TextWidgetClass(
       sh: 'Start selling online with your own web & mobile app in a few simple steps!',
@@ -108,6 +96,16 @@ class _LandingPageState extends State<LandingPage> {
       sh: 'Have questions or want to get a free demo? Contact us today to reserve your spot!',
     ),
   ];
+
+class LandingPage extends StatefulWidget {
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  late final ScrollController _scrollController;
+
+  bool _isPageScrolled = false;
 
   @override
   void initState() {
@@ -195,8 +193,8 @@ class _LandingPageState extends State<LandingPage> {
       Container(
         height: 50,
         alignment: Alignment.center,
-        width: 120,
-        margin: const EdgeInsets.symmetric(vertical: 3.0),
+        width: 125,
+        margin: EdgeInsets.symmetric(vertical: isSmallScreen ? 7.0 : 3),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 10.0),
           child: gradientButtonWidget(btnText: getLoginText = getLoginText),
@@ -207,8 +205,8 @@ class _LandingPageState extends State<LandingPage> {
           builder: (BuildContext context) {
             return Container(
               height: 60,
-              width: 55,
-              margin: const EdgeInsets.symmetric(vertical: 13, horizontal: 4),
+              width: 40,
+              margin: EdgeInsets.symmetric(vertical: 17.0, horizontal: 4),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -228,8 +226,8 @@ class _LandingPageState extends State<LandingPage> {
             );
           },
         ),
-      const SizedBox(
-        width: 5,
+      SizedBox(
+        width: isSmallScreen ? 5 : 35,
       ),
     ];
 
@@ -238,7 +236,7 @@ class _LandingPageState extends State<LandingPage> {
           backgroundColor: const Color(0xffF3F9FB),
           endDrawer: Drawer(
             child: ListView(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(top: 8),
               children: const <Widget>[
                 TextButton(onPressed: null, child: Text('de')),
                 TextButton(onPressed: null, child: Text('Features')),
@@ -252,10 +250,13 @@ class _LandingPageState extends State<LandingPage> {
             elevation: 0,
             backgroundColor:
                 !_isPageScrolled ? const Color(0xffF3F9FB) : Colors.white,
-            title: Image.asset(
+            title: Padding(
+              padding: EdgeInsets.only(left: isSmallScreen ? 5 : 25.0),
+              child: Image.asset(
               'assets/images/logo.png',
               height: 45.0,
             ),
+          ),
             actions: navBarItems,
           ),
           body: SingleChildScrollView(
@@ -264,17 +265,17 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 // first Widget
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 35.0, horizontal: 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                    8, isSmallScreen ? 20 : 20, 8, 35),
                   child: PageSectionWidget(
-                      sw: sw * .98,
+                      sw: sw,
                       isSmallScreen: isSmallScreen,
                       heading: firstWidgetTexts[0],
                       showButtons: true),
                 ),
                 // second Widget
                 Container(
-                    padding: const EdgeInsets.fromLTRB(8, 35, 8, 15),
+                    padding: const EdgeInsets.fromLTRB(32 + 8, 35, 32 + 8, 15),
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -491,16 +492,16 @@ class _LandingPageState extends State<LandingPage> {
                               )
                             : Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                      alignment: Alignment.center,
+                                      alignment: Alignment.centerLeft,
                                       padding: const EdgeInsets.fromLTRB(
-                                          0, 40, 0, 0),
-                                      width: (sw / 3) - 20,
+                                        0, 40, 0, 0),
+                                      width: (sw / 3) - (32 + 8) * 2,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
+                                            horizontal: 0.0),
                                         child: Stack(children: [
                                           Image.asset(
                                               'assets/images/landing_page/mockup1.png'),
@@ -528,7 +529,7 @@ class _LandingPageState extends State<LandingPage> {
                                                   ],
                                                 ),
                                               ),
-                                              child: const Column(
+                                              child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -560,11 +561,11 @@ class _LandingPageState extends State<LandingPage> {
                                   Container(
                                       alignment: Alignment.center,
                                       padding: const EdgeInsets.fromLTRB(
-                                          0, 0, 0, 40),
-                                      width: (sw / 3) - 20,
+                                        0, 0, 0, 40),
+                                      width: (sw / 3) - (32 + 8) * 2,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
+                                            horizontal: 0.0),
                                         child: Stack(children: [
                                           Image.asset(
                                               'assets/images/landing_page/mockup1.png'),
@@ -626,13 +627,13 @@ class _LandingPageState extends State<LandingPage> {
                                         ]),
                                       )),
                                   Container(
-                                      alignment: Alignment.center,
+                                      alignment: Alignment.centerRight,
                                       padding: const EdgeInsets.fromLTRB(
-                                          0, 40, 0, 0),
-                                      width: (sw / 3) - 20,
+                                        0, 40, 0, 0),
+                                      width: (sw / 3) - (32 + 8) * 2,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
+                                            horizontal: 0.0),
                                         child: Stack(children: [
                                           Image.asset(
                                               'assets/images/landing_page/mockup1.png'),
@@ -698,7 +699,7 @@ class _LandingPageState extends State<LandingPage> {
                     )),
                 // third widget
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 35, 16, 15),
+                  padding: const EdgeInsets.fromLTRB(32, 35, 32, 15),
                   child: SizedBox(
                     width: sw,
                     child: Column(
@@ -734,13 +735,13 @@ class _LandingPageState extends State<LandingPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 35.0),
                   color: Colors.white,
-                  width: sw,
+                  width: MediaQuery.of(context).size.width,
                   alignment: Alignment.center,
                   child: Container(
                     alignment: Alignment.center,
                     width: sw * .89,
                     height: (sw * .89) / (1170 / 293) < 293
-                        ? 290
+                        ? 250
                         : (sw * .89) / (1170 / 293),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -769,7 +770,7 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 // fifth widget - footer
-                SizedBox(width: sw, child: const FooterWidget())
+                SizedBox(width: MediaQuery.of(context).size.width, child: const FooterWidget())
               ],
             ),
           )),
@@ -802,7 +803,7 @@ class PageSectionWidget extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                width: sw,
+                width: sw * 0.98,
                 child: Container(
                     alignment: Alignment.center,
                     child: ImageSectionWidget(img: heading.img)),
@@ -813,7 +814,7 @@ class PageSectionWidget extends StatelessWidget {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                width: sw,
+                width: sw * 0.98,
                 child: TextSectionWidget(
                     ss: isSmallScreen,
                     heading: heading,
@@ -832,7 +833,7 @@ class PageSectionWidget extends StatelessWidget {
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
                 width: sw / 2.1,
                 child: TextSectionWidget(
                     heading: heading,
@@ -840,7 +841,9 @@ class PageSectionWidget extends StatelessWidget {
                     showBlackButton: showBlackButton),
               ),
               Container(
-                padding: const EdgeInsets.all(8),
+                alignment:
+                    isReverse ? Alignment.centerLeft : Alignment.centerRight,
+                padding: const EdgeInsets.all(32),
                 width: sw / 2.1,
                 child: ImageSectionWidget(img: heading.img),
               ),
@@ -867,6 +870,18 @@ class TextSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFromThirdWidget = false;
+    for (var i = 1; i < thirdWidgetTexts.length; i++) {
+      var item = thirdWidgetTexts[i];
+      if (item.sh.contains(heading.sh)) {
+        isFromThirdWidget = true;
+      }
+    }
+
+    double minusTextSize = 1.2;
+    if (isFromThirdWidget) {
+      minusTextSize = 1.5;
+    }
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment:
@@ -880,10 +895,11 @@ class TextSectionWidget extends StatelessWidget {
         ),
         Text(
           heading.sh,
-          // textAlign: TextAlign.center,
+          textAlign:ss&&(firstWidgetTexts[0].sh.contains(heading.sh)||thirdWidgetTexts[0].sh.contains(heading.sh))? TextAlign.center: TextAlign.start,
           style: TextStyle(
               fontWeight: FontWeight.w400,
-              color: isForthWidget
+              height: minusTextSize,
+              color: isForthWidget 
                   ? const Color(0xffAFCBD4)
                   : const Color(0xff69767A),
               fontSize: 17),
@@ -945,20 +961,32 @@ class HeadingTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sw = MediaQuery.of(context).size.width;
+    bool isFromThirdWidget = false;
+    for (var i = 1; i < thirdWidgetTexts.length; i++) {
+      var item = thirdWidgetTexts[i];
+      if (item.h.contains(text)) {
+        isFromThirdWidget = true;
+      }
+    }
 
+    double minusTextSize = 0;
+    if (isFromThirdWidget) {
+      minusTextSize = 8;
+    }
     return Text(
       text,
       style: TextStyle(
-          fontSize: sw > 1000
-              ? 31
-              : sw > 800
-                  ? 29
-                  : sw > 600
-                      ? 27
-                      : sw > 400
-                          ? 25
-                          : 23,
-          fontWeight: FontWeight.bold,
+          fontSize: (sw > 1000
+                  ? 36
+                  : sw > 800
+                      ? 34
+                      : sw > 600
+                          ? 29
+                          : sw > 400
+                              ? 25
+                              : 23) -
+              minusTextSize,
+          fontWeight: FontWeight.w900,
           color: isForthWidget ? Colors.white : null),
     );
   }

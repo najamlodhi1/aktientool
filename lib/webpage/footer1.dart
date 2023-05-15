@@ -53,7 +53,7 @@ class FooterWidget extends StatelessWidget {
     return Container(
       color: Colors.white,
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10),
       child: isSmallScreen
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,7 +61,7 @@ class FooterWidget extends StatelessWidget {
               children: [
                 // Left child widget
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: SizedBox(
                     width: sw * .90 - 16,
                     child: Column(
@@ -105,16 +105,18 @@ class FooterWidget extends StatelessWidget {
                 ),
               ],
             )
-          : Align(
+          : Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Left child widget
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SizedBox(
-                      width: (MediaQuery.of(context).size.width * 0.35) - 16,
+                  SizedBox(
+                    width: (MediaQuery.of(context).size.width * 0.45) - 16 - 32,
+
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -143,11 +145,11 @@ class FooterWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
+
 
                   // MyWidget on the right side
                   SizedBox(
-                    width: (MediaQuery.of(context).size.width * 0.55) - 120,
+                    width: (MediaQuery.of(context).size.width * 0.55) - 16 - 32,
                     child: FooterItemsWidget(
                       dataList: footerItemList,
                     ),
@@ -175,6 +177,7 @@ class FooterItemsWidget extends StatelessWidget {
             Align(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 14.0),
