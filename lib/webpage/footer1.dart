@@ -8,11 +8,15 @@ import '../../datenschutz/impressum.dart';
 import '../../datenschutz/myformpage.dart';
 
 class FooterWidget extends StatelessWidget {
-  const FooterWidget({Key? key}) : super(key: key);
+  var horizontalPadding;
+   FooterWidget({Key? key,this.horizontalPadding=0}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var isSmallScreen = !(MediaQuery.of(context).size.width > 800);
-    var sw = MediaQuery.of(context).size.width;
+    var sw = MediaQuery.of(context).size.width-horizontalPadding-horizontalPadding;
+    var isSmallScreen = !(sw > 800);
+    if(isSmallScreen){
+      sw+=horizontalPadding;
+    }
     var footerItemList = [
       {
         'heading': 'Company',
@@ -63,7 +67,7 @@ class FooterWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: SizedBox(
-                    width: sw * .90 - 16,
+                    width: sw * 1 - 0,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -106,7 +110,7 @@ class FooterWidget extends StatelessWidget {
               ],
             )
           : Container(
-              width: MediaQuery.of(context).size.width,
+              width: sw,
               padding: EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +118,7 @@ class FooterWidget extends StatelessWidget {
                 children: [
                   // Left child widget
                   SizedBox(
-                    width: (MediaQuery.of(context).size.width * 0.45) - 16 - 32,
+                    width: (sw * 0.45) - 16 - 32,
 
 
                       child: Column(
@@ -149,7 +153,7 @@ class FooterWidget extends StatelessWidget {
 
                   // MyWidget on the right side
                   SizedBox(
-                    width: (MediaQuery.of(context).size.width * 0.55) - 16 - 32,
+                    width: (sw * 0.55) - 16 - 32,
                     child: FooterItemsWidget(
                       dataList: footerItemList,
                     ),

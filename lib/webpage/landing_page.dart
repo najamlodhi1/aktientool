@@ -128,10 +128,15 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    var sw = MediaQuery.of(context).size.width - 16;
+    var sw = MediaQuery.of(context).size.width - 16 - 100;
+    var swf = MediaQuery.of(context).size.width- 0;
     var isSmallScreen = true;
+    double horizontalPadding=0.0;
     if (sw > 800) {
       isSmallScreen = false;
+      horizontalPadding=50;
+    }else{
+      sw+=100;
     }
 
     var navBarItems = [
@@ -227,10 +232,9 @@ class _LandingPageState extends State<LandingPage> {
           },
         ),
       SizedBox(
-        width: isSmallScreen ? 5 : 35,
+        width: isSmallScreen ? 5 : 35+horizontalPadding,
       ),
     ];
-
     return SafeArea(
       child: Scaffold(
           backgroundColor: const Color(0xffF3F9FB),
@@ -251,7 +255,7 @@ class _LandingPageState extends State<LandingPage> {
             backgroundColor:
                 !_isPageScrolled ? const Color(0xffF3F9FB) : Colors.white,
             title: Padding(
-              padding: EdgeInsets.only(left: isSmallScreen ? 5 : 25.0),
+              padding: EdgeInsets.only(left: isSmallScreen ? 5 : 25.0+horizontalPadding),
               child: Image.asset(
               'assets/images/logo.png',
               height: 45.0,
@@ -262,11 +266,12 @@ class _LandingPageState extends State<LandingPage> {
           body: SingleChildScrollView(
             controller: _scrollController,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // first Widget
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                    8, isSmallScreen ? 20 : 20, 8, 35),
+                    8+horizontalPadding, isSmallScreen ? 20 : 20, 8+horizontalPadding, 35),
                   child: PageSectionWidget(
                       sw: sw,
                       isSmallScreen: isSmallScreen,
@@ -275,7 +280,7 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 // second Widget
                 Container(
-                    padding: const EdgeInsets.fromLTRB(32 + 8, 35, 32 + 8, 15),
+                    padding:  EdgeInsets.fromLTRB(32 + 8+horizontalPadding, 35, 32 + 8+horizontalPadding, 15),
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -699,7 +704,7 @@ class _LandingPageState extends State<LandingPage> {
                     )),
                 // third widget
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 35, 32, 15),
+                  padding:  EdgeInsets.fromLTRB(32+horizontalPadding, 35, 32+horizontalPadding, 15),
                   child: SizedBox(
                     width: sw,
                     child: Column(
@@ -716,11 +721,12 @@ class _LandingPageState extends State<LandingPage> {
                         ),
                         for (var i = 1; i < thirdWidgetTexts.length; i++)
                           Container(
+                            alignment: Alignment.center,
                             child: Padding(
                               padding: EdgeInsets.only(
                                   top: 0, bottom: isSmallScreen ? 10 : 0),
                               child: PageSectionWidget(
-                                sw: sw,
+                                sw: sw-50,
                                 isSmallScreen: isSmallScreen,
                                 heading: thirdWidgetTexts[i],
                                 isReverse: i.isOdd,
@@ -733,9 +739,9 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 // forth widget
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 35.0),
+                  padding:  EdgeInsets.symmetric(vertical: 35.0,horizontal: horizontalPadding),
                   color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
+                  width: swf,
                   alignment: Alignment.center,
                   child: Container(
                     alignment: Alignment.center,
@@ -770,7 +776,10 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 // fifth widget - footer
-                SizedBox(width: MediaQuery.of(context).size.width, child: const FooterWidget())
+                Container(
+                  color: Colors.white,
+                    padding:  EdgeInsets.symmetric(horizontal: horizontalPadding),
+                    child: SizedBox(width: swf, child:  FooterWidget(horizontalPadding: horizontalPadding,)))
               ],
             ),
           )),

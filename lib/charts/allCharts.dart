@@ -206,7 +206,7 @@ class _AllChartsState extends State<AllCharts> {
                                     if (selectedindex == 9) ...[
                                       StockNewsScreen(parentData[0]),
                                     ],
-                                    const FooterWidget()
+                                     FooterWidget()
                                   ],
                                 ),
                               );

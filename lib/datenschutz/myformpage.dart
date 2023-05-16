@@ -214,7 +214,7 @@ class MyFormPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 100),
-                    const FooterWidget()
+                     FooterWidget()
                   ],
                 ),
               ),
