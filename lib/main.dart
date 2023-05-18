@@ -215,7 +215,7 @@ class HomePageState extends State<HomePage>
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[];
                 },
-                body:  LandingPage(),
+                body: const LandingPage(),
                 // place for the code
               ),
             );

@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/datenschutz/agb.dart';
 import 'package:aktientool/datenschutz/datenschutzerklaerung.dart';
 import 'package:aktientool/datenschutz/haftung.dart';
@@ -9,13 +10,15 @@ import '../../datenschutz/myformpage.dart';
 
 class FooterWidget extends StatelessWidget {
   var horizontalPadding;
-   FooterWidget({Key? key,this.horizontalPadding=0}) : super(key: key);
+  FooterWidget({Key? key, this.horizontalPadding = 0}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var sw = MediaQuery.of(context).size.width-horizontalPadding-horizontalPadding;
+    var sw = MediaQuery.of(context).size.width -
+        horizontalPadding -
+        horizontalPadding;
     var isSmallScreen = !(sw > 800);
-    if(isSmallScreen){
-      sw+=horizontalPadding;
+    if (isSmallScreen) {
+      sw += horizontalPadding;
     }
     var footerItemList = [
       {
@@ -55,17 +58,18 @@ class FooterWidget extends StatelessWidget {
       },
     ];
     return Container(
-      color: Colors.white,
+      color: Colors.black,
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10),
+      //padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10),
       child: isSmallScreen
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // Left child widget
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: SizedBox(
                     width: sw * 1 - 0,
                     child: Column(
@@ -111,7 +115,7 @@ class FooterWidget extends StatelessWidget {
             )
           : Container(
               width: sw,
-              padding: EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,37 +123,34 @@ class FooterWidget extends StatelessWidget {
                   // Left child widget
                   SizedBox(
                     width: (sw * 0.45) - 16 - 32,
-
-
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            'assets/images/logo.png',
-                            height: 45.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          'assets/images/logo.png',
+                          height: 45.0,
+                        ),
+                        const SizedBox(height: 16.0),
+                        const Text(
+                          '© Rohdaten von Financial Modeling Prep. Kennzahlen von Aktientool.Net\nAktientool kann für manche Links eine Affiliate-Provision erhalten \nwenn Produkte darüber erworben werden. Die Einnahmen fließen in die Entwicklung.',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Color(0xff69767A),
                           ),
-                          const SizedBox(height: 16.0),
-                          const Text(
-                            '© Rohdaten von Financial Modeling Prep. Kennzahlen von Aktientool.Net\nAktientool kann für manche Links eine Affiliate-Provision erhalten \nwenn Produkte darüber erworben werden. Die Einnahmen fließen in die Entwicklung.',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Color(0xff69767A),
-                            ),
-                            textAlign: TextAlign.justify,
+                          textAlign: TextAlign.justify,
+                        ),
+                        const SizedBox(height: 16.0),
+                        const Text(
+                          'All rights reserved.',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff69767A),
                           ),
-                          const SizedBox(height: 16.0),
-                          const Text(
-                            'All rights reserved.',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff69767A),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-
+                  ),
 
                   // MyWidget on the right side
                   SizedBox(
@@ -172,6 +173,8 @@ class FooterItemsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    backgroundColor = Colors.black;
+
     return Align(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

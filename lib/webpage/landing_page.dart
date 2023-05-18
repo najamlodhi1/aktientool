@@ -50,54 +50,57 @@ class TextWidgetClass {
     return data;
   }
 }
-  List<TextWidgetClass> firstWidgetTexts = [
-    TextWidgetClass(
-      sh: 'Start selling online with your own web & mobile app in a few simple steps!',
-      h: 'Grow Your Business',
-      h1: 'By Taking Your Store Online.',
-      img: 'assets/images/landing_page/banner_img.png',
-    ),
-  ];
-  List<Step> secondWidgetTexts = [
-    Step('Step #1', 'Create and name your store'),
-    Step('Step #2', 'Load your products on store'),
-    Step('Step #3', 'Share & maximize your profits'),
-  ];
-  List<TextWidgetClass> thirdWidgetTexts = [
-    TextWidgetClass(
-      sh: 'PixaCart is integrated with the proven techniques that optimizes your revenue!',
-      h: 'Proven Methods For',
-      h1: 'Raising Sales And Revenue',
-    ),
-    TextWidgetClass(
-      h: 'Order Bump',
-      sh: 'The order bump offer is prominently displayed on the checkout page, allowing customers to easily add an additional product to their purchase with a single click.\n\nThis simple yet effective feature provides customers with an effortless way to enhance their shopping experience\n\nOrder Bumps can significantly boost store sales and maximize profits.',
-      img: 'assets/images/landing_page/s3_mockup1.png',
-    ),
-    TextWidgetClass(
-      h: 'Cart Abandonment',
-      sh: 'Revive lost sales by engaging with prospects who abandoned their purchase. Reach out to these potential customers and remind them of product & why they should come back and complete their purchase.\n\nUtilize targeted campaigns to re-engage these prospects and encourage them to make the purchase they were considering.\n\nBy doing so, you can increase your sales & build relationships with customers who may have otherwise been lost.',
-      img: 'assets/images/landing_page/s3_mockup2.png',
-    ),
-    TextWidgetClass(
-      h: 'Coupons, Cashbacks & Other Discounts',
-      sh: 'You can generate a wide range of one-time, recurring, and diverse coupon types to reward your beloved customer\'s loyalty and appreciation.\n\nAdd enticing coupons, cashback offers, product discounts, and promotional banners to your store to reach out to potential customers and maximize your sales.\n\nThis feature allows you to show your customers how much you value them, while also providing them with exclusive discounts and offers.',
-      img: 'assets/images/landing_page/s3_mockup3.png',
-    ),
-    TextWidgetClass(
-      h: 'Affiliate Marketing',
-      sh: 'Help your customers to earn commissions by selling your products through affiliate program. They will receive a commissionable amount on each sale made through their affiliate link.\n\nThis mutually beneficial arrangement will lead to increased profits for both you and your customers, creating a win-win situation.\n\nBy leveraging the power of affiliate marketing, you can maximize your profits while providing your customers with an opportunity to earn money.',
-      img: 'assets/images/landing_page/s3_mockup4.png',
-    ),
-  ];
-  List<TextWidgetClass> forthWidgetTexts = [
-    TextWidgetClass(
-      h: 'Get in touch',
-      sh: 'Have questions or want to get a free demo? Contact us today to reserve your spot!',
-    ),
-  ];
+
+List<TextWidgetClass> firstWidgetTexts = [
+  TextWidgetClass(
+    sh: 'Wir helfen dir bei deiner Anlageentscheidung! Mit dem Aktientool wirst du die richtigen Antworten finden. Melde dich kostenlos an und starte den Aktientool.',
+    h: 'Finde die richtigen Qualitätsaktien',
+    h1: 'für dein Depot!',
+    img: 'assets/images/landing_page/banner_img.png',
+  ),
+];
+List<Step> secondWidgetTexts = [
+  Step('Step #1', 'Create and name your store'),
+  Step('Step #2', 'Load your products on store'),
+  Step('Step #3', 'Share & maximize your profits'),
+];
+List<TextWidgetClass> thirdWidgetTexts = [
+  TextWidgetClass(
+    sh: 'PixaCart is integrated with the proven techniques that optimizes your revenue!',
+    h: 'Proven Methods For',
+    h1: 'Raising Sales And Revenue',
+  ),
+  TextWidgetClass(
+    h: 'Order Bump',
+    sh: 'The order bump offer is prominently displayed on the checkout page, allowing customers to easily add an additional product to their purchase with a single click.\n\nThis simple yet effective feature provides customers with an effortless way to enhance their shopping experience\n\nOrder Bumps can significantly boost store sales and maximize profits.',
+    img: 'assets/images/landing_page/s3_mockup1.png',
+  ),
+  TextWidgetClass(
+    h: 'Cart Abandonment',
+    sh: 'Revive lost sales by engaging with prospects who abandoned their purchase. Reach out to these potential customers and remind them of product & why they should come back and complete their purchase.\n\nUtilize targeted campaigns to re-engage these prospects and encourage them to make the purchase they were considering.\n\nBy doing so, you can increase your sales & build relationships with customers who may have otherwise been lost.',
+    img: 'assets/images/landing_page/s3_mockup2.png',
+  ),
+  TextWidgetClass(
+    h: 'Coupons, Cashbacks & Other Discounts',
+    sh: 'You can generate a wide range of one-time, recurring, and diverse coupon types to reward your beloved customer\'s loyalty and appreciation.\n\nAdd enticing coupons, cashback offers, product discounts, and promotional banners to your store to reach out to potential customers and maximize your sales.\n\nThis feature allows you to show your customers how much you value them, while also providing them with exclusive discounts and offers.',
+    img: 'assets/images/landing_page/s3_mockup3.png',
+  ),
+  TextWidgetClass(
+    h: 'Affiliate Marketing',
+    sh: 'Help your customers to earn commissions by selling your products through affiliate program. They will receive a commissionable amount on each sale made through their affiliate link.\n\nThis mutually beneficial arrangement will lead to increased profits for both you and your customers, creating a win-win situation.\n\nBy leveraging the power of affiliate marketing, you can maximize your profits while providing your customers with an opportunity to earn money.',
+    img: 'assets/images/landing_page/s3_mockup4.png',
+  ),
+];
+List<TextWidgetClass> forthWidgetTexts = [
+  TextWidgetClass(
+    h: 'Get in touch',
+    sh: 'Have questions or want to get a free demo? Contact us today to reserve your spot!',
+  ),
+];
 
 class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
+
   @override
   State<LandingPage> createState() => _LandingPageState();
 }
@@ -129,14 +132,14 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     var sw = MediaQuery.of(context).size.width - 16 - 100;
-    var swf = MediaQuery.of(context).size.width- 0;
+    var swf = MediaQuery.of(context).size.width - 0;
     var isSmallScreen = true;
-    double horizontalPadding=0.0;
+    double horizontalPadding = 0.0;
     if (sw > 800) {
       isSmallScreen = false;
-      horizontalPadding=50;
-    }else{
-      sw+=100;
+      horizontalPadding = 50;
+    } else {
+      sw += 100;
     }
 
     var navBarItems = [
@@ -187,7 +190,7 @@ class _LandingPageState extends State<LandingPage> {
             child: const Text(
               'Feedback',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -211,7 +214,7 @@ class _LandingPageState extends State<LandingPage> {
             return Container(
               height: 60,
               width: 40,
-              margin: EdgeInsets.symmetric(vertical: 17.0, horizontal: 4),
+              margin: const EdgeInsets.symmetric(vertical: 17.0, horizontal: 4),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -232,18 +235,23 @@ class _LandingPageState extends State<LandingPage> {
           },
         ),
       SizedBox(
-        width: isSmallScreen ? 5 : 35+horizontalPadding,
+        width: isSmallScreen ? 5 : 35 + horizontalPadding,
       ),
     ];
     return SafeArea(
       child: Scaffold(
-          backgroundColor: const Color(0xffF3F9FB),
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           endDrawer: Drawer(
             child: ListView(
-              padding: EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.only(top: 8),
               children: const <Widget>[
                 TextButton(onPressed: null, child: Text('de')),
-                TextButton(onPressed: null, child: Text('Features')),
+                TextButton(
+                    onPressed: null,
+                    child: Text(
+                      'Feedback',
+                      style: TextStyle(color: Colors.grey),
+                    )),
                 TextButton(onPressed: null, child: Text('Anmelden'))
               ],
             ),
@@ -252,15 +260,17 @@ class _LandingPageState extends State<LandingPage> {
             scrolledUnderElevation: 1,
             toolbarHeight: 75,
             elevation: 0,
-            backgroundColor:
-                !_isPageScrolled ? const Color(0xffF3F9FB) : Colors.white,
+            backgroundColor: !_isPageScrolled
+                ? const Color.fromARGB(255, 0, 0, 0)
+                : const Color.fromARGB(255, 0, 0, 0),
             title: Padding(
-              padding: EdgeInsets.only(left: isSmallScreen ? 5 : 25.0+horizontalPadding),
+              padding: EdgeInsets.only(
+                  left: isSmallScreen ? 5 : 25.0 + horizontalPadding),
               child: Image.asset(
-              'assets/images/logo.png',
-              height: 45.0,
+                'assets/images/logo.png',
+                height: 45.0,
+              ),
             ),
-          ),
             actions: navBarItems,
           ),
           body: SingleChildScrollView(
@@ -270,8 +280,8 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 // first Widget
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    8+horizontalPadding, isSmallScreen ? 20 : 20, 8+horizontalPadding, 35),
+                  padding: EdgeInsets.fromLTRB(8 + horizontalPadding,
+                      isSmallScreen ? 20 : 20, 8 + horizontalPadding, 35),
                   child: PageSectionWidget(
                       sw: sw,
                       isSmallScreen: isSmallScreen,
@@ -280,8 +290,9 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 // second Widget
                 Container(
-                    padding:  EdgeInsets.fromLTRB(32 + 8+horizontalPadding, 35, 32 + 8+horizontalPadding, 15),
-                    color: Colors.white,
+                    padding: EdgeInsets.fromLTRB(32 + 8 + horizontalPadding, 35,
+                        32 + 8 + horizontalPadding, 15),
+                    color: const Color.fromARGB(255, 132, 14, 196),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -497,12 +508,12 @@ class _LandingPageState extends State<LandingPage> {
                               )
                             : Row(
                                 mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                       alignment: Alignment.centerLeft,
                                       padding: const EdgeInsets.fromLTRB(
-                                        0, 40, 0, 0),
+                                          0, 40, 0, 0),
                                       width: (sw / 3) - (32 + 8) * 2,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -534,7 +545,7 @@ class _LandingPageState extends State<LandingPage> {
                                                   ],
                                                 ),
                                               ),
-                                              child: Column(
+                                              child: const Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -566,7 +577,7 @@ class _LandingPageState extends State<LandingPage> {
                                   Container(
                                       alignment: Alignment.center,
                                       padding: const EdgeInsets.fromLTRB(
-                                        0, 0, 0, 40),
+                                          0, 0, 0, 40),
                                       width: (sw / 3) - (32 + 8) * 2,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -634,7 +645,7 @@ class _LandingPageState extends State<LandingPage> {
                                   Container(
                                       alignment: Alignment.centerRight,
                                       padding: const EdgeInsets.fromLTRB(
-                                        0, 40, 0, 0),
+                                          0, 40, 0, 0),
                                       width: (sw / 3) - (32 + 8) * 2,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -704,7 +715,8 @@ class _LandingPageState extends State<LandingPage> {
                     )),
                 // third widget
                 Padding(
-                  padding:  EdgeInsets.fromLTRB(32+horizontalPadding, 35, 32+horizontalPadding, 15),
+                  padding: EdgeInsets.fromLTRB(
+                      32 + horizontalPadding, 35, 32 + horizontalPadding, 15),
                   child: SizedBox(
                     width: sw,
                     child: Column(
@@ -726,7 +738,7 @@ class _LandingPageState extends State<LandingPage> {
                               padding: EdgeInsets.only(
                                   top: 0, bottom: isSmallScreen ? 10 : 0),
                               child: PageSectionWidget(
-                                sw: sw-50,
+                                sw: sw - 50,
                                 isSmallScreen: isSmallScreen,
                                 heading: thirdWidgetTexts[i],
                                 isReverse: i.isOdd,
@@ -739,13 +751,14 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 // forth widget
                 Container(
-                  padding:  EdgeInsets.symmetric(vertical: 35.0,horizontal: horizontalPadding),
-                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: horizontalPadding),
+                  color: const Color.fromARGB(255, 132, 14, 196),
                   width: swf,
                   alignment: Alignment.center,
                   child: Container(
                     alignment: Alignment.center,
-                    width: sw * .89,
+                    width: 60 + sw * .89,
                     height: (sw * .89) / (1170 / 293) < 293
                         ? 250
                         : (sw * .89) / (1170 / 293),
@@ -777,9 +790,14 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 // fifth widget - footer
                 Container(
-                  color: Colors.white,
-                    padding:  EdgeInsets.symmetric(horizontal: horizontalPadding),
-                    child: SizedBox(width: swf, child:  FooterWidget(horizontalPadding: horizontalPadding,)))
+                    color: Colors.white,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: horizontalPadding),
+                    child: SizedBox(
+                        width: swf,
+                        child: FooterWidget(
+                          horizontalPadding: horizontalPadding,
+                        )))
               ],
             ),
           )),
@@ -904,11 +922,15 @@ class TextSectionWidget extends StatelessWidget {
         ),
         Text(
           heading.sh,
-          textAlign:ss&&(firstWidgetTexts[0].sh.contains(heading.sh)||thirdWidgetTexts[0].sh.contains(heading.sh))? TextAlign.center: TextAlign.start,
+          textAlign: ss &&
+                  (firstWidgetTexts[0].sh.contains(heading.sh) ||
+                      thirdWidgetTexts[0].sh.contains(heading.sh))
+              ? TextAlign.center
+              : TextAlign.start,
           style: TextStyle(
               fontWeight: FontWeight.w400,
               height: minusTextSize,
-              color: isForthWidget 
+              color: isForthWidget
                   ? const Color(0xffAFCBD4)
                   : const Color(0xff69767A),
               fontSize: 17),
@@ -996,7 +1018,7 @@ class HeadingTextWidget extends StatelessWidget {
                               : 23) -
               minusTextSize,
           fontWeight: FontWeight.w900,
-          color: isForthWidget ? Colors.white : null),
+          color: isForthWidget ? Colors.white : Colors.white),
     );
   }
 }
@@ -1047,7 +1069,7 @@ class _gradientButtonWidgetState extends State<gradientButtonWidget> {
         decoration: BoxDecoration(
           gradient: widget.isBlack
               ? const LinearGradient(
-                  colors: [Colors.black, Colors.black],
+                  colors: [Colors.grey, Colors.grey],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 )
@@ -1153,9 +1175,9 @@ class FooterItemsWidget extends StatelessWidget {
                   child: Text(
                     data['heading'],
                     style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                        color: Colors.white),
                   ),
                 ),
                 for (var textData in data['texts'])
