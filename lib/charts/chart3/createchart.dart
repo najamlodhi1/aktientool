@@ -6,6 +6,7 @@ import '../chart2/createchart.dart';
 import 'BalanceHistoryWidget.dart';
 import 'BalanceReportModel.dart';
 import 'BarChartBalanceScreen.dart';
+import 'DonutChartBalanceScreen.dart';
 import 'data.dart';
 
 class CreateChart3 extends StatefulWidget {
@@ -43,6 +44,20 @@ class CreateChart3State extends State<CreateChart3> {
 
             return Column(
               children: [
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.teal,
+                      style: BorderStyle.none,
+                      width: 2,
+                    ),
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: DonutChartBalanceScreen(tableData),
+                ),
                 Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),

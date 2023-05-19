@@ -17,7 +17,7 @@ dependencies:
       url: https://github.com/koosoftware/fl_chart
       ref: b4c909c
 
-  cupertino_icons: ^1.0.5
+  cupertino_icons: any
   url_strategy: ^0.2.0
   firebase_core: ^2.11.0
   firebase_auth: 4.5.0
@@ -37,19 +37,20 @@ dependencies:
   translator: ^0.1.7
   intl: any
   flutter_colorpicker: ^1.0.3
-  screenshot: 
+  screenshot:
     git:
       url: https://github.com/SachinGanesh/screenshot
       ref: master
-
 
   envied_generator: ^0.3.0
   flutter_rating_bar: ^4.0.1
 
   data_table_2: ^2.4.2
 
-dev_dependencies:
+  custom_charts:
+    path: ./custom_charts/
 
+dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1

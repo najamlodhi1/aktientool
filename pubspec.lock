@@ -73,6 +73,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  charts_common:
+    dependency: transitive
+    description:
+      path: charts_common
+      relative: true
+    source: path
+    version: "0.12.0"
   clock:
     dependency: transitive
     description:
@@ -137,6 +144,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  custom_charts:
+    dependency: "direct main"
+    description:
+      path: custom_charts
+      relative: true
+    source: path
+    version: "0.12.0"
   dart_style:
     dependency: transitive
     description:

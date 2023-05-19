@@ -1,0 +1,148 @@
+import 'package:aktientool/charts/chart3/BalanceReportModel.dart';
+import 'package:aktientool/constants/responsive.dart';
+import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
+import '../chart2/IncomeReportModel.dart';
+import '../chart3/BarChartBalanceScreen.dart';
+import 'DonutChart.dart';
+
+class DonutChartBalanceScreen extends StatefulWidget {
+  const DonutChartBalanceScreen(this.tableData, {super.key});
+  final List<BalanceReportModel> tableData;
+
+  @override
+  State<DonutChartBalanceScreen> createState() =>
+      _DonutChartBalanceScreenState();
+}
+
+class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
+  late AppLocalizations trans;
+  late int selectedYear;
+
+  @override
+  void initState() {
+    selectedYear = widget.tableData.map((e) => e.date.year).toList().last;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: MediaQuery.of(context).size.width > 1000
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                customDropDown,
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(flex: 1, child: waterfallDetails),
+                    const SizedBox(width: 20),
+                    Expanded(
+                        flex: 3,
+                        child: DonutChart(
+                          getcurrentreport,
+                        )),
+                  ],
+                ),
+              ],
+            )
+          : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              customDropDown,
+              const SizedBox(height: 10),
+              waterfallDetails,
+              const SizedBox(height: 15),
+              SizedBox(height: 400, child: DonutChart(getcurrentreport))
+            ]),
+    );
+  }
+
+  Widget get customDropDown {
+    return SizedBox(
+      width: 150,
+      child: DropdownButtonFormField<int>(
+        alignment: Alignment.center,
+        decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: kPrimaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: kPrimaryColor)),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(color: kPrimaryColor))),
+        value: selectedYear,
+        style: const TextStyle(color: Colors.white),
+        dropdownColor: Colors.black,
+        menuMaxHeight: 200,
+        items: widget.tableData
+            .map((e) => e.date.year)
+            .toList()
+            .map((item) => DropdownMenuItem(
+                value: item,
+                child: Text(item.toString(),
+                    style: const TextStyle(color: Colors.white))))
+            .toList(),
+        onChanged: (newValue) {
+          setState(() {
+            selectedYear = newValue!;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget get waterfallDetails {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        customtile('Total Current Assets'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Cash and Short Term Investments'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Receivables'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Other Current Assets'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Total non-current Assets'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Property, Plant & Equipment Net'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Long Term Investments'),
+        const Divider(color: Colors.white24, height: 0),
+        customtile('Other non-current Assets')
+      ],
+    );
+  }
+
+  List<ReportItemModel> get getcurrentreport {
+    final BalanceReportModel selectedData = widget.tableData
+        .firstWhere((element) => element.date.year == selectedYear);
+    return selectedData.reports;
+  }
+
+  double gettotalAmount(String title) {
+    int selectedReportIndex = widget.tableData[0].reports
+        .indexWhere((element) => element.title == title);
+    return getcurrentreport[selectedReportIndex].value;
+  }
+
+  Widget customtile(String title) {
+    String amount = numberToKFormat(gettotalAmount(title));
+    return ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+        title: Text(trans.translate(title),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white)),
+        trailing: RichText(
+            text: TextSpan(children: [
+          TextSpan(
+              text: '$amount ',
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.white)),
+          const TextSpan(text: 'USD', style: TextStyle(color: Colors.white))
+        ])));
+  }
+}

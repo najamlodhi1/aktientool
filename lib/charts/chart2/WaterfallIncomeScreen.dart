@@ -1,6 +1,7 @@
 import 'package:aktientool/charts/chart2/WaterfallChart.dart';
 import 'package:aktientool/constants/responsive.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import '../chart3/BarChartBalanceScreen.dart';
 import 'IncomeReportModel.dart';
 
@@ -14,6 +15,8 @@ class WaterfallIncomeScreen extends StatefulWidget {
 
 class _WaterfallIncomeScreenState extends State<WaterfallIncomeScreen> {
   late int selectedYear;
+  late AppLocalizations trans;
+
   @override
   void initState() {
     selectedYear = widget.tableData.map((e) => e.date.year).toList().last;
@@ -22,6 +25,8 @@ class _WaterfallIncomeScreenState extends State<WaterfallIncomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    trans = AppLocalizations.of(context);
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: MediaQuery.of(context).size.width > 1000
@@ -129,7 +134,7 @@ class _WaterfallIncomeScreenState extends State<WaterfallIncomeScreen> {
   Widget customtile(String title, String amount) {
     return ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-        title: Text(title,
+        title: Text(trans.translate(title),
             style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white)),
         trailing: RichText(
