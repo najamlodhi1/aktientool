@@ -1,5 +1,6 @@
 import 'package:custom_charts/flutter.dart';
 import 'package:flutter/material.dart';
+import '../../settings/app_localizations.dart';
 import '../chart2/IncomeReportModel.dart';
 import 'BarChartBalanceScreen.dart';
 
@@ -14,6 +15,7 @@ class DonutChart extends StatefulWidget {
 
 class _DonutChartState extends State<DonutChart> {
   double totalAssets = 0;
+  late AppLocalizations trans;
 
   List<String> assets = [
         "Total Current Assets",
@@ -84,65 +86,75 @@ class _DonutChartState extends State<DonutChart> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio:
-          MediaQuery.of(context).size.width < 800 ? (15 / 9) : (22 / 9),
-      child: Stack(
-        children: [
-          Center(
-            child: PieChart<String>(createSampleData(),
-                animate: true,
-                defaultRenderer: ArcRendererConfig(
-                    arcWidth: MediaQuery.of(context).size.width < 800 ? 30 : 85,
-                    arcRendererDecorators: [
-                      ArcLabelDecorator(
-                          labelPosition: ArcLabelPosition.outside,
-                          leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
-                              color: CustomChartColor.fromHex(code: '#B6C2D0'),
-                              length: 20,
-                              thickness: 2)),
+    trans = AppLocalizations.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30),
+      child: AspectRatio(
+        aspectRatio:
+            MediaQuery.of(context).size.width < 800 ? (23 / 9) : (22 / 9),
+        child: Stack(
+          children: [
+            Center(
+              child: PieChart<String>(createSampleData(),
+                  animate: true,
+                  defaultRenderer: ArcRendererConfig(
+                      arcWidth:
+                          MediaQuery.of(context).size.width < 800 ? 20 : 85,
+                      arcRendererDecorators: [
+                        ArcLabelDecorator(
+                            labelPosition: ArcLabelPosition.outside,
+                            leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
+                                color:
+                                    CustomChartColor.fromHex(code: '#B6C2D0'),
+                                length: 20,
+                                thickness: 2)),
+                      ])),
+            ),
+            Center(
+              child: SizedBox(
+                height: 200,
+                width: 200,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  verticalDirection: VerticalDirection.down,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: MediaQuery.of(context).size.width < 800
+                                ? 10
+                                : 12,
+                            fontWeight: FontWeight.bold)),
+                    RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                        text: numberToKFormat(totalAssets),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: MediaQuery.of(context).size.width < 800
+                                ? 8
+                                : 12,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      TextSpan(
+                        text: ' USD',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: MediaQuery.of(context).size.width < 800
+                                ? 8
+                                : 12,
+                            fontWeight: FontWeight.bold),
+                      )
                     ])),
-          ),
-          Center(
-            child: SizedBox(
-              height: 200,
-              width: 200,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                verticalDirection: VerticalDirection.down,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize:
-                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
-                          fontWeight: FontWeight.bold)),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                      text: numberToKFormat(totalAssets),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize:
-                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    TextSpan(
-                      text: ' USD',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize:
-                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ])),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -172,10 +184,32 @@ class _DonutChartState extends State<DonutChart> {
           domainFn: (ChartData chartData, _) => chartData.category,
           measureFn: (ChartData chartData, _) => chartData.value,
           data: data,
+          outsideLabelStyleAccessorFn: (datum, index) => MediaQuery.of(context)
+                      .size
+                      .width <
+                  800
+              ? const TextStyleSpec(fontSize: 8, color: CustomChartColor.white)
+              : const TextStyleSpec(color: CustomChartColor.white),
           labelAccessorFn: (ChartData chartData, _) =>
-              '${chartData.category}:\n${chartData.value}%',
+              '${breakline(trans.translate(chartData.category))}:\n${chartData.value}%',
           colorFn: (_, index) => CustomChartColor.fromHex(code: colors[index!]))
     ];
+  }
+
+  String breakline(String string) {
+    String result = "";
+    List<String> parts = string.split(" ");
+    if (MediaQuery.of(context).size.width < 800) {
+      for (int i = 0; i < parts.length; i++) {
+        if (i != 0) {
+          result += "\n";
+        }
+        result += "${parts[i]} ";
+      }
+    } else {
+      return string;
+    }
+    return result;
   }
 }
 

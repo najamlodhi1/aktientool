@@ -50,32 +50,42 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: MediaQuery.of(context).size.width > 1000
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return MediaQuery.of(context).size.width > 1000
+        ? Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
               children: [
-                customDropDown,
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(flex: 1, child: waterfallDetails),
-                    const SizedBox(width: 20),
-                    Expanded(
-                        flex: 3, child: DonutChart(getcurrentreport, isassets)),
-                  ],
-                ),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        customDropDown,
+                        const SizedBox(height: 10),
+                        waterfallDetails,
+                      ],
+                    )),
+                const SizedBox(width: 20),
+                Expanded(
+                    flex: 3, child: DonutChart(getcurrentreport, isassets)),
               ],
-            )
-          : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              customDropDown,
-              const SizedBox(height: 10),
-              waterfallDetails,
-              const SizedBox(height: 15),
-              DonutChart(getcurrentreport, isassets)
-            ]),
-    );
+            ),
+          )
+        : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customDropDown,
+                  const SizedBox(height: 10),
+                  waterfallDetails,
+                  const SizedBox(height: 15),
+                ],
+              ),
+            ),
+            DonutChart(getcurrentreport, isassets)
+          ]);
   }
 
   Widget get customDropDown {

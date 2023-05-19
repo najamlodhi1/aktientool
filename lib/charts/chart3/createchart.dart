@@ -46,7 +46,6 @@ class CreateChart3State extends State<CreateChart3> {
               children: [
                 Container(
                   margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.teal,
