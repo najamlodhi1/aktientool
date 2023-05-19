@@ -73,8 +73,7 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
               const SizedBox(height: 10),
               waterfallDetails,
               const SizedBox(height: 15),
-              SizedBox(
-                  height: 400, child: DonutChart(getcurrentreport, isassets))
+              DonutChart(getcurrentreport, isassets)
             ]),
     );
   }

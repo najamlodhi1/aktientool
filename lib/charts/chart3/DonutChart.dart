@@ -13,7 +13,6 @@ class DonutChart extends StatefulWidget {
 }
 
 class _DonutChartState extends State<DonutChart> {
-  double totalAmount = 0;
   double totalAssets = 0;
 
   List<String> assets = [
@@ -49,10 +48,15 @@ class _DonutChartState extends State<DonutChart> {
 
   @override
   void initState() {
+    calculatetotal;
+    super.initState();
+  }
+
+  void get calculatetotal {
+    totalAssets = 0;
     if (widget.isassets) {
       for (var element in widget.data) {
         if (assets.contains(element.title)) {
-          totalAmount += element.value;
           if (element.title == "Total Current Assets" ||
               element.title == "Total non-current Assets") {
             totalAssets += element.value;
@@ -62,7 +66,6 @@ class _DonutChartState extends State<DonutChart> {
     } else {
       for (var element in widget.data) {
         if (liabilities.contains(element.title)) {
-          totalAmount += element.value;
           if (element.title == "Total current liabilities" ||
               element.title == "Total non-current liabilities") {
             totalAssets += element.value;
@@ -70,95 +73,108 @@ class _DonutChartState extends State<DonutChart> {
         }
       }
     }
-    super.initState();
   }
 
   int calculatePercentage(String title) {
     return ((widget.data.firstWhere((element) => element.title == title).value /
-                totalAmount) *
+                totalAssets) *
             100)
         .toInt();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 400,
-          child: Center(
+    return AspectRatio(
+      aspectRatio:
+          MediaQuery.of(context).size.width < 800 ? (15 / 9) : (22 / 9),
+      child: Stack(
+        children: [
+          Center(
             child: PieChart<String>(createSampleData(),
                 animate: true,
-                defaultRenderer:
-                    ArcRendererConfig(arcWidth: 85, arcRendererDecorators: [
-                  ArcLabelDecorator(
-                      labelPosition: ArcLabelPosition.outside,
-                      leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
-                          color: CustomChartColor.fromHex(code: '#B6C2D0'),
-                          length: 20,
-                          thickness: 2)),
-                ])),
+                defaultRenderer: ArcRendererConfig(
+                    arcWidth: MediaQuery.of(context).size.width < 800 ? 30 : 85,
+                    arcRendererDecorators: [
+                      ArcLabelDecorator(
+                          labelPosition: ArcLabelPosition.outside,
+                          leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
+                              color: CustomChartColor.fromHex(code: '#B6C2D0'),
+                              length: 20,
+                              thickness: 2)),
+                    ])),
           ),
-        ),
-        Center(
-          child: SizedBox(
-            height: 400,
-            width: 200,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold)),
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                    text: numberToKFormat(totalAssets),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  const TextSpan(
-                    text: ' USD',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                  )
-                ])),
-              ],
+          Center(
+            child: SizedBox(
+              height: 200,
+              width: 200,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                verticalDirection: VerticalDirection.down,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
+                          fontWeight: FontWeight.bold)),
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                      text: numberToKFormat(totalAssets),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    TextSpan(
+                      text: ' USD',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ])),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   List<Series<ChartData, String>> createSampleData() {
+    calculatetotal;
     var data;
     if (widget.isassets) {
-      data = assets.map((e) => ChartData(e, calculatePercentage(e))).toList();
+      data = assets
+          .where((element) =>
+              element != 'Total Current Assets' &&
+              element != 'Total non-current Assets')
+          .map((e) => ChartData(e, calculatePercentage(e)))
+          .toList();
     } else {
-      data =
-          liabilities.map((e) => ChartData(e, calculatePercentage(e))).toList();
+      data = liabilities
+          .where((element) =>
+              element != 'Total current liabilities' &&
+              element != 'Total non-current liabilities')
+          .map((e) => ChartData(e, calculatePercentage(e)))
+          .toList();
     }
 
     return [
       Series<ChartData, String>(
-        id: 'Categories',
-        domainFn: (ChartData chartData, _) => chartData.category,
-        measureFn: (ChartData chartData, _) => chartData.value,
-        data: data,
-        labelAccessorFn: (ChartData chartData, _) =>
-            '${chartData.category}:\n${chartData.value}%',
-        colorFn: (_, index) => CustomChartColor.fromHex(code: colors[index!]),
-      ),
+          id: 'Categories',
+          domainFn: (ChartData chartData, _) => chartData.category,
+          measureFn: (ChartData chartData, _) => chartData.value,
+          data: data,
+          labelAccessorFn: (ChartData chartData, _) =>
+              '${chartData.category}:\n${chartData.value}%',
+          colorFn: (_, index) => CustomChartColor.fromHex(code: colors[index!]))
     ];
   }
 }
