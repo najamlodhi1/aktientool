@@ -4,25 +4,37 @@ import '../chart2/IncomeReportModel.dart';
 import 'BarChartBalanceScreen.dart';
 
 class DonutChart extends StatefulWidget {
-  const DonutChart(this.data, {super.key});
+  const DonutChart(this.data, this.isassets, {super.key});
   final List<ReportItemModel> data;
+  final bool isassets;
 
   @override
   State<DonutChart> createState() => _DonutChartState();
 }
 
 class _DonutChartState extends State<DonutChart> {
+  double totalAmount = 0;
   double totalAssets = 0;
-  List<String> titles = [
-    "Total Current Assets",
-    "Cash and Short Term Investments",
-    "Receivables",
-    "Other Current Assets",
-    "Total non-current Assets",
-    "Property, Plant & Equipment Net",
-    "Long Term Investments",
-    "Other non-current Assets"
-  ];
+
+  List<String> assets = [
+        "Total Current Assets",
+        "Cash and Short Term Investments",
+        "Receivables",
+        "Other Current Assets",
+        "Total non-current Assets",
+        "Property, Plant & Equipment Net",
+        "Long Term Investments",
+        "Other non-current Assets"
+      ],
+      liabilities = [
+        'Total current liabilities',
+        'Payables',
+        'Short Term debt',
+        'Other Current Liabilities',
+        'Total non-current liabilities',
+        'Long Term debt',
+        'Other non-current Liabilities'
+      ];
 
   List colors = [
     '#63778E',
@@ -34,11 +46,28 @@ class _DonutChartState extends State<DonutChart> {
     '#A5B3C3',
     '#B6C2D0'
   ];
+
   @override
   void initState() {
-    for (var element in widget.data) {
-      if (titles.contains(element.title)) {
-        totalAssets += element.value;
+    if (widget.isassets) {
+      for (var element in widget.data) {
+        if (assets.contains(element.title)) {
+          totalAmount += element.value;
+          if (element.title == "Total Current Assets" ||
+              element.title == "Total non-current Assets") {
+            totalAssets += element.value;
+          }
+        }
+      }
+    } else {
+      for (var element in widget.data) {
+        if (liabilities.contains(element.title)) {
+          totalAmount += element.value;
+          if (element.title == "Total current liabilities" ||
+              element.title == "Total non-current liabilities") {
+            totalAssets += element.value;
+          }
+        }
       }
     }
     super.initState();
@@ -46,7 +75,7 @@ class _DonutChartState extends State<DonutChart> {
 
   int calculatePercentage(String title) {
     return ((widget.data.firstWhere((element) => element.title == title).value /
-                totalAssets) *
+                totalAmount) *
             100)
         .toInt();
   }
@@ -81,7 +110,7 @@ class _DonutChartState extends State<DonutChart> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('Total Assets',
+                Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -112,8 +141,13 @@ class _DonutChartState extends State<DonutChart> {
   }
 
   List<Series<ChartData, String>> createSampleData() {
-    final data =
-        titles.map((e) => ChartData(e, calculatePercentage(e))).toList();
+    var data;
+    if (widget.isassets) {
+      data = assets.map((e) => ChartData(e, calculatePercentage(e))).toList();
+    } else {
+      data =
+          liabilities.map((e) => ChartData(e, calculatePercentage(e))).toList();
+    }
 
     return [
       Series<ChartData, String>(

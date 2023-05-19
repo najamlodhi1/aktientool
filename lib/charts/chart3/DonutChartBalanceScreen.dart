@@ -1,3 +1,4 @@
+import 'package:aktientool/charts/chart0/createchart.dart';
 import 'package:aktientool/charts/chart3/BalanceReportModel.dart';
 import 'package:aktientool/constants/responsive.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,27 @@ class DonutChartBalanceScreen extends StatefulWidget {
 class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
   late AppLocalizations trans;
   late int selectedYear;
+  bool isassets = true;
+
+  List<String> assetsList = [
+        "Total Current Assets",
+        "Cash and Short Term Investments",
+        "Receivables",
+        "Other Current Assets",
+        "Total non-current Assets",
+        "Property, Plant & Equipment Net",
+        "Long Term Investments",
+        "Other non-current Assets"
+      ],
+      liabilities = [
+        'Total current liabilities',
+        'Payables',
+        'Short Term debt',
+        'Other Current Liabilities',
+        'Total non-current liabilities',
+        'Long Term debt',
+        'Other non-current Liabilities'
+      ];
 
   @override
   void initState() {
@@ -28,7 +50,6 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
-
     return Padding(
       padding: const EdgeInsets.all(20),
       child: MediaQuery.of(context).size.width > 1000
@@ -42,10 +63,7 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
                     Expanded(flex: 1, child: waterfallDetails),
                     const SizedBox(width: 20),
                     Expanded(
-                        flex: 3,
-                        child: DonutChart(
-                          getcurrentreport,
-                        )),
+                        flex: 3, child: DonutChart(getcurrentreport, isassets)),
                   ],
                 ),
               ],
@@ -55,7 +73,8 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
               const SizedBox(height: 10),
               waterfallDetails,
               const SizedBox(height: 15),
-              SizedBox(height: 400, child: DonutChart(getcurrentreport))
+              SizedBox(
+                  height: 400, child: DonutChart(getcurrentreport, isassets))
             ]),
     );
   }
@@ -94,26 +113,84 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
     );
   }
 
+  String calculatetotalamount(List<String> list) {
+    double totalAssets = 0;
+    for (var element in getcurrentreport) {
+      if (list.contains(element.title)) {
+        if (element.title == "Total Current Assets" ||
+            element.title == "Total non-current Assets" ||
+            element.title == "Total current liabilities" ||
+            element.title == "Total non-current liabilities") {
+          totalAssets += element.value;
+        }
+      }
+    }
+    return numberToKFormat(totalAssets);
+  }
+
   Widget get waterfallDetails {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        customtile('Total Current Assets'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Cash and Short Term Investments'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Receivables'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Other Current Assets'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Total non-current Assets'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Property, Plant & Equipment Net'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Long Term Investments'),
-        const Divider(color: Colors.white24, height: 0),
-        customtile('Other non-current Assets')
-      ],
+    return Container(
+      color: Colors.white10.withOpacity(0.1),
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(children: [
+            Expanded(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: isassets == true ? primaryColor : null,
+                        fixedSize: const Size.fromHeight(50)),
+                    onPressed: () {
+                      setState(() {
+                        isassets = true;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(calculatetotalamount(assetsList),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffB6C2D0))),
+                        const Text('ASSETS', style: TextStyle(fontSize: 12)),
+                      ],
+                    ))),
+            Expanded(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor:
+                            isassets == false ? primaryColor : null,
+                        fixedSize: const Size.fromHeight(50)),
+                    onPressed: () {
+                      setState(() {
+                        isassets = false;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(calculatetotalamount(liabilities),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffB6C2D0))),
+                        const Text('LIABILITIES',
+                            style: TextStyle(fontSize: 12)),
+                      ],
+                    ))),
+          ]),
+          ...List.generate(
+              isassets ? assetsList.length : liabilities.length,
+              (index) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      customtile(
+                          isassets ? assetsList[index] : liabilities[index]),
+                      const Divider(color: Colors.white24, height: 0),
+                    ],
+                  ))
+        ],
+      ),
     );
   }
 
