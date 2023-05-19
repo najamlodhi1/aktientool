@@ -67,7 +67,11 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
                     )),
                 const SizedBox(width: 20),
                 Expanded(
-                    flex: 3, child: DonutChart(getcurrentreport, isassets)),
+                    flex: 3,
+                    child: SizedBox(
+                      height: 400,
+                      child: DonutChart(getcurrentreport, isassets),
+                    )),
               ],
             ),
           )
@@ -84,7 +88,10 @@ class _DonutChartBalanceScreenState extends State<DonutChartBalanceScreen> {
                 ],
               ),
             ),
-            DonutChart(getcurrentreport, isassets)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60),
+              child: DonutChart(getcurrentreport, isassets),
+            )
           ]);
   }
 

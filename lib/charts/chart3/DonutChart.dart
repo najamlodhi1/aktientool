@@ -88,78 +88,70 @@ class _DonutChartState extends State<DonutChart> {
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 60),
-      child: AspectRatio(
-        aspectRatio:
-            MediaQuery.of(context).size.width < 800 ? (23 / 9) : (22 / 9),
-        child: Stack(
-          children: [
-            Center(
-              child: PieChart<String>(createSampleData(),
-                  animate: true,
-                  layoutConfig: LayoutConfig(
-                      leftMarginSpec: MarginSpec.fixedPixel(0),
-                      topMarginSpec: MarginSpec.fixedPixel(0),
-                      rightMarginSpec: MarginSpec.fixedPixel(0),
-                      bottomMarginSpec: MarginSpec.fixedPixel(0)),
-                  defaultRenderer: ArcRendererConfig(
-                      arcWidth:
-                          MediaQuery.of(context).size.width < 800 ? 30 : 85,
-                      arcRendererDecorators: [
-                        ArcLabelDecorator(
-                            labelPosition: ArcLabelPosition.outside,
-                            leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
-                                color:
-                                    CustomChartColor.fromHex(code: '#B6C2D0'),
-                                length: 30,
-                                thickness: 1)),
-                      ])),
-            ),
-            Center(
-              child: SizedBox(
-                height: 200,
-                width: 200,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  verticalDirection: VerticalDirection.down,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: MediaQuery.of(context).size.width < 800
-                                ? 10
-                                : 12,
-                            fontWeight: FontWeight.bold)),
-                    RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                        text: numberToKFormat(totalAssets),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: MediaQuery.of(context).size.width < 800
-                                ? 8
-                                : 12,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      TextSpan(
-                        text: ' USD',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: MediaQuery.of(context).size.width < 800
-                                ? 8
-                                : 12,
-                            fontWeight: FontWeight.bold),
-                      )
+    return AspectRatio(
+      aspectRatio:
+          MediaQuery.of(context).size.width < 800 ? (23 / 9) : (22 / 9),
+      child: Stack(
+        children: [
+          Center(
+            child: PieChart<String>(createSampleData(),
+                animate: true,
+                layoutConfig: LayoutConfig(
+                    leftMarginSpec: MarginSpec.fixedPixel(0),
+                    topMarginSpec: MarginSpec.fixedPixel(0),
+                    rightMarginSpec: MarginSpec.fixedPixel(0),
+                    bottomMarginSpec: MarginSpec.fixedPixel(0)),
+                defaultRenderer: ArcRendererConfig(
+                    arcWidth: MediaQuery.of(context).size.width < 800 ? 30 : 85,
+                    arcRendererDecorators: [
+                      ArcLabelDecorator(
+                          labelPosition: ArcLabelPosition.outside,
+                          leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
+                              color: CustomChartColor.fromHex(code: '#B6C2D0'),
+                              length: 30,
+                              thickness: 1)),
                     ])),
-                  ],
-                ),
+          ),
+          Center(
+            child: SizedBox(
+              height: 200,
+              width: 200,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                verticalDirection: VerticalDirection.down,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(widget.isassets ? 'Total Assets' : 'Total Liabilities',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 10 : 12,
+                          fontWeight: FontWeight.bold)),
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                      text: numberToKFormat(totalAssets),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 8 : 12,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    TextSpan(
+                      text: ' USD',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 8 : 12,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ])),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
