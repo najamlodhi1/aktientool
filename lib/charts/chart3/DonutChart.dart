@@ -89,7 +89,7 @@ class _DonutChartState extends State<DonutChart> {
     trans = AppLocalizations.of(context);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 60),
       child: AspectRatio(
         aspectRatio:
             MediaQuery.of(context).size.width < 800 ? (23 / 9) : (22 / 9),
@@ -98,17 +98,22 @@ class _DonutChartState extends State<DonutChart> {
             Center(
               child: PieChart<String>(createSampleData(),
                   animate: true,
+                  layoutConfig: LayoutConfig(
+                      leftMarginSpec: MarginSpec.fixedPixel(0),
+                      topMarginSpec: MarginSpec.fixedPixel(0),
+                      rightMarginSpec: MarginSpec.fixedPixel(0),
+                      bottomMarginSpec: MarginSpec.fixedPixel(0)),
                   defaultRenderer: ArcRendererConfig(
                       arcWidth:
-                          MediaQuery.of(context).size.width < 800 ? 20 : 85,
+                          MediaQuery.of(context).size.width < 800 ? 30 : 85,
                       arcRendererDecorators: [
                         ArcLabelDecorator(
                             labelPosition: ArcLabelPosition.outside,
                             leaderLineStyleSpec: ArcLabelLeaderLineStyleSpec(
                                 color:
                                     CustomChartColor.fromHex(code: '#B6C2D0'),
-                                length: 20,
-                                thickness: 2)),
+                                length: 30,
+                                thickness: 1)),
                       ])),
             ),
             Center(

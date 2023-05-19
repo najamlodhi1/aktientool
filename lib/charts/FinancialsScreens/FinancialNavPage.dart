@@ -46,7 +46,7 @@ class _FinancialsNavPageState extends State<FinancialsNavPage> {
             topButton(0, trans.translate("Income Statement")),
             const SizedBox(height: 5),
             topButton(1, trans.translate("Balance Sheet")),
-            const SizedBox(width: 5),
+            const SizedBox(height: 5),
             topButton(2, trans.translate("Cashflow Statement"))
           ]),
         ),
