@@ -105,198 +105,242 @@ class _CreateAccountState extends State<CreateAccount> {
           //padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const Center(
-                child: SizedBox(
-                  height: 100,
-                ),
-              ),
-              SizedBox(
-                  child: Wrap(
-                children: [
-                  Text(
-                    trans.translate("Kostenlos registrieren"),
-                    style: GoogleFonts.oswald(
-                      color: Colors.white,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                ],
-              )),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: 250,
-                child: TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                      filled: true, //<-- SEE HERE
-                      fillColor: Colors.white,
-                      hintText: 'Email'),
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              SizedBox(
-                width: 250,
-                child: TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      filled: true, //<-- SEE HERE
-                      fillColor: Colors.white,
-                      hintText: 'Password'),
-                ),
-              ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Center(
-                child: SizedBox(
-                  child: Center(
-                    child: Wrap(
-                      children: <Widget>[
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: trans.translate('create1'),
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 12),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: trans.translate('create2'),
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => const AGB(),
+              // register section starts here
+              LayoutBuilder(
+                  builder: (_, c) {
+                    var w=c.maxWidth;
+                    var firstChildWidget=w;
+                    var secondChildWidget=w;
+                    var showImage=false;
+                    if (w > 800) {
+                      firstChildWidget=w*0.6;
+                      secondChildWidget=w*0.31;
+                      showImage=true;
+                    }
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height - kToolbarHeight,
+                      width: w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height-kToolbarHeight,
+                            width:firstChildWidget,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                    child: Wrap(
+                                      children: [
+                                        Text(
+                                          trans.translate("Kostenlos registrieren"),
+                                          style: GoogleFonts.oswald(
+                                            color: Colors.white,
+                                            fontSize: 25.0,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 250,
+                                  child: TextField(
+                                    controller: _emailController,
+                                    decoration: const InputDecoration(
+                                        filled: true, //<-- SEE HERE
+                                        fillColor: Colors.white,
+                                        hintText: 'Email'),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                SizedBox(
+                                  width: 250,
+                                  child: TextField(
+                                    controller: _passwordController,
+                                    obscureText: true,
+                                    decoration: const InputDecoration(
+                                        filled: true, //<-- SEE HERE
+                                        fillColor: Colors.white,
+                                        hintText: 'Password'),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 30.0,
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    child: Center(
+                                      child: Wrap(
+                                        children: <Widget>[
+                                          RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              text: trans.translate('create1'),
+                                              style: const TextStyle(
+                                                  color: Colors.grey, fontSize: 12),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: trans.translate('create2'),
+                                                  style: const TextStyle(
+                                                      color: Colors.white, fontSize: 12),
+                                                  recognizer: TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) => const AGB(),
+                                                        ),
+                                                      );
+                                                    },
+                                                ),
+                                                TextSpan(text: trans.translate('create3')),
+                                                TextSpan(
+                                                  text: trans.translate('create4'),
+                                                  style: const TextStyle(
+                                                      color: Colors.white, fontSize: 12),
+                                                  recognizer: TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                          const Datenschutzerklaerung(),
+                                                        ),
+                                                      );
+                                                    },
+                                                ),
+                                                TextSpan(text: trans.translate('create5')),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  },
-                              ),
-                              TextSpan(text: trans.translate('create3')),
-                              TextSpan(
-                                text: trans.translate('create4'),
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Datenschutzerklaerung(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Stack(
+                                  alignment: Alignment.topCenter,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 250,
+                                      child: Container(
+                                        margin: const EdgeInsets.only(top: 10.0),
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                          boxShadow: <BoxShadow>[
+                                            BoxShadow(
+                                              color: CustomTheme.loginGradientStart,
+                                              offset: Offset(1.0, 6.0),
+                                              blurRadius: 20.0,
+                                            ),
+                                            BoxShadow(
+                                              color: CustomTheme.loginGradientEnd,
+                                              offset: Offset(1.0, 6.0),
+                                              blurRadius: 20.0,
+                                            ),
+                                          ],
+                                          gradient: LinearGradient(
+                                              colors: <Color>[
+                                                CustomTheme.loginGradientEnd,
+                                                CustomTheme.loginGradientStart
+                                              ],
+                                              begin: FractionalOffset(0.2, 0.2),
+                                              end: FractionalOffset(1.0, 1.0),
+                                              stops: <double>[0.0, 1.0],
+                                              tileMode: TileMode.clamp),
+                                        ),
+                                        child: MaterialButton(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: CustomTheme.loginGradientEnd,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10.0, horizontal: 42.0),
+                                            child: Text(
+                                              trans.translate("REGISTERS"),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 22.0,
+                                                  fontFamily: 'WorkSansBold'),
+                                            ),
+                                          ),
+                                          onPressed: () async {
+                                            //registerWithEmailAndPassword();
+
+                                            final message = await AuthService().registration(
+                                                email: _emailController.text,
+                                                password: _passwordController.text);
+                                            if (message is UserCredential) {
+                                              addRequests(
+                                                  _emailController.text, message.user!.uid);
+                                              showSecond(context);
+
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                    content: Text(trans.translate(
+                                                        'Verification Email is sent. Please verify to continue'))),
+                                              );
+                                              AuthService().signOut();
+                                            } else if (message is String) {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text(trans.translate(message))),
+                                              );
+                                            }
+                                          },
+                                        ),
                                       ),
-                                    );
-                                  },
-                              ),
-                              TextSpan(text: trans.translate('create5')),
-                            ],
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        trans.translate("Hast Du ein Benutzerkonto? Einloggen"),
+                                        style: const TextStyle(
+                                            decoration: TextDecoration.underline,
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontFamily: 'WorkSansMedium'),
+                                      )),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Stack(
-                alignment: Alignment.topCenter,
-                children: <Widget>[
-                  SizedBox(
-                    width: 250,
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 10.0),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: CustomTheme.loginGradientStart,
-                            offset: Offset(1.0, 6.0),
-                            blurRadius: 20.0,
-                          ),
-                          BoxShadow(
-                            color: CustomTheme.loginGradientEnd,
-                            offset: Offset(1.0, 6.0),
-                            blurRadius: 20.0,
-                          ),
+                          Visibility(
+                            visible: showImage,
+                            child: Container(
+                                height:
+                                MediaQuery.of(context).size.height - kToolbarHeight,
+                                alignment: Alignment.topCenter,
+                                width: secondChildWidget,
+                                child: Image.asset(
+                                  'assets/images/landing_page/banner_img.png',
+                                  height: MediaQuery.of(context).size.height -
+                                      kToolbarHeight -
+                                      kToolbarHeight,
+                                  fit: BoxFit.fill,
+                                )),
+                          )
                         ],
-                        gradient: LinearGradient(
-                            colors: <Color>[
-                              CustomTheme.loginGradientEnd,
-                              CustomTheme.loginGradientStart
-                            ],
-                            begin: FractionalOffset(0.2, 0.2),
-                            end: FractionalOffset(1.0, 1.0),
-                            stops: <double>[0.0, 1.0],
-                            tileMode: TileMode.clamp),
                       ),
-                      child: MaterialButton(
-                        highlightColor: Colors.transparent,
-                        splashColor: CustomTheme.loginGradientEnd,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 42.0),
-                          child: Text(
-                            trans.translate("REGISTERS"),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 22.0,
-                                fontFamily: 'WorkSansBold'),
-                          ),
-                        ),
-                        onPressed: () async {
-                          //registerWithEmailAndPassword();
-
-                          final message = await AuthService().registration(
-                              email: _emailController.text,
-                              password: _passwordController.text);
-                          if (message is UserCredential) {
-                            addRequests(
-                                _emailController.text, message.user!.uid);
-                            showSecond(context);
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(trans.translate(
-                                      'Verification Email is sent. Please verify to continue'))),
-                            );
-                            AuthService().signOut();
-                          } else if (message is String) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(trans.translate(message))),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  )
-                ],
+                    );
+                  }
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      trans.translate("Hast Du ein Benutzerkonto? Einloggen"),
-                      style: const TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontFamily: 'WorkSansMedium'),
-                    )),
-              ),
-              const SizedBox(height: 100),
-               FooterWidget(),
+              // register section ends here
+              FooterWidget(),
             ],
           ),
         ),

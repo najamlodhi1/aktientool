@@ -790,7 +790,7 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 // fifth widget - footer
                 Container(
-                    color: Colors.white,
+                    color: const Color.fromARGB(255, 0, 0, 0),
                     padding:
                         EdgeInsets.symmetric(horizontal: horizontalPadding),
                     child: SizedBox(

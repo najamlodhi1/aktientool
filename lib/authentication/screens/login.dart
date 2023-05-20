@@ -45,259 +45,303 @@ class LoginScreen extends StatelessWidget {
             BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         width: MediaQuery.of(context).size.width,
         child: Column(children: <Widget>[
-          const Center(
-            child: SizedBox(
-              height: 100,
-            ),
-          ),
-          SizedBox(
-              child: Column(
-            children: [
-              Text(
-                "${trans.translate("WELCOME BACK")} :)",
-                style: GoogleFonts.oswald(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 25.0,
-                ),
-              ),
-            ],
-          )),
-          const SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            width: 250,
-            child: TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                  filled: true, //<-- SEE HERE
-                  fillColor: Colors.white,
-                  hintText: 'Email'),
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          SizedBox(
-            width: 250,
-            child: TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                  filled: true, //<-- SEE HERE
-                  fillColor: Colors.white,
-                  hintText: 'Password'),
-            ),
-          ),
+          // login section starts here
+          LayoutBuilder(
+            builder: (_, c) {
+              var w=c.maxWidth;
+              var firstChildWidget=w;
+              var secondChildWidget=w;
+              var showImage=false;
+              if (w > 800) {
+                firstChildWidget=w*0.6;
+                secondChildWidget=w*0.31;
+                showImage=true;
+              }  
+              return SizedBox(
+                height: MediaQuery.of(context).size.height - kToolbarHeight,
+                width: w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height-kToolbarHeight,
+                      width:firstChildWidget,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                              child: Column(
+                            children: [
+                              Text(
+                                "${trans.translate("WELCOME BACK")} :)",
+                                style: GoogleFonts.oswald(
+                                  color: const Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 25.0,
+                                ),
+                              ),
+                            ],
+                          )),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 250,
+                            child: TextField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                  filled: true, //<-- SEE HERE
+                                  fillColor: Colors.white,
+                                  hintText: 'Email'),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          SizedBox(
+                            width: 250,
+                            child: TextField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                  filled: true, //<-- SEE HERE
+                                  fillColor: Colors.white,
+                                  hintText: 'Password'),
+                            ),
+                          ),
 
-          /*
-          SizedBox(
-            width: 200,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () async {
-                await AuthService().signInWithGoogle().then((result) {
-                  if (kDebugMode) {
-                    print(result);
-                  }
-                  if (result != null) {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (context) => const Home(),
-                      ),
-                    );
-                  }
-                }).catchError((error) {
-                  if (kDebugMode) {
-                    print('Registration Error: $error');
-                  }
-                });
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black),
-              ),
-              child: const Text('LOGIN WITH GOOGLE',
-                  style: TextStyle(fontSize: 15)),
-            ),
-          ),*/
+                          /*
+                          SizedBox(
+                            width: 200,
+                            height: 40,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await AuthService().signInWithGoogle().then((result) {
+                                  if (kDebugMode) {
+                                    print(result);
+                                  }
+                                  if (result != null) {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        fullscreenDialog: true,
+                                        builder: (context) => const Home(),
+                                      ),
+                                    );
+                                  }
+                                }).catchError((error) {
+                                  if (kDebugMode) {
+                                    print('Registration Error: $error');
+                                  }
+                                });
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.black),
+                              ),
+                              child: const Text('LOGIN WITH GOOGLE',
+                                  style: TextStyle(fontSize: 15)),
+                            ),
+                          ),*/
 
-          Stack(
-            alignment: Alignment.topCenter,
-            children: <Widget>[
-              SizedBox(
-                width: 250,
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10.0),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: CustomTheme.loginGradientStart,
-                        offset: Offset(1.0, 6.0),
-                        blurRadius: 20.0,
-                      ),
-                      BoxShadow(
-                        color: CustomTheme.loginGradientEnd,
-                        offset: Offset(1.0, 6.0),
-                        blurRadius: 20.0,
-                      ),
-                    ],
-                    gradient: LinearGradient(
-                        colors: <Color>[
-                          CustomTheme.loginGradientEnd,
-                          CustomTheme.loginGradientStart
+                          Stack(
+                            alignment: Alignment.topCenter,
+                            children: <Widget>[
+                              SizedBox(
+                                width: 250,
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 10.0),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                        color: CustomTheme.loginGradientStart,
+                                        offset: Offset(1.0, 6.0),
+                                        blurRadius: 20.0,
+                                      ),
+                                      BoxShadow(
+                                        color: CustomTheme.loginGradientEnd,
+                                        offset: Offset(1.0, 6.0),
+                                        blurRadius: 20.0,
+                                      ),
+                                    ],
+                                    gradient: LinearGradient(
+                                        colors: <Color>[
+                                          CustomTheme.loginGradientEnd,
+                                          CustomTheme.loginGradientStart
+                                        ],
+                                        begin: FractionalOffset(0.2, 0.2),
+                                        end: FractionalOffset(1.0, 1.0),
+                                        stops: <double>[0.0, 1.0],
+                                        tileMode: TileMode.clamp),
+                                  ),
+                                  child: MaterialButton(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: CustomTheme.loginGradientEnd,
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10.0, horizontal: 42.0),
+                                      child: Text(
+                                        'LOGIN',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 25.0,
+                                            fontFamily: 'WorkSansBold'),
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      final pref = await SharedPreferences.getInstance();
+                                      final message = await AuthService().login(
+                                          email: _emailController.text,
+                                          password: _passwordController.text);
+                                      if (message is UserCredential) {
+                                        pref.setBool('isLogin', true);
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => AllCharts()));
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text(trans.translate(message))));
+                                      }
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => ForgotPassword(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontFamily: 'WorkSansMedium'),
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: <Color>[
+                                          Colors.white10,
+                                          Colors.white,
+                                        ],
+                                        begin: FractionalOffset(0.0, 0.0),
+                                        end: FractionalOffset(1.0, 1.0),
+                                        stops: <double>[0.0, 1.0],
+                                        tileMode: TileMode.clamp),
+                                  ),
+                                  width: 100.0,
+                                  height: 1.0,
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                                  child: Text(
+                                    'Or',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontFamily: 'WorkSansMedium'),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: <Color>[
+                                          Colors.white,
+                                          Colors.white10,
+                                        ],
+                                        begin: FractionalOffset(0.0, 0.0),
+                                        end: FractionalOffset(1.0, 1.0),
+                                        stops: <double>[0.0, 1.0],
+                                        tileMode: TileMode.clamp),
+                                  ),
+                                  width: 100.0,
+                                  height: 1.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0, right: 40.0),
+                                child: GestureDetector(
+                                  onTap: () => null,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: const Icon(
+                                      FontAwesomeIcons.facebookF,
+                                      color: Color(0xFF0084ff),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: GestureDetector(
+                                  onTap: () => null,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: const Icon(
+                                      FontAwesomeIcons.google,
+                                      color: Color(0xFF0084ff),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
-                        begin: FractionalOffset(0.2, 0.2),
-                        end: FractionalOffset(1.0, 1.0),
-                        stops: <double>[0.0, 1.0],
-                        tileMode: TileMode.clamp),
-                  ),
-                  child: MaterialButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: CustomTheme.loginGradientEnd,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 42.0),
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontFamily: 'WorkSansBold'),
                       ),
                     ),
-                    onPressed: () async {
-                      final pref = await SharedPreferences.getInstance();
-                      final message = await AuthService().login(
-                          email: _emailController.text,
-                          password: _passwordController.text);
-                      if (message is UserCredential) {
-                        pref.setBool('isLogin', true);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AllCharts()));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(trans.translate(message))));
-                      }
-                    },
-                  ),
+                  Visibility(
+                    visible: showImage,
+                    child: Container(
+                        height:
+                            MediaQuery.of(context).size.height - kToolbarHeight,
+                        alignment: Alignment.topCenter,
+                        width: secondChildWidget,
+                        child: Image.asset(
+                          'assets/images/landing_page/banner_img.png',
+                          height: MediaQuery.of(context).size.height -
+                              kToolbarHeight -
+                              kToolbarHeight,
+                          fit: BoxFit.fill,
+                        )),
+                  )
+                  ],
                 ),
-              )
-            ],
+              );
+            }
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ForgotPassword(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontFamily: 'WorkSansMedium'),
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: <Color>[
-                          Colors.white10,
-                          Colors.white,
-                        ],
-                        begin: FractionalOffset(0.0, 0.0),
-                        end: FractionalOffset(1.0, 1.0),
-                        stops: <double>[0.0, 1.0],
-                        tileMode: TileMode.clamp),
-                  ),
-                  width: 100.0,
-                  height: 1.0,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    'Or',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontFamily: 'WorkSansMedium'),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: <Color>[
-                          Colors.white,
-                          Colors.white10,
-                        ],
-                        begin: FractionalOffset(0.0, 0.0),
-                        end: FractionalOffset(1.0, 1.0),
-                        stops: <double>[0.0, 1.0],
-                        tileMode: TileMode.clamp),
-                  ),
-                  width: 100.0,
-                  height: 1.0,
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, right: 40.0),
-                child: GestureDetector(
-                  onTap: () => null,
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.facebookF,
-                      color: Color(0xFF0084ff),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: GestureDetector(
-                  onTap: () => null,
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.google,
-                      color: Color(0xFF0084ff),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 100),
+          // login section ends here
            FooterWidget(),
         ]),
       )),

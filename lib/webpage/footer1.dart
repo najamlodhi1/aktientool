@@ -10,12 +10,16 @@ import '../../datenschutz/myformpage.dart';
 
 class FooterWidget extends StatelessWidget {
   var horizontalPadding;
-  FooterWidget({Key? key, this.horizontalPadding = 0}) : super(key: key);
+  var sw;
+  FooterWidget({Key? key, this.horizontalPadding = 0,this.sw=-1}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var sw = MediaQuery.of(context).size.width -
-        horizontalPadding -
-        horizontalPadding;
+    if(sw==-1){
+      sw = MediaQuery.of(context).size.width -
+          horizontalPadding -
+          horizontalPadding;
+    }
+
     var isSmallScreen = !(sw > 800);
     if (isSmallScreen) {
       sw += horizontalPadding;
