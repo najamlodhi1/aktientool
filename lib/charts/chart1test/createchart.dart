@@ -240,8 +240,8 @@ class CreateChart1TestState extends State<CreateChart1Test> {
                                   .map((point) => FlSpot(point.x, point.y))
                                   .toList(),
                               gradient: const LinearGradient(colors: [
-                                Color(0xff23b6e6),
-                                Color(0xff02d39a),
+                                Color.fromARGB(255, 136, 35, 230),
+                                Color.fromARGB(255, 255, 255, 255),
                               ]),
                               barWidth: 1.5,
                               dotData: FlDotData(show: false),
