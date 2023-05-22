@@ -88,42 +88,50 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
                     style: const TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 )),
-                SizedBox(
-                  width: double.maxFinite,
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                        cardColor: primaryColor,
-                        textTheme: const TextTheme(
-                            bodySmall: TextStyle(color: Colors.white))),
-                    child: PaginatedDataTable(
-                      source: tempdata,
-                      columns: [
-                        DataColumn(
-                            label: Text(trans.translate("Ownership"),
-                                style: const TextStyle(color: Colors.white))),
-                        DataColumn(
-                            label: Text(trans.translate("Name"),
-                                style: const TextStyle(color: Colors.white))),
-                        DataColumn(
-                            label: Text(trans.translate("Shares"),
-                                style: const TextStyle(color: Colors.white))),
-                      ],
-                    ),
-                  ),
-                ),
+                if (MediaQuery.of(context).size.width > 800)
+                  Row(children: [
+                    Expanded(child: tableWidget(tempdata)),
+                    Expanded(child: shareHolderPieChart(data))
+                  ])
+                else
+                  SizedBox(
+                      width: double.maxFinite, child: tableWidget(tempdata)),
               ],
             ),
           ),
-          shareHolderPieChart(data)
+          if (MediaQuery.of(context).size.width <= 800)
+            shareHolderPieChart(data)
+        ],
+      ),
+    );
+  }
+
+  Widget tableWidget(tempdata) {
+    return Theme(
+      data: Theme.of(context).copyWith(
+          cardColor: primaryColor,
+          textTheme:
+              const TextTheme(bodySmall: TextStyle(color: Colors.white))),
+      child: PaginatedDataTable(
+        source: tempdata,
+        columns: [
+          DataColumn(
+              label: Text(trans.translate("Ownership"),
+                  style: const TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text(trans.translate("Name"),
+                  style: const TextStyle(color: Colors.white))),
+          DataColumn(
+              label: Text(trans.translate("Shares"),
+                  style: const TextStyle(color: Colors.white))),
         ],
       ),
     );
   }
 
   Widget shareHolderPieChart(List<InstitutionalholdersModel> data) {
-    return AspectRatio(
-      aspectRatio:
-          MediaQuery.of(context).size.width < 800 ? (23 / 16) : (22 / 7),
+    return SizedBox(
+      height: MediaQuery.of(context).size.width > 800 ? 400 : 250,
       child: Stack(
         children: [
           Padding(
@@ -150,33 +158,6 @@ class _InstitutionalholdersState extends State<Institutionalholders> {
                       ])),
             ),
           ),
-          // Center(
-          //   child: SizedBox(
-          //     height: 200,
-          //     width: 200,
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       verticalDirection: VerticalDirection.down,
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Text('Top 5 Total',
-          //             style: TextStyle(
-          //                 color: Colors.white,
-          //                 fontSize:
-          //                     MediaQuery.of(context).size.width < 800 ? 10 : 12,
-          //                 fontWeight: FontWeight.bold)),
-          //         Text( numberToKFormat(top5totalShares),
-          //             style: TextStyle(
-          //                 color: Colors.white,
-          //                 fontSize:
-          //                     MediaQuery.of(context).size.width < 800 ? 8 : 12,
-          //                 fontWeight: FontWeight.w500),
-          //           ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
