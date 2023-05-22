@@ -70,7 +70,6 @@ class RemoteService {
         data1.add(ChartData(dtStockDate, stockValue));
         fldata1.add(FlSpot(count as double, stockValue));
         //points.add(FlSpot(count as double, stockValue));
-        print("val1");
       }
 
       if (dtStockDate.compareTo(date_3year) >= 0) {
@@ -78,7 +77,6 @@ class RemoteService {
         data3.add(ChartData(dtStockDate, stockValue));
         //points.add(FlSpot(count as double, stockValue));
         fldata3.add(FlSpot(count as double, stockValue));
-        print("val3");
       }
       if (dtStockDate.compareTo(date_5year) >= 0) {
         //print("$years-$yearsMonth-$yearsDay");

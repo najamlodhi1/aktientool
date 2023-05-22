@@ -177,9 +177,8 @@ class _AllChartsState extends State<AllCharts> {
                                       CreateChart0(
                                           parentData[0], parentData[4]), // Info
                                       CreateChart1Test(parentData[1]), // Chart
-                                      //CreateChart0(parentData[0]), // Info
-                                      //CreateChart1Test(parentData[1]), // Chart
-                                      Institutionalholders(parentData[3]),
+                                      Institutionalholders(
+                                          parentData[2], parentData[3]),
                                     ],
                                     if (selectedindex == 3) ...[
                                       FinancialsNavPage(parentData),
@@ -207,9 +206,10 @@ class _AllChartsState extends State<AllCharts> {
                                       StockNewsScreen(parentData[0]),
                                     ],
                                     LayoutBuilder(builder: (_, c) {
-                                         return FooterWidget(sw: c.maxWidth,);
-                                       }
-                                     )
+                                      return FooterWidget(
+                                        sw: c.maxWidth,
+                                      );
+                                    })
                                   ],
                                 ),
                               );

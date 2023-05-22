@@ -13,4 +13,9 @@ class InstitutionalholdersService {
             (e) => InstitutionalholdersModel.fromJson(e))
         .toList();
   }
+
+  double getShareFloat(dynamic data) {
+    final parsed = data.cast<Map<String, dynamic>>();
+    return parsed[0]["outstandingShares"];
+  }
 }

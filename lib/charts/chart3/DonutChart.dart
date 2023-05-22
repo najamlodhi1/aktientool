@@ -94,7 +94,7 @@ class _DonutChartState extends State<DonutChart> {
       child: Stack(
         children: [
           Center(
-            child: PieChart<String>(createSampleData(),
+            child: PieChart<String>(createData(),
                 animate: true,
                 layoutConfig: LayoutConfig(
                     leftMarginSpec: MarginSpec.fixedPixel(0),
@@ -156,9 +156,8 @@ class _DonutChartState extends State<DonutChart> {
     );
   }
 
-  List<Series<ChartData, String>> createSampleData() {
-    calculatetotal;
-    var data;
+  List<Series<ChartData, String>> createData() {
+    List<ChartData> data;
     if (widget.isassets) {
       data = assets
           .where((element) =>
