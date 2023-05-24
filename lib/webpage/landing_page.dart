@@ -178,14 +178,15 @@ class _LandingPageState extends State<LandingPage> {
           width: 120,
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           alignment: Alignment.center,
-          child: GestureDetector(
-            onTap: () {
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => MyFormPage(),
                 ),
               );
-              // do something when the button is tapped
             },
             child: const Text(
               'Feedback',
@@ -197,6 +198,7 @@ class _LandingPageState extends State<LandingPage> {
             ),
           ),
         ),
+      ),
       ],
       Container(
         height: 50,
@@ -211,7 +213,11 @@ class _LandingPageState extends State<LandingPage> {
       if (isSmallScreen)
         Builder(
           builder: (BuildContext context) {
-            return Container(
+            return GestureDetector(
+              onTap: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+              child: Container(
               height: 60,
               width: 40,
               margin: const EdgeInsets.symmetric(vertical: 17.0, horizontal: 4),
@@ -224,11 +230,6 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: GestureDetector(
-                onTap: () {
-                  Scaffold.of(context).openEndDrawer();
-                  // do something when the button is tapped
-                },
                 child: const Icon(Icons.menu),
               ),
             );
@@ -545,7 +546,7 @@ class _LandingPageState extends State<LandingPage> {
                                                   ],
                                                 ),
                                               ),
-                                              child: const Column(
+                                              child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -1061,60 +1062,35 @@ class _gradientButtonWidgetState extends State<gradientButtonWidget> {
           _colorChanged = false;
         });
       },
-      child: Container(
-        height: 50,
-        width: 120,
-        margin: const EdgeInsets.fromLTRB(0, 10, 5, 0),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          gradient: widget.isBlack
-              ? const LinearGradient(
-                  colors: [Colors.grey, Colors.grey],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : _colorChanged
-                  ? const LinearGradient(
-                      colors: [Color(0xFF7066FB), Color(0xFFB545FF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    )
-                  : const LinearGradient(
-                      colors: [Color(0xFFB545FF), Color(0xFF7066FB)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: GestureDetector(
-          onTap: () {
-            if (widget.btnText == "Get Started") {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const CreateAccount(),
-                ),
-              );
-            } else if (widget.btnText == "Anmelden") {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                ),
-              );
-            } else if (widget.btnText == "Demo") {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AllCharts(),
-                ),
-              );
-            } else if (widget.btnText == "us") {
-              MyApp.of(context)!
-                  .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
-              setState(() {});
-            } else if (widget.btnText == "de") {
-              MyApp.of(context)!
-                  .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
-              setState(() {});
-            }
+      child: GestureDetector(
+        onTap: () {
+          if (widget.btnText == "Get Started") {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const CreateAccount(),
+              ),
+            );
+          } else if (widget.btnText == "Anmelden") {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              ),
+            );
+          } else if (widget.btnText == "Demo") {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AllCharts(),
+              ),
+            );
+          } else if (widget.btnText == "us") {
+            MyApp.of(context)!
+                .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
+            setState(() {});
+          } else if (widget.btnText == "de") {
+            MyApp.of(context)!
+                .setLocale(selectedLocale.languageCode == 'us' ? 'de' : 'us');
+            setState(() {});
+          }
 
 /*
    InkWell(
@@ -1136,8 +1112,32 @@ class _gradientButtonWidgetState extends State<gradientButtonWidget> {
                             )),
  */
 
-            // do something when the button is tapped
           },
+        child: Container(
+          height: 50,
+          width: 120,
+          margin: const EdgeInsets.fromLTRB(0, 10, 5, 0),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            gradient: widget.isBlack
+                ? const LinearGradient(
+                    colors: [Colors.grey, Colors.grey],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : _colorChanged
+                    ? const LinearGradient(
+                        colors: [Color(0xFF7066FB), Color(0xFFB545FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )
+                    : const LinearGradient(
+                        colors: [Color(0xFFB545FF), Color(0xFF7066FB)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+            borderRadius: BorderRadius.circular(5),
+          ),
           child: Container(
             child: Text(
               widget.btnText,
