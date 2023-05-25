@@ -283,7 +283,7 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(top: 10.0, right: 40.0),
+                                padding: const EdgeInsets.only(top: 10.0, right: 0.0),
                                 child: GestureDetector(
                                   onTap: () => null,
                                   child: Container(
