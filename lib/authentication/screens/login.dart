@@ -329,7 +329,7 @@ class LoginScreen extends StatelessWidget {
                         alignment: Alignment.topCenter,
                         width: secondChildWidget,
                         child: Image.asset(
-                          'assets/images/landing_page/banner_img.png',
+                          'assets/images/login.gif',
                           height: MediaQuery.of(context).size.height -
                               kToolbarHeight -
                               kToolbarHeight,
