@@ -44,6 +44,39 @@
         align-items: center;
         min-height: 100vh;
     }
+
+    @media (max-width: 350px) {
+      img {
+        height: 50px !important;
+      }
+    }
+
+    @media (min-width: 350px) and (max-width: 500px) {
+      img {
+        height: 70px !important;
+      }
+    }
+
+    @media (min-width: 500px) and (max-width: 800px) {
+      img {
+        height: 80px  !important;
+      }
+    }
+
+
+    @media (min-width: 800px) and (max-width: 1000px) {
+      img {
+        height: 85px  !important;
+      }
+    }
+
+
+    @media (min-width: 1000px) {
+      img {
+        height: 75px !important;
+      }
+    }
+
     </style>
 
 
@@ -68,7 +101,7 @@
 <body style='margin:0px !important;background: black;'>
 
   <div class="loader">
-    <img src="assets/assets/images/logo.png" style="height:50px" alt="">
+    <img src="assets/assets/images/logo.png" alt="">
   </div>
   
   <script>
