@@ -283,7 +283,7 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(top: 10.0, right: 0.0),
+                                padding: const EdgeInsets.only(top: 10.0, right: 10.0),
                                 child: GestureDetector(
                                   onTap: () => null,
                                   child: Container(
@@ -300,11 +300,11 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 0.0),
+                                padding: const EdgeInsets.only(top: 10.0),
                                 child: GestureDetector(
                                   onTap: () => null,
                                   child: Container(
-                                    padding: const EdgeInsets.all(0.0),
+                                    padding: const EdgeInsets.all(15.0),
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white,
@@ -333,7 +333,7 @@ class LoginScreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height -
                               kToolbarHeight -
                               kToolbarHeight,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.fit,
                         )),
                   )
                   ],
