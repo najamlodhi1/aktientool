@@ -3,7 +3,7 @@
       "price": 105.635,
       "beta": 1.099653,
       "volAvg": 30984008,
-      "mktCap": 1337835567704,
+      "mktcap": 1337835567704,
       "changes": -0.485,
       "companyName": "Alphabet Inc.",
       "currency": "USD",
@@ -95,7 +95,7 @@ class CompanyModel {
   String? country;
   String? exchange;
   String? industry;
-  double? mktCap;
+  double? mktcap;
   String? companyname;
   String? exchangeshortname;
   String? isactivelytrading;
@@ -114,7 +114,7 @@ class CompanyModel {
     this.country,
     this.exchange,
     this.industry,
-    this.mktCap,
+    this.mktcap,
     this.companyname,
     this.exchangeshortname,
     this.isactivelytrading,
@@ -129,15 +129,15 @@ class CompanyModel {
     price = json['price'] ?? "";
     sector = json['sector'] ?? "";
     symbol = json['symbol'] ?? "";
-    volume = json['volume'] ?? "";
+    volume = json['volume'] ?? 0;
     country = json['country'] ?? "";
     exchange = json['exchange'] ?? "";
     industry = json['industry'] ?? "";
-    mktCap = json['mktCap'] ?? "";
+    mktcap = json['mktcap'] ?? 0;
     companyname = json['companyname'] ?? "";
     exchangeshortname = json['exchangeshortname'] ?? "";
     isactivelytrading = json['isactivelytrading'] ?? "";
-    lastannualdividend = json['lastannualdividend'] ?? "";
+    lastannualdividend = json['lastannualdividend'] ?? 0;
     //apexSyncStepStaticId = json['apex\$sync_step_static_id'] ?? "";
     //apexRowSyncTimestamp = json['apex\$row_sync_timestamp'] ?? "";
   }
@@ -153,7 +153,7 @@ class CompanyModel {
     data['country'] = country;
     data['exchange'] = exchange;
     data['industry'] = industry;
-    data['mktCap'] = mktCap;
+    data['mktcap'] = mktcap;
     data['companyname'] = companyname;
     data['exchangeshortname'] = exchangeshortname;
     data['isactivelytrading'] = isactivelytrading;
@@ -167,7 +167,7 @@ class CompanyModel {
     return {
       'symbol': symbol ?? "",
       'companyName': companyname ?? "",
-      'mktCap': mktCap ?? "",
+      'mktcap': mktcap ?? "",
       'sector': sector ?? "",
       'industry': industry ?? "",
       'beta': beta ?? "",
@@ -188,7 +188,7 @@ class CompanyModel {
 class Company {
   String? symbol;
   String? companyName;
-  double? mktCap;
+  double? mktcap;
   String? sector;
   String? industry;
 
@@ -207,7 +207,7 @@ class Company {
   Company({
     this.symbol,
     this.companyName,
-    this.mktCap,
+    this.mktcap,
     this.sector,
     this.industry,
     //this.beta,
@@ -224,7 +224,7 @@ class Company {
   Company.fromJson(Map<String, dynamic> json) {
     symbol = json['symbol'];
     companyName = json['companyName'];
-    mktCap = json['mktCap'];
+    mktcap = json['mktcap'];
     sector = json['sector'];
     industry = json['industry'];
     //beta = json['beta'];
@@ -242,7 +242,7 @@ class Company {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['symbol'] = symbol;
     data['companyName'] = companyName;
-    data['mktCap'] = mktCap;
+    data['mktcap'] = mktcap;
     data['sector'] = sector;
     data['industry'] = industry;
     //data['beta'] = beta;
@@ -261,7 +261,7 @@ class Company {
     return {
       'symbol': symbol,
       'companyName': companyName,
-      'mktCap': mktCap,
+      'mktcap': mktcap,
       'sector': sector,
       'industry': industry,
       //'beta': beta,

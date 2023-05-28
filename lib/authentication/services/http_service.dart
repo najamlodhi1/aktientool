@@ -7,9 +7,8 @@ String scheme = 'https';
 String baseurl = 'us-central1-aktientool-55.cloudfunctions.net';
 
 Future getdata(dynamic data, String path) async {
-  String stock = ShowCompanies.companysymbol.isNotEmpty
-      ? ShowCompanies.companysymbol
-      : "AAPL";
+  String stock =
+      selectedcompanysymbol.isNotEmpty ? selectedcompanysymbol : "AAPL";
 
   String token = '';
 

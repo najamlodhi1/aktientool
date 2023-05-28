@@ -39,9 +39,6 @@ main() async {
 const List<Locale> SUPPORTED_LOCALES = [Locale('en'), Locale('de')];
 Locale selectedLocale = const Locale('de');
 
-final TextEditingController _emailController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();
-
 CollectionReference requests =
     FirebaseFirestore.instance.collection('requests');
 
@@ -155,7 +152,6 @@ class HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     trans = AppLocalizations.of(context);
-    var screenSize = MediaQuery.of(context).size;
 
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

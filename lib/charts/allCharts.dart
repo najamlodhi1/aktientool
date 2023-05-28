@@ -28,8 +28,8 @@ List<DrawLineModel> drawingoffsets = [];
 var newsData;
 
 class AllCharts extends StatefulWidget {
-  late AppLocalizations trans;
   AllCharts({super.key});
+  late AppLocalizations trans;
   checkPopup(context) {
     trans = AppLocalizations.of(context);
 
@@ -46,11 +46,16 @@ class AllCharts extends StatefulWidget {
   }
 
   @override
-  State<AllCharts> createState() => _AllChartsState();
+  AllChartsState createState() => AllChartsState();
+  static AllChartsState? of(BuildContext context) =>
+      context.findAncestorStateOfType<AllChartsState>();
 }
 
-class _AllChartsState extends State<AllCharts> {
+class AllChartsState extends State<AllCharts> {
   final scaffoldkey = GlobalKey<ScaffoldState>();
+  late AppLocalizations trans;
+  Future? getFuture;
+//
   dynamic parentData;
   int selectedindex = 0;
   List<dynamic> widgetData = [];
@@ -67,9 +72,6 @@ class _AllChartsState extends State<AllCharts> {
     "News"
   ];
 
-  late AppLocalizations trans;
-  late Future getFuture;
-
   @override
   void initState() {
     super.initState();
@@ -78,7 +80,13 @@ class _AllChartsState extends State<AllCharts> {
     }
     drawingoffsets = [];
     newsData = null;
-    // getFuture = getdata(null, 'overview');
+  }
+
+  void updateIndex() {
+    setState(() {
+      selectedindex = 2;
+      getindexData();
+    });
   }
 
   @override
@@ -147,7 +155,7 @@ class _AllChartsState extends State<AllCharts> {
                     const BackButton(color: Colors.white),
                   ],
                 ),
-                title: Text(ShowCompanies.companyname),
+                title: Text(selectedcompanyname),
                 centerTitle: true,
               ),
               body: selectedindex == 0
@@ -245,7 +253,10 @@ class _AllChartsState extends State<AllCharts> {
             pages.length,
             (index) => InkWell(
                 onTap: () {
-                  if (ShowCompanies.companysymbol.isEmpty &&
+                  if (FirebaseAuth.instance.currentUser == null && index == 1) {
+                    return;
+                  }
+                  if (selectedcompanysymbol.isEmpty &&
                       FirebaseAuth.instance.currentUser != null &&
                       index > 1) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();

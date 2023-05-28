@@ -11,7 +11,6 @@ import '../filter/searcharea.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     int marketcapStart = ref.watch(sp_marketcap_start);
