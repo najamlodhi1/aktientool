@@ -339,7 +339,7 @@ class LoginScreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height -
                               kToolbarHeight -
                               kToolbarHeight,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         )),
                   )
                 ],

@@ -15,9 +15,6 @@ class FilterArea extends StatefulWidget {
 }
 
 class _FilterAreaState extends State<FilterArea> {
-  late PageController _pageController;
-  //List selectquality = [0, 0, 0];
-
   List listquality = [
     "Warren Buffett,Hagstrom Screen,1,https://amzn.to/3AyNoYv",
     "Ronald Muhlenkamp,ROE Screen,2,url,https://amzn.to/3AyvwwK",
@@ -326,12 +323,12 @@ class _FilterAreaState extends State<FilterArea> {
   ];
 
   List<ValuesModel> values = [
-    ValuesModel(
-      controller: TextEditingController(),
-      operator: null,
-      value: null,
-      result: null,
-    )
+    // ValuesModel(
+    //   controller: TextEditingController(),
+    //   operator: null,
+    //   value: null,
+    //   result: null,
+    // )
   ];
 
   String? filterValue;
@@ -339,7 +336,6 @@ class _FilterAreaState extends State<FilterArea> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
   }
 
   loadCardQuality(var list) {
@@ -371,87 +367,80 @@ class _FilterAreaState extends State<FilterArea> {
     print(MediaQuery.of(context).size.width / 5.0);
 
     return SizedBox(
-      width: ScreenHelper.isMobile(context)
-          ? MediaQuery.of(context).size.width / 1.2
-          : (MediaQuery.of(context).size.width / 5.0),
-      child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Center(
-          child: SizedBox(
-            height: 110,
-            child: Card(
-              color: col,
-              shape: (shapeList[int.parse(result[2])] == "select")
-                  ? const RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.white, width: 3))
-                  : null,
-              elevation: 3,
-              child: InkWell(
-                onTap: () => setState(() {
-                  if (shapeList[int.parse(result[2])] == "select") {
-                    shapeList[int.parse(result[2])] = "unselect";
-                  } else if (shapeList[int.parse(result[2])] == "unselect") {
-                    shapeList = [
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect",
-                      "unselect"
-                    ];
-                    shapeList[int.parse(result[2])] = "select";
-                  }
-
-                  print(
-                      "${result[2]} ${"${result[1]} " + shapeList[int.parse(result[2])]}");
-                }),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(
-                            'assets/images/${result[0]}.png'), // No matter how big it is, it won't overflow
-                      ),
-                      subtitle: Text(result[0]),
-                      title: Text(result[1]),
-                      trailing: IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.amazon),
-                        color: Colors.white,
-                        iconSize: 40,
-                        onPressed: () async {
-                          js.context.callMethod('open', [result[3]]);
-                        },
-                      ),
+      height: 120,
+      child: AspectRatio(
+        aspectRatio: ScreenHelper.isMobile(context) ? (16 / 7) : (20 / 7),
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Card(
+            color: col,
+            shape: (shapeList[int.parse(result[2])] == "select")
+                ? const RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.white, width: 3))
+                : null,
+            elevation: 3,
+            child: InkWell(
+              onTap: () => setState(() {
+                if (shapeList[int.parse(result[2])] == "select") {
+                  shapeList[int.parse(result[2])] = "unselect";
+                } else if (shapeList[int.parse(result[2])] == "unselect") {
+                  shapeList = [
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect",
+                    "unselect"
+                  ];
+                  shapeList[int.parse(result[2])] = "select";
+                }
+              }),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(
+                          'assets/images/${result[0]}.png'), // No matter how big it is, it won't overflow
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        ElevatedButton(onPressed: null, child: Text(whichtype)),
-                        const Spacer(),
-                        const SizedBox(width: 8),
-                        TextButton(
-                          child: const Text(
-                            'READ STRATEGY',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () {/* ... */},
+                    subtitle: Text(result[0]),
+                    title: Text(result[1]),
+                    trailing: IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.amazon),
+                      color: Colors.white,
+                      iconSize: 40,
+                      onPressed: () async {
+                        js.context.callMethod('open', [result[3]]);
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      ElevatedButton(onPressed: null, child: Text(whichtype)),
+                      const Spacer(),
+                      const SizedBox(width: 8),
+                      TextButton(
+                        child: const Text(
+                          'READ STRATEGY',
+                          style: TextStyle(color: Colors.white),
                         ),
-                        const SizedBox(width: 8),
-                      ],
-                    ),
-                  ],
-                ),
+                        onPressed: () {/* ... */},
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
@@ -492,8 +481,8 @@ class _FilterAreaState extends State<FilterArea> {
         value: value,
         elevation: 16,
         onChanged: onChanged,
-        items: valueList.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(value: value, child: Text(value));
+        items: valueList.map<DropdownMenuItem<String>>((String e) {
+          return DropdownMenuItem<String>(value: e, child: Text(e));
         }).toList(),
       ),
     );
@@ -605,165 +594,165 @@ class _FilterAreaState extends State<FilterArea> {
     return isCountrySektorIndustrie;
   }
 
-  Widget Filter() {
+  Widget filterWidget() {
     return GestureDetector(
       onTap: () {
         refreshFilterValue();
       },
-      child: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: values.length,
-                    itemBuilder: (c, i) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 3),
-                        child: Wrap(
-                          children: [
-                            // Expanded(child: test()),
-                            filterValueDropdown(
-                                value: values[i].value,
-                                onChanged: (c) {
-                                  bool arg1 =
-                                      isCountrySektorIndustrie(values[i].value);
-                                  bool arg2 = isCountrySektorIndustrie(c);
-                                  if (arg1 != arg2) {
-                                    setState(() {
-                                      values[i].value = c;
-                                      values[i].operator = null;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      values[i].value = c;
-                                    });
-                                  }
-                                  refreshFilterValue();
-                                }),
-
-                            const SizedBox(width: 10),
-
-                            if (isCountrySektorIndustrie(values[i].value)) ...[
-                              operatorIsDropdown(
-                                  value: values[i].operator,
-                                  onChanged: (c) {
-                                    setState(() {
-                                      values[i].operator = c;
-                                    });
-                                    refreshFilterValue();
-                                  }),
-                            ] else ...[
-                              operatorDropdown(
-                                  value: values[i].operator,
-                                  onChanged: (c) {
-                                    setState(() {
-                                      values[i].operator = c;
-                                    });
-                                    refreshFilterValue();
-                                  }),
-                            ],
-
-                            const SizedBox(width: 10),
-
-                            //Text(values[i].value.toString()),
-                            if (values[i].value == "Country") ...[
-                              countryDropdown(
-                                  value: values[i].result,
-                                  onChanged: (c) {
-                                    setState(() {
-                                      values[i].result = c.toString();
-                                    });
-                                    refreshFilterValue();
-                                  }),
-                            ] else if (values[i].value == "Industry") ...[
-                              industryDropdown(
-                                  value: values[i].result,
-                                  onChanged: (c) {
-                                    setState(() {
-                                      values[i].result = c.toString();
-                                    });
-                                    refreshFilterValue();
-                                  }),
-                            ] else ...[
-                              Container(
-                                height: 56,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white, //<-- SEE HERE
-                                ),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  controller: values[i].controller,
-                                  onChanged: (value) {
-                                    refreshFilterValue();
-                                  },
-                                  decoration: InputDecoration(
-                                      border: const OutlineInputBorder(),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.deepPurple.shade300),
-                                      ),
-                                      labelStyle: const TextStyle(
-                                          color: Colors.deepPurple)),
-                                ),
-                              ),
-                            ],
-
-                            GestureDetector(
-                              onTap: () {
-                                if (values.length > 1) {
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: values.length,
+                  itemBuilder: (c, i) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Wrap(
+                        children: [
+                          // Expanded(child: test()),
+                          filterValueDropdown(
+                              value: values[i].value,
+                              onChanged: (c) {
+                                bool arg1 =
+                                    isCountrySektorIndustrie(values[i].value);
+                                bool arg2 = isCountrySektorIndustrie(c);
+                                if (arg1 != arg2) {
                                   setState(() {
-                                    values.removeAt(i);
+                                    values[i].value = c;
+                                    values[i].operator = null;
                                   });
                                 } else {
                                   setState(() {
-                                    values.removeAt(i);
-                                    values.add(
-                                      ValuesModel(
-                                        value: null,
-                                        operator: null,
-                                        controller: TextEditingController(),
-                                      ),
-                                    );
+                                    values[i].value = c;
                                   });
                                 }
-
                                 refreshFilterValue();
-                              },
-                              child: Container(
-                                height: 50,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    border: Border.all(
-                                      color: Colors.grey[400]!,
+                              }),
+
+                          const SizedBox(width: 10),
+
+                          if (isCountrySektorIndustrie(values[i].value)) ...[
+                            operatorIsDropdown(
+                                value: values[i].operator,
+                                onChanged: (c) {
+                                  setState(() {
+                                    values[i].operator = c;
+                                  });
+                                  refreshFilterValue();
+                                }),
+                          ] else ...[
+                            operatorDropdown(
+                                value: values[i].operator,
+                                onChanged: (c) {
+                                  setState(() {
+                                    values[i].operator = c;
+                                  });
+                                  refreshFilterValue();
+                                }),
+                          ],
+
+                          const SizedBox(width: 10),
+
+                          //Text(values[i].value.toString()),
+                          if (values[i].value == "Country") ...[
+                            countryDropdown(
+                                value: values[i].result,
+                                onChanged: (c) {
+                                  setState(() {
+                                    values[i].result = c.toString();
+                                  });
+                                  refreshFilterValue();
+                                }),
+                          ] else if (values[i].value == "Industry") ...[
+                            industryDropdown(
+                                value: values[i].result,
+                                onChanged: (c) {
+                                  setState(() {
+                                    values[i].result = c.toString();
+                                  });
+                                  refreshFilterValue();
+                                }),
+                          ] else ...[
+                            Container(
+                              height: 56,
+                              decoration: const BoxDecoration(
+                                color: Colors.white, //<-- SEE HERE
+                              ),
+                              child: TextFormField(
+                                // keyboardType: TextInputType.number,
+                                // inputFormatters: <TextInputFormatter>[
+                                //   FilteringTextInputFormatter.digitsOnly
+                                // ],
+                                controller: values[i].controller,
+                                onChanged: (value) {
+                                  refreshFilterValue();
+                                },
+                                decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.deepPurple.shade300),
                                     ),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Text("X",
-                                      style: TextStyle(
-                                          color: Colors.grey[300],
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20)),
-                                ),
+                                    labelStyle: const TextStyle(
+                                        color: Colors.deepPurple)),
                               ),
                             ),
                           ],
-                        ),
-                      );
-                    },
-                  ),
+
+                          GestureDetector(
+                            onTap: () {
+                              if (values.length > 1) {
+                                setState(() {
+                                  values.removeAt(i);
+                                });
+                              } else {
+                                setState(() {
+                                  values.removeAt(i);
+                                  // values.add(
+                                  //   ValuesModel(
+                                  //     value: null,
+                                  //     operator: null,
+                                  //     controller: TextEditingController(),
+                                  //   ),
+                                  // );
+                                });
+                              }
+
+                              refreshFilterValue();
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  border: Border.all(
+                                    color: Colors.grey[400]!,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Center(
+                                child: Text("X",
+                                    style: TextStyle(
+                                        color: Colors.grey[300],
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
+              ),
+              if (values.isNotEmpty)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -804,19 +793,18 @@ class _FilterAreaState extends State<FilterArea> {
                     ),
                     SizedBox(
                       height: 50,
-                      width: 100,
                       child: ElevatedButton(
                           onPressed: () {
                             //if (values.length != 1) {
                             setState(() {
-                              values.removeRange(0, values.length);
-                              values.add(
-                                ValuesModel(
-                                  value: null,
-                                  operator: null,
-                                  controller: TextEditingController(),
-                                ),
-                              );
+                              values = [];
+                              // values.add(
+                              //   ValuesModel(
+                              //     value: null,
+                              //     operator: null,
+                              //     controller: TextEditingController(),
+                              //   ),
+                              // );
                             });
 
                             refreshFilterValue();
@@ -829,14 +817,13 @@ class _FilterAreaState extends State<FilterArea> {
                     )
                   ],
                 ),
-                if (filterValue != null)
-                  Row(
-                    children: [
-                      Text(filterValue.toString()),
-                    ],
-                  ),
-              ],
-            ),
+              if (filterValue != null)
+                Row(
+                  children: [
+                    Text(filterValue.toString()),
+                  ],
+                ),
+            ],
           ),
         ),
       ),
@@ -847,131 +834,131 @@ class _FilterAreaState extends State<FilterArea> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 45, 45, 45),
-      body: Column(
-        children: [
-          const Divider(
-            color: Colors.grey,
-          ),
-          const Align(
-            alignment: FractionalOffset.topLeft,
-            child: Text(
-              "  Invest like a GURU",
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Divider(
+              color: Colors.grey,
+            ),
+            const Align(
+              alignment: FractionalOffset.topLeft,
+              child: Text(
+                "  Invest like a GURU",
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              //margin: const EdgeInsets.symmetric(vertical: 5.0),
+              height: 110.0,
+              child: ListView(
+                // This next line does the trick.
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  loadCardQuality(listquality),
+                  loadCardGrowth(listgrowth),
+                  loadCardValue(listvalue),
+                ],
+              ),
+            ),
+            const Text(
+              " ",
               style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
-          ),
-          SizedBox(
-            //margin: const EdgeInsets.symmetric(vertical: 5.0),
-            height: 110.0,
-            child: ListView(
-              // This next line does the trick.
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                loadCardQuality(listquality),
-                loadCardGrowth(listgrowth),
-                loadCardValue(listvalue),
-              ],
+            const Divider(
+              color: Colors.grey,
             ),
-          ),
-          const Text(
-            " ",
-            style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          const Divider(
-            color: Colors.grey,
-          ),
-          Container(
-            child: Row(
-              children: [
-                const Align(
-                  alignment: FractionalOffset.topLeft,
-                  child: Text(
-                    "  Or select MANUAL",
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+            Container(
+              child: Row(
+                children: [
+                  const Align(
+                    alignment: FractionalOffset.topLeft,
+                    child: Text(
+                      "  Or select MANUAL",
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 100,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        //if (values.length != 1) {
+                  const SizedBox(width: 15),
+                  if (values.isEmpty)
+                    SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            //if (values.length != 1) {
 
-                        setState(() {
-                          //Remove all
-                          values.removeRange(0, values.length);
-                          // addThis = ["Country|is|Germany", "Marketcap|>=|-200"];
-                          values.add(
-                            ValuesModel(
-                              value: "Country",
-                              operator: "=",
-                              result: "TR",
-                              controller: TextEditingController(),
-                            ),
-                          );
-                          values.add(
-                            ValuesModel(
-                              value: "Marketcap",
-                              operator: ">=",
-                              controller: TextEditingController(
-                                text: "-200",
-                              ),
-                            ),
-                          );
-                        });
-                        refreshFilterValue();
-                        //}
-                      },
-                      child: const Text("ADD Field1")),
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 100,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        //if (values.length != 1) {
-                        setState(() {
-                          //Remove all
-                          values.removeRange(0, values.length);
-                          //   var addThis2 = ["Ebit Wachstum|<=|3", "Land|ist|USA"];
-                          values.add(
-                            ValuesModel(
-                              value: "Ebit Wachstum",
-                              operator: "<=",
-                              controller: TextEditingController(
-                                text: "3",
-                              ),
-                            ),
-                          );
-                          values.add(
-                            ValuesModel(
-                              value: "Country",
-                              operator: "=",
-                              result: "US",
-                            ),
-                          );
-                        });
-                        refreshFilterValue();
-                        //}
-                      },
-                      child: const Text("ADD Field2")),
-                ),
-              ],
+                            setState(() {
+                              //Remove all
+                              // values.removeRange(0, values.length);
+                              // addThis = ["Country|is|Germany", "Marketcap|>=|-200"];
+                              values.add(
+                                ValuesModel(
+                                  value: "Country",
+                                  operator: "=",
+                                  result: "TR",
+                                  controller: TextEditingController(),
+                                ),
+                              );
+                              // values.add(
+                              //   ValuesModel(
+                              //     value: "Marketcap",
+                              //     operator: ">=",
+                              //     controller: TextEditingController(
+                              //       text: "-200",
+                              //     ),
+                              //   ),
+                              // );
+                            });
+                            refreshFilterValue();
+                            //}
+                          },
+                          child: const Text("ADD Field1")),
+                    ),
+                  if (values.length == 1)
+                    SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            //if (values.length != 1) {
+                            setState(() {
+                              //Remove all
+                              // values.removeRange(0, values.length);
+                              //   var addThis2 = ["Ebit Wachstum|<=|3", "Land|ist|USA"];
+                              values.add(
+                                ValuesModel(
+                                  value: "Ebit Wachstum",
+                                  operator: "<=",
+                                  controller: TextEditingController(
+                                    text: "3",
+                                  ),
+                                ),
+                              );
+                              // values.add(
+                              //   ValuesModel(
+                              //     value: "Country",
+                              //     operator: "=",
+                              //     result: "US",
+                              //   ),
+                              // );
+                            });
+                            refreshFilterValue();
+                            //}
+                          },
+                          child: const Text("ADD Field2")),
+                    ),
+                ],
+              ),
             ),
-          ),
-          Filter()
-        ],
+            filterWidget()
+          ],
+        ),
       ),
     );
   }
