@@ -37,10 +37,11 @@ dependencies:
   translator: ^0.1.7
   intl: any
   flutter_colorpicker: ^1.0.3
-  screenshot:
-    git:
-      url: https://github.com/SachinGanesh/screenshot
-      ref: master
+  screenshot: ^2.1.0
+  # screenshot:
+  #   git:
+  #     url: https://github.com/SachinGanesh/screenshot
+  #     ref: master
 
   envied_generator: ^0.3.0
   flutter_rating_bar: ^4.0.1
